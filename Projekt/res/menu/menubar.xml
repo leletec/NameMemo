@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="de.leander.projekt.MainActivity" >
+    <!-- <item 
+        android:id="@+id/importDrawable"
+        android:title="@string/importDrawable"
+        android:showAsAction="collapseActionView" /> -->
+    <item 
+        android:id="@+id/addDatabase"
+        android:title="@string/addDatabase"
+        android:showAsAction="collapseActionView" />
+    <item
+        android:id="@+id/captureImage"
+        android:title="@string/captureImage"
+        android:showAsAction="collapseActionView" />
+    <item
+        android:id="@+id/infoDialog"
+        android:title="@string/infoDialogTitle"
+        android:showAsAction="collapseActionView" />
+    <item
+        android:id="@+id/cleanProject"
+        android:title="@string/cleanProject"
+        android:showAsAction="collapseActionView" />
+        
+</menu>

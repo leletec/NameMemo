@@ -29,6 +29,14 @@ public class Camera {
 		this.filename = filename;
 	}
 	
+	public Uri getUri() {
+		return uri;
+	}
+
+	public void setUri(Uri uri) {
+		this.uri = uri;
+	}
+
 	/** Create a File for saving an image */
 	@SuppressLint("SimpleDateFormat")
 	public Uri getOutputMediaFile() {

@@ -506,12 +506,12 @@ public class MainActivity extends Activity implements OnClickListener {
 		outState.putString("last", statecontroller.getLast().toString());
 		outState.putInt("currentPicture", currentPicture);
 		outState.putString("filename", camera.getFilename());
-		Log.d("onSave", "mainstate '"
-				+ statecontroller.getMainstate().toString()
-				+ "', dialogstate '"
-				+ statecontroller.getDialogstate().toString() + "' , last '"
-				+ statecontroller.getLast().toString() + "', currentPicture '"
-				+ currentPicture + "', filename '" + camera.getFilename()
+		outState.putString("uri", camera.getUri().toString());
+		Log.d("onSave", "mainstate '" + statecontroller.getMainstate()
+				+ "', dialogstate '" + statecontroller.getDialogstate()
+				+ "' , last '" + statecontroller.getLast()
+				+ "', currentPicture '" + currentPicture + "', filename '"
+				+ camera.getFilename() + "', uri '" + camera.getUri()
 				+ "' saved");
 		super.onSaveInstanceState(outState);
 	}
@@ -522,15 +522,17 @@ public class MainActivity extends Activity implements OnClickListener {
 		String dialogstate = savedInstanceState.getString("dialogstate");
 		String last = savedInstanceState.getString("last");
 		String filename = savedInstanceState.getString("filename");
+		Uri uri = Uri.parse(savedInstanceState.getString("uri"));
 
 		statecontroller = new StateController(MainState.valueOf(mainstate),
 				DialogState.valueOf(dialogstate), MainState.valueOf(last));
 
 		camera.setFilename(filename);
+		camera.setUri(uri);
 
 		Log.d("onRestore", "mainstate '" + mainstate + "', dialogstate '"
 				+ dialogstate + "', last '" + last + "', filename" + filename
-				+ "' loaded");
+				+ "', uri '" + uri + "' loaded");
 
 		currentPicture = savedInstanceState.getInt("currentPicture");
 		Bitmap bmp = BitmapFactory
@@ -539,6 +541,12 @@ public class MainActivity extends Activity implements OnClickListener {
 								.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
 								+ File.separator + "MyCameraApp",
 						pictures[currentPicture].getSource()).getAbsolutePath());
+		if (bmp == null) {
+			missingFileDialog(pictures[currentPicture].getSource(),
+					pictures[currentPicture].getName());
+			return;
+		} else
+			Log.d("changeSource", "Bitmap=" + bmp.toString());
 		image.setImageBitmap(bmp);
 		Log.d("onRestore", "source " + pictures[currentPicture].getSource()
 				+ " loaded");
@@ -561,9 +569,7 @@ public class MainActivity extends Activity implements OnClickListener {
 					pictures[currentPicture].getName());
 		else if (statecontroller.getDialogstate() == DialogState.NPIC)
 			newPictureDialog();
-		else if (statecontroller.getDialogstate() == DialogState.MFILE)
-			// TODO missingFileDialog(source, name);
-		
+
 		super.onRestoreInstanceState(savedInstanceState);
 	}
 }

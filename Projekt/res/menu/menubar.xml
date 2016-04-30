@@ -15,6 +15,10 @@
         android:title="@string/captureImage"
         android:showAsAction="collapseActionView" />
     <item
+    	android:id="@+id/addNewPic"
+    	android:title="@string/addNewPic"
+    	android:showAsAction="collapseActionView" />
+    <item
         android:id="@+id/infoDialog"
         android:title="@string/infoDialogTitle"
         android:showAsAction="collapseActionView" />

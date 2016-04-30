@@ -1,8 +1,9 @@
 package de.leander.projekt;
 
 import java.io.File;
-
+import java.util.ArrayList;
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,6 +13,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -23,14 +25,18 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 import de.leander.projekt.structure.Camera;
 import de.leander.projekt.structure.DialogState;
+import de.leander.projekt.structure.FileListAdapter;
 import de.leander.projekt.structure.MainState;
+import de.leander.projekt.structure.MyFile;
 import de.leander.projekt.structure.Pictures;
 import de.leander.projekt.structure.PicturesDAO;
 import de.leander.projekt.structure.StateController;
 
+@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 public class MainActivity extends Activity implements OnClickListener {
 	// private String imageResource = "katze";
 	// private int clicks = 3;
@@ -261,6 +267,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		case R.id.cleanProject:
 			cleanProject();
 			break;
+		case R.id.addNewPic:
+			addNewPicDialog();
+			break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -381,7 +390,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	@SuppressLint("InflateParams")
-	public void newPictureDialog() {
+	public void newPictureDialog(File file) {
 		try {
 			statecontroller.showNPicDialog();
 		} catch (Exception e1) {
@@ -389,18 +398,27 @@ public class MainActivity extends Activity implements OnClickListener {
 			e1.printStackTrace();
 		}
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle(R.string.nPicDialogTitle);
-		builder.setMessage(R.string.nPicDialogMassage);
-		builder.setView(getLayoutInflater().inflate(R.layout.npicdialogview,
-				null));
+		final File f = file;
+		if (f == null) {
+			builder.setTitle(R.string.nPicDialogTitle);
+			builder.setMessage(R.string.nPicDialogMessage);
+		} else {
+			builder.setTitle(R.string.nPicDialogTitle2);
+			builder.setMessage("Geben Sie einen Namen ein, der der Datei '"
+					+ f.getName() + "' zugeordnet werden soll!");
+		}
+		builder.setView(getLayoutInflater().inflate(R.layout.npicdialog, null));
 		builder.setPositiveButton(R.string.dialogOk,
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						EditText name = (EditText) ((AlertDialog) dialog)
 								.findViewById(R.id.ETname);
-						datasource.add(camera.getFilename(), name.getText()
-								.toString());
+						if (f == null)
+							datasource.add(camera.getFilename(), name.getText()
+									.toString());
+						else
+							datasource.add(f.getAbsolutePath(), name.getText().toString());
 						updateArray();
 					}
 				});
@@ -462,7 +480,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				Toast.makeText(this, "Image saved to:\n" + uri,
 						Toast.LENGTH_LONG).show();
 				image.setImageURI(uri);
-				newPictureDialog();
+				newPictureDialog(null);
 			} else {
 				if (resultCode == RESULT_CANCELED)
 					Toast.makeText(this, "Capturing image canceled",
@@ -480,22 +498,40 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 	}
 
-	// @Override
-	// protected void onPause() {
-	// MainState mainstate = statecontroller.getMainstate();
-	// DialogState dialogstate = statecontroller.getDialogstate();
-	// super.onPause();
-	// SharedPreferences.Editor ed = prefs.edit();
-	// }
-	//
-	// protected void onResume(Bundle savedInstantState) {
-	// MainState mainstate = statecontroller.getMainstate();
-	// DialogState dialogstate = statecontroller.getDialogstate();
-	// Toast.makeText(this, "Resume", Toast.LENGTH_LONG).show();
-	// super.onResume();
-	// SharedPreferences mPrefs = getSharedPreferences(null, MODE_PRIVATE);
-	// mPrefs.get
-	// }
+	@SuppressLint("InflateParams")
+	public void addNewPicDialog() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle(R.string.addNewPic);
+		builder.setMessage(R.string.addNewPicMessage);
+
+		File sdcard = Environment
+				.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+		File dirs = new File(sdcard.getAbsolutePath());
+		File[] files = new File[0];
+		if (dirs.exists()) {
+			files = dirs.listFiles();
+		}
+		ArrayList<MyFile> filelist = new ArrayList<MyFile>();
+		for (File file : files)
+			filelist.add(new MyFile(file, false));
+		final FileListAdapter flAdapter = new FileListAdapter(this);
+		flAdapter.addList(filelist);
+		ListView listview = new ListView(this);
+		listview.setAdapter(flAdapter);
+		builder.setView(listview); //FIXME No list is displayed
+		builder.setOnDismissListener(new OnDismissListener() {
+			@Override
+			public void onDismiss(DialogInterface dialog) {
+				ArrayList<File> checkedFiles = flAdapter.getCheckedFiles();
+				for (File file : checkedFiles)
+					newPictureDialog(file);
+			}
+		});
+		builder.setNegativeButton(R.string.dialogCancel, null);
+		AlertDialog dialog = builder.create();
+		// TODO Way to navigate through folders
+		dialog.show();
+	}
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
@@ -505,8 +541,10 @@ public class MainActivity extends Activity implements OnClickListener {
 				.toString());
 		outState.putString("last", statecontroller.getLast().toString());
 		outState.putInt("currentPicture", currentPicture);
-		outState.putString("filename", camera.getFilename());
-		outState.putString("uri", camera.getUri().toString());
+		if (camera.getFilename() != null)
+			outState.putString("filename", camera.getFilename());
+		if (camera.getUri() != null)
+			outState.putString("uri", camera.getUri().toString());
 		Log.d("onSave", "mainstate '" + statecontroller.getMainstate()
 				+ "', dialogstate '" + statecontroller.getDialogstate()
 				+ "' , last '" + statecontroller.getLast()
@@ -568,7 +606,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			deleteDialog(pictures[currentPicture].getSource(),
 					pictures[currentPicture].getName());
 		else if (statecontroller.getDialogstate() == DialogState.NPIC)
-			newPictureDialog();
+			newPictureDialog(null);
 
 		super.onRestoreInstanceState(savedInstanceState);
 	}

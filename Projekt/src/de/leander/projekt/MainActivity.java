@@ -24,6 +24,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -420,8 +422,8 @@ public class MainActivity extends Activity implements OnClickListener {
 							datasource.add(camera.getFilename(), name.getText()
 									.toString());
 						else
-							datasource.add(f.getAbsolutePath(), name.getText()
-									.toString());
+							datasource.add(f.getName(), name.getText()
+									.toString()); //FIXME Adding to database fails.
 						updateArray();
 					}
 				});
@@ -503,6 +505,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	ListView listview;
 	FileListAdapter flAdapter;
+
 	@SuppressLint("InflateParams")
 	public void addNewPicDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -516,26 +519,31 @@ public class MainActivity extends Activity implements OnClickListener {
 		if (dirs.exists()) {
 			files = dirs.listFiles();
 		}
-		Log.d("filelist", "#files(Array)=" + files.length);
-		ArrayList<MyFile> filelist = new ArrayList<MyFile>();
+		ListView listview = new ListView(this);
+		ArrayList<File> filelist = new ArrayList<File>();
 		for (File file : files)
-			filelist.add(new MyFile(file, false));
-		flAdapter = new FileListAdapter(this);
-		flAdapter.addList(filelist);
-		listview = (ListView) getLayoutInflater().inflate(R.layout.filelist, null);
-		listview.setAdapter(flAdapter);
-		builder.setView(listview); // FIXME No list is displayed
+			filelist.add(file);
+		FileListAdapter adapter = new FileListAdapter(this, filelist);
+		listview.setAdapter(adapter);
+
+		builder.setView(listview);
 		builder.setOnDismissListener(new OnDismissListener() {
 			@Override
 			public void onDismiss(DialogInterface dialog) {
-				ArrayList<File> checkedFiles = flAdapter.getCheckedFiles();
-				for (File file : checkedFiles)
-					newPictureDialog(file);
+				//TODO
 			}
 		});
 		builder.setNegativeButton(R.string.dialogCancel, null);
 		AlertDialog dialog = builder.create();
+
 		// TODO Way to navigate through folders
+		listview.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				newPictureDialog((File) parent.getItemAtPosition(position));
+			}
+		});
 		dialog.show();
 	}
 

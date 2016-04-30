@@ -25,6 +25,10 @@ public class FileListAdapter extends ArrayAdapter<MyFile> {
 	public void addList(ArrayList filelist) {
 		this.filelist = filelist;
 	}
+	
+	public ArrayList<MyFile> getList() {
+		return filelist;
+	}
 
 	public ArrayList<File> getCheckedFiles() {
 		ArrayList<File> checkedFiles = new ArrayList<File>();

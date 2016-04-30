@@ -2,6 +2,7 @@ package de.leander.projekt;
 
 import java.io.File;
 import java.util.ArrayList;
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -18,6 +19,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -418,7 +420,8 @@ public class MainActivity extends Activity implements OnClickListener {
 							datasource.add(camera.getFilename(), name.getText()
 									.toString());
 						else
-							datasource.add(f.getAbsolutePath(), name.getText().toString());
+							datasource.add(f.getAbsolutePath(), name.getText()
+									.toString());
 						updateArray();
 					}
 				});
@@ -498,6 +501,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 	}
 
+	ListView listview;
+	FileListAdapter flAdapter;
 	@SuppressLint("InflateParams")
 	public void addNewPicDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -511,14 +516,15 @@ public class MainActivity extends Activity implements OnClickListener {
 		if (dirs.exists()) {
 			files = dirs.listFiles();
 		}
+		Log.d("filelist", "#files(Array)=" + files.length);
 		ArrayList<MyFile> filelist = new ArrayList<MyFile>();
 		for (File file : files)
 			filelist.add(new MyFile(file, false));
-		final FileListAdapter flAdapter = new FileListAdapter(this);
+		flAdapter = new FileListAdapter(this);
 		flAdapter.addList(filelist);
-		ListView listview = new ListView(this);
+		listview = (ListView) getLayoutInflater().inflate(R.layout.filelist, null);
 		listview.setAdapter(flAdapter);
-		builder.setView(listview); //FIXME No list is displayed
+		builder.setView(listview); // FIXME No list is displayed
 		builder.setOnDismissListener(new OnDismissListener() {
 			@Override
 			public void onDismiss(DialogInterface dialog) {

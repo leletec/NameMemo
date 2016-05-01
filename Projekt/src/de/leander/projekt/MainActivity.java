@@ -216,24 +216,24 @@ public class MainActivity extends Activity implements OnClickListener {
 		source = pictures[currentPicture].getSource();
 
 		// String fname = new File(getFilesDir(), source).getAbsolutePath();
-		String fname = new File(
-				Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-						+ File.separator + "MyCameraApp", source)
-				.getAbsolutePath();
-
+		// String fname = new File(
+		// Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+		// + File.separator + "MyCameraApp", source)
+		// .getAbsolutePath();
+		String fname = new File(source).getName();
 		// File mediaStorageDir = new File(
 		// Environment
 		// .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
 		// "MyCameraApp");
 
-		Bitmap bmp = BitmapFactory.decodeFile(fname);
+		Bitmap bmp = BitmapFactory.decodeFile(source);
 		if (bmp == null) {
-			missingFileDialog(source, pictures[currentPicture].getName());
+			missingFileDialog(fname, pictures[currentPicture].getName());
 			return;
 		} else
 			Log.d("changeSource", "Bitmap=" + bmp.toString());
 		image.setImageBitmap(bmp);
-		Log.d("source", source + " loaded");
+		Log.d("source", fname + " loaded");
 		ja.setVisibility(View.INVISIBLE);
 		nein.setVisibility(View.INVISIBLE);
 		text.setText(R.string.name_anzeigen);
@@ -258,8 +258,18 @@ public class MainActivity extends Activity implements OnClickListener {
 		// copyFiles();
 		// break;
 		case R.id.addDatabase:
-			datasource.add("hund.jpg", "Hund");
-			datasource.add("hase.jpg", "Hase");
+			datasource
+					.add(new File(
+							Environment
+									.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+									+ File.separator + "MyCameraApp",
+							"hund.jpg").getAbsolutePath(), "Hund");
+			datasource
+					.add(new File(
+							Environment
+									.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+									+ File.separator + "MyCameraApp",
+							"hase.jpg").getAbsolutePath(), "Hase");
 			updateArray();
 			break;
 		case R.id.captureImage:
@@ -419,10 +429,10 @@ public class MainActivity extends Activity implements OnClickListener {
 						EditText name = (EditText) ((AlertDialog) dialog)
 								.findViewById(R.id.ETname);
 						if (f == null)
-							datasource.add(camera.getFilename(), name.getText()
+							datasource.add(camera.getUri().getPath(), name.getText()
 									.toString());
 						else
-							datasource.add(f.getName(), name.getText()
+							datasource.add(f.getAbsolutePath(), name.getText()
 									.toString());
 						updateArray();
 					}
@@ -530,13 +540,14 @@ public class MainActivity extends Activity implements OnClickListener {
 		builder.setOnDismissListener(new OnDismissListener() {
 			@Override
 			public void onDismiss(DialogInterface dialog) {
-				//TODO
+				// TODO
 			}
 		});
 		builder.setNegativeButton(R.string.dialogCancel, null);
 		AlertDialog dialog = builder.create();
 
 		// TODO Way to navigate through folders
+		// TODO Way to see your pictures before you add them
 		listview.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,

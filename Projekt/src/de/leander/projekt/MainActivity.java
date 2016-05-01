@@ -423,7 +423,7 @@ public class MainActivity extends Activity implements OnClickListener {
 									.toString());
 						else
 							datasource.add(f.getName(), name.getText()
-									.toString()); //FIXME Adding to database fails.
+									.toString());
 						updateArray();
 					}
 				});
@@ -512,9 +512,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		builder.setTitle(R.string.addNewPic);
 		builder.setMessage(R.string.addNewPicMessage);
 
-		File sdcard = Environment
+		File picdir = Environment
 				.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-		File dirs = new File(sdcard.getAbsolutePath());
+		File dirs = new File(picdir.getAbsolutePath(), "MyCameraApp");
 		File[] files = new File[0];
 		if (dirs.exists()) {
 			files = dirs.listFiles();

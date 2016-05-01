@@ -294,7 +294,12 @@ public class MainActivity extends Activity implements OnClickListener {
 			oldSource = pictures[currentPicture].getSource();
 		pictures = datasource.getAllBilder().toArray(new Pictures[0]);
 		if (pictures.length == 0) {
-			datasource.add("katze.png", "Katze");
+			datasource
+					.add(new File(
+							Environment
+									.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+									+ File.separator + "MyCameraApp",
+							"katze.png").getAbsolutePath(), "Katze");
 			updateArray();
 			return;
 		}
@@ -429,8 +434,8 @@ public class MainActivity extends Activity implements OnClickListener {
 						EditText name = (EditText) ((AlertDialog) dialog)
 								.findViewById(R.id.ETname);
 						if (f == null)
-							datasource.add(camera.getUri().getPath(), name.getText()
-									.toString());
+							datasource.add(camera.getUri().getPath(), name
+									.getText().toString());
 						else
 							datasource.add(f.getAbsolutePath(), name.getText()
 									.toString());

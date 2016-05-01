@@ -536,6 +536,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 		ListView listview = new ListView(this);
 		ArrayList<File> filelist = new ArrayList<File>();
+		filelist.add(new File(".."));
 		for (File file : files)
 			filelist.add(file);
 		FileListAdapter adapter = new FileListAdapter(this, filelist);

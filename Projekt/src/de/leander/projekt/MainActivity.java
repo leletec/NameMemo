@@ -659,7 +659,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		else if (statecontroller.getDialogstate() == DialogState.DELETE)
 			deleteDialog(pictures[currentPicture].getSource(),
 					pictures[currentPicture].getName());
-		else if (statecontroller.getDialogstate() == DialogState.NPIC)
+		else if (statecontroller.getDialogstate() == DialogState.NSHOT)
 			newPictureDialog(null);
 
 		super.onRestoreInstanceState(savedInstanceState);

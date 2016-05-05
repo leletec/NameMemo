@@ -139,14 +139,14 @@ public class StateController {
 			throw new Exception("Wrong mainstate: " + mainstate.toString());
 		if (dialogstate != DialogState.NONE)
 			throw new Exception("Wrong dialogstate: " + dialogstate.toString());
-		dialogstate = DialogState.NPIC;
+		dialogstate = DialogState.NSHOT;
 		Log.d("StateController", "changed dialogstate to '" + dialogstate + "'");
 	}
 	
 	public void dismissNPicDialog() throws Exception {
 		if (mainstate != MainState.CAMERAINTENT)
 			throw new Exception("Wrong mainstate: " + mainstate.toString());
-		if (dialogstate != DialogState.NPIC)
+		if (dialogstate != DialogState.NSHOT)
 			throw new Exception("Wrong dialogstate: " + dialogstate.toString());
 		dialogstate = DialogState.NONE;
 		Log.d("StateController", "changed dialogstate to '" + dialogstate + "'");

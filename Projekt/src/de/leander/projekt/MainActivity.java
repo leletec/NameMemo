@@ -559,15 +559,25 @@ public class MainActivity extends Activity implements OnClickListener {
 				File file = ((File) parent.getItemAtPosition(position));
 				String fname = file.getName();
 				if (fname.equals("..")) {
-					dialog.dismiss();
-					addNewPicDialog(new File(dir.getParent()));
-				} else if (!fname.contains(".") && file.isDirectory()) {
-					dialog.dismiss();
-					addNewPicDialog(new File(dir.getAbsolutePath(), fname));
+					if (new File(dir.getParent()).canRead()) {
+						dialog.dismiss();
+						addNewPicDialog(new File(dir.getParent()));
+					} else
+						Toast.makeText(context, "Can't read parent folder!",
+								Toast.LENGTH_SHORT).show();
+				} else if (file.isDirectory()) {
+					if (file.canRead()) {
+						dialog.dismiss();
+						addNewPicDialog(file);
+					} else
+						Toast.makeText(context,
+								"Can't read folder '" + file.getName() + "'!",
+								Toast.LENGTH_SHORT).show();
 				} else if (fname.endsWith(".jpg") || fname.endsWith(".png")
 						|| fname.endsWith(".JPG") || fname.endsWith(".PNG")) {
 					dialog.dismiss();
-					newPictureDialog(file); // TODO Way to see your pictures before you add them
+					newPictureDialog(file); // TODO Way to see your pictures
+											// before you add them
 				} else
 					Toast.makeText(context, "Unsupportet file ending!",
 							Toast.LENGTH_SHORT).show();

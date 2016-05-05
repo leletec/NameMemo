@@ -19,7 +19,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,7 +34,6 @@ import de.leander.projekt.structure.Camera;
 import de.leander.projekt.structure.DialogState;
 import de.leander.projekt.structure.FileListAdapter;
 import de.leander.projekt.structure.MainState;
-import de.leander.projekt.structure.MyFile;
 import de.leander.projekt.structure.Pictures;
 import de.leander.projekt.structure.PicturesDAO;
 import de.leander.projekt.structure.StateController;
@@ -52,7 +50,6 @@ public class MainActivity extends Activity implements OnClickListener {
 	private Button nein;
 	private ImageView image;
 	private StateController statecontroller;
-	private Uri uri;
 	private Camera camera;
 
 	@Override
@@ -496,7 +493,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
 			if (resultCode == RESULT_OK) {
-				uri = camera.fixFileOrientation();
+				Uri uri = camera.fixFileOrientation();
 				Toast.makeText(this, "Image saved to:\n" + uri,
 						Toast.LENGTH_LONG).show();
 				image.setImageURI(uri);
@@ -523,6 +520,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	@SuppressLint("InflateParams")
 	public void addNewPicDialog() {
+		// TODO
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.addNewPic);
 		builder.setMessage(R.string.addNewPicMessage);
@@ -558,7 +556,9 @@ public class MainActivity extends Activity implements OnClickListener {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				newPictureDialog((File) parent.getItemAtPosition(position));
+				File file = ((File) parent.getItemAtPosition(position));
+				if (file.getName().equals(".."))
+					;// TODO
 			}
 		});
 		dialog.show();
@@ -591,7 +591,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		String dialogstate = savedInstanceState.getString("dialogstate");
 		String last = savedInstanceState.getString("last");
 		String filename = savedInstanceState.getString("filename");
-		Uri uri = Uri.parse(savedInstanceState.getString("uri"));
+		String uriString = savedInstanceState.getString("uri");
+		Uri uri = null;
+		if (uriString != null){
+			uri = Uri.parse(uriString);
+		}
 
 		statecontroller = new StateController(MainState.valueOf(mainstate),
 				DialogState.valueOf(dialogstate), MainState.valueOf(last));
@@ -604,12 +608,8 @@ public class MainActivity extends Activity implements OnClickListener {
 				+ "', uri '" + uri + "' loaded");
 
 		currentPicture = savedInstanceState.getInt("currentPicture");
-		Bitmap bmp = BitmapFactory
-				.decodeFile(new File(
-						Environment
-								.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-								+ File.separator + "MyCameraApp",
-						pictures[currentPicture].getSource()).getAbsolutePath());
+		Bitmap bmp = BitmapFactory.decodeFile(pictures[currentPicture]
+				.getSource());
 		if (bmp == null) {
 			missingFileDialog(pictures[currentPicture].getSource(),
 					pictures[currentPicture].getName());

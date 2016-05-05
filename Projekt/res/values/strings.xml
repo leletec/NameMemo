@@ -27,7 +27,6 @@
     <string name="nPicDialogMessage">Geben Sie den Namen ein der diesem Bild zugeordnet werden soll!</string>
     <string name="cleanProject">Verbrannte Erde</string>
     <string name="addNewPic">Neues Bild aus Datei hinzufügen</string>
-    <string name="addNewPicMessage">Pick one or more!</string>
     <string name="dialogCancel">Abbrechen</string>
     
 </resources>

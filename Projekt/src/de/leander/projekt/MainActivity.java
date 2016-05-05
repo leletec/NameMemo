@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
@@ -279,7 +280,10 @@ public class MainActivity extends Activity implements OnClickListener {
 			cleanProject();
 			break;
 		case R.id.addNewPic:
-			addNewPicDialog();
+			addNewPicDialog(new File(
+					Environment
+							.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+					"MyCameraApp"));
 			break;
 		}
 		return super.onOptionsItemSelected(item);
@@ -519,18 +523,14 @@ public class MainActivity extends Activity implements OnClickListener {
 	FileListAdapter flAdapter;
 
 	@SuppressLint("InflateParams")
-	public void addNewPicDialog() {
+	public void addNewPicDialog(final File dir) {
 		// TODO
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.addNewPic);
-		builder.setMessage(R.string.addNewPicMessage);
 
-		File picdir = Environment
-				.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-		File dirs = new File(picdir.getAbsolutePath(), "MyCameraApp");
 		File[] files = new File[0];
-		if (dirs.exists()) {
-			files = dirs.listFiles();
+		if (dir.exists()) {
+			files = dir.listFiles();
 		}
 		ListView listview = new ListView(this);
 		ArrayList<File> filelist = new ArrayList<File>();
@@ -541,6 +541,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		listview.setAdapter(adapter);
 
 		builder.setView(listview);
+		Log.d("path", dir.getAbsolutePath());
 		builder.setOnDismissListener(new OnDismissListener() {
 			@Override
 			public void onDismiss(DialogInterface dialog) {
@@ -548,17 +549,29 @@ public class MainActivity extends Activity implements OnClickListener {
 			}
 		});
 		builder.setNegativeButton(R.string.dialogCancel, null);
-		AlertDialog dialog = builder.create();
+		final AlertDialog dialog = builder.create();
 
-		// TODO Way to navigate through folders
-		// TODO Way to see your pictures before you add them
+		final Context context = this;
 		listview.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				File file = ((File) parent.getItemAtPosition(position));
-				if (file.getName().equals(".."))
-					;// TODO
+				String fname = file.getName();
+				if (fname.equals("..")) {
+					dialog.dismiss();
+					addNewPicDialog(new File(dir.getParent()));
+				} else if (!fname.contains(".") && file.isDirectory()) {
+					dialog.dismiss();
+					addNewPicDialog(new File(dir.getAbsolutePath(), fname));
+				} else if (fname.endsWith(".jpg") || fname.endsWith(".png")
+						|| fname.endsWith(".JPG") || fname.endsWith(".PNG")) {
+					dialog.dismiss();
+					newPictureDialog(file); // TODO Way to see your pictures before you add them
+				} else
+					Toast.makeText(context, "Unsupportet file ending!",
+							Toast.LENGTH_SHORT).show();
+				;
 			}
 		});
 		dialog.show();
@@ -593,7 +606,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		String filename = savedInstanceState.getString("filename");
 		String uriString = savedInstanceState.getString("uri");
 		Uri uri = null;
-		if (uriString != null){
+		if (uriString != null) {
 			uri = Uri.parse(uriString);
 		}
 

@@ -52,6 +52,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	private ImageView image;
 	private StateController statecontroller;
 	private Camera camera;
+	private File dir;
 
 	@Override
 	// protected void onCreate(Bundle savedInstanceState) {
@@ -280,7 +281,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			cleanProject();
 			break;
 		case R.id.addNewPic:
-			addNewPicDialog(new File(
+			addPicFromStorageDialog(new File(
 					Environment
 							.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
 					"MyCameraApp"));
@@ -410,9 +411,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	@SuppressLint("InflateParams")
-	public void newPictureDialog(File file) {
+	public void newShotDialog(File file) {
 		try {
-			statecontroller.showNPicDialog();
+			statecontroller.showNShotDialog();
 		} catch (Exception e1) {
 			Log.e("stateError", e1.toString());
 			e1.printStackTrace();
@@ -449,7 +450,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			@Override
 			public void onDismiss(DialogInterface dialog) {
 				try {
-					statecontroller.dismissNPicDialog();
+					statecontroller.dismissNShotDialog();
 				} catch (Exception e) {
 					Log.e("stateError", e.toString());
 					e.printStackTrace();
@@ -501,7 +502,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				Toast.makeText(this, "Image saved to:\n" + uri,
 						Toast.LENGTH_LONG).show();
 				image.setImageURI(uri);
-				newPictureDialog(null);
+				newShotDialog(null);
 			} else {
 				if (resultCode == RESULT_CANCELED)
 					Toast.makeText(this, "Capturing image canceled",
@@ -519,12 +520,15 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 	}
 
-	ListView listview;
-	FileListAdapter flAdapter;
-
 	@SuppressLint("InflateParams")
-	public void addNewPicDialog(final File dir) {
-		// TODO
+	public void addPicFromStorageDialog(File Dir) {
+		dir = Dir;
+		try {
+			statecontroller.showAddPicFSDialog();
+		} catch (Exception e) {
+			Log.e("stateError", e.toString());
+			e.printStackTrace();
+		}
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.addNewPic);
 
@@ -545,7 +549,12 @@ public class MainActivity extends Activity implements OnClickListener {
 		builder.setOnDismissListener(new OnDismissListener() {
 			@Override
 			public void onDismiss(DialogInterface dialog) {
-				// TODO
+				try {
+					statecontroller.dismissAddPicFSDialog();
+				} catch (Exception e) {
+					Log.e("stateError", e.toString());
+					e.printStackTrace();
+				}
 			}
 		});
 		builder.setNegativeButton(R.string.dialogCancel, null);
@@ -561,14 +570,14 @@ public class MainActivity extends Activity implements OnClickListener {
 				if (fname.equals("..")) {
 					if (new File(dir.getParent()).canRead()) {
 						dialog.dismiss();
-						addNewPicDialog(new File(dir.getParent()));
+						addPicFromStorageDialog(new File(dir.getParent()));
 					} else
 						Toast.makeText(context, "Can't read parent folder!",
 								Toast.LENGTH_SHORT).show();
 				} else if (file.isDirectory()) {
 					if (file.canRead()) {
 						dialog.dismiss();
-						addNewPicDialog(file);
+						addPicFromStorageDialog(file);
 					} else
 						Toast.makeText(context,
 								"Can't read folder '" + file.getName() + "'!",
@@ -576,7 +585,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				} else if (fname.endsWith(".jpg") || fname.endsWith(".png")
 						|| fname.endsWith(".JPG") || fname.endsWith(".PNG")) {
 					dialog.dismiss();
-					newPictureDialog(file); // TODO Way to see your pictures
+					newShotDialog(file); // TODO Way to see your pictures
 											// before you add them
 				} else
 					Toast.makeText(context, "Unsupportet file ending!",
@@ -599,12 +608,13 @@ public class MainActivity extends Activity implements OnClickListener {
 			outState.putString("filename", camera.getFilename());
 		if (camera.getUri() != null)
 			outState.putString("uri", camera.getUri().toString());
+		outState.putString("dir", dir.getAbsolutePath());
 		Log.d("onSave", "mainstate '" + statecontroller.getMainstate()
 				+ "', dialogstate '" + statecontroller.getDialogstate()
 				+ "' , last '" + statecontroller.getLast()
 				+ "', currentPicture '" + currentPicture + "', filename '"
 				+ camera.getFilename() + "', uri '" + camera.getUri()
-				+ "' saved");
+				+ "', dir '" + dir.getAbsolutePath() + "' saved");
 		super.onSaveInstanceState(outState);
 	}
 
@@ -615,10 +625,14 @@ public class MainActivity extends Activity implements OnClickListener {
 		String last = savedInstanceState.getString("last");
 		String filename = savedInstanceState.getString("filename");
 		String uriString = savedInstanceState.getString("uri");
+		String dirS = savedInstanceState.getString("dir");
 		Uri uri = null;
 		if (uriString != null) {
 			uri = Uri.parse(uriString);
 		}
+		dir = null;
+		if (dirS != null)
+			dir = new File(dirS);
 
 		statecontroller = new StateController(MainState.valueOf(mainstate),
 				DialogState.valueOf(dialogstate), MainState.valueOf(last));
@@ -627,8 +641,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		camera.setUri(uri);
 
 		Log.d("onRestore", "mainstate '" + mainstate + "', dialogstate '"
-				+ dialogstate + "', last '" + last + "', filename" + filename
-				+ "', uri '" + uri + "' loaded");
+				+ dialogstate + "', last '" + last + "', filename '" + filename
+				+ "', uri '" + uriString + "', dir '" + dirS + "' loaded");
 
 		currentPicture = savedInstanceState.getInt("currentPicture");
 		Bitmap bmp = BitmapFactory.decodeFile(pictures[currentPicture]
@@ -660,7 +674,9 @@ public class MainActivity extends Activity implements OnClickListener {
 			deleteDialog(pictures[currentPicture].getSource(),
 					pictures[currentPicture].getName());
 		else if (statecontroller.getDialogstate() == DialogState.NSHOT)
-			newPictureDialog(null);
+			newShotDialog(null);
+		else if (statecontroller.getDialogstate() == DialogState.OPIC)
+			addPicFromStorageDialog(dir);
 
 		super.onRestoreInstanceState(savedInstanceState);
 	}

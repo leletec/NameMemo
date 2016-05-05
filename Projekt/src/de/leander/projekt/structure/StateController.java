@@ -134,7 +134,7 @@ public class StateController {
 		Log.d("StateController", "changed last to '" + last + "'");
 	}
 	
-	public void showNPicDialog() throws Exception {
+	public void showNShotDialog() throws Exception {
 		if (mainstate != MainState.CAMERAINTENT)
 			throw new Exception("Wrong mainstate: " + mainstate.toString());
 		if (dialogstate != DialogState.NONE)
@@ -143,10 +143,30 @@ public class StateController {
 		Log.d("StateController", "changed dialogstate to '" + dialogstate + "'");
 	}
 	
-	public void dismissNPicDialog() throws Exception {
+	public void dismissNShotDialog() throws Exception {
 		if (mainstate != MainState.CAMERAINTENT)
 			throw new Exception("Wrong mainstate: " + mainstate.toString());
 		if (dialogstate != DialogState.NSHOT)
+			throw new Exception("Wrong dialogstate: " + dialogstate.toString());
+		dialogstate = DialogState.NONE;
+		Log.d("StateController", "changed dialogstate to '" + dialogstate + "'");
+	}
+	
+	public void showAddPicFSDialog() throws Exception {
+		if (mainstate != MainState.SHOWSNAME
+				&& mainstate != MainState.SHOWSPICTURE)
+			throw new Exception("Wrong mainstate: " + mainstate.toString());
+		if (dialogstate != DialogState.NONE)
+			throw new Exception("Wrong dialogstate: " + dialogstate.toString());
+		dialogstate = DialogState.OPIC;
+		Log.d("StateController", "changed dialogstate to '" + dialogstate + "'");
+	}
+
+	public void dismissAddPicFSDialog() throws Exception {
+		if (mainstate != MainState.SHOWSNAME
+				&& mainstate != MainState.SHOWSPICTURE)
+			throw new Exception("Wrong mainstate: " + mainstate.toString());
+		if (dialogstate != DialogState.OPIC)
 			throw new Exception("Wrong dialogstate: " + dialogstate.toString());
 		dialogstate = DialogState.NONE;
 		Log.d("StateController", "changed dialogstate to '" + dialogstate + "'");

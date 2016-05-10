@@ -281,10 +281,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			cleanProject();
 			break;
 		case R.id.addNewPic:
-			addPicFromStorageDialog(new File(
-					Environment
-							.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-					"MyCameraApp"));
+			addPicFromStorageDialog();
 			break;
 		}
 		return super.onOptionsItemSelected(item);
@@ -462,7 +459,6 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	/* Checks if external storage is available to at least read */
-	// TODO Usage for this!
 	public boolean isExternalStorageReadable() {
 		String state = Environment.getExternalStorageState();
 		if (Environment.MEDIA_MOUNTED.equals(state)
@@ -479,6 +475,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		// application
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
+		if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
+			Toast.makeText(this, "'ExternalStorage' can not be written",
+					Toast.LENGTH_SHORT).show();
+			return;
+		}
 		Uri fileUri = camera.getOutputMediaFile(); // create a file to
 		// save the image
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file
@@ -520,11 +521,23 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 	}
 
+	public void addPicFromStorageDialog() {
+		if (isExternalStorageReadable())
+			AddPicFromStorageDialog(new File(
+					Environment
+							.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+					"MyCameraApp"));
+		else
+			Toast.makeText(this, "'ExternalStorage' can not be read",
+					Toast.LENGTH_SHORT).show();
+	}
+
 	@SuppressLint("InflateParams")
-	public void addPicFromStorageDialog(File Dir) {
+	private void AddPicFromStorageDialog(File Dir) {
+
 		dir = Dir;
 		try {
-			statecontroller.showAddPicFSDialog();
+			statecontroller.showAddPicFSDialog(); // not always execued...
 		} catch (Exception e) {
 			Log.e("stateError", e.toString());
 			e.printStackTrace();
@@ -570,14 +583,14 @@ public class MainActivity extends Activity implements OnClickListener {
 				if (fname.equals("..")) {
 					if (new File(dir.getParent()).canRead()) {
 						dialog.dismiss();
-						addPicFromStorageDialog(new File(dir.getParent()));
+						AddPicFromStorageDialog(new File(dir.getParent()));
 					} else
 						Toast.makeText(context, "Can't read parent folder!",
 								Toast.LENGTH_SHORT).show();
 				} else if (file.isDirectory()) {
 					if (file.canRead()) {
 						dialog.dismiss();
-						addPicFromStorageDialog(file);
+						AddPicFromStorageDialog(file);
 					} else
 						Toast.makeText(context,
 								"Can't read folder '" + file.getName() + "'!",
@@ -676,7 +689,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		else if (statecontroller.getDialogstate() == DialogState.NSHOT)
 			newShotDialog(null);
 		else if (statecontroller.getDialogstate() == DialogState.OPIC)
-			addPicFromStorageDialog(dir);
+			AddPicFromStorageDialog(dir);
 
 		super.onRestoreInstanceState(savedInstanceState);
 	}

@@ -2,17 +2,11 @@ package de.leander.projekt.structure;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import de.leander.projekt.R;
 
 public class FileListAdapter extends BaseAdapter {
 

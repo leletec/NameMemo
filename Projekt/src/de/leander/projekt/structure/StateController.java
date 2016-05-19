@@ -6,14 +6,15 @@ public class StateController {
 
 	private MainState mainstate;
 	private DialogState dialogstate;
-	private MainState last;
+	private MainState lastM;
+	private DialogState lastD;
 
-	
-	public StateController(MainState mainstate, DialogState dialogstate, MainState last) {
+	public StateController(MainState mainstate, DialogState dialogstate, MainState lastM, DialogState lastD) {
 		super();
 		this.mainstate = mainstate;
 		this.dialogstate = dialogstate;
-		this.last = last;
+		this.lastM = lastM;
+		this.lastD = lastD;
 	}
 
 	public MainState getMainstate() {
@@ -24,19 +25,23 @@ public class StateController {
 		return dialogstate;
 	}
 
-	public MainState getLast(){
-		return last;
+	public MainState getLastM() {
+		return lastM;
 	}
-	
+
+	public DialogState getLastD() {
+		return lastD;
+	}
+
 	public StateController() {
 		mainstate = MainState.SHOWSPICTURE;
 		dialogstate = DialogState.NONE;
-		last = MainState.NONE;
+		lastM = MainState.NONE;
+		lastD = DialogState.NONE;
 	}
 
 	public void showInfoDialog() throws Exception {
-		if (mainstate != MainState.SHOWSNAME
-				&& mainstate != MainState.SHOWSPICTURE)
+		if (mainstate != MainState.SHOWSNAME && mainstate != MainState.SHOWSPICTURE)
 			throw new Exception("Wrong mainstate: " + mainstate.toString());
 		if (dialogstate != DialogState.NONE)
 			throw new Exception("Wrong dialogstate: " + dialogstate.toString());
@@ -45,8 +50,7 @@ public class StateController {
 	}
 
 	public void dismissInfoDialog() throws Exception {
-		if (mainstate != MainState.SHOWSNAME
-				&& mainstate != MainState.SHOWSPICTURE)
+		if (mainstate != MainState.SHOWSNAME && mainstate != MainState.SHOWSPICTURE)
 			throw new Exception("Wrong mainstate: " + mainstate.toString());
 		if (dialogstate != DialogState.INFO)
 			throw new Exception("Wrong dialogstate: " + dialogstate.toString());
@@ -73,26 +77,23 @@ public class StateController {
 	}
 
 	public void showPicture() throws Exception {
-		if (mainstate != MainState.SHOWSNAME
-				&& mainstate != MainState.CAMERAINTENT)
+		if (mainstate != MainState.SHOWSNAME && mainstate != MainState.CAMERAINTENT)
 			throw new Exception("Wrong mainstate: " + mainstate.toString());
-		if (dialogstate != DialogState.NONE
-				&& dialogstate != DialogState.DELETE)
+		if (dialogstate != DialogState.NONE && dialogstate != DialogState.DELETE)
 			throw new Exception("Wrong dialogstate: " + dialogstate.toString());
 		mainstate = MainState.SHOWSPICTURE;
 		Log.d("StateController", "changed mainstate to '" + mainstate + "'");
 	}
 
 	public void showName() throws Exception {
-		if (mainstate != MainState.CAMERAINTENT
-				&& mainstate != MainState.SHOWSPICTURE)
+		if (mainstate != MainState.CAMERAINTENT && mainstate != MainState.SHOWSPICTURE)
 			throw new Exception("Wrong mainstate: " + mainstate.toString());
 		if (dialogstate != DialogState.NONE)
 			throw new Exception("Wrong dialogstate: " + dialogstate.toString());
 		mainstate = MainState.SHOWSNAME;
 		Log.d("StateController", "changed mainstate to '" + mainstate + "'");
 	}
-	
+
 	public void showMFileDialog() throws Exception {
 		if (mainstate != MainState.SHOWSNAME)
 			throw new Exception("Wrong mainstate: " + mainstate.toString());
@@ -101,7 +102,7 @@ public class StateController {
 		dialogstate = DialogState.MFILE;
 		Log.d("StateController", "changed dialogstate to '" + dialogstate + "'");
 	}
-	
+
 	public void dismissMFileDialog() throws Exception {
 		if (mainstate != MainState.SHOWSNAME)
 			throw new Exception("Wrong mainstate: " + mainstate.toString());
@@ -112,49 +113,47 @@ public class StateController {
 	}
 
 	public void showCameraIntent() throws Exception {
-		if (mainstate != MainState.SHOWSNAME
-				&& mainstate != MainState.SHOWSPICTURE)
+		if (mainstate != MainState.SHOWSNAME && mainstate != MainState.SHOWSPICTURE)
 			throw new Exception("Wrong mainstate: " + mainstate.toString());
 		if (dialogstate != DialogState.NONE)
 			throw new Exception("Wrong dialogstate: " + dialogstate.toString());
-		last = mainstate;
-		Log.d("StateController", "changed last to '" + last + "'");
+		lastM = mainstate;
+		Log.d("StateController", "changed lastM to '" + lastM + "'");
 		mainstate = MainState.CAMERAINTENT;
 		Log.d("StateController", "changed mainstate to '" + mainstate + "'");
 	}
-	
+
 	public void dismissCameraIntent() throws Exception {
 		if (mainstate != MainState.CAMERAINTENT)
 			throw new Exception("Wrong mainstate: " + mainstate.toString());
 		if (dialogstate != DialogState.NONE)
 			throw new Exception("Wrong dialogstate: " + dialogstate.toString());
-		mainstate = last;
+		mainstate = lastM;
 		Log.d("StateController", "changed mainstate to '" + mainstate + "'");
-		last = MainState.NONE;
-		Log.d("StateController", "changed last to '" + last + "'");
+		lastM = MainState.NONE;
+		Log.d("StateController", "changed lastM to '" + lastM + "'");
 	}
-	
+
 	public void showNShotDialog() throws Exception {
-		if (mainstate != MainState.CAMERAINTENT)
-			throw new Exception("Wrong mainstate: " + mainstate.toString());
-		if (dialogstate != DialogState.NONE)
+		if (dialogstate != DialogState.NONE && dialogstate != DialogState.OPIC)
 			throw new Exception("Wrong dialogstate: " + dialogstate.toString());
+		lastD = dialogstate;
+		Log.d("StateController", "changed lastD to '" + lastD + "'");
 		dialogstate = DialogState.NSHOT;
 		Log.d("StateController", "changed dialogstate to '" + dialogstate + "'");
 	}
-	
+
 	public void dismissNShotDialog() throws Exception {
-		if (mainstate != MainState.CAMERAINTENT)
-			throw new Exception("Wrong mainstate: " + mainstate.toString());
 		if (dialogstate != DialogState.NSHOT)
 			throw new Exception("Wrong dialogstate: " + dialogstate.toString());
-		dialogstate = DialogState.NONE;
+		dialogstate = lastD;
 		Log.d("StateController", "changed dialogstate to '" + dialogstate + "'");
+		lastD = DialogState.NONE;
+		Log.d("StateController", "changed lastD to '" + lastD + "'");
 	}
-	
+
 	public void showAddPicFSDialog() throws Exception {
-		if (mainstate != MainState.SHOWSNAME
-				&& mainstate != MainState.SHOWSPICTURE)
+		if (mainstate != MainState.SHOWSNAME && mainstate != MainState.SHOWSPICTURE)
 			throw new Exception("Wrong mainstate: " + mainstate.toString());
 		if (dialogstate != DialogState.NONE)
 			throw new Exception("Wrong dialogstate: " + dialogstate.toString());
@@ -163,8 +162,7 @@ public class StateController {
 	}
 
 	public void dismissAddPicFSDialog() throws Exception {
-		if (mainstate != MainState.SHOWSNAME
-				&& mainstate != MainState.SHOWSPICTURE)
+		if (mainstate != MainState.SHOWSNAME && mainstate != MainState.SHOWSPICTURE)
 			throw new Exception("Wrong mainstate: " + mainstate.toString());
 		if (dialogstate != DialogState.OPIC)
 			throw new Exception("Wrong dialogstate: " + dialogstate.toString());

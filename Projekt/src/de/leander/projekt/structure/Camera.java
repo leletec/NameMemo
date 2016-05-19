@@ -17,18 +17,18 @@ import android.os.Environment;
 import android.util.Log;
 
 public class Camera {
-	
+
 	private Uri uri;
 	private String filename;
 
-	public String getFilename(){
+	public String getFilename() {
 		return filename;
 	}
-	
-	public void setFilename(String filename){
+
+	public void setFilename(String filename) {
 		this.filename = filename;
 	}
-	
+
 	public Uri getUri() {
 		return uri;
 	}
@@ -43,10 +43,7 @@ public class Camera {
 		// To be safe, you should check that the SDCard is mounted
 		// using Environment.getExternalStorageState() before doing this.
 
-		File mediaStorageDir = new File(
-				Environment
-						.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-				"MyCameraApp");
+		File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "MyCameraApp");
 		// This location works best if you want the created images to be shared
 		// between applications and persist after your app has been uninstalled.
 
@@ -58,11 +55,9 @@ public class Camera {
 			}
 		}
 		// Create a media file name
-		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
-				.format(new Date());
+		String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
 		filename = "IMG_" + timeStamp + ".jpg";
-		File mediaFile = new File(mediaStorageDir.getPath() + File.separator
-				+ filename);
+		File mediaFile = new File(mediaStorageDir.getPath() + File.separator + filename);
 		// mediaFile = new File(mediaStorageDir.getPath() + File.separator
 		// + "test" + ".jpg");
 
@@ -82,7 +77,8 @@ public class Camera {
 		ExifInterface exif = null;
 		try {
 			exif = new ExifInterface(fname);
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			Log.e("camera", e.toString());
 			e.printStackTrace();
 			return uri;
@@ -103,23 +99,24 @@ public class Camera {
 
 		Matrix mat = new Matrix();
 		mat.setRotate(angle, bm.getWidth() / 2.0f, bm.getHeight() / 2.0f);
-		Bitmap rotbm = Bitmap.createBitmap(bm, 0, 0, bounds.outWidth,
-				bounds.outHeight, mat, true);
+		Bitmap rotbm = Bitmap.createBitmap(bm, 0, 0, bounds.outWidth, bounds.outHeight, mat, true);
 		FileOutputStream fos = null;
 		try {
 			fos = new FileOutputStream(fname);
-		} catch (FileNotFoundException e) {
+		}
+		catch (FileNotFoundException e) {
 			Log.e("camera", e.toString());
 			e.printStackTrace();
 		}
 		rotbm.compress(Bitmap.CompressFormat.JPEG, 100, fos);
 		try {
 			fos.close();
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			Log.e("camera", e.toString());
 			e.printStackTrace();
 		}
-		
+
 		uri = Uri.fromFile(new File(fname));
 		return uri;
 	}

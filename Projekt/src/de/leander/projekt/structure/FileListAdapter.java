@@ -23,31 +23,31 @@ public class FileListAdapter extends BaseAdapter {
 		this.context = context;
 		this.filelist = filelist;
 	}
-	
+
 	@Override
 	public int getCount() {
 		return filelist.size();
 	}
-	
+
 	@Override
 	public Object getItem(int position) {
 		return filelist.get(position);
 	}
-	
+
 	@Override
 	public long getItemId(int position) {
 		return position;
 	}
-	
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		MyView view;
-		if(convertView == null){
-            view = new MyView(context);
-        } else {
-            view = (MyView) convertView;
-        }
-		
+		if (convertView == null) {
+			view = new MyView(context);
+		} else {
+			view = (MyView) convertView;
+		}
+
 		view.configure(filelist.get(position));
 		return view;
 	}

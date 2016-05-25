@@ -7,14 +7,12 @@ public class StateController {
 	private MainState mainstate;
 	private DialogState dialogstate;
 	private MainState lastM;
-	private DialogState lastD;
 
-	public StateController(MainState mainstate, DialogState dialogstate, MainState lastM, DialogState lastD) {
+	public StateController(MainState mainstate, DialogState dialogstate, MainState lastM) {
 		super();
 		this.mainstate = mainstate;
 		this.dialogstate = dialogstate;
 		this.lastM = lastM;
-		this.lastD = lastD;
 	}
 
 	public MainState getMainstate() {
@@ -29,15 +27,10 @@ public class StateController {
 		return lastM;
 	}
 
-	public DialogState getLastD() {
-		return lastD;
-	}
-
 	public StateController() {
 		mainstate = MainState.SHOWSPICTURE;
 		dialogstate = DialogState.NONE;
 		lastM = MainState.NONE;
-		lastD = DialogState.NONE;
 	}
 
 	public void showInfoDialog() throws Exception {
@@ -137,8 +130,6 @@ public class StateController {
 	public void showNShotDialog() throws Exception {
 		if (dialogstate != DialogState.NONE && dialogstate != DialogState.OPIC)
 			throw new Exception("Wrong dialogstate: " + dialogstate.toString());
-		lastD = dialogstate;
-		Log.d("StateController", "changed lastD to '" + lastD + "'");
 		dialogstate = DialogState.NSHOT;
 		Log.d("StateController", "changed dialogstate to '" + dialogstate + "'");
 	}
@@ -146,10 +137,8 @@ public class StateController {
 	public void dismissNShotDialog() throws Exception {
 		if (dialogstate != DialogState.NSHOT)
 			throw new Exception("Wrong dialogstate: " + dialogstate.toString());
-		dialogstate = lastD;
+		dialogstate = DialogState.NONE;
 		Log.d("StateController", "changed dialogstate to '" + dialogstate + "'");
-		lastD = DialogState.NONE;
-		Log.d("StateController", "changed lastD to '" + lastD + "'");
 	}
 
 	public void showAddPicFSDialog() throws Exception {

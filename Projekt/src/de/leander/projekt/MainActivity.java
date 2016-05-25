@@ -53,6 +53,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	private StateController statecontroller;
 	private Camera camera;
 	private File dir;
+	private File file;
 
 	@Override
 	// protected void onCreate(Bundle savedInstanceState) {
@@ -222,13 +223,14 @@ public class MainActivity extends Activity implements OnClickListener {
 		ja.setVisibility(View.INVISIBLE);
 		nein.setVisibility(View.INVISIBLE);
 		text.setText(R.string.name_anzeigen);
-		try {
-			statecontroller.showPicture();
-		}
-		catch (Exception e) {
-			Log.e("StateController", e.toString());
-			e.printStackTrace();
-		}
+		if (statecontroller.getMainstate() != MainState.SHOWSPICTURE)
+			try {
+				statecontroller.showPicture();
+			}
+			catch (Exception e) {
+				Log.e("StateController", e.toString());
+				e.printStackTrace();
+			}
 	}
 
 	@Override
@@ -258,7 +260,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				cleanProject();
 			break;
 			case R.id.addNewPic:
-				addPicFromStorageDialog();
+				addPicFromStorageDialog(null);
 			break;
 		}
 		return super.onOptionsItemSelected(item);
@@ -384,7 +386,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	@SuppressLint("InflateParams")
-	public void newShotDialog(File file) {
+	public void newShotDialog(File File) {
+		file = File;
 		try {
 			statecontroller.showNShotDialog();
 		}
@@ -448,9 +451,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		// application
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-		if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
-			Toast.makeText(this, "'ExternalStorage' can not be written",
-					Toast.LENGTH_SHORT).show();
+		if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+			Toast.makeText(this, "'ExternalStorage' can not be written", Toast.LENGTH_SHORT).show();
 			return;
 		}
 		Uri fileUri = camera.getOutputMediaFile(); // create a file to
@@ -493,28 +495,49 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 	}
 
-	public void addPicFromStorageDialog() {
-		if (isExternalStorageReadable())
-			AddPicFromStorageDialog(new File(
-					Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),"MyCameraApp"), true);
-		else
-			Toast.makeText(this, "'ExternalStorage' can not be read",
-					Toast.LENGTH_SHORT).show();
-	}
+	private boolean dismiss = false;
 
-	private boolean dismiss;
-	
-	@SuppressLint("InflateParams")
-	private void AddPicFromStorageDialog(File Dir, boolean firstcall) {
+	public void addPicFromStorageDialog(File Dir) {
 		dir = Dir;
-		dismiss = true;
-		if (firstcall)
+		if (isExternalStorageReadable()) {
 			try {
-				statecontroller.showAddPicFSDialog(); // FIXME
-			} catch (Exception e) {
+				statecontroller.showAddPicFSDialog();
+			}
+			catch (Exception e) {
 				Log.e("stateError", e.toString());
 				e.printStackTrace();
 			}
+
+			if (dir == null)
+				AddPicFromStorageDialog(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "MyCameraApp"));
+			else
+				AddPicFromStorageDialog(dir);
+
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					do {
+						if (dismiss) {
+							try {
+								statecontroller.dismissAddPicFSDialog();
+							}
+							catch (Exception e) {
+								Log.e("StateController", e.toString());
+								e.printStackTrace();
+							}
+						}
+					} while (!dismiss);
+				}
+			}).start();
+			
+
+		} else
+			Toast.makeText(this, "'ExternalStorage' can not be read", Toast.LENGTH_SHORT).show();
+	}
+
+	@SuppressLint("InflateParams")
+	private void AddPicFromStorageDialog(File Dir) {
+		dir = Dir;
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.addNewPic);
 
@@ -537,16 +560,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		dialog.setOnDismissListener(new OnDismissListener() {
 			@Override
-			public void onDismiss(DialogInterface dialog) {
-				if (dismiss)
-					try {
-						statecontroller.dismissAddPicFSDialog();
-					}
-					catch (Exception e) {
-						Log.e("StateController", e.toString());
-						e.printStackTrace();
-					}
-			}
+			public void onDismiss(DialogInterface dialog) {}
 		});
 
 		final Context context = this;
@@ -557,21 +571,20 @@ public class MainActivity extends Activity implements OnClickListener {
 				String fname = file.getName();
 				if (fname.equals("..")) {
 					if (new File(dir.getParent()).canRead()) {
-						dismiss = false;
 						dialog.dismiss();
-						AddPicFromStorageDialog(new File(dir.getParent()), false);
+						AddPicFromStorageDialog(new File(dir.getParent()));
 					} else
 						Toast.makeText(context, "Can't read parent folder!", Toast.LENGTH_SHORT).show();
 				} else if (file.isDirectory()) {
 					if (file.canRead()) {
-						dismiss = false;
 						dialog.dismiss();
-						AddPicFromStorageDialog(file, false);
+						AddPicFromStorageDialog(file);
 					} else
 						Toast.makeText(context, "Can't read folder '" + file.getName() + "'!", Toast.LENGTH_SHORT).show();
 				} else if (fname.endsWith(".jpg") || fname.endsWith(".png") || fname.endsWith(".JPG") || fname.endsWith(".PNG")) {
+					dismiss = true;
+					dialog.dismiss();
 					newShotDialog(file); // TODO Way to see your pictures before you add them
-					//dialog.dismiss();
 				} else
 					Toast.makeText(context, "Unsupported file ending!", Toast.LENGTH_SHORT).show();;
 			}
@@ -584,7 +597,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		outState.putString("mainstate", statecontroller.getMainstate().toString());
 		outState.putString("dialogstate", statecontroller.getDialogstate().toString());
 		outState.putString("lastM", statecontroller.getLastM().toString());
-		outState.putString("lastD", statecontroller.getLastD().toString());
 		outState.putInt("currentPicture", currentPicture);
 		if (camera.getFilename() != null)
 			outState.putString("filename", camera.getFilename());
@@ -592,8 +604,9 @@ public class MainActivity extends Activity implements OnClickListener {
 			outState.putString("uri", camera.getUri().toString());
 		if (dir != null)
 			outState.putString("dir", dir.getAbsolutePath());
-		Log.d("onSave", "mainstate '" + statecontroller.getMainstate() + "', dialogstate '" + statecontroller.getDialogstate() + "', lastM '" + statecontroller.getLastM() + "', lastD '" + statecontroller.getLastD() + "', currentPicture '"
-				+ currentPicture + "', filename, uri, dir saved");
+		if (file != null)
+			outState.putString("file", file.getAbsolutePath());
+		Log.d("onSave", "mainstate '" + statecontroller.getMainstate() + "', dialogstate '" + statecontroller.getDialogstate() + "', lastM '" + statecontroller.getLastM() + "', currentPicture '" + currentPicture + "', filename, uri, dir, file saved");
 		super.onSaveInstanceState(outState);
 	}
 
@@ -602,24 +615,25 @@ public class MainActivity extends Activity implements OnClickListener {
 		String mainstate = savedInstanceState.getString("mainstate");
 		String dialogstate = savedInstanceState.getString("dialogstate");
 		String lastM = savedInstanceState.getString("lastM");
-		String lastD = savedInstanceState.getString("lastD");
 		String filename = savedInstanceState.getString("filename");
 		String uriString = savedInstanceState.getString("uri");
-		String dirS = savedInstanceState.getString("dir");
 		Uri uri = null;
 		if (uriString != null) {
 			uri = Uri.parse(uriString);
 		}
-		dir = null;
-		if (dirS != null)
-			dir = new File(dirS);
+		String dirString = savedInstanceState.getString("dir");
+		if (dirString != null)
+			dir = new File(dirString);
+		String fileString = savedInstanceState.getString("file");
+		if (fileString != null)
+			file = new File(fileString);
 
-		statecontroller = new StateController(MainState.valueOf(mainstate), DialogState.valueOf(dialogstate), MainState.valueOf(lastM), DialogState.valueOf(lastD));
+		statecontroller = new StateController(MainState.valueOf(mainstate), DialogState.valueOf(dialogstate), MainState.valueOf(lastM));
 
 		camera.setFilename(filename);
 		camera.setUri(uri);
 
-		Log.d("onRestore", "mainstate '" + mainstate + "', dialogstate '" + dialogstate + "', lastM '" + lastM + "', lastD '" + lastD + "', filename '" + filename + "', uri '" + uriString + "', dir '" + dirS + "' loaded");
+		Log.d("onRestore", "mainstate '" + mainstate + "', dialogstate '" + dialogstate + "', lastM '" + lastM + "', filename '" + filename + "', uri '" + uriString + "', dir '" + dirString + "', file '" + fileString + "' loaded");
 
 		currentPicture = savedInstanceState.getInt("currentPicture");
 		Bitmap bmp = BitmapFactory.decodeFile(pictures[currentPicture].getSource());
@@ -646,9 +660,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		else if (statecontroller.getDialogstate() == DialogState.DELETE)
 			deleteDialog(pictures[currentPicture].getSource(), pictures[currentPicture].getName());
 		else if (statecontroller.getDialogstate() == DialogState.NSHOT)
-			newShotDialog(null);
+			newShotDialog(file);
 		else if (statecontroller.getDialogstate() == DialogState.OPIC)
-			AddPicFromStorageDialog(dir, true);
+			addPicFromStorageDialog(dir);
 
 		super.onRestoreInstanceState(savedInstanceState);
 	}

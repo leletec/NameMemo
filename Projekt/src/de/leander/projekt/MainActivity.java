@@ -544,7 +544,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		try {
 			statecontroller.showAddPicFSDialog();
 		} catch (Exception e) {
-			Log.e("stateError", e.toString());
+			Log.e("StateController", e.toString());
 			e.printStackTrace();
 		}
 		dir = Dir;
@@ -554,12 +554,12 @@ public class MainActivity extends Activity implements OnClickListener {
 		if (dir.exists()) {
 			files = dir.listFiles();
 		}
-		ListView listview = new ListView(this);
 		ArrayList<File> filelist = new ArrayList<File>();
 		filelist.add(new File(".."));
 		for (File file : files)
 			filelist.add(file);
 		FileListAdapter adapter = new FileListAdapter(this, filelist);
+		ListView listview = new ListView(this);
 		listview.setAdapter(adapter);
 
 		builder.setView(listview);
@@ -630,9 +630,7 @@ public class MainActivity extends Activity implements OnClickListener {
 						public void onDismiss(DialogInterface dialog) {
 							try {
 								statecontroller.dismissAddPicFSDialog();
-								newShotDialog(file); // TODO Way to see your
-														// pictures before
-														// you add them
+								previewDialog(file);
 							} catch (Exception e) {
 								Log.e("StateController", e.toString());
 								e.printStackTrace();
@@ -643,6 +641,73 @@ public class MainActivity extends Activity implements OnClickListener {
 				} else
 					Toast.makeText(context, "Unsupported file ending!",
 							Toast.LENGTH_SHORT).show();
+			}
+		});
+		dialog.setOnDismissListener(new OnDismissListener() {
+			@Override
+			public void onDismiss(DialogInterface dialog) {
+				if (statecontroller.getDialogstate() == DialogState.OPIC)
+					try {
+						statecontroller.dismissAddPicFSDialog();
+					} catch (Exception e) {
+						Log.e("StateController", e.toString());
+						e.printStackTrace();
+					}
+			}
+		});
+		dialog.show();
+	}
+
+	public void previewDialog(File File) {
+		file = File;
+		try {
+			statecontroller.showPreviewDialog();
+		} catch (Exception e) {
+			Log.e("StateController", e.toString());
+			e.printStackTrace();
+		}
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		Bitmap bmp = BitmapFactory.decodeFile(file.getAbsolutePath());
+		ImageView iv = new ImageView(this);
+		iv.setImageBitmap(bmp);
+		builder.setView(iv);
+		builder.setPositiveButton(R.string.dialogOk,
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						try {
+							statecontroller.dismissPreviewDialog();
+						} catch (Exception e) {
+							Log.e("StateController", e.toString());
+							e.printStackTrace();
+						}
+						newShotDialog(file);
+					}
+				});
+		builder.setNegativeButton(R.string.dialogBack,
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						try {
+							statecontroller.dismissPreviewDialog();
+						} catch (Exception e) {
+							Log.e("StateController", e.toString());
+							e.printStackTrace();
+						}
+						AddPicFromStorageDialog(dir);
+					}
+				});
+		AlertDialog dialog = builder.create();
+		dialog.setOnDismissListener(new OnDismissListener() {
+			@Override
+			public void onDismiss(DialogInterface dialog) {
+				if (statecontroller.getDialogstate() == DialogState.PREVIEW)
+					try {
+						statecontroller.dismissPreviewDialog();;
+					} catch (Exception e) {
+						Log.e("StateController", e.toString());
+						e.printStackTrace();
+					}
 			}
 		});
 		dialog.show();
@@ -734,6 +799,8 @@ public class MainActivity extends Activity implements OnClickListener {
 			newShotDialog(file);
 		else if (statecontroller.getDialogstate() == DialogState.OPIC)
 			addPicFromStorageDialog(dir);
+		else if (statecontroller.getDialogstate() == DialogState.PREVIEW)
+			previewDialog(file);
 
 		super.onRestoreInstanceState(savedInstanceState);
 	}

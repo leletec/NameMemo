@@ -158,4 +158,22 @@ public class StateController {
 		dialogstate = DialogState.NONE;
 		Log.d("StateController", "changed dialogstate to '" + dialogstate + "'");
 	}
+	
+	public void showPreviewDialog() throws Exception {
+		if (mainstate != MainState.SHOWSNAME && mainstate != MainState.SHOWSPICTURE)
+			throw new Exception("Wrong mainstate: " + mainstate.toString());
+		if (dialogstate != DialogState.NONE)
+			throw new Exception("Wrong dialogstate: " + dialogstate.toString());
+		dialogstate = DialogState.PREVIEW;
+		Log.d("StateController", "changed dialogstate to '" + dialogstate + "'");
+	}
+	
+	public void dismissPreviewDialog() throws Exception {
+		if (mainstate != MainState.SHOWSNAME && mainstate != MainState.SHOWSPICTURE)
+			throw new Exception("Wrong mainstate: " + mainstate.toString());
+		if (dialogstate != DialogState.PREVIEW)
+			throw new Exception("Wrong dialogstate: " + dialogstate.toString());
+		dialogstate = DialogState.NONE;
+		Log.d("StateController", "changed dialogstate to '" + dialogstate + "'");
+	}
 }

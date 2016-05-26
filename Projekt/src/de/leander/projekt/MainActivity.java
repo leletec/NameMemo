@@ -156,32 +156,45 @@ public class MainActivity extends Activity implements OnClickListener {
 			Log.e("error", "currentBild(" + currentPicture + ") ist null");
 		else {
 			switch (view.getId()) {
-				case R.id.bText:
-					text.setText(pictures[currentPicture].getName());
-					ja.setVisibility(View.VISIBLE);
-					nein.setVisibility(View.VISIBLE);
-					try {
-						statecontroller.showName();
-					}
-					catch (Exception e) {
-						Log.e("StateController", e.toString());
-						e.printStackTrace();
-					}
+			case R.id.bText:
+				text.setText(pictures[currentPicture].getName());
+				ja.setVisibility(View.VISIBLE);
+				nein.setVisibility(View.VISIBLE);
+				try {
+					statecontroller.showName();
+				} catch (Exception e) {
+					Log.e("StateController", e.toString());
+					e.printStackTrace();
+				}
 				break;
-				case R.id.bJa:
-					datasource.update(pictures[currentPicture].getSource(), pictures[currentPicture].getName(), pictures[currentPicture].getCalled() + 1, pictures[currentPicture].getGotright() + 1, pictures[currentPicture].getInarow() + 1);
-					updateArray();
-					Log.d("Picture", "name:" + pictures[currentPicture].getName() + " called:" + pictures[currentPicture].getCalled() + " gotright:" + pictures[currentPicture].getGotright() + "in a row:" + pictures[currentPicture].getInarow());
-					if (pictures[currentPicture].getInarow() >= 3)
-						deleteDialog(pictures[currentPicture].getSource(), pictures[currentPicture].getName());
-					else
-						changeSource();
-				break;
-				case R.id.bNein:
-					datasource.update(pictures[currentPicture].getSource(), pictures[currentPicture].getName(), pictures[currentPicture].getCalled() + 1, pictures[currentPicture].getGotright(), 0);
-					updateArray();
-					Log.d("Picture", "name:" + pictures[currentPicture].getName() + " called:" + pictures[currentPicture].getCalled() + " gotright:" + pictures[currentPicture].getGotright() + "in a row:" + pictures[currentPicture].getInarow());
+			case R.id.bJa:
+				datasource.update(pictures[currentPicture].getSource(),
+						pictures[currentPicture].getName(),
+						pictures[currentPicture].getCalled() + 1,
+						pictures[currentPicture].getGotright() + 1,
+						pictures[currentPicture].getInarow() + 1);
+				updateArray();
+				Log.d("Picture", "name:" + pictures[currentPicture].getName()
+						+ " called:" + pictures[currentPicture].getCalled()
+						+ " gotright:" + pictures[currentPicture].getGotright()
+						+ "in a row:" + pictures[currentPicture].getInarow());
+				if (pictures[currentPicture].getInarow() >= 3)
+					deleteDialog(pictures[currentPicture].getSource(),
+							pictures[currentPicture].getName());
+				else
 					changeSource();
+				break;
+			case R.id.bNein:
+				datasource.update(pictures[currentPicture].getSource(),
+						pictures[currentPicture].getName(),
+						pictures[currentPicture].getCalled() + 1,
+						pictures[currentPicture].getGotright(), 0);
+				updateArray();
+				Log.d("Picture", "name:" + pictures[currentPicture].getName()
+						+ " called:" + pictures[currentPicture].getCalled()
+						+ " gotright:" + pictures[currentPicture].getGotright()
+						+ "in a row:" + pictures[currentPicture].getInarow());
+				changeSource();
 				break;
 			}
 		}
@@ -195,7 +208,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	private void changeSource() {
 		String source;
-		if (currentPicture + 1 < pictures.length && pictures[currentPicture + 1] != null)
+		if (currentPicture + 1 < pictures.length
+				&& pictures[currentPicture + 1] != null)
 			currentPicture += 1;
 		else
 			currentPicture = 0;
@@ -226,8 +240,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		if (statecontroller.getMainstate() != MainState.SHOWSPICTURE)
 			try {
 				statecontroller.showPicture();
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				Log.e("StateController", e.toString());
 				e.printStackTrace();
 			}
@@ -245,22 +258,32 @@ public class MainActivity extends Activity implements OnClickListener {
 		// case R.id.importDrawable:
 		// copyFiles();
 		// break;
-			case R.id.addDatabase:
-				datasource.add(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + "MyCameraApp", "hund.jpg").getAbsolutePath(), "Hund");
-				datasource.add(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + "MyCameraApp", "hase.jpg").getAbsolutePath(), "Hase");
-				updateArray();
+		case R.id.addDatabase:
+			datasource
+					.add(new File(
+							Environment
+									.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+									+ File.separator + "MyCameraApp",
+							"hund.jpg").getAbsolutePath(), "Hund");
+			datasource
+					.add(new File(
+							Environment
+									.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+									+ File.separator + "MyCameraApp",
+							"hase.jpg").getAbsolutePath(), "Hase");
+			updateArray();
 			break;
-			case R.id.captureImage:
-				cameraIntent();
+		case R.id.captureImage:
+			cameraIntent();
 			break;
-			case R.id.infoDialog:
-				infoDialog();
+		case R.id.infoDialog:
+			infoDialog();
 			break;
-			case R.id.cleanProject:
-				cleanProject();
+		case R.id.cleanProject:
+			cleanProject();
 			break;
-			case R.id.addNewPic:
-				addPicFromStorageDialog(null);
+		case R.id.addNewPic:
+			addPicFromStorageDialog(null);
 			break;
 		}
 		return super.onOptionsItemSelected(item);
@@ -272,7 +295,12 @@ public class MainActivity extends Activity implements OnClickListener {
 			oldSource = pictures[currentPicture].getSource();
 		pictures = datasource.getAllBilder().toArray(new Pictures[0]);
 		if (pictures.length == 0) {
-			datasource.add(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + "MyCameraApp", "katze.png").getAbsolutePath(), "Katze");
+			datasource
+					.add(new File(
+							Environment
+									.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+									+ File.separator + "MyCameraApp",
+							"katze.png").getAbsolutePath(), "Katze");
 			updateArray();
 			return;
 		}
@@ -287,20 +315,20 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void deleteDialog(final String source, String name) {
 		try {
 			statecontroller.showDeleteDialog();
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			Log.e("StateController", e.toString());
 			e.printStackTrace();
 		}
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.deleteDialogTitle);
 		builder.setMessage("Soll der Eintrag '" + name + "' gelöscht werden?");
-		builder.setPositiveButton(R.string.dialogPositive, new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				datasource.delete(source);
-			}
-		});
+		builder.setPositiveButton(R.string.dialogPositive,
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						datasource.delete(source);
+					}
+				});
 		builder.setNegativeButton(R.string.dialogNegative, null);
 		AlertDialog dialog = builder.create();
 		dialog.show();
@@ -309,12 +337,10 @@ public class MainActivity extends Activity implements OnClickListener {
 			public void onDismiss(DialogInterface dialog) {
 				try {
 					statecontroller.dismissDeleteDialog();
-				}
-				catch (Exception e) {
+				} catch (Exception e) {
 					Log.e("StateController", e.toString());
 					e.printStackTrace();
-				}
-				finally {
+				} finally {
 					changeSource();
 				}
 			}
@@ -324,8 +350,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void infoDialog() {
 		try {
 			statecontroller.showInfoDialog();
-		}
-		catch (Exception e1) {
+		} catch (Exception e1) {
 			Log.e("StateController", e1.toString());
 			e1.printStackTrace();
 		}
@@ -339,8 +364,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			public void onDismiss(DialogInterface dialog) {
 				try {
 					statecontroller.dismissInfoDialog();
-				}
-				catch (Exception e) {
+				} catch (Exception e) {
 					Log.e("StateController", e.toString());
 					e.printStackTrace();
 				}
@@ -351,20 +375,22 @@ public class MainActivity extends Activity implements OnClickListener {
 	public void missingFileDialog(final String source, String name) {
 		try {
 			statecontroller.showMFileDialog();
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			Log.e("StateController", e.toString());
 			e.printStackTrace();
 		}
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.mfileDialogTitle);
-		builder.setMessage("Die Datei " + name + " konnte nicht gefunden werden.\nVielleicht wurde sie gelöscht oder verschoben.\nWollen sie den Verweis darauf löschen?");
-		builder.setPositiveButton(R.string.dialogPositive, new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				datasource.delete(source);
-			}
-		});
+		builder.setMessage("Die Datei "
+				+ name
+				+ " konnte nicht gefunden werden.\nVielleicht wurde sie gelöscht oder verschoben.\nWollen sie den Verweis darauf löschen?");
+		builder.setPositiveButton(R.string.dialogPositive,
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						datasource.delete(source);
+					}
+				});
 		builder.setNegativeButton(R.string.dialogNegative, null);
 		AlertDialog dialog = builder.create();
 		dialog.show();
@@ -373,12 +399,10 @@ public class MainActivity extends Activity implements OnClickListener {
 			public void onDismiss(DialogInterface dialog) {
 				try {
 					statecontroller.dismissMFileDialog();
-				}
-				catch (Exception e) {
+				} catch (Exception e) {
 					Log.e("StateController", e.toString());
 					e.printStackTrace();
-				}
-				finally {
+				} finally {
 					changeSource();
 				}
 			}
@@ -390,8 +414,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		file = File;
 		try {
 			statecontroller.showNShotDialog();
-		}
-		catch (Exception e1) {
+		} catch (Exception e1) {
 			Log.e("StateController", e1.toString());
 			e1.printStackTrace();
 		}
@@ -402,20 +425,25 @@ public class MainActivity extends Activity implements OnClickListener {
 			builder.setMessage(R.string.nPicDialogMessage);
 		} else {
 			builder.setTitle(R.string.nPicDialogTitle2);
-			builder.setMessage("Geben Sie einen Namen ein, der der Datei '" + f.getName() + "' zugeordnet werden soll!");
+			builder.setMessage("Geben Sie einen Namen ein, der der Datei '"
+					+ f.getName() + "' zugeordnet werden soll!");
 		}
 		builder.setView(getLayoutInflater().inflate(R.layout.npicdialog, null));
-		builder.setPositiveButton(R.string.dialogOk, new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				EditText name = (EditText) ((AlertDialog) dialog).findViewById(R.id.ETname);
-				if (f == null)
-					datasource.add(camera.getUri().getPath(), name.getText().toString());
-				else
-					datasource.add(f.getAbsolutePath(), name.getText().toString());
-				updateArray();
-			}
-		});
+		builder.setPositiveButton(R.string.dialogOk,
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						EditText name = (EditText) ((AlertDialog) dialog)
+								.findViewById(R.id.ETname);
+						if (f == null)
+							datasource.add(camera.getUri().getPath(), name
+									.getText().toString());
+						else
+							datasource.add(f.getAbsolutePath(), name.getText()
+									.toString());
+						updateArray();
+					}
+				});
 		AlertDialog dialog = builder.create();
 		dialog.show();
 		dialog.setOnDismissListener(new OnDismissListener() {
@@ -423,12 +451,10 @@ public class MainActivity extends Activity implements OnClickListener {
 			public void onDismiss(DialogInterface dialog) {
 				try {
 					statecontroller.dismissNShotDialog();
-				}
-				catch (Exception e) {
+				} catch (Exception e) {
 					Log.e("StateController", e.toString());
 					e.printStackTrace();
-				}
-				finally {
+				} finally {
 					changeSource();
 				}
 			}
@@ -438,7 +464,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	/* Checks if external storage is available to at least read */
 	public boolean isExternalStorageReadable() {
 		String state = Environment.getExternalStorageState();
-		if (Environment.MEDIA_MOUNTED.equals(state) || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+		if (Environment.MEDIA_MOUNTED.equals(state)
+				|| Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
 			return true;
 		}
 		return false;
@@ -451,19 +478,19 @@ public class MainActivity extends Activity implements OnClickListener {
 		// application
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-		if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-			Toast.makeText(this, "'ExternalStorage' can not be written", Toast.LENGTH_SHORT).show();
+		if (!Environment.getExternalStorageState().equals(
+				Environment.MEDIA_MOUNTED)) {
+			Toast.makeText(this, "'ExternalStorage' can not be written",
+					Toast.LENGTH_SHORT).show();
 			return;
 		}
 		Uri fileUri = camera.getOutputMediaFile(); // create a file to
 		// save the image
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file
 															// name
-
 		try {
 			statecontroller.showCameraIntent();
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			Log.e("StateController", e.toString());
 			e.printStackTrace();
 		}
@@ -476,18 +503,20 @@ public class MainActivity extends Activity implements OnClickListener {
 		if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
 			if (resultCode == RESULT_OK) {
 				Uri uri = camera.fixFileOrientation();
-				Toast.makeText(this, "Image saved to:\n" + uri, Toast.LENGTH_LONG).show();
+				Toast.makeText(this, "Image saved to:\n" + uri,
+						Toast.LENGTH_LONG).show();
 				image.setImageURI(uri);
 				newShotDialog(null);
 			} else {
 				if (resultCode == RESULT_CANCELED)
-					Toast.makeText(this, "Capturing image canceled", Toast.LENGTH_SHORT).show();
+					Toast.makeText(this, "Capturing image canceled",
+							Toast.LENGTH_SHORT).show();
 				else
-					Toast.makeText(this, "Capturing image failed", Toast.LENGTH_SHORT).show();
+					Toast.makeText(this, "Capturing image failed",
+							Toast.LENGTH_SHORT).show();
 				try {
 					statecontroller.dismissCameraIntent();
-				}
-				catch (Exception e) {
+				} catch (Exception e) {
 					Log.e("StateController", e.toString());
 					e.printStackTrace();
 				}
@@ -495,52 +524,32 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 	}
 
-	private boolean dismiss = false;
-
 	public void addPicFromStorageDialog(File Dir) {
 		dir = Dir;
 		if (isExternalStorageReadable()) {
-			try {
-				statecontroller.showAddPicFSDialog();
-			}
-			catch (Exception e) {
-				Log.e("stateError", e.toString());
-				e.printStackTrace();
-			}
-
 			if (dir == null)
-				AddPicFromStorageDialog(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "MyCameraApp"));
+				AddPicFromStorageDialog(new File(
+						Environment
+								.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+						"MyCameraApp"));
 			else
 				AddPicFromStorageDialog(dir);
-
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					do {
-						if (dismiss) {
-							try {
-								statecontroller.dismissAddPicFSDialog();
-							}
-							catch (Exception e) {
-								Log.e("StateController", e.toString());
-								e.printStackTrace();
-							}
-						}
-					} while (!dismiss);
-				}
-			}).start();
-			
-
 		} else
-			Toast.makeText(this, "'ExternalStorage' can not be read", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "'ExternalStorage' can not be read",
+					Toast.LENGTH_SHORT).show();
 	}
 
 	@SuppressLint("InflateParams")
 	private void AddPicFromStorageDialog(File Dir) {
+		try {
+			statecontroller.showAddPicFSDialog();
+		} catch (Exception e) {
+			Log.e("stateError", e.toString());
+			e.printStackTrace();
+		}
 		dir = Dir;
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.addNewPic);
-
 		File[] files = new File[0];
 		if (dir.exists()) {
 			files = dir.listFiles();
@@ -555,38 +564,85 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		builder.setView(listview);
 		Log.d("path", dir.getAbsolutePath());
-		builder.setNegativeButton(R.string.dialogCancel, null);
+		builder.setNegativeButton(R.string.dialogCancel,
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						try {
+							statecontroller.dismissAddPicFSDialog();
+						} catch (Exception e) {
+							Log.e("StateController", e.toString());
+							e.printStackTrace();
+						}
+					}
+				});
 		final AlertDialog dialog = builder.create();
-
-		dialog.setOnDismissListener(new OnDismissListener() {
-			@Override
-			public void onDismiss(DialogInterface dialog) {}
-		});
 
 		final Context context = this;
 		listview.setOnItemClickListener(new OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				File file = ((File) parent.getItemAtPosition(position));
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				final File file = ((File) parent.getItemAtPosition(position));
 				String fname = file.getName();
 				if (fname.equals("..")) {
 					if (new File(dir.getParent()).canRead()) {
+						dialog.setOnDismissListener(new OnDismissListener() {
+							@Override
+							public void onDismiss(DialogInterface dialog) {
+								try {
+									statecontroller.dismissAddPicFSDialog();
+									AddPicFromStorageDialog(new File(dir
+											.getParent()));
+								} catch (Exception e) {
+									Log.e("StateController", e.toString());
+									e.printStackTrace();
+								}
+							}
+						});
 						dialog.dismiss();
-						AddPicFromStorageDialog(new File(dir.getParent()));
 					} else
-						Toast.makeText(context, "Can't read parent folder!", Toast.LENGTH_SHORT).show();
+						Toast.makeText(context, "Can't read parent folder!",
+								Toast.LENGTH_SHORT).show();
 				} else if (file.isDirectory()) {
 					if (file.canRead()) {
+						dialog.setOnDismissListener(new OnDismissListener() {
+							@Override
+							public void onDismiss(DialogInterface dialog) {
+								try {
+									statecontroller.dismissAddPicFSDialog();
+									AddPicFromStorageDialog(file);
+								} catch (Exception e) {
+									Log.e("StateController", e.toString());
+									e.printStackTrace();
+								}
+							}
+						});
 						dialog.dismiss();
-						AddPicFromStorageDialog(file);
 					} else
-						Toast.makeText(context, "Can't read folder '" + file.getName() + "'!", Toast.LENGTH_SHORT).show();
-				} else if (fname.endsWith(".jpg") || fname.endsWith(".png") || fname.endsWith(".JPG") || fname.endsWith(".PNG")) {
-					dismiss = true;
+						Toast.makeText(context,
+								"Can't read folder '" + file.getName() + "'!",
+								Toast.LENGTH_SHORT).show();
+				} else if (fname.endsWith(".jpg") || fname.endsWith(".png")
+						|| fname.endsWith(".JPG") || fname.endsWith(".PNG")) {
+					dialog.setOnDismissListener(new OnDismissListener() {
+						@Override
+						public void onDismiss(DialogInterface dialog) {
+							try {
+								statecontroller.dismissAddPicFSDialog();
+								newShotDialog(file); // TODO Way to see your
+														// pictures before
+														// you add them
+							} catch (Exception e) {
+								Log.e("StateController", e.toString());
+								e.printStackTrace();
+							}
+						}
+					});
 					dialog.dismiss();
-					newShotDialog(file); // TODO Way to see your pictures before you add them
 				} else
-					Toast.makeText(context, "Unsupported file ending!", Toast.LENGTH_SHORT).show();;
+					Toast.makeText(context, "Unsupported file ending!",
+							Toast.LENGTH_SHORT).show();
 			}
 		});
 		dialog.show();
@@ -594,8 +650,10 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-		outState.putString("mainstate", statecontroller.getMainstate().toString());
-		outState.putString("dialogstate", statecontroller.getDialogstate().toString());
+		outState.putString("mainstate", statecontroller.getMainstate()
+				.toString());
+		outState.putString("dialogstate", statecontroller.getDialogstate()
+				.toString());
 		outState.putString("lastM", statecontroller.getLastM().toString());
 		outState.putInt("currentPicture", currentPicture);
 		if (camera.getFilename() != null)
@@ -606,7 +664,11 @@ public class MainActivity extends Activity implements OnClickListener {
 			outState.putString("dir", dir.getAbsolutePath());
 		if (file != null)
 			outState.putString("file", file.getAbsolutePath());
-		Log.d("onSave", "mainstate '" + statecontroller.getMainstate() + "', dialogstate '" + statecontroller.getDialogstate() + "', lastM '" + statecontroller.getLastM() + "', currentPicture '" + currentPicture + "', filename, uri, dir, file saved");
+		Log.d("onSave", "mainstate '" + statecontroller.getMainstate()
+				+ "', dialogstate '" + statecontroller.getDialogstate()
+				+ "', lastM '" + statecontroller.getLastM()
+				+ "', currentPicture '" + currentPicture
+				+ "', filename, uri, dir, file saved");
 		super.onSaveInstanceState(outState);
 	}
 
@@ -628,24 +690,32 @@ public class MainActivity extends Activity implements OnClickListener {
 		if (fileString != null)
 			file = new File(fileString);
 
-		statecontroller = new StateController(MainState.valueOf(mainstate), DialogState.valueOf(dialogstate), MainState.valueOf(lastM));
+		statecontroller = new StateController(MainState.valueOf(mainstate),
+				DialogState.valueOf(dialogstate), MainState.valueOf(lastM));
 
 		camera.setFilename(filename);
 		camera.setUri(uri);
 
-		Log.d("onRestore", "mainstate '" + mainstate + "', dialogstate '" + dialogstate + "', lastM '" + lastM + "', filename '" + filename + "', uri '" + uriString + "', dir '" + dirString + "', file '" + fileString + "' loaded");
+		Log.d("onRestore", "mainstate '" + mainstate + "', dialogstate '"
+				+ dialogstate + "', lastM '" + lastM + "', filename '"
+				+ filename + "', uri '" + uriString + "', dir '" + dirString
+				+ "', file '" + fileString + "' loaded");
 
 		currentPicture = savedInstanceState.getInt("currentPicture");
-		Bitmap bmp = BitmapFactory.decodeFile(pictures[currentPicture].getSource());
+		Bitmap bmp = BitmapFactory.decodeFile(pictures[currentPicture]
+				.getSource());
 		if (bmp == null) {
-			missingFileDialog(pictures[currentPicture].getSource(), pictures[currentPicture].getName());
+			missingFileDialog(pictures[currentPicture].getSource(),
+					pictures[currentPicture].getName());
 			return;
 		} else
 			Log.d("changeSource", "Bitmap=" + bmp.toString());
 		image.setImageBitmap(bmp);
-		Log.d("onRestore", "source " + pictures[currentPicture].getSource() + " loaded");
+		Log.d("onRestore", "source " + pictures[currentPicture].getSource()
+				+ " loaded");
 
-		if (statecontroller.getMainstate() == MainState.SHOWSPICTURE || statecontroller.getMainstate() == MainState.CAMERAINTENT) {
+		if (statecontroller.getMainstate() == MainState.SHOWSPICTURE
+				|| statecontroller.getMainstate() == MainState.CAMERAINTENT) {
 			ja.setVisibility(View.INVISIBLE);
 			nein.setVisibility(View.INVISIBLE);
 			text.setText(R.string.name_anzeigen);
@@ -658,7 +728,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		if (statecontroller.getDialogstate() == DialogState.INFO)
 			infoDialog();
 		else if (statecontroller.getDialogstate() == DialogState.DELETE)
-			deleteDialog(pictures[currentPicture].getSource(), pictures[currentPicture].getName());
+			deleteDialog(pictures[currentPicture].getSource(),
+					pictures[currentPicture].getName());
 		else if (statecontroller.getDialogstate() == DialogState.NSHOT)
 			newShotDialog(file);
 		else if (statecontroller.getDialogstate() == DialogState.OPIC)

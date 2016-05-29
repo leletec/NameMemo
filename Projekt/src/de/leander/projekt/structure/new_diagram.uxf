@@ -106,7 +106,7 @@ bg=yellow</panel_attributes>
       <h>40</h>
     </coordinates>
     <panel_attributes>zeigt Appinfo
-bg=yellow</panel_attributes>
+bg=orange</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -129,7 +129,7 @@ bg=yellow</panel_attributes>
       <h>40</h>
     </coordinates>
     <panel_attributes>Foto Intent
-bg=blue</panel_attributes>
+bg=red</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -312,7 +312,7 @@ lt=&lt;-</panel_attributes>
       <h>40</h>
     </coordinates>
     <panel_attributes>zeigt oPic-Dialog
-bg=yellow</panel_attributes>
+bg=orange</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -501,6 +501,42 @@ bg=red</panel_attributes>
       <h>20</h>
     </coordinates>
     <panel_attributes>type=final</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>50</x>
+      <y>40</y>
+      <w>190</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>Dialog from optionsMenu
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>50</x>
+      <y>90</y>
+      <w>190</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>Dialog from somwhere else
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>50</x>
+      <y>140</y>
+      <w>190</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>Mainstates
+bg=red</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>

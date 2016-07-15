@@ -172,12 +172,14 @@ public class MainActivity extends Activity implements OnClickListener {
 						pictures[currentPicture].getName(),
 						pictures[currentPicture].getCalled() + 1,
 						pictures[currentPicture].getGotright() + 1,
-						pictures[currentPicture].getInarow() + 1);
+						pictures[currentPicture].getInarow() + 1,
+						pictures[currentPicture].getImagingcode());
 				updateArray();
 				Log.d("Picture", "name:" + pictures[currentPicture].getName()
 						+ " called:" + pictures[currentPicture].getCalled()
 						+ " gotright:" + pictures[currentPicture].getGotright()
-						+ "in a row:" + pictures[currentPicture].getInarow());
+						+ "in a row:" + pictures[currentPicture].getInarow()
+						+ "imagingcode:" + pictures[currentPicture].getImagingcode());
 				if (pictures[currentPicture].getInarow() >= 3)
 					deleteDialog(pictures[currentPicture].getSource(),
 							pictures[currentPicture].getName());
@@ -188,12 +190,14 @@ public class MainActivity extends Activity implements OnClickListener {
 				datasource.update(pictures[currentPicture].getSource(),
 						pictures[currentPicture].getName(),
 						pictures[currentPicture].getCalled() + 1,
-						pictures[currentPicture].getGotright(), 0);
+						pictures[currentPicture].getGotright(), 0,
+						pictures[currentPicture].getImagingcode());
 				updateArray();
 				Log.d("Picture", "name:" + pictures[currentPicture].getName()
 						+ " called:" + pictures[currentPicture].getCalled()
 						+ " gotright:" + pictures[currentPicture].getGotright()
-						+ "in a row:" + pictures[currentPicture].getInarow());
+						+ "in a row:" + pictures[currentPicture].getInarow()
+						+ "imagingcode:" + pictures[currentPicture].getImagingcode());
 				changeSource();
 				break;
 			}
@@ -264,13 +268,13 @@ public class MainActivity extends Activity implements OnClickListener {
 							Environment
 									.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
 									+ File.separator + "MyCameraApp",
-							"hund.jpg").getAbsolutePath(), "Hund");
+							"hund.jpg").getAbsolutePath(), "Hund", Pictures.Imported); //XXX
 			datasource
 					.add(new File(
 							Environment
 									.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
 									+ File.separator + "MyCameraApp",
-							"hase.jpg").getAbsolutePath(), "Hase");
+							"hase.jpg").getAbsolutePath(), "Hase", Pictures.Imported); //XXX
 			updateArray();
 			break;
 		case R.id.captureImage:
@@ -300,7 +304,7 @@ public class MainActivity extends Activity implements OnClickListener {
 							Environment
 									.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
 									+ File.separator + "MyCameraApp",
-							"katze.png").getAbsolutePath(), "Katze");
+							"katze.png").getAbsolutePath(), "Katze", Pictures.Imported); //XXX
 			updateArray();
 			return;
 		}
@@ -437,10 +441,10 @@ public class MainActivity extends Activity implements OnClickListener {
 								.findViewById(R.id.ETname);
 						if (f == null)
 							datasource.add(camera.getUri().getPath(), name
-									.getText().toString());
+									.getText().toString(), Pictures.Camera);
 						else
 							datasource.add(f.getAbsolutePath(), name.getText()
-									.toString());
+									.toString(), Pictures.Phone);
 						updateArray();
 					}
 				});

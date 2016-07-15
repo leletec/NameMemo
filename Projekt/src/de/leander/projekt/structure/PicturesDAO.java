@@ -27,24 +27,26 @@ public class PicturesDAO {
 		dbHelper.close();
 	}
 
-	public void add(String source, String name) {
+	public void add(String source, String name, int imagingmode) {
 		ContentValues values = new ContentValues();
 		values.put("source", source);
 		values.put("name", name);
 		values.put("called", 0);
 		values.put("gotright", 0);
 		values.put("inarow", 0);
+		values.put("imagingmode", imagingmode);
 		database.insert(TablePictures.NAME, null, values);
 	}
 
 	public void update(String source, String name, int called, int gotright,
-			int inarow) {
+			int inarow, int imagingmode) {
 		ContentValues values = new ContentValues();
 		values.put("source", source);
 		values.put("name", name);
 		values.put("called", called);
 		values.put("gotright", gotright);
 		values.put("inarow", inarow);
+		values.put("imagingmode", imagingmode);
 		database.update(TablePictures.NAME, values, "source = ?",
 				new String[] { source });
 	}

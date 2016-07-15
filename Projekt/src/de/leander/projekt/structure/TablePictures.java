@@ -12,7 +12,8 @@ public class TablePictures{
 			+ "name TEXT NOT NULL, "
 			+ "called INT NOT NULL, "
 			+ "gotright INT DEFAULT 0, "
-			+ "inarow INT DEFAULT 0);";
+			+ "inarow INT DEFAULT 0, "
+			+ "imagingmode INT NOT NULL);";
 
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(CREATESTATEMENT);

@@ -6,13 +6,18 @@ public class Pictures {
 	private int called;
 	private int gotright;
 	private int inarow;
+	private int imagingmode;
+	public final static int Imported = 10;
+	public final static int Camera = 20;
+	public final static int Phone = 30;
 
-	public Pictures(String source, String name, int called, int gotright, int inarow) {
+	public Pictures(String source, String name, int called, int gotright, int inarow, int imagingmode) {
 		this.source = source;
 		this.name = name;
 		this.called = called;
 		this.gotright = gotright;
 		this.inarow = inarow;
+		this.imagingmode = imagingmode;
 	}
 
 	public Pictures() {
@@ -37,6 +42,10 @@ public class Pictures {
 	public int getInarow() {
 		return inarow;
 	}
+	
+	public int getImagingcode() {
+		return imagingmode;
+	}
 
 	public void setSource(String source) {
 		this.source = source;
@@ -56,5 +65,9 @@ public class Pictures {
 
 	public void setInarow(int inarow) {
 		this.inarow = inarow;
+	}
+	
+	public void setImagingcode(int imagingcode) {
+		this.imagingmode = imagingcode;
 	}
 }

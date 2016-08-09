@@ -29,5 +29,8 @@
     <string name="nPicDialogMessage">Geben Sie den Namen ein der diesem Bild zugeordnet werden soll!</string>
     <string name="cleanProject">Verbrannte Erde</string>
     <string name="addNewPic">Neues Bild aus Datei hinzufügen</string>
+    <string name="queryPairedBtTitle">Gekoppelte Geräte:</string>
+    <string name="notInList">Das gesuchte Gerät ist nicht in der Liste</string>
+    <string name="discoveryBtTitle">Gefundene Geräte:</string>
     
 </resources>

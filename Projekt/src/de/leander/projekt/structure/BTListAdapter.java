@@ -1,19 +1,18 @@
 package de.leander.projekt.structure;
 
-import java.io.File;
 import java.util.ArrayList;
 
+import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-public class FileListAdapter extends BaseAdapter {
-
-	private ArrayList<File> filelist;
+public class BTListAdapter extends BaseAdapter{
+	private ArrayList<BluetoothDevice> filelist;
 	private Context context;
 
-	public FileListAdapter(Context context, ArrayList<File> filelist) {
+	public BTListAdapter(Context context, ArrayList<BluetoothDevice> filelist) {
 		this.context = context;
 		this.filelist = filelist;
 	}
@@ -35,11 +34,11 @@ public class FileListAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		FileView view;
+		BTView view;
 		if (convertView == null) {
-			view = new FileView(context);
+			view = new BTView(context);
 		} else {
-			view = (FileView) convertView;
+			view = (BTView) convertView;
 		}
 
 		view.configure(filelist.get(position));

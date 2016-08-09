@@ -26,5 +26,9 @@
         android:id="@+id/cleanProject"
         android:title="@string/cleanProject"
         android:showAsAction="collapseActionView" />
+    <item
+        android:id="@+id/BTTest"
+        android:title="Bluetooth Test"
+        android:showAsAction="collapseActionView" />
         
 </menu>

@@ -44,4 +44,8 @@ public class BTListAdapter extends BaseAdapter{
 		view.configure(filelist.get(position));
 		return view;
 	}
+	
+	public void add(BluetoothDevice device) {
+		filelist.add(device);
+	}
 }

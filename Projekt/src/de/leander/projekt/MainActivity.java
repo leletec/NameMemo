@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import bluetooth.BluetoothActivity;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -67,10 +68,6 @@ public class MainActivity extends Activity implements OnClickListener {
 	private Camera camera;
 	private File dir;
 	private File file;
-	private BluetoothAdapter btAd;
-	private IntentFilter filter;
-	private ArrayList<BluetoothDevice> btDevices;
-	private DiscoveringStatus dcStatus;
 
 	@Override
 	// protected void onCreate(Bundle savedInstanceState) {
@@ -115,17 +112,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		nein.setOnClickListener(this);
 		statecontroller = new StateController();
 		camera = new Camera();
-		btAd = BluetoothAdapter.getDefaultAdapter();
-		filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
 		
 		updateArray();
 		currentPicture = 0;
-		// Register the BroadcastReceiver
-		registerReceiver(mReceiver, filter);
-		
-		dcStatus = new DiscoveringStatus();
-		DcListener listener = new DcListener();
-		dcStatus.addPropertyChangeListener(listener);
 	}
 
 	// private void copyFiles() {
@@ -554,15 +543,6 @@ public class MainActivity extends Activity implements OnClickListener {
 					e.printStackTrace();
 				}
 			}
-			
-			
-		case REQUEST_ENABLE_BT:
-			if (resultCode == RESULT_OK) {
-				Toast.makeText(this, "Bluetooth enabled", Toast.LENGTH_SHORT).show();
-				btDialog("queryPaired");
-			} else {
-				Toast.makeText(this, "Bluetooth NOT enabled", Toast.LENGTH_SHORT).show();
-			}
 		}
 	}
 	
@@ -849,141 +829,13 @@ public class MainActivity extends Activity implements OnClickListener {
 	
 	/**
 	 * https://developer.android.com/guide/topics/connectivity/bluetooth.html
+	 * https://github.com/googlesamples/android-BluetoothChat
 	 */
-	private static final int REQUEST_ENABLE_BT = 200;
 	public void bluetooth() {
-		
-		if (btAd == null) {
-		    Toast.makeText(this, "Device does not support Bluetooth", Toast.LENGTH_LONG).show();
-		    return;
-		}
-		
-		if (btAd.isEnabled()) {
-			btDialog("queryPaired");
-		} else {
-			Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-			startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-		}
+		Intent intent = new Intent(this, BluetoothActivity.class);
+		//intent.putExtra(...);
+		startActivity(intent);
 	}
-	
-	// Create a BroadcastReceiver for ACTION_FOUND
-	private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
-	    
-		public void onReceive(Context context, Intent intent) {
-	        String action = intent.getAction();
-	        
-	        if (BluetoothDevice.ACTION_FOUND.equals(action)) { // When discovery finds a device
-	            // Get the BluetoothDevice object from the Intent
-	            BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-	            Log.i("BT", "Found new device " + device.getName());
-	            btDevices.add(device);
-	        }
-	        if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
-	        	Log.i("BT", "Discovery finished");
-	        	btDialog("discovering");
-	        }
-	    }
-	};
-	
-	public void btDialog(String mode) {
-		switch (mode) {
-		case "queryPaired":
-			//TODO
-			
-			AlertDialog.Builder builder0 = new AlertDialog.Builder(this);
-			builder0.setTitle(R.string.queryPairedBtTitle);
-			
-			ListView lv0 = new ListView(this);
-			btDevices = new ArrayList<BluetoothDevice>();
-			Set<BluetoothDevice> pairedDevices = btAd.getBondedDevices();
-			for (BluetoothDevice device : pairedDevices)
-				btDevices.add(device);
-			BTListAdapter adapter0 = new BTListAdapter(this, btDevices);
-			lv0.setAdapter(adapter0);
-			builder0.setView(lv0);
-			
-			builder0.setNeutralButton(R.string.notInList, new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					//XXX btDiscovery();
-				}
-			});
-			
-			lv0.setOnItemClickListener(new OnItemClickListener() {
-				@Override
-				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-					BluetoothDevice device = (BluetoothDevice) parent.getItemAtPosition(position);
-				}
-			});
-			
-			//TODO
-			builder0.create().show();
-			break;
-			
-		case "discovering":
-//			Log.i("BT", "Waiting for discovery to complete");
-			
-//			try {
-//				Thread.sleep(1000);
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			while (btDevices.size() < 1) {}
-//			Looper.prepare();
-			Log.i("BT", "Discovery complete");
-			if (btDevices.size() == 0) {
-//				Toast.makeText(this, "No devices found while discovering", Toast.LENGTH_SHORT).show();
-				Log.i("BT", "No devices found while discovering");
-				return;
-			}
-			//TODO
-			AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
-			builder1.setTitle(R.string.discoveryBtTitle);
-			
-			ListView lv1 = new ListView(this);
-			BTListAdapter adapter1 = new BTListAdapter(this, btDevices);
-			lv1.setAdapter(adapter1);
-			builder1.setView(lv1);
-			
-			//TODO
-			builder1.create().show();
-		}
-	}
-	
-	public class DiscoveringStatus {
-		protected PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
-		private boolean dcStatus = false;
-	
-		public void changeDcStatus(boolean dcStatus) {
-			boolean oldStatus = this.dcStatus;
-			this.dcStatus = dcStatus;
-			propertyChangeSupport.firePropertyChange("DiscoveringStatus", oldStatus, dcStatus);
-		}
-		
-		public void addPropertyChangeListener(PropertyChangeListener listener) {
-	        propertyChangeSupport.addPropertyChangeListener(listener);
-	    }
-		
-	}
-	
-	public class DcListener implements PropertyChangeListener {
-	    @Override
-	    public void propertyChange(PropertyChangeEvent event) {
-	        if (event.getPropertyName().equals("DiscoveringStatus")) {
-	            if (!(boolean) event.getNewValue())
-	            	btDialog("discovering");
-	        }
-	    }
-	}
-	
-	
-	
-	public void btDiscovery() {
-		btDevices = new ArrayList<BluetoothDevice>();
-		Toast.makeText(this, "Started discovering", Toast.LENGTH_SHORT).show();
-		btAd.startDiscovery();
-		dcStatus.changeDcStatus(true);
 				
 //		TimerTask tt = new TimerTask() {
 //			@Override
@@ -994,15 +846,5 @@ public class MainActivity extends Activity implements OnClickListener {
 //		};
 //		Timer t = new Timer();
 //		t.schedule(tt, 5000);
-		
-		new Thread() { public void run() { try { Thread.sleep(12000); }catch(InterruptedException e){} btAd.cancelDiscovery(); dcStatus.changeDcStatus(false);;}}.start();
-		
-//		btDialog("discovering");
-	}
 	
-	@Override
-	protected void onDestroy() {
-		unregisterReceiver(mReceiver);
-		super.onDestroy();
-	}
 }

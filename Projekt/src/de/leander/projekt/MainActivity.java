@@ -1,28 +1,17 @@
 package de.leander.projekt;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import java.io.EOFException;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Set;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import bluetooth.BluetoothActivity;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -30,7 +19,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Looper;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
@@ -44,7 +32,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
-import de.leander.projekt.structure.BTListAdapter;
 import de.leander.projekt.structure.Camera;
 import de.leander.projekt.structure.DialogState;
 import de.leander.projekt.structure.FileListAdapter;
@@ -52,6 +39,7 @@ import de.leander.projekt.structure.MainState;
 import de.leander.projekt.structure.Pictures;
 import de.leander.projekt.structure.PicturesDAO;
 import de.leander.projekt.structure.StateController;
+import de.leander.projekt.R;
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 public class MainActivity extends Activity implements OnClickListener {
@@ -830,6 +818,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	/**
 	 * https://developer.android.com/guide/topics/connectivity/bluetooth.html
 	 * https://github.com/googlesamples/android-BluetoothChat
+	 * http://stackoverflow.com/questions/24573755/android-bluetooth-socket-connect-fails
+	 * http://stackoverflow.com/questions/858980/file-to-byte-in-java
 	 */
 	public void bluetooth() {
 		Intent intent = new Intent(this, BluetoothActivity.class);

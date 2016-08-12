@@ -31,7 +31,7 @@ public class HandleThread extends Thread {
 	}
 	
 	public void run() {
-		Toast.makeText(context, "Connected to socket " + sock, Toast.LENGTH_LONG).show();
+//		Toast.makeText(context, "Connected to socket " + sock, Toast.LENGTH_LONG).show();
 		
 		byte[] buffer = new byte[1024];  // buffer store for the stream
 		int bytes; // bytes returned from read()

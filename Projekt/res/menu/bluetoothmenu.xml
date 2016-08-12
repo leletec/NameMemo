@@ -6,5 +6,8 @@
     <item
         android:id="@+id/discover"
         android:title="Nach Geräten suchen" />
+    <item
+        android:id="@+id/sendFile"
+        android:title="Datei senden" />
 
 </menu>

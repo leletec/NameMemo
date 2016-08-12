@@ -3,6 +3,7 @@ package de.leander.projekt;
 import java.io.File;
 import java.util.ArrayList;
 
+import nfc.NfcActivity;
 import bluetooth.BluetoothActivity;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -293,6 +294,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		case R.id.BTTest:
 			bluetooth();
 			break;
+		case R.id.NFCTest:
+			nfc();
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -814,13 +817,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		super.onRestoreInstanceState(savedInstanceState);
 	}
-	
-	/**
-	 * https://developer.android.com/guide/topics/connectivity/bluetooth.html
-	 * https://github.com/googlesamples/android-BluetoothChat
-	 * http://stackoverflow.com/questions/24573755/android-bluetooth-socket-connect-fails
-	 * http://stackoverflow.com/questions/858980/file-to-byte-in-java
-	 */
+
 	public void bluetooth() {
 		Intent intent = new Intent(this, BluetoothActivity.class);
 		//intent.putExtra(...);
@@ -836,5 +833,10 @@ public class MainActivity extends Activity implements OnClickListener {
 //		};
 //		Timer t = new Timer();
 //		t.schedule(tt, 5000);
+	
+	public void nfc() {
+		Intent intent = new Intent(this, NfcActivity.class);
+		startActivity(intent);
+	}
 	
 }

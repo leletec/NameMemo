@@ -30,5 +30,7 @@
         android:id="@+id/BTTest"
         android:title="Bluetooth Test"
         android:showAsAction="collapseActionView" />
-        
+    <item
+        android:id="@+id/NFCTest"
+        android:title="NFC Test" />
 </menu>

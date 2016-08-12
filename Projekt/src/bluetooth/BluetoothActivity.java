@@ -29,13 +29,19 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/*
+ * https://developer.android.com/guide/topics/connectivity/bluetooth.html
+ * https://github.com/googlesamples/android-BluetoothChat
+ * http://stackoverflow.com/questions/24573755/android-bluetooth-socket-connect-fails
+ * http://stackoverflow.com/questions/858980/file-to-byte-in-java
+ */
 public class BluetoothActivity extends Activity {
 	private static final int REQUEST_ENABLE_BT = 200;
 	private static final String name = "NameMemo";
 	private static final UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 	
 	private final Context context = this;
-	private BluetoothAdapter btAdapter;
+	private BluetoothAdapter adapter;
 	private ListView devLv;
 	private TextView devTv;
 	private ArrayList<BluetoothDevice> devList;
@@ -47,14 +53,14 @@ public class BluetoothActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_bluetooth);
 		
-		btAdapter = BluetoothAdapter.getDefaultAdapter();
+		adapter = BluetoothAdapter.getDefaultAdapter();
 		devLv = (ListView) findViewById(R.id.lvDevices);
 		devTv = (TextView) findViewById(R.id.tvDevices);
 		
 		// Register the BroadcastReceiver
 		registerReceiver(receiver, new IntentFilter(BluetoothDevice.ACTION_FOUND));
 		
-		if (btAdapter == null) {
+		if (adapter == null) {
 		    Toast.makeText(context, "Device does not support Bluetooth", Toast.LENGTH_LONG).show();
 		    finish();
 		}
@@ -65,7 +71,7 @@ public class BluetoothActivity extends Activity {
 	protected void onStart() {
 		super.onStart();
 		// Enable BT if it is not already enabled
-		if (btAdapter.isEnabled()) {
+		if (adapter.isEnabled()) {
 			setup();
 		} else {
 			Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
@@ -83,7 +89,7 @@ public class BluetoothActivity extends Activity {
 	 * Make this device discoverable.
 	 */
 	private void ensureDiscoverable() {
-		if (btAdapter.getScanMode() !=
+		if (adapter.getScanMode() !=
 				BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE) {
 			Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
 			discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
@@ -128,12 +134,12 @@ public class BluetoothActivity extends Activity {
 
 	public void setup() {
 		// Start a server
-		srv = new AcceptThread(btAdapter, name, uuid, context);
+		srv = new AcceptThread(adapter, name, uuid, context);
 		srv.start();
 		
 		// Show paired devices
 		devTv.setText("Gekoppelte Geräte:");
-		Set<BluetoothDevice> pairedDevices = btAdapter.getBondedDevices();
+		Set<BluetoothDevice> pairedDevices = adapter.getBondedDevices();
 		devList = new ArrayList<BluetoothDevice>();
 		
 		if (pairedDevices.size() > 0) {
@@ -150,7 +156,7 @@ public class BluetoothActivity extends Activity {
 				srv.cancel();
 				Toast.makeText(context, "Versuche Verbindung mit dem Gerät aufzubauen", Toast.LENGTH_SHORT).show();
 				BluetoothDevice device = (BluetoothDevice) parent.getItemAtPosition(position);
-				client = new ConnectThread(btAdapter, device, uuid, context);
+				client = new ConnectThread(adapter, device, uuid, context);
 				client.start();
 			}
 		});
@@ -158,7 +164,7 @@ public class BluetoothActivity extends Activity {
 	
 	private void discover() {
 		devTv.setText("Gefundene Geräte:");
-		btAdapter.startDiscovery();
+		adapter.startDiscovery();
 		devLv.setAdapter(new BTListAdapter(context, new ArrayList<BluetoothDevice>()));
 	}
 	

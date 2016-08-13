@@ -1,11 +1,6 @@
 package de.leander.projekt;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 
 import nfc.NfcActivity;
@@ -25,7 +20,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.ContactsContract.Directory;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
@@ -575,8 +569,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 		ArrayList<File> filelist = new ArrayList<File>();
 		filelist.add(new File(".."));
-		for (File file : files)
-			filelist.add(file);
+		for (File file : files) {
+			String fname = file.getName();
+			if (fname.endsWith(".jpg") || fname.endsWith(".png") || fname.endsWith(".JPG") || fname.endsWith(".PNG") || file.isDirectory())
+				filelist.add(file);
+		}
 		FileListAdapter adapter = new FileListAdapter(this, filelist);
 		ListView listview = new ListView(this);
 		listview.setAdapter(adapter);
@@ -642,8 +639,7 @@ public class MainActivity extends Activity implements OnClickListener {
 						Toast.makeText(context,
 								"Can't read folder '" + file.getName() + "'!",
 								Toast.LENGTH_SHORT).show();
-				} else if (fname.endsWith(".jpg") || fname.endsWith(".png")
-						|| fname.endsWith(".JPG") || fname.endsWith(".PNG")) {
+				} else {
 					dialog.setOnDismissListener(new OnDismissListener() {
 						@Override
 						public void onDismiss(DialogInterface dialog) {
@@ -656,10 +652,8 @@ public class MainActivity extends Activity implements OnClickListener {
 							}
 						}
 					});
+				}
 					dialog.dismiss();
-				} else
-					Toast.makeText(context, "Unsupported file ending!",
-							Toast.LENGTH_SHORT).show();
 			}
 		});
 		dialog.setOnDismissListener(new OnDismissListener() {

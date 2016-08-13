@@ -1,6 +1,11 @@
 package de.leander.projekt;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 import nfc.NfcActivity;
@@ -20,6 +25,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.ContactsContract.Directory;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
@@ -57,6 +63,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	private Camera camera;
 	private File dir;
 	private File file;
+	
+	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 
 	@Override
 	// protected void onCreate(Bundle savedInstanceState) {
@@ -106,52 +114,52 @@ public class MainActivity extends Activity implements OnClickListener {
 		currentPicture = 0;
 	}
 
-	// private void copyFiles() {
-	// int[] files = new int[] { R.raw.hund, R.raw.katze, R.raw.hase };
-	// String[] filenames = new String[] { "hund.jpg", "katze.png", "hase.jpg"
-	// };
-	//
-	// if (files != null)
-	// for (int i = 0; i < files.length; i++) {
-	//
-	// int resId = files[i];
-	// String filename = filenames[i];
-	//
-	// InputStream in = null;
-	// OutputStream out = null;
-	// try {
-	// in = getResources().openRawResource(resId);
-	// out = openFileOutput(filename, Context.MODE_PRIVATE);
-	// copyFile(in, out);
-	// } catch (IOException e) {
-	// Log.e("tag", "Failed to copy asset file: " + filename, e);
-	// } finally {
-	// if (in != null) {
-	// try {
-	// in.close();
-	// } catch (IOException e) {
-	// // NOOP
-	// }
-	// }
-	// if (out != null) {
-	// try {
-	// out.close();
-	// } catch (IOException e) {
-	// // NOOP
-	// }
-	// }
-	// }
-	// }
-	// }
-	//
-	// private void copyFile(InputStream in, OutputStream out) throws
-	// IOException {
-	// byte[] buffer = new byte[1024];
-	// int read;
-	// while ((read = in.read(buffer)) != -1) {
-	// out.write(buffer, 0, read);
-	// }
-	// }
+//	 private void copyFiles() {
+//	 int[] files = new int[] { R.raw.hund, R.raw.katze, R.raw.hase };
+//	 String[] filenames = new String[] { "hund.jpg", "katze.png", "hase.jpg"
+//	 };
+//	
+//	 if (files != null)
+//	 for (int i = 0; i < files.length; i++) {
+//	
+//	 int resId = files[i];
+//	 String filename = filenames[i];
+//	
+//	 InputStream in = null;
+//	 OutputStream out = null;
+//	 try {
+//	 in = getResources().openRawResource(resId);
+//	 out = openFileOutput(filename, Context.MODE_PRIVATE);
+//	 copyFile(in, out);
+//	 } catch (IOException e) {
+//	 Log.e("tag", "Failed to copy asset file: " + filename, e);
+//	 } finally {
+//	 if (in != null) {
+//	 try {
+//	 in.close();
+//	 } catch (IOException e) {
+//	 // NOOP
+//	 }
+//	 }
+//	 if (out != null) {
+//	 try {
+//	 out.close();
+//	 } catch (IOException e) {
+//	 // NOOP
+//	 }
+//	 }
+//	 }
+//	 }
+//	 }
+//	
+//	 private void copyFile(InputStream in, OutputStream out) throws
+//	 IOException {
+//	 byte[] buffer = new byte[1024];
+//	 int read;
+//	 while ((read = in.read(buffer)) != -1) {
+//	 out.write(buffer, 0, read);
+//	 }
+//	 }
 
 	public void onClick(View view) {
 		if (pictures[currentPicture] == null)
@@ -481,8 +489,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 		return false;
 	}
-
-	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 
 	public void cameraIntent() {
 		// create Intent to take a picture and return control to the calling

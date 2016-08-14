@@ -6,6 +6,9 @@ import android.graphics.Color;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+/**
+ * Configures the entry of the devicelist used in the BluetoothActivity.
+ */
 public class BTView extends RelativeLayout{
 	private TextView textview;
 

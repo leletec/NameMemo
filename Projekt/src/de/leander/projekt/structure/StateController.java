@@ -2,6 +2,9 @@ package de.leander.projekt.structure;
 
 import android.util.Log;
 
+/**
+ * Controller, which manages statechanges.
+ */
 public class StateController {
 
 	private MainState mainstate;

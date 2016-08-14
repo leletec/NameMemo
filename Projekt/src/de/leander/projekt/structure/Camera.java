@@ -37,7 +37,10 @@ public class Camera {
 		this.uri = uri;
 	}
 
-	/** Create a File for saving an image */
+	/**
+	 * TODO source for that
+	 * Create a File for saving an image.
+	 */
 	@SuppressLint("SimpleDateFormat")
 	public Uri getOutputMediaFile() {
 		// To be safe, you should check that the SDCard is mounted
@@ -65,6 +68,11 @@ public class Camera {
 		return uri;
 	}
 
+	/**
+	 * If you take a picture, its orientation may be messed up, because of how it is saved by android.
+	 * So this method fixes that problem.
+	 * @return	The "repaired" file`s Uri.
+	 */
 	public Uri fixFileOrientation() {
 		BitmapFactory.Options bounds = new BitmapFactory.Options();
 		BitmapFactory.Options opts = new BitmapFactory.Options();

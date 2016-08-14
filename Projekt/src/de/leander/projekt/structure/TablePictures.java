@@ -2,6 +2,9 @@ package de.leander.projekt.structure;
 
 import android.database.sqlite.SQLiteDatabase;
 
+/**
+ * Currently the only table
+ */
 public class TablePictures{
 
 	public static String NAME = "bilder";

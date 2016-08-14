@@ -4,6 +4,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ * TODO
+ */
 public class MySQLiteHelper extends SQLiteOpenHelper{
 
 	public static final int VERSION = 1;

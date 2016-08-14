@@ -2,6 +2,9 @@ package de.leander.projekt.structure;
 
 import java.io.File;
 
+/**
+ * TODO
+ */
 public class MyFile {
 	private File file;
 	private boolean isChecked = false;

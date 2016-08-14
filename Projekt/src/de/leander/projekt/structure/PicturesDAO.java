@@ -27,6 +27,12 @@ public class PicturesDAO {
 		dbHelper.close();
 	}
 
+	/**
+	 * Adds an entry to the database.
+	 * @param source		The source of the picture.
+	 * @param name			The name related with the picture.
+	 * @param imagingmode	Where the picture came from.
+	 */
 	public void add(String source, String name, int imagingmode) {
 		ContentValues values = new ContentValues();
 		values.put("source", source);
@@ -38,6 +44,15 @@ public class PicturesDAO {
 		database.insert(TablePictures.NAME, null, values);
 	}
 
+	/**
+	 * Updates an entry of the database.
+	 * @param source		The source of the picture.
+	 * @param name			The name related with the picture.
+	 * @param called		How often the picture got called.
+	 * @param gotright		How often the user got the name to the picture right.
+	 * @param inarow		How often he got it right in a row.
+	 * @param imagingmode	Where the picture came from.
+	 */
 	public void update(String source, String name, int called, int gotright,
 			int inarow, int imagingmode) {
 		ContentValues values = new ContentValues();
@@ -51,6 +66,9 @@ public class PicturesDAO {
 				new String[] { source });
 	}
 
+	/**
+	 * @return A list of all entries in the database.
+	 */
 	public List<Pictures> getAllBilder() {
 		List<Pictures> pictures = new ArrayList<Pictures>();
 
@@ -67,6 +85,11 @@ public class PicturesDAO {
 		return pictures;
 	}
 
+	/**
+	 * Helper method for getAllBilder().
+	 * @param cursor	Current position in the database.
+	 * @return			An entry of the database.
+	 */
 	private Pictures cursorToPictures(Cursor cursor) {
 		Pictures picture = new Pictures();
 		picture.setSource(cursor.getString(1));
@@ -78,11 +101,18 @@ public class PicturesDAO {
 		return picture;
 	}
 
+	/**
+	 * Remove an entry from the database.
+	 * @param source	Its source.
+	 */
 	public void delete(String source) {
 		database.delete(TablePictures.NAME, "source = ?",
 				new String[] { source });
 	}
 
+	/**
+	 * Delete the whole database.
+	 */
 	public void clean() { //verbrannte Erde
 		database.delete(TablePictures.NAME, null, null);
 		database.close();

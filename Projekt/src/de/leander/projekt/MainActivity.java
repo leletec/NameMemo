@@ -50,8 +50,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	private int currentPicture;
 	private Pictures[] pictures;
 	private Button text;
-	private Button ja;
-	private Button nein;
+	private Button yes;
+	private Button no;
 	private ImageView image;
 	private StateController statecontroller;
 	private Camera camera;
@@ -61,29 +61,6 @@ public class MainActivity extends Activity implements OnClickListener {
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 
 	@Override
-	// protected void onCreate(Bundle savedInstanceState) {
-	// super.onCreate(savedInstanceState);
-	// setContentView(R.layout.activity_main);
-	//
-	// text = (TextView) findViewById(R.id.text);
-	// image = (ImageButton) findViewById(R.id.image);
-	// gesturedetector = new GestureDetector(this, new GestureListener());
-	//
-	// image.setOnTouchListener(new OnTouchListener() {
-	// @Override
-	// public boolean onTouch(View v, MotionEvent event) {
-	// image.performClick();
-	// return gesturedetector.onTouchEvent(event);
-	// }
-	// });
-	//
-	// image.setOnClickListener(new OnClickListener() {
-	// @Override
-	// public void onClick(View v) {
-	// showName(imageResource);
-	// }
-	// });
-	// }
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
@@ -94,13 +71,13 @@ public class MainActivity extends Activity implements OnClickListener {
 		image = (ImageView) findViewById(R.id.image);
 		text = (Button) findViewById(R.id.bText);
 		text.setBackgroundColor(Color.LTGRAY);
-		ja = (Button) findViewById(R.id.bJa);
-		ja.setBackgroundColor(Color.GREEN);
-		nein = (Button) findViewById(R.id.bNein);
-		nein.setBackgroundColor(Color.RED);
+		yes = (Button) findViewById(R.id.bJa);
+		yes.setBackgroundColor(Color.GREEN);
+		no = (Button) findViewById(R.id.bNein);
+		no.setBackgroundColor(Color.RED);
 		text.setOnClickListener(this);
-		ja.setOnClickListener(this);
-		nein.setOnClickListener(this);
+		yes.setOnClickListener(this);
+		no.setOnClickListener(this);
 		statecontroller = new StateController();
 		camera = new Camera();
 		
@@ -155,6 +132,11 @@ public class MainActivity extends Activity implements OnClickListener {
 //	 }
 //	 }
 
+	/**
+	 * Handles the clicks on the 3 buttons:
+	 * Clicking the text (while you only see the picture, not the name) will make you see the name and the yes- and no-button appear.
+	 * Clicking yes or no will result in a new picture and in a update of the database.
+	 */
 	public void onClick(View view) {
 		if (pictures[currentPicture] == null)
 			Log.e("error", "currentBild(" + currentPicture + ") ist null");
@@ -162,8 +144,8 @@ public class MainActivity extends Activity implements OnClickListener {
 			switch (view.getId()) {
 			case R.id.bText:
 				text.setText(pictures[currentPicture].getName());
-				ja.setVisibility(View.VISIBLE);
-				nein.setVisibility(View.VISIBLE);
+				yes.setVisibility(View.VISIBLE);
+				no.setVisibility(View.VISIBLE);
 				try {
 					statecontroller.showName();
 				} catch (Exception e) {
@@ -208,12 +190,18 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 	}
 
+	/**
+	 * Resets the app to its "delivery conditions"
+	 */
 	private void cleanProject() { // verbrannte Erde
 		datasource.clean();
 		Activity activity = this;
 		activity.finish();
 	}
 
+	/**
+	 * Changes the source of the image to the next one in the array.
+	 */
 	private void changeSource() {
 		String source;
 		if (currentPicture + 1 < pictures.length
@@ -242,8 +230,8 @@ public class MainActivity extends Activity implements OnClickListener {
 			Log.d("changeSource", "Bitmap=" + bmp.toString());
 		image.setImageBitmap(bmp);
 		Log.d("source", fname + " loaded");
-		ja.setVisibility(View.INVISIBLE);
-		nein.setVisibility(View.INVISIBLE);
+		yes.setVisibility(View.INVISIBLE);
+		no.setVisibility(View.INVISIBLE);
 		text.setText(R.string.name_anzeigen);
 		if (statecontroller.getMainstate() != MainState.SHOWSPICTURE)
 			try {
@@ -260,6 +248,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		return true;
 	}
 
+	/**
+	 * 'addDatabase' loads two more example-pictures in the database.
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -302,6 +293,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		return super.onOptionsItemSelected(item);
 	}
 
+	/**
+	 * Gets a fresh copy of the database for the array.
+	 */
 	public void updateArray() {
 		String oldSource = null;
 		if (pictures != null && pictures.length != 0)
@@ -325,6 +319,12 @@ public class MainActivity extends Activity implements OnClickListener {
 		Log.d("Bilder", "Arraylength: " + pictures.length);
 	}
 
+	/**
+	 * Gets called if you got one name right several times in a row.
+	 * Creates a dialog, where you can delete that file from the database.
+	 * @param source	The source of that picture.
+	 * @param name		The name belonging to that picture.
+	 */
 	public void deleteDialog(final String source, String name) {
 		try {
 			statecontroller.showDeleteDialog();
@@ -360,6 +360,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		});
 	}
 
+	/**
+	 * Just an info-dialog.
+	 */
 	public void infoDialog() {
 		try {
 			statecontroller.showInfoDialog();
@@ -385,6 +388,12 @@ public class MainActivity extends Activity implements OnClickListener {
 		});
 	}
 
+	/**
+	 * Gets called, if a picture-source is missing.
+	 * Creates a dialog, where you can delete that file from the database.
+	 * @param source	The source of the missing file.
+	 * @param name		The name belonging to the missing picture.
+	 */
 	public void missingFileDialog(final String source, String name) {
 		try {
 			statecontroller.showMFileDialog();
@@ -422,6 +431,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		});
 	}
 
+	/**
+	 * Gets called when you have taken a new photo to add to the database.
+	 * Creates a dialog which prompts you to enter a name for it.
+	 * @param File	The new picture.
+	 */
 	@SuppressLint("InflateParams")
 	public void newShotDialog(File File) {
 		file = File;
@@ -474,7 +488,10 @@ public class MainActivity extends Activity implements OnClickListener {
 		});
 	}
 
-	/* Checks if external storage is available to at least read */
+	/**
+	 * TODO source for that code
+	 * @return If external storage is available to at least read
+	 */
 	public boolean isExternalStorageReadable() {
 		String state = Environment.getExternalStorageState();
 		if (Environment.MEDIA_MOUNTED.equals(state)
@@ -484,9 +501,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		return false;
 	}
 
+	/**
+	 * TODO look for possible source
+	 * Creates a intent to take a new photo (to add to the database).
+	 */
 	public void cameraIntent() {
-		// create Intent to take a picture and return control to the calling
-		// application
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
 		if (!Environment.getExternalStorageState().equals(
@@ -495,17 +514,15 @@ public class MainActivity extends Activity implements OnClickListener {
 					Toast.LENGTH_SHORT).show();
 			return;
 		}
-		Uri fileUri = camera.getOutputMediaFile(); // create a file to
-		// save the image
-		intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file
-															// name
+		Uri fileUri = camera.getOutputMediaFile(); // create a file to save the image
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
 		try {
 			statecontroller.showCameraIntent();
 		} catch (Exception e) {
 			Log.e("StateController", e.toString());
 			e.printStackTrace();
 		}
-		// start the image capture Intent
+		
 		startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 	}
 
@@ -536,7 +553,11 @@ public class MainActivity extends Activity implements OnClickListener {
 			}
 		}
 	}
-	
+
+	/**
+	 * Adds a new picture from the storage of the device to the database.
+	 * @param Dir	Directory, if it is called via onRestoreInstanceState()
+	 */
 	public void addPicFromStorageDialog(File Dir) {
 		dir = Dir;
 		if (isExternalStorageReadable()) {
@@ -552,6 +573,12 @@ public class MainActivity extends Activity implements OnClickListener {
 					Toast.LENGTH_SHORT).show();
 	}
 
+	/**
+	 * Creates a dialog with a list of image-files and directories.
+	 * You can go into a directory by clicking it, go out of a directory by clicking ".." or click at a picture-file.
+	 * If you do so, you get to see a preview of that picture and you can decide if you want to add it or not.
+	 * @param Dir	The directory you are currently in.
+	 */
 	@SuppressLint("InflateParams")
 	private void AddPicFromStorageDialog(File Dir) {
 		try {
@@ -671,6 +698,10 @@ public class MainActivity extends Activity implements OnClickListener {
 		dialog.show();
 	}
 
+	/**
+	 * The preview for the AddPicFromStorageDialog().
+	 * @param File	The picture you clicked on.
+	 */
 	public void previewDialog(File File) {
 		file = File;
 		try {
@@ -726,6 +757,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		dialog.show();
 	}
 
+	/**
+	 * Saves your current state, if you rotate your screen.
+	 */
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		outState.putString("mainstate", statecontroller.getMainstate()
@@ -750,6 +784,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		super.onSaveInstanceState(outState);
 	}
 
+	/**
+	 * Restores your saved state.
+	 */
 	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		String mainstate = savedInstanceState.getString("mainstate");
@@ -794,12 +831,12 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		if (statecontroller.getMainstate() == MainState.SHOWSPICTURE
 				|| statecontroller.getMainstate() == MainState.CAMERAINTENT) {
-			ja.setVisibility(View.INVISIBLE);
-			nein.setVisibility(View.INVISIBLE);
+			yes.setVisibility(View.INVISIBLE);
+			no.setVisibility(View.INVISIBLE);
 			text.setText(R.string.name_anzeigen);
 		} else if (statecontroller.getMainstate() == MainState.SHOWSNAME) {
-			ja.setVisibility(View.VISIBLE);
-			nein.setVisibility(View.VISIBLE);
+			yes.setVisibility(View.VISIBLE);
+			no.setVisibility(View.VISIBLE);
 			text.setText(pictures[currentPicture].getName());
 		}
 
@@ -818,6 +855,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		super.onRestoreInstanceState(savedInstanceState);
 	}
 
+	/**
+	 * Opens a new intent where you can do bluetooth stuff.
+	 */
 	public void bluetooth() {
 		Intent intent = new Intent(this, BluetoothActivity.class);
 		//intent.putExtra(...);
@@ -834,6 +874,9 @@ public class MainActivity extends Activity implements OnClickListener {
 //		Timer t = new Timer();
 //		t.schedule(tt, 5000);
 	
+	/**
+	 * Opens a new intent where you can do NFC stuff.
+	 */
 	public void nfc() {
 		Intent intent = new Intent(this, NfcActivity.class);
 		startActivity(intent);

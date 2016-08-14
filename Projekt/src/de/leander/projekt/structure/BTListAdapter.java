@@ -32,6 +32,9 @@ public class BTListAdapter extends BaseAdapter{
 		return position;
 	}
 
+	/**
+	 * Configures the view with the help of BTView.
+	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		BTView view;
@@ -45,6 +48,10 @@ public class BTListAdapter extends BaseAdapter{
 		return view;
 	}
 	
+	/**
+	 * Adds a new device to the ArrayList.
+	 * @param device	Device to add.
+	 */
 	public void add(BluetoothDevice device) {
 		filelist.add(device);
 	}

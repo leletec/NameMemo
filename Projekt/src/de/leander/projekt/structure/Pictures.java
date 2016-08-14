@@ -1,5 +1,8 @@
 package de.leander.projekt.structure;
 
+/**
+ * TODO
+ */
 public class Pictures {
 	private String source;
 	private String name;

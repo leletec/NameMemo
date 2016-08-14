@@ -7,6 +7,9 @@ import android.graphics.Color;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+/**
+ * TODO
+ */
 public class FileView extends RelativeLayout {
 
 	private TextView textview;

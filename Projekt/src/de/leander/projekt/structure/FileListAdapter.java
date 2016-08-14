@@ -33,6 +33,9 @@ public class FileListAdapter extends BaseAdapter {
 		return position;
 	}
 
+	/**
+	 * Configures the view with the help of FileView.
+	 */
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		FileView view;

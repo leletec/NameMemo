@@ -44,8 +44,6 @@ import de.leander.projekt.R;
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 public class MainActivity extends Activity implements OnClickListener {
-	// private String imageResource = "katze";
-	// private int clicks = 3;
 	private PicturesDAO datasource;
 	private int currentPicture;
 	private Pictures[] pictures;
@@ -57,6 +55,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	private Camera camera;
 	private File dir;
 	private File file;
+	private final String app_name = getString(R.string.app_name);;
 	
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 
@@ -81,61 +80,14 @@ public class MainActivity extends Activity implements OnClickListener {
 		statecontroller = new StateController();
 		camera = new Camera();
 		
-		updateArray();
+		loadPictures();
 		currentPicture = 0;
 	}
 
-//	 private void copyFiles() {
-//	 int[] files = new int[] { R.raw.hund, R.raw.katze, R.raw.hase };
-//	 String[] filenames = new String[] { "hund.jpg", "katze.png", "hase.jpg"
-//	 };
-//	
-//	 if (files != null)
-//	 for (int i = 0; i < files.length; i++) {
-//	
-//	 int resId = files[i];
-//	 String filename = filenames[i];
-//	
-//	 InputStream in = null;
-//	 OutputStream out = null;
-//	 try {
-//	 in = getResources().openRawResource(resId);
-//	 out = openFileOutput(filename, Context.MODE_PRIVATE);
-//	 copyFile(in, out);
-//	 } catch (IOException e) {
-//	 Log.e("tag", "Failed to copy asset file: " + filename, e);
-//	 } finally {
-//	 if (in != null) {
-//	 try {
-//	 in.close();
-//	 } catch (IOException e) {
-//	 // NOOP
-//	 }
-//	 }
-//	 if (out != null) {
-//	 try {
-//	 out.close();
-//	 } catch (IOException e) {
-//	 // NOOP
-//	 }
-//	 }
-//	 }
-//	 }
-//	 }
-//	
-//	 private void copyFile(InputStream in, OutputStream out) throws
-//	 IOException {
-//	 byte[] buffer = new byte[1024];
-//	 int read;
-//	 while ((read = in.read(buffer)) != -1) {
-//	 out.write(buffer, 0, read);
-//	 }
-//	 }
-
 	/**
-	 * Handles the clicks on the 3 buttons:
-	 * Clicking the text (while you only see the picture, not the name) will make you see the name and the yes- and no-button appear.
-	 * Clicking yes or no will result in a new picture and in a update of the database.
+	 * Handles the three buttons:
+	 * Clicking the textbox while you only see the picture reveals the name and the Yes and No buttons.
+	 * The database is updated and a new image is shown after you press Yes or No.
 	 */
 	public void onClick(View view) {
 		if (pictures[currentPicture] == null)
@@ -160,7 +112,7 @@ public class MainActivity extends Activity implements OnClickListener {
 						pictures[currentPicture].getGotright() + 1,
 						pictures[currentPicture].getInarow() + 1,
 						pictures[currentPicture].getImagingcode());
-				updateArray();
+				loadPictures();
 				Log.d("Picture", "name:" + pictures[currentPicture].getName()
 						+ " called:" + pictures[currentPicture].getCalled()
 						+ " gotright:" + pictures[currentPicture].getGotright()
@@ -170,7 +122,7 @@ public class MainActivity extends Activity implements OnClickListener {
 					deleteDialog(pictures[currentPicture].getSource(),
 							pictures[currentPicture].getName());
 				else
-					changeSource();
+					showNext();
 				break;
 			case R.id.bNein:
 				datasource.update(pictures[currentPicture].getSource(),
@@ -178,49 +130,49 @@ public class MainActivity extends Activity implements OnClickListener {
 						pictures[currentPicture].getCalled() + 1,
 						pictures[currentPicture].getGotright(), 0,
 						pictures[currentPicture].getImagingcode());
-				updateArray();
+				loadPictures();
 				Log.d("Picture", "name:" + pictures[currentPicture].getName()
 						+ " called:" + pictures[currentPicture].getCalled()
 						+ " gotright:" + pictures[currentPicture].getGotright()
 						+ "in a row:" + pictures[currentPicture].getInarow()
 						+ "imagingcode:" + pictures[currentPicture].getImagingcode());
-				changeSource();
+				showNext();
 				break;
 			}
 		}
 	}
 
 	/**
-	 * Resets the app to its "delivery conditions"
+	 * Resets the app to the factory settings.
 	 */
-	private void cleanProject() { // verbrannte Erde
+	private void resetToFactory() {
 		datasource.clean();
-		Activity activity = this;
-		activity.finish();
+		finish();
 	}
 
 	/**
-	 * Changes the source of the image to the next one in the array.
+	 * Loads the next picture in the pictures array and displays it.
 	 */
-	private void changeSource() {
+	private void showNext() {
 		String source;
-		if (currentPicture + 1 < pictures.length
-				&& pictures[currentPicture + 1] != null)
-			currentPicture += 1;
-		else
-			currentPicture = 0;
+//		if (currentPicture + 1 < pictures.length
+//				&& pictures[currentPicture + 1] != null)
+//			currentPicture += 1;
+//		else
+//			currentPicture = 0;
+		currentPicture = (currentPicture+1) % pictures.length;
 		source = pictures[currentPicture].getSource();
 
-		// String fname = new File(getFilesDir(), source).getAbsolutePath();
-		// String fname = new File(
-		// Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-		// + File.separator + "MyCameraApp", source)
-		// .getAbsolutePath();
+//		 String fname = new File(getFilesDir(), source).getAbsolutePath();
+//		 String fname = new File(
+//		 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+//		 + File.separator + app_name, source)
+// 		.getAbsolutePath();
 		String fname = new File(source).getName();
-		// File mediaStorageDir = new File(
-		// Environment
-		// .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-		// "MyCameraApp");
+// 		File mediaStorageDir = new File(
+//		 Environment
+// 		.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+//		app_name);
 
 		Bitmap bmp = BitmapFactory.decodeFile(source);
 		if (bmp == null) {
@@ -248,67 +200,57 @@ public class MainActivity extends Activity implements OnClickListener {
 		return true;
 	}
 
-	/**
-	 * 'addDatabase' loads two more example-pictures in the database.
-	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		// case R.id.importDrawable:
 		// copyFiles();
 		// break;
-		case R.id.addDatabase:
-			datasource
-					.add(new File(
-							Environment
-									.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-									+ File.separator + "MyCameraApp",
-							"hund.jpg").getAbsolutePath(), "Hund", Pictures.Imported); //XXX
-			datasource
-					.add(new File(
-							Environment
-									.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-									+ File.separator + "MyCameraApp",
-							"hase.jpg").getAbsolutePath(), "Hase", Pictures.Imported); //XXX
-			updateArray();
-			break;
+		
+		/**
+		 * Loads two more example-pictures in the database.
+		 */
+		case R.id.addExamples:
+			File f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)	+ File.separator + app_name, "hund.jpg");
+			datasource.add(f.getAbsolutePath(), "Hund", Pictures.Imported); //XXX
+			f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + app_name, "hase.jpg");
+			datasource.add(f.getAbsolutePath(), "Hase", Pictures.Imported); //XXX
+			loadPictures();
+			return true;
 		case R.id.captureImage:
 			cameraIntent();
-			break;
+			return true;
 		case R.id.infoDialog:
 			infoDialog();
-			break;
+			return true;
 		case R.id.cleanProject:
-			cleanProject();
-			break;
+			resetToFactory();
+			return true;
 		case R.id.addNewPic:
 			addPicFromStorageDialog(null);
-			break;
+			return true;
 		case R.id.BTTest:
 			bluetooth();
-			break;
+			return true;
 		case R.id.NFCTest:
 			nfc();
+			return true;
 		}
-		return super.onOptionsItemSelected(item);
+		return false;
 	}
 
 	/**
-	 * Gets a fresh copy of the database for the array.
+	 * Loads the array from the database and adds a cat picture if the database would otherwise be empty.
 	 */
-	public void updateArray() {
+	public void loadPictures() {
 		String oldSource = null;
 		if (pictures != null && pictures.length != 0)
 			oldSource = pictures[currentPicture].getSource();
 		pictures = datasource.getAllBilder().toArray(new Pictures[0]);
 		if (pictures.length == 0) {
-			datasource
-					.add(new File(
-							Environment
-									.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-									+ File.separator + "MyCameraApp",
-							"katze.png").getAbsolutePath(), "Katze", Pictures.Imported); //XXX
-			updateArray();
+			File f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)	+ File.separator + app_name, "katze.png");
+			datasource.add(f.getAbsolutePath(), "Katze", Pictures.Imported); //XXX
+			loadPictures();
 			return;
 		}
 		for (int i = 0; i < pictures.length; i++)
@@ -320,8 +262,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * Gets called if you got one name right several times in a row.
-	 * Creates a dialog, where you can delete that file from the database.
+	 * Shows a dialog where the user can delete a picture from the database after repeatedly remembering the name correctly.
 	 * @param source	The source of that picture.
 	 * @param name		The name belonging to that picture.
 	 */
@@ -354,14 +295,14 @@ public class MainActivity extends Activity implements OnClickListener {
 					Log.e("StateController", e.toString());
 					e.printStackTrace();
 				} finally {
-					changeSource();
+					showNext();
 				}
 			}
 		});
 	}
 
 	/**
-	 * Just an info-dialog.
+	 * Show an informative dialog.
 	 */
 	public void infoDialog() {
 		try {
@@ -389,8 +330,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * Gets called, if a picture-source is missing.
-	 * Creates a dialog, where you can delete that file from the database.
+	 * If the database retains a path to a file that doesn't exist anymore, this dialog is shown to the user, who can then delete the dangling path from the database.
 	 * @param source	The source of the missing file.
 	 * @param name		The name belonging to the missing picture.
 	 */
@@ -425,15 +365,14 @@ public class MainActivity extends Activity implements OnClickListener {
 					Log.e("StateController", e.toString());
 					e.printStackTrace();
 				} finally {
-					changeSource();
+					showNext();
 				}
 			}
 		});
 	}
 
 	/**
-	 * Gets called when you have taken a new photo to add to the database.
-	 * Creates a dialog which prompts you to enter a name for it.
+	 * Prompts the user for the name to be associated with a newly taken picture.
 	 * @param File	The new picture.
 	 */
 	@SuppressLint("InflateParams")
@@ -468,7 +407,7 @@ public class MainActivity extends Activity implements OnClickListener {
 						else
 							datasource.add(f.getAbsolutePath(), name.getText()
 									.toString(), Pictures.Phone);
-						updateArray();
+						loadPictures();
 					}
 				});
 		AlertDialog dialog = builder.create();
@@ -482,7 +421,7 @@ public class MainActivity extends Activity implements OnClickListener {
 					Log.e("StateController", e.toString());
 					e.printStackTrace();
 				} finally {
-					changeSource();
+					showNext();
 				}
 			}
 		});
@@ -555,17 +494,14 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * Adds a new picture from the storage of the device to the database.
+	 * This dialog lets the user walk through the directory tree, previewing and adding images with the help of previewDialog().
 	 * @param Dir	Directory, if it is called via onRestoreInstanceState()
 	 */
 	public void addPicFromStorageDialog(File Dir) {
 		dir = Dir;
 		if (isExternalStorageReadable()) {
 			if (dir == null)
-				AddPicFromStorageDialog(new File(
-						Environment
-								.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-						"MyCameraApp"));
+				AddPicFromStorageDialog(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),	app_name));
 			else
 				AddPicFromStorageDialog(dir);
 		} else
@@ -757,9 +693,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		dialog.show();
 	}
 
-	/**
-	 * Saves your current state, if you rotate your screen.
-	 */
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		outState.putString("mainstate", statecontroller.getMainstate()
@@ -784,9 +717,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		super.onSaveInstanceState(outState);
 	}
 
-	/**
-	 * Restores your saved state.
-	 */
 	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		String mainstate = savedInstanceState.getString("mainstate");
@@ -863,16 +793,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		//intent.putExtra(...);
 		startActivity(intent);
 	}
-				
-//		TimerTask tt = new TimerTask() {
-//			@Override
-//			public void run() {
-//				btAd.cancelDiscovery();
-//				discovering = false;
-//			}
-//		};
-//		Timer t = new Timer();
-//		t.schedule(tt, 5000);
 	
 	/**
 	 * Opens a new intent where you can do NFC stuff.
@@ -881,5 +801,4 @@ public class MainActivity extends Activity implements OnClickListener {
 		Intent intent = new Intent(this, NfcActivity.class);
 		startActivity(intent);
 	}
-	
 }

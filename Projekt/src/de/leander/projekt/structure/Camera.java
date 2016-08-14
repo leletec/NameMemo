@@ -69,9 +69,8 @@ public class Camera {
 	}
 
 	/**
-	 * If you take a picture, its orientation may be messed up, because of how it is saved by android.
-	 * So this method fixes that problem.
-	 * @return	The "repaired" file`s Uri.
+	 * Rotates an image to bring it into normal orientation.
+	 * @return	The "repaired" file's Uri.
 	 */
 	public Uri fixFileOrientation() {
 		BitmapFactory.Options bounds = new BitmapFactory.Options();

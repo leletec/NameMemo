@@ -4,32 +4,25 @@
     tools:context="de.leander.projekt.MainActivity" >
     <!-- <item 
         android:id="@+id/importDrawable"
-        android:title="@string/importDrawable"
-        android:showAsAction="collapseActionView" /> -->
+        android:title="@string/importDrawable" /> -->
     <item 
-        android:id="@+id/addDatabase"
-        android:title="@string/addDatabase"
-        android:showAsAction="collapseActionView" />
+        android:id="@+id/addExamples"
+        android:title="@string/addExamples" />
     <item
         android:id="@+id/captureImage"
-        android:title="@string/captureImage"
-        android:showAsAction="collapseActionView" />
+        android:title="@string/captureImage" />
     <item
     	android:id="@+id/addNewPic"
-    	android:title="@string/addNewPic"
-    	android:showAsAction="collapseActionView" />
+    	android:title="@string/addNewPic" />
     <item
         android:id="@+id/infoDialog"
-        android:title="@string/infoDialogTitle"
-        android:showAsAction="collapseActionView" />
+        android:title="@string/infoDialogTitle" />
     <item
         android:id="@+id/cleanProject"
-        android:title="@string/cleanProject"
-        android:showAsAction="collapseActionView" />
+        android:title="@string/cleanProject" />
     <item
         android:id="@+id/BTTest"
-        android:title="Bluetooth Test"
-        android:showAsAction="collapseActionView" />
+        android:title="Bluetooth Test" />
     <item
         android:id="@+id/NFCTest"
         android:title="NFC Test" />

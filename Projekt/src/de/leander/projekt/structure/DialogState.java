@@ -1,10 +1,7 @@
 package de.leander.projekt.structure;
 
-/**
- * Enums for the dialog states of the app.
- */
 public enum DialogState {
-	NONE, /* Standart */
+	NONE, /* Standard */
 	DELETE, /* Delete picture because you have learned it */
 	INFO, /* Appinfo */
 	MFILE, /* Delete the reference to a no longer existing picture */

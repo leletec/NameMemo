@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Projekt</string>
+    <string name="app_name">NameMemo</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="importDrawable">Import</string>
     <string name="gewusst">Ja</string>
     <string name="nichtgewusst">Nein</string>
     <string name="name_anzeigen">Name anzeigen</string>
-    <string name="addDatabase">Einträge zur Datenbank hinzugügen</string>
+    <string name="addExamples">Einträge zur Datenbank hinzugügen</string>
     <string name="deleteDialogTitle">Glückwunsch!</string>
     <string name="dialogPositive">Ja</string>
     <string name="dialogNegative">Nein</string>

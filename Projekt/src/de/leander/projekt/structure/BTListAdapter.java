@@ -47,11 +47,7 @@ public class BTListAdapter extends BaseAdapter{
 		view.configure(filelist.get(position));
 		return view;
 	}
-	
-	/**
-	 * Adds a new device to the ArrayList.
-	 * @param device	Device to add.
-	 */
+
 	public void add(BluetoothDevice device) {
 		filelist.add(device);
 	}

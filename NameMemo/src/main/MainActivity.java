@@ -38,11 +38,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 import database.Pictures;
 import database.PicturesDAO;
+
 import de.leander.projekt.R;
-import de.leander.projekt.R.id;
-import de.leander.projekt.R.layout;
-import de.leander.projekt.R.menu;
-import de.leander.projekt.R.string;
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 public class MainActivity extends Activity implements OnClickListener {
@@ -57,7 +54,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	private Camera camera;
 	private File dir;
 	private File file;
-	private final String app_name = getString(R.string.app_name);;
+	private String app_name;
 	
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 	private static final int NFC_ACTIVITY_REQUEST_CODE = 200;
@@ -85,6 +82,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		
 		loadPictures();
 		currentPicture = 0;
+		app_name = getString(R.string.app_name);
 	}
 
 	/**

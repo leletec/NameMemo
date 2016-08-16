@@ -1,4 +1,4 @@
-package de.leander.projekt;
+package main;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -38,9 +38,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 import database.Pictures;
 import database.PicturesDAO;
-import de.leander.projekt.structure.Camera;
-import de.leander.projekt.structure.FileListAdapter;
 import de.leander.projekt.R;
+import de.leander.projekt.R.id;
+import de.leander.projekt.R.layout;
+import de.leander.projekt.R.menu;
+import de.leander.projekt.R.string;
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 public class MainActivity extends Activity implements OnClickListener {

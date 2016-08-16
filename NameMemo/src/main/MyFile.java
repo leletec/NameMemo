@@ -1,4 +1,4 @@
-package de.leander.projekt.structure;
+package main;
 
 import java.io.File;
 

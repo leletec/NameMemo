@@ -1,4 +1,4 @@
-package de.leander.projekt.structure;
+package bluetooth;
 
 import java.util.ArrayList;
 

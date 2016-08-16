@@ -1,4 +1,4 @@
-package de.leander.projekt.structure;
+package bluetooth;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;

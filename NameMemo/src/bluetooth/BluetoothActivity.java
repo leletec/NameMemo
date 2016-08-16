@@ -10,7 +10,6 @@ import java.util.Set;
 import java.util.UUID;
 
 import de.leander.projekt.R;
-import de.leander.projekt.structure.BTListAdapter;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;

@@ -36,10 +36,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
+import database.Pictures;
+import database.PicturesDAO;
 import de.leander.projekt.structure.Camera;
 import de.leander.projekt.structure.FileListAdapter;
-import de.leander.projekt.structure.Pictures;
-import de.leander.projekt.structure.PicturesDAO;
 import de.leander.projekt.R;
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)

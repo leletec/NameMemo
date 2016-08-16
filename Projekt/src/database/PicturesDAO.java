@@ -1,4 +1,4 @@
-package de.leander.projekt.structure;
+package database;
 
 import java.util.ArrayList;
 import java.util.List;

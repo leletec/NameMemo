@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
+import database.MySQLiteHelper;
 import de.leander.projekt.R;
-import de.leander.projekt.structure.MySQLiteHelper;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;

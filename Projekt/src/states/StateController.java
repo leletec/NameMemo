@@ -119,7 +119,7 @@ public class StateController {
 		Log.d("StateController", "changed mainstate to '" + mainstate + "'");
 	}
 
-	public void dismissCameraIntent() throws Exception {
+	public void finishCameraIntent() throws Exception {
 		if (mainstate != MainState.CAMERAINTENT)
 			throw new Exception("Wrong mainstate: " + mainstate.toString());
 		if (dialogstate != DialogState.NONE)
@@ -178,5 +178,27 @@ public class StateController {
 			throw new Exception("Wrong dialogstate: " + dialogstate.toString());
 		dialogstate = DialogState.NONE;
 		Log.d("StateController", "changed dialogstate to '" + dialogstate + "'");
+	}
+	
+	public void showNfcActivity() throws Exception {
+		if (mainstate != MainState.SHOWSNAME && mainstate != MainState.SHOWSPICTURE)
+			throw new Exception("Wrong mainstate: " + mainstate.toString());
+		if (dialogstate != DialogState.NONE)
+			throw new Exception("Wrong dialogstate: " + dialogstate.toString());
+		lastM = mainstate;
+		Log.d("StateController", "changed lastM to '" + lastM + "'");
+		mainstate = MainState.NFC;
+		Log.d("StateController", "changed mainstate to '" + mainstate + "'");
+	}
+	
+	public void finishNfcActivity() throws Exception {
+		if (mainstate != MainState.NFC)
+			throw new Exception("Wrong mainstate: " + mainstate.toString());
+		if (dialogstate != DialogState.NONE)
+			throw new Exception("Wrong dialogstate: " + dialogstate.toString());
+		mainstate = lastM;
+		Log.d("StateController", "changed mainstate to '" + mainstate + "'");
+		lastM = MainState.NONE;
+		Log.d("StateController", "changed lastM to '" + lastM + "'");
 	}
 }

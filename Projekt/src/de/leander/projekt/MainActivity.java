@@ -58,6 +58,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	private final String app_name = getString(R.string.app_name);;
 	
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+	private static final int NFC_ACTIVITY_REQUEST_CODE = 200;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -479,11 +480,19 @@ public class MainActivity extends Activity implements OnClickListener {
 					Toast.makeText(this, "Capturing image failed",
 							Toast.LENGTH_SHORT).show();
 				try {
-					statecontroller.dismissCameraIntent();
+					statecontroller.finishCameraIntent();
 				} catch (Exception e) {
 					Log.e("StateController", e.toString());
 					e.printStackTrace();
 				}
+			}
+			
+		case NFC_ACTIVITY_REQUEST_CODE:
+			try {
+				statecontroller.finishNfcActivity();
+			} catch (Exception e) {
+				Log.e("StateController", e.toString());
+				e.printStackTrace();
 			}
 		}
 	}
@@ -793,7 +802,13 @@ public class MainActivity extends Activity implements OnClickListener {
 	 * Opens a new intent where you can do NFC stuff.
 	 */
 	public void nfc() {
+		try {
+			statecontroller.showNfcActivity();
+		} catch (Exception e) {
+			Log.e("StateController", e.toString());
+			e.printStackTrace();
+		}
 		Intent intent = new Intent(this, NfcActivity.class);
-		startActivity(intent);
+		startActivityForResult(intent, NFC_ACTIVITY_REQUEST_CODE);
 	}
 }

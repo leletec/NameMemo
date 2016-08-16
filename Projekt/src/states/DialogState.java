@@ -1,4 +1,4 @@
-package de.leander.projekt.structure;
+package states;
 
 public enum DialogState {
 	NONE, /* Standard */

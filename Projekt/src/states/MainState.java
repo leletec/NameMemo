@@ -1,4 +1,4 @@
-package de.leander.projekt.structure;
+package states;
 
 public enum MainState {
 	NONE, /* Only for temporary use (-> "last") */

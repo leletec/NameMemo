@@ -3,6 +3,9 @@ package de.leander.projekt;
 import java.io.File;
 import java.util.ArrayList;
 
+import states.DialogState;
+import states.MainState;
+import states.StateController;
 import nfc.NfcActivity;
 import bluetooth.BluetoothActivity;
 import android.annotation.SuppressLint;
@@ -34,12 +37,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 import de.leander.projekt.structure.Camera;
-import de.leander.projekt.structure.DialogState;
 import de.leander.projekt.structure.FileListAdapter;
-import de.leander.projekt.structure.MainState;
 import de.leander.projekt.structure.Pictures;
 import de.leander.projekt.structure.PicturesDAO;
-import de.leander.projekt.structure.StateController;
 import de.leander.projekt.R;
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -428,20 +428,15 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * TODO source for that code
 	 * @return If external storage is available to at least read
 	 */
 	public boolean isExternalStorageReadable() {
 		String state = Environment.getExternalStorageState();
-		if (Environment.MEDIA_MOUNTED.equals(state)
-				|| Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
-			return true;
-		}
-		return false;
+		return (Environment.MEDIA_MOUNTED.equals(state) || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state));
+		
 	}
 
 	/**
-	 * TODO look for possible source
 	 * Creates a intent to take a new photo (to add to the database).
 	 */
 	public void cameraIntent() {

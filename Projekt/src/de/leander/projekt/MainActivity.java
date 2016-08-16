@@ -243,7 +243,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	/**
 	 * Loads the array from the database and adds a cat picture if the database would otherwise be empty.
 	 */
-	public void loadPictures() {
+	private void loadPictures() {
 		String oldSource = null;
 		if (pictures != null && pictures.length != 0)
 			oldSource = pictures[currentPicture].getSource();
@@ -267,7 +267,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	 * @param source	The source of that picture.
 	 * @param name		The name belonging to that picture.
 	 */
-	public void deleteDialog(final String source, String name) {
+	private void deleteDialog(final String source, String name) {
 		try {
 			statecontroller.showDeleteDialog();
 		} catch (Exception e) {
@@ -305,7 +305,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	/**
 	 * Show an informative dialog.
 	 */
-	public void infoDialog() {
+	private void infoDialog() {
 		try {
 			statecontroller.showInfoDialog();
 		} catch (Exception e1) {
@@ -335,7 +335,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	 * @param source	The source of the missing file.
 	 * @param name		The name belonging to the missing picture.
 	 */
-	public void missingFileDialog(final String source, String name) {
+	private void missingFileDialog(final String source, String name) {
 		try {
 			statecontroller.showMFileDialog();
 		} catch (Exception e) {
@@ -377,7 +377,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	 * @param File	The new picture.
 	 */
 	@SuppressLint("InflateParams")
-	public void newShotDialog(File File) {
+	private void newShotDialog(File File) {
 		file = File;
 		try {
 			statecontroller.showNShotDialog();
@@ -431,7 +431,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	/**
 	 * @return If external storage is available to at least read
 	 */
-	public boolean isExternalStorageReadable() {
+	private boolean isExternalStorageReadable() {
 		String state = Environment.getExternalStorageState();
 		return (Environment.MEDIA_MOUNTED.equals(state) || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state));
 		
@@ -440,7 +440,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	/**
 	 * Creates a intent to take a new photo (to add to the database).
 	 */
-	public void cameraIntent() {
+	private void cameraIntent() {
 		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
 		if (!Environment.getExternalStorageState().equals(
@@ -501,7 +501,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	 * This dialog lets the user walk through the directory tree, previewing and adding images with the help of previewDialog().
 	 * @param Dir	Directory, if it is called via onRestoreInstanceState()
 	 */
-	public void addPicFromStorageDialog(File Dir) {
+	private void addPicFromStorageDialog(File Dir) {
 		dir = Dir;
 		if (isExternalStorageReadable()) {
 			if (dir == null)
@@ -642,7 +642,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	 * The preview for the AddPicFromStorageDialog().
 	 * @param File	The picture you clicked on.
 	 */
-	public void previewDialog(File File) {
+	private void previewDialog(File File) {
 		file = File;
 		try {
 			statecontroller.showPreviewDialog();
@@ -792,7 +792,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	/**
 	 * Opens a new intent where you can do bluetooth stuff.
 	 */
-	public void bluetooth() {
+	private void bluetooth() {
 		Intent intent = new Intent(this, BluetoothActivity.class);
 		//intent.putExtra(...);
 		startActivity(intent);
@@ -801,7 +801,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	/**
 	 * Opens a new intent where you can do NFC stuff.
 	 */
-	public void nfc() {
+	private void nfc() {
 		try {
 			statecontroller.showNfcActivity();
 		} catch (Exception e) {

@@ -1,8 +1,7 @@
 	TimerTask tt = new TimerTask() {
 		@Override
 		public void run() {
-			btAd.cancelDiscovery();
-			discovering = false;
+			...
 		}
 	};
 	Timer t = new Timer();

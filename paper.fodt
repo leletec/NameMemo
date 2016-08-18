@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <office:document xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0" xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0" xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0" xmlns:draw="urn:oasis:names:tc:opendocument:xmlns:drawing:1.0" xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:number="urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0" xmlns:svg="urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0" xmlns:chart="urn:oasis:names:tc:opendocument:xmlns:chart:1.0" xmlns:dr3d="urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0" xmlns:math="http://www.w3.org/1998/Math/MathML" xmlns:form="urn:oasis:names:tc:opendocument:xmlns:form:1.0" xmlns:script="urn:oasis:names:tc:opendocument:xmlns:script:1.0" xmlns:config="urn:oasis:names:tc:opendocument:xmlns:config:1.0" xmlns:ooo="http://openoffice.org/2004/office" xmlns:ooow="http://openoffice.org/2004/writer" xmlns:oooc="http://openoffice.org/2004/calc" xmlns:dom="http://www.w3.org/2001/xml-events" xmlns:xforms="http://www.w3.org/2002/xforms" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rpt="http://openoffice.org/2005/report" xmlns:of="urn:oasis:names:tc:opendocument:xmlns:of:1.2" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:grddl="http://www.w3.org/2003/g/data-view#" xmlns:officeooo="http://openoffice.org/2009/office" xmlns:tableooo="http://openoffice.org/2009/table" xmlns:drawooo="http://openoffice.org/2010/draw" xmlns:calcext="urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0" xmlns:loext="urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0" xmlns:field="urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0" xmlns:formx="urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0" xmlns:css3t="http://www.w3.org/TR/css3-text/" office:version="1.2" office:mimetype="application/vnd.oasis.opendocument.text">
- <office:meta><meta:creation-date>2016-08-18T11:52:45.439000000</meta:creation-date><dc:date>2016-08-18T12:48:08.272000000</dc:date><meta:editing-duration>PT55M20S</meta:editing-duration><meta:editing-cycles>6</meta:editing-cycles><meta:generator>LibreOffice/5.0.5.2$Windows_X86_64 LibreOffice_project/55b006a02d247b5f7215fc6ea0fde844b30035b3</meta:generator><meta:document-statistic meta:table-count="0" meta:image-count="0" meta:object-count="0" meta:page-count="1" meta:paragraph-count="20" meta:word-count="257" meta:character-count="1816" meta:non-whitespace-character-count="1578"/></office:meta>
+ <office:meta><meta:creation-date>2016-08-18T11:52:45.439000000</meta:creation-date><dc:date>2016-08-18T23:29:41.067000000</dc:date><meta:editing-duration>PT11H36M48S</meta:editing-duration><meta:editing-cycles>16</meta:editing-cycles><meta:generator>LibreOffice/5.0.5.2$Windows_X86_64 LibreOffice_project/55b006a02d247b5f7215fc6ea0fde844b30035b3</meta:generator><meta:document-statistic meta:table-count="0" meta:image-count="0" meta:object-count="0" meta:page-count="1" meta:paragraph-count="18" meta:word-count="280" meta:character-count="1941" meta:non-whitespace-character-count="1678"/></office:meta>
  <office:settings>
   <config:config-item-set config:name="ooo:view-settings">
-   <config:config-item config:name="ViewAreaTop" config:type="long">4233</config:config-item>
+   <config:config-item config:name="ViewAreaTop" config:type="long">6985</config:config-item>
    <config:config-item config:name="ViewAreaLeft" config:type="long">0</config:config-item>
    <config:config-item config:name="ViewAreaWidth" config:type="long">32519</config:config-item>
    <config:config-item config:name="ViewAreaHeight" config:type="long">23550</config:config-item>
@@ -13,12 +13,12 @@
    <config:config-item-map-indexed config:name="Views">
     <config:config-item-map-entry>
      <config:config-item config:name="ViewId" config:type="string">view2</config:config-item>
-     <config:config-item config:name="ViewLeft" config:type="long">12467</config:config-item>
-     <config:config-item config:name="ViewTop" config:type="long">23119</config:config-item>
+     <config:config-item config:name="ViewLeft" config:type="long">7759</config:config-item>
+     <config:config-item config:name="ViewTop" config:type="long">22632</config:config-item>
      <config:config-item config:name="VisibleLeft" config:type="long">0</config:config-item>
-     <config:config-item config:name="VisibleTop" config:type="long">4233</config:config-item>
+     <config:config-item config:name="VisibleTop" config:type="long">6985</config:config-item>
      <config:config-item config:name="VisibleRight" config:type="long">32517</config:config-item>
-     <config:config-item config:name="VisibleBottom" config:type="long">27781</config:config-item>
+     <config:config-item config:name="VisibleBottom" config:type="long">30533</config:config-item>
      <config:config-item config:name="ZoomType" config:type="short">0</config:config-item>
      <config:config-item config:name="ViewLayoutColumns" config:type="short">1</config:config-item>
      <config:config-item config:name="ViewLayoutBookMode" config:type="boolean">false</config:config-item>
@@ -342,12 +342,13 @@
    <text:p text:style-name="P4">3. …</text:p>
    <text:p text:style-name="P4"/>
    <text:h text:style-name="P8" text:outline-level="1">1. Einleitung</text:h>
-   <text:p text:style-name="P4">Ich wurde letztens von jemandem gefragt, was das Thema meiner Seminararbeit sei, worauf ich antwortete: „Ich programmiere eine Namenlern-App“.</text:p>
-   <text:p text:style-name="P4">Der Fragende schien damit nicht wirklich etwas anfangen zu können, es schien ihm nicht klar wozu man solch eine App brauchen könnte, er könne sich die Namen seiner Klassenkameraden schließlich auch ohne Hilfe eines Computers merken.</text:p>
-   <text:p text:style-name="P4">Es gibt aber durchaus Anwendungsgebiete für mein Programm:</text:p>
-   <text:p text:style-name="P4">Sie kann von Lehrern verwendet werden, um sich die Namen ihrer Schüler merken zu können, da dies aufgrund der vielen und häufig wechselnden Schülern oft ein Problem ist. So habe ich bereits von einem Lehrer eine Anfrage bekommen, diese App verwenden zu dürfen.</text:p>
-   <text:p text:style-name="P4">Aber natürlich beschränkt sich meine Zielgruppe nicht nur auf Lehrer. Alle Arbeitnehmer und -geber, die mit viel Personal arbeiten oder auch solche, die Schwierigkeiten haben, sich Namen zu merken, können sich ihr Leben mit diesem Programm ein Stück leichter machen. </text:p>
-   <text:p text:style-name="P6"><text:span text:style-name="T6">Das es aber nicht nur möglich ist, mit dieser Software Namen und Bilder zu verknüpfen, zeigt eine Anfrage seitens der </text:span><text:span text:style-name="T5">Klinik für Kinder- und Jugendpsychiatrie und Psychotherapie </text:span><text:span text:style-name="T6">der Kliniken St. Elisabeth in Neuburg an der Donau, sie in der Diagnostik und Therapie von Autismuspatienten einzusetzen. Dabei werden Emotionen mit Gesichtsausdrücken verknüpft, so zum Beispiel ein lachender Mund mit Freude.</text:span></text:p>
+   <text:p text:style-name="P4">Ich wurde letztens gefragt, was das Thema meiner Seminararbeit sei, worauf ich antwortete: „Ich programmiere eine Namenlern-App“. Der Fragende schien damit nicht wirklich etwas anfangen zu können, es schien ihm nicht klar zu sein, wozu man solch eine App brauchen könnte, er könne sich die Namen seiner Klassenkameraden schließlich auch ohne Hilfe eines Computers merken.</text:p>
+   <text:p text:style-name="P4"/>
+   <text:p text:style-name="P4">Es gibt aber durchaus Anwendungsgebiete für mein Programm: Sie kann von Lehrern verwendet werden, um sich die Namen ihrer Schüler leichter zu merken, da dies aufgrund der vielen und häufig wechselnden Schüler oft ein Problem ist. Ein Lehrer hat bereits angefragt, diese App verwenden zu dürfen. Aber natürlich beschränkt sich meine Zielgruppe nicht nur auf Lehrer. Alle Arbeitnehmer und -geber, die mit viel Personal arbeiten oder alle anderen, die Schwierigkeiten haben, sich Namen zu merken, können sich ihr Leben mit diesem Programm ein Stück leichter machen. </text:p>
+   <text:p text:style-name="P4"/>
+   <text:p text:style-name="P6"><text:span text:style-name="T6">Das Grundprinzip der Anwendung ist es, je ein Bild mit einem Namen zu verknüpfen und den Benutzer zu testen, ob er den Namen zu den Bildern weiß.</text:span></text:p>
+   <text:p text:style-name="P6"><text:span text:style-name="T6"/></text:p>
+   <text:p text:style-name="P6"><text:span text:style-name="T6">Dass es aber nicht nur möglich ist, mit dieser Software Namen und Bilder zu verknüpfen, zeigt eine Anfrage seitens der </text:span><text:span text:style-name="T5">Klinik für Kinder- und Jugendpsychiatrie und Psychotherapie </text:span><text:span text:style-name="T6">der Kliniken St. Elisabeth in Neuburg an der Donau, die App in der Diagnostik und Therapie von Autismuspatienten einzusetzen. Dabei werden Emotionen mit Gesichtsausdrücken verknüpft, so zum Beispiel ein lachender Mund mit Freude.</text:span></text:p>
    <text:p text:style-name="P4"/>
   </office:text>
  </office:body>

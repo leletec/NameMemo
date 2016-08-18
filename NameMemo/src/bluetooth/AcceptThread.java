@@ -6,19 +6,18 @@ import java.util.UUID;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
-import android.content.Context;
 import android.util.Log;
 
 
 /* For server */
 public class AcceptThread extends Thread {
 	private final BluetoothServerSocket srvSock;
-	private final Context context;
 	private HandleThread conn;
 	private boolean connected;
+	private final BluetoothActivity activity;
 	
-	public AcceptThread(BluetoothAdapter adapter, String name, UUID uuid, Context context) {
-		this.context = context;
+	public AcceptThread(BluetoothAdapter adapter, String name, UUID uuid, BluetoothActivity activity) {
+		this.activity = activity;
 		// Use a temporary object that is later assigned to srvSock, because srvSock is final
 		BluetoothServerSocket tmp = null;
 		try {
@@ -36,9 +35,15 @@ public class AcceptThread extends Thread {
 				if (sock != null) {
 					// Do work to manage the connection (in a separate thread)
 	                Log.d("BT", "Accept sock " + sock);
-					conn = new HandleThread(sock, context);
+					conn = new HandleThread(sock, activity);
 					conn.start();
 					connected = true;
+					activity.runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							activity.connected();
+						}
+					});	
 	                srvSock.close();
 	                break;
 				}

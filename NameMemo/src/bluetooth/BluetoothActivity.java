@@ -4,11 +4,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
 
+import database.MySQLiteHelper;
 import de.leander.projekt.R;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
@@ -18,12 +18,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +35,7 @@ import android.widget.Toast;
  * https://github.com/googlesamples/android-BluetoothChat
  * http://stackoverflow.com/questions/24573755/android-bluetooth-socket-connect-fails
  * http://stackoverflow.com/questions/858980/file-to-byte-in-java
+ * http://stackoverflow.com/questions/4350084/byte-to-file-in-java
  */
 public class BluetoothActivity extends Activity {
 	private static final int REQUEST_ENABLE_BT = 200;
@@ -40,12 +43,17 @@ public class BluetoothActivity extends Activity {
 	private static final UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 	
 	private final Context context = this;
+	private final BluetoothActivity activity = this;
 	private BluetoothAdapter adapter;
 	private ListView devLv;
 	private TextView devTv;
 	private ArrayList<BluetoothDevice> devList;
 	private AcceptThread srv;
 	private ConnectThread client;
+	private Button bSend;
+	private Button bRecieve;
+	private HandleThread handler;
+	private String dbName;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +63,9 @@ public class BluetoothActivity extends Activity {
 		adapter = BluetoothAdapter.getDefaultAdapter();
 		devLv = (ListView) findViewById(R.id.lvDevices);
 		devTv = (TextView) findViewById(R.id.tvDevices);
+		bSend = (Button) findViewById(R.id.bSend);
+		bRecieve = (Button) findViewById(R.id.bRevieve);
+		dbName = MySQLiteHelper.DATABASENAME;
 		
 		// Register the BroadcastReceiver
 		registerReceiver(receiver, new IntentFilter(BluetoothDevice.ACTION_FOUND));
@@ -63,7 +74,7 @@ public class BluetoothActivity extends Activity {
 		    Toast.makeText(context, "Device does not support Bluetooth", Toast.LENGTH_LONG).show();
 		    finish();
 		}
-		copyFiles();
+//		copyFiles();
 	}
 	
 	@Override
@@ -133,8 +144,8 @@ public class BluetoothActivity extends Activity {
 
 	public void setup() {
 		// Start a server
-		srv = new AcceptThread(adapter, name, uuid, context);
-		srv.start();
+		srv = new AcceptThread(adapter, name, uuid, activity);
+		srv.start(); //XXX
 		
 		// Show paired devices
 		devTv.setText("Gekoppelte Geräte:");
@@ -155,8 +166,8 @@ public class BluetoothActivity extends Activity {
 				srv.cancel();
 				Toast.makeText(context, "Versuche Verbindung mit dem Gerät aufzubauen", Toast.LENGTH_SHORT).show();
 				BluetoothDevice device = (BluetoothDevice) parent.getItemAtPosition(position);
-				client = new ConnectThread(adapter, device, uuid, context);
-				client.start();
+				client = new ConnectThread(adapter, device, uuid, activity);
+				client.start(); //XXX
 			}
 		});
 	}
@@ -218,40 +229,65 @@ public class BluetoothActivity extends Activity {
 	    return buffer;
 	}
 	
-	private void copyFiles() {
-		int[] files = new int[] { R.raw.hund, R.raw.katze, R.raw.hase };
-		String[] filenames = new String[] { "hund.jpg", "katze.png", "hase.jpg"};
-
-		if (files != null)
-			for (int i = 0; i < files.length; i++) {
-				int resId = files[i];
-				String filename = filenames[i];
-				InputStream in = null;
-				OutputStream out = null;
-				try {
-					in = getResources().openRawResource(resId);
-					out = openFileOutput(filename, Context.MODE_PRIVATE);
-					copyFile(in, out);
-				} catch (IOException e) {
-				} finally {
-					if (in != null) {
-						try {
-							in.close();
-						} catch (IOException e) {}
-					}
-					if (out != null) {
-						try {
-							out.close();
-						} catch (IOException e) {}
-					}
-				}
+	public void connected() {
+		bSend.setVisibility(View.VISIBLE);
+		bRecieve.setVisibility(View.VISIBLE);
+		devLv.setVisibility(View.GONE);
+		devTv.setText("Verbunden\nWählen Sie eine der beiden Optionen aus"); //XXX
+		
+		bSend.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				handler.sendDb(getDatabasePath(dbName));
 			}
-		}
-	private void copyFile(InputStream in, OutputStream out) throws IOException {
-		byte[] buffer = new byte[1024];
-		int read;
-		while ((read = in.read(buffer)) != -1) {
-			out.write(buffer, 0, read);
-		}
+		});
+		
+		bRecieve.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				handler.loadDb(new File (Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), dbName));
+			}
+		});
 	}
+	
+	public void setHandler(HandleThread handler) {
+		this.handler = handler;
+	}
+//	
+//	private void copyFiles() {
+//		int[] files = new int[] { R.raw.hund, R.raw.katze, R.raw.hase };
+//		String[] filenames = new String[] { "hund.jpg", "katze.png", "hase.jpg"};
+//
+//		if (files != null)
+//			for (int i = 0; i < files.length; i++) {
+//				int resId = files[i];
+//				String filename = filenames[i];
+//				InputStream in = null;
+//				OutputStream out = null;
+//				try {
+//					in = getResources().openRawResource(resId);
+//					out = openFileOutput(filename, Context.MODE_PRIVATE);
+//					copyFile(in, out);
+//				} catch (IOException e) {
+//				} finally {
+//					if (in != null) {
+//						try {
+//							in.close();
+//						} catch (IOException e) {}
+//					}
+//					if (out != null) {
+//						try {
+//							out.close();
+//						} catch (IOException e) {}
+//					}
+//				}
+//			}
+//		}
+//	private void copyFile(InputStream in, OutputStream out) throws IOException {
+//		byte[] buffer = new byte[1024];
+//		int read;
+//		while ((read = in.read(buffer)) != -1) {
+//			out.write(buffer, 0, read);
+//		}
+//	}
 }

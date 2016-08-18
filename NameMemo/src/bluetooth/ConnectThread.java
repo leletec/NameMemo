@@ -6,19 +6,18 @@ import java.util.UUID;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
-import android.content.Context;
 import android.util.Log;
 
 /* For client */
 public class ConnectThread extends Thread {
 	private final BluetoothSocket sock;
 	private final BluetoothAdapter adapter;
-	private final Context context;
+	private final BluetoothActivity activity;
 	private HandleThread conn;
 	private boolean connected;
 	
-	public ConnectThread (BluetoothAdapter adapter, BluetoothDevice device, UUID uuid, Context context) {
-		this.context = context;
+	public ConnectThread (BluetoothAdapter adapter, BluetoothDevice device, UUID uuid, BluetoothActivity activity) {
+		this.activity = activity;
 		// Use a temporary object that is later assigned to sock, because sock is final
 		BluetoothSocket tmp = null;
 		this.adapter = adapter;
@@ -52,9 +51,15 @@ public class ConnectThread extends Thread {
 
 		Log.d("BT", "Connect sock " + sock);
 		// Do work to manage the connection (in a separate thread)
-		conn = new HandleThread(sock, context);
+		conn = new HandleThread(sock, activity);
 		conn.start();
 		connected = true;
+		activity.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				activity.connected();
+			}
+		});	
 	}
 
 	/** Will cancel an in-progress connection, and close the socket */

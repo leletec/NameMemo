@@ -32,3 +32,6 @@ proguard/
 
 # Log Files
 *.log
+
+# Lock files (LibreOffice)
+.~lock.*

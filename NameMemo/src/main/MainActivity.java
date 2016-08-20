@@ -1,6 +1,10 @@
 package main;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 
 import states.DialogState;
@@ -38,7 +42,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 import database.Pictures;
 import database.PicturesDAO;
-
 import de.leander.projekt.R;
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -80,9 +83,20 @@ public class MainActivity extends Activity implements OnClickListener {
 		statecontroller = new StateController();
 		camera = new Camera();
 		
+		app_name = getString(R.string.app_name);
+		
 		loadPictures();
 		currentPicture = 0;
-		app_name = getString(R.string.app_name);
+	}
+	
+	@Override
+	protected void onStart() {
+		super.onStart();
+		File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), app_name);
+		if (!(new File(dir, "katze.png").exists() && new File(dir, "hund.jpg").exists() && new File(dir, "hase.jpg").exists()))
+			copyExamplePics(dir);
+		else
+			Log.d("setup", "everything is there");
 	}
 
 	/**
@@ -143,6 +157,46 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 	}
 
+	private void copyExamplePics(File dir) {
+		int[] files = new int[] { R.raw.hund, R.raw.katze, R.raw.hase };
+		String[] filenames = new String[] { "hund.jpg", "katze.png", "hase.jpg" };
+		
+		if(!dir.exists())
+			dir.mkdirs();
+		
+		for (int i = 0; i < files.length; i++) {
+			int resId = files[i];
+			String filename = filenames[i];
+			InputStream in = null;
+			OutputStream out = null;
+			
+			try {
+				in = getResources().openRawResource(resId);
+				out = new FileOutputStream(new File(dir, filename));
+				copyFile(in, out);
+				Log.d("setup", "copied file " + filename);
+			} catch (IOException e) {
+			Log.e("setup", "Failed to copy asset file: " + filename, e);
+			} finally {
+				if (in != null)
+					try {
+						in.close();
+					} catch (IOException e) {}
+				if (out != null)
+					try {
+						out.close();
+					} catch (IOException e) {}
+		 	}
+		}
+	}
+		
+	private void copyFile(InputStream in, OutputStream out) throws IOException {
+		byte[] buffer = new byte[1024];
+		int read;
+		while ((read = in.read(buffer)) != -1)
+			out.write(buffer, 0, read);
+	}
+	
 	/**
 	 * Resets the app to the factory settings.
 	 */
@@ -249,8 +303,10 @@ public class MainActivity extends Activity implements OnClickListener {
 			oldSource = pictures[currentPicture].getSource();
 		pictures = datasource.getAllBilder().toArray(new Pictures[0]);
 		if (pictures.length == 0) {
-			File f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)	+ File.separator + app_name, "katze.png");
+			File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), app_name);
+			File f = new File(dir, "katze.png");
 			datasource.add(f.getAbsolutePath(), "Katze", Pictures.Imported); //XXX
+			Log.d("loadPictures", "loaded 'Katze', source: " + f.getAbsolutePath());
 			loadPictures();
 			return;
 		}
@@ -729,6 +785,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		String filename = savedInstanceState.getString("filename");
 		String uriString = savedInstanceState.getString("uri");
 		Uri uri = null;
+		app_name = getString(R.string.app_name);
 		if (uriString != null) {
 			uri = Uri.parse(uriString);
 		}

@@ -231,7 +231,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		Bitmap bmp = BitmapFactory.decodeFile(source);
 		if (bmp == null) {
-			missingFileDialog(fname, pictures[currentPicture].getName());
+			missingFileDialog(pictures[currentPicture].getSource(), pictures[currentPicture].getName());
 			return;
 		} else
 			Log.d("changeSource", "Bitmap=" + bmp.toString());

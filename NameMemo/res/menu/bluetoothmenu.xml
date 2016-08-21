@@ -7,7 +7,7 @@
         android:id="@+id/discover"
         android:title="Nach Geräten suchen" />
     <item
-        android:id="@+id/sendFile"
-        android:title="Datei senden" />
+        android:id="@+id/BTtest"
+        android:title="Test" />
 
 </menu>

@@ -1,13 +1,18 @@
 package bluetooth;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+
 import android.bluetooth.BluetoothSocket;
+import android.os.Environment;
+import android.util.Log;
 
 
 /* For client and server */
@@ -29,7 +34,7 @@ public class HandleThread extends Thread {
 		try {
 			tmpIn = sock.getInputStream();
 			tmpOut = sock.getOutputStream();
-		} catch (IOException e) {}
+		} catch (IOException e) {e.printStackTrace();}
 		
 		in = tmpIn;
 		out = tmpOut;
@@ -38,28 +43,32 @@ public class HandleThread extends Thread {
 	public void run() {
 		activity.setHandler(this);
 
-		buffer = new byte[1024];  // buffer store for the stream
+		int bytesRead;
+		int current = 0;
 		
 		// Keep listening to the InputStream until an exception occurs
-		for (;;) {
-			try {
-				// Read from the InputStream
-				in.read(buffer);
-				for (int i=0; i < buffer.length; ++i)
-					bytes.add(buffer[i]);
-				
-			} catch (IOException e) {
-//				try {
-//					FileOutputStream fos = new FileOutputStream(new File (Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "test2.db"));
-//					fos.write(buffer);
-//					fos.close();
-//					Log.d("BT", "File recieved");
-//				} catch (Exception e1) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//				break;
-			}
+//		for (;;) {
+//			try {
+//				// Read from the InputStream
+//				in.read(buffer);
+//				
+//				
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
+		
+		try {
+			byte[] buffer = new byte[20480];
+			in.read(buffer);
+			File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+			File out = new File(dir, "test.db");
+			OutputStream fos = new FileOutputStream(out);
+			fos.write(buffer);
+			if (fos != null)
+				fos.close();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -67,46 +76,20 @@ public class HandleThread extends Thread {
 	public void write(byte[] bytes) {
 		try {
 			out.write(bytes);
-		} catch (IOException e) { }
+		} catch (IOException e) {e.printStackTrace(); }
 	}
 
 	/* Call this from the main activity to shutdown the connection */
 	public void cancel() {
 		try {
 			sock.close();
-		} catch (IOException e) { }
+		} catch (IOException e) {e.printStackTrace(); }
 	}
 	
 	public void sendDb(File file) {
-//		try {
-//			RandomAccessFile f = new RandomAccessFile(file, "r");
-//			byte[] b = new byte[(int)f.length()];
-//			f.readFully(b);
-//			write(b);
-//			f.close();
-//			Log.d("BT", "File sent");
-//			Log.d("BT", "f.length: " + b.length);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		String s = "Test test 123 !§";
-//		write(s.getBytes());
-		try {
-			InputStream in = new FileInputStream(file);
-			byte[] buffer = new byte[(int)file.length()];
-			in.read(buffer);
-			for (int i=0; i < buffer.length; i+=1024) {
-				byte[] bytes = new byte[1024];
-				for (int j=0; j < bytes.length; ++j)
-					bytes[j] = buffer[i];
-				write(bytes);
-			}
-			in.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		String s = "Hallo Welt!";
+		byte[] b = s.getBytes();
+		write(b);
 	}
 	
 	public void loadDb(File file) {

@@ -2,8 +2,11 @@ package bluetooth;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
@@ -135,8 +138,12 @@ public class BluetoothActivity extends Activity {
 		case R.id.discover:
 			discover();
 			return true;
-		case R.id.sendFile:
-			sendFile();
+		case R.id.BTtest:
+			try {
+				test();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			return true;
 		}
 		return false;
@@ -195,7 +202,34 @@ public class BluetoothActivity extends Activity {
 		adapter.notifyDataSetChanged();
 	}
 	
-	private void sendFile() {
+	private void test() throws IOException{
+		File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+		InputStream fis = new FileInputStream(getDatabasePath(dbName));
+//		InputStream fis = new FileInputStream(new File(dir, "hund.jpg"));
+		byte[] buffer = new byte[20480];
+		fis.read(buffer);
+		if (fis != null)
+			fis.close();
+		handler.write(buffer);
+	}
+	
+//	private void test() throws IOException {
+//		File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+//		InputStream fis = new FileInputStream(new File (dir, "hund.jpg"));
+//		File out = new File(dir, "hund2.jpg");
+//		OutputStream fos = new FileOutputStream(out);
+//		
+//		byte[] buffer = new byte[8192];
+//		int bytes;
+//		while ((bytes = fis.read(buffer)) != -1)
+//			fos.write(buffer, 0, bytes);
+//		if (fis != null)
+//			fis.close();
+//		if (fos != null)
+//			fos.close();
+//	}
+	
+	private void send() {
 		File file = new File("hase.jpg");
 		if (!file.exists()) {
 			Log.e("BT", "File not found");
@@ -253,41 +287,4 @@ public class BluetoothActivity extends Activity {
 	public void setHandler(HandleThread handler) {
 		this.handler = handler;
 	}
-//	
-//	private void copyFiles() {
-//		int[] files = new int[] { R.raw.hund, R.raw.katze, R.raw.hase };
-//		String[] filenames = new String[] { "hund.jpg", "katze.png", "hase.jpg"};
-//
-//		if (files != null)
-//			for (int i = 0; i < files.length; i++) {
-//				int resId = files[i];
-//				String filename = filenames[i];
-//				InputStream in = null;
-//				OutputStream out = null;
-//				try {
-//					in = getResources().openRawResource(resId);
-//					out = openFileOutput(filename, Context.MODE_PRIVATE);
-//					copyFile(in, out);
-//				} catch (IOException e) {
-//				} finally {
-//					if (in != null) {
-//						try {
-//							in.close();
-//						} catch (IOException e) {}
-//					}
-//					if (out != null) {
-//						try {
-//							out.close();
-//						} catch (IOException e) {}
-//					}
-//				}
-//			}
-//		}
-//	private void copyFile(InputStream in, OutputStream out) throws IOException {
-//		byte[] buffer = new byte[1024];
-//		int read;
-//		while ((read = in.read(buffer)) != -1) {
-//			out.write(buffer, 0, read);
-//		}
-//	}
 }

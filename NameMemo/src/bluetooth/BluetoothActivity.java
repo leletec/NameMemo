@@ -204,13 +204,15 @@ public class BluetoothActivity extends Activity {
 	
 	private void test() throws IOException{
 		File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-		InputStream fis = new FileInputStream(getDatabasePath(dbName));
-//		InputStream fis = new FileInputStream(new File(dir, "hund.jpg"));
-		byte[] buffer = new byte[20480];
+		File f = getDatabasePath(dbName);
+		InputStream fis = new FileInputStream(f);
+		byte[] buffer = new byte[(int)f.length()];
 		fis.read(buffer);
 		if (fis != null)
 			fis.close();
-		handler.write(buffer);
+		for (int i=0; i < buffer.length; ++i)
+			handler.write(buffer[i]);
+		handler.close();
 	}
 	
 //	private void test() throws IOException {

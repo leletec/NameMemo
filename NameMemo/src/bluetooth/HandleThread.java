@@ -42,33 +42,47 @@ public class HandleThread extends Thread {
 	
 	public void run() {
 		activity.setHandler(this);
-
-		int bytesRead;
-		int current = 0;
-		
-		// Keep listening to the InputStream until an exception occurs
-//		for (;;) {
-//			try {
-//				// Read from the InputStream
-//				in.read(buffer);
-//				
-//				
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//		}
-		
 		try {
-			byte[] buffer = new byte[20480];
+			bytes = new ArrayList<Byte>();
+			int i;
+			do {
+				i = in.read();
+				Log.d("BT", "read int " + i);
+				if (i != -1)
+					bytes.add((byte)i);
+			} while (i != -1);
+			
+			byte[] buffer = new byte[bytes.size()];
+			for (i = 0; i < bytes.size(); ++i)
+				buffer[i] = bytes.get(i);
+			
 			in.read(buffer);
 			File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 			File out = new File(dir, "test.db");
 			OutputStream fos = new FileOutputStream(out);
 			fos.write(buffer);
+			Log.d("BT", "wrote file");
 			if (fos != null)
 				fos.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+
+			try {
+				byte[] buffer = new byte[bytes.size()];
+				for (int i = 0; i < bytes.size(); ++i)
+					buffer[i] = bytes.get(i);
+				
+				in.read(buffer);
+				File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+				File out = new File(dir, "test.db");
+				OutputStream fos = new FileOutputStream(out);
+				fos.write(buffer);
+				Log.d("BT", "wrote file");
+				if (fos != null)
+					fos.close();
+			}catch (Exception e1) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -76,7 +90,22 @@ public class HandleThread extends Thread {
 	public void write(byte[] bytes) {
 		try {
 			out.write(bytes);
+			out.close();
 		} catch (IOException e) {e.printStackTrace(); }
+	}
+	
+	public void write(byte b) {
+		try {
+			out.write(b);
+		} catch (IOException e) {e.printStackTrace(); }
+	}
+	
+	public void close() {
+		try {
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/* Call this from the main activity to shutdown the connection */

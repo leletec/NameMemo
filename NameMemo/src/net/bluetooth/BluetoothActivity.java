@@ -1,22 +1,14 @@
-package bluetooth;
+package net.bluetooth;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
 
-import database.MySQLiteHelper;
+import net.Net;
 import de.leander.projekt.R;
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -24,8 +16,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Environment;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,13 +27,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /*
- * https://developer.android.com/guide/topics/connectivity/bluetooth.html
+ * https://developer.android.com/guide/topics/connectivity/net.bluetooth.html
  * https://github.com/googlesamples/android-BluetoothChat
- * http://stackoverflow.com/questions/24573755/android-bluetooth-socket-connect-fails
+ * http://stackoverflow.com/questions/24573755/android-net.bluetooth-socket-connect-fails
  * http://stackoverflow.com/questions/858980/file-to-byte-in-java
  * http://stackoverflow.com/questions/4350084/byte-to-file-in-java
  */
-public class BluetoothActivity extends Activity {
+public class BluetoothActivity extends Net {
 	private static final int REQUEST_ENABLE_BT = 200;
 	private static final String name = "NameMemo";
 	private static final UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
@@ -59,7 +49,6 @@ public class BluetoothActivity extends Activity {
 	private Button bSend;
 	private Button bRecieve;
 	private HandleThread handler;
-	private String dbName;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -71,16 +60,13 @@ public class BluetoothActivity extends Activity {
 		devTv = (TextView) findViewById(R.id.tvDevices);
 		bSend = (Button) findViewById(R.id.bSend);
 		bRecieve = (Button) findViewById(R.id.bRevieve);
-		dbName = MySQLiteHelper.DATABASENAME;
 		
-		// Register the BroadcastReceiver
 		registerReceiver(receiver, new IntentFilter(BluetoothDevice.ACTION_FOUND));
 		
 		if (adapter == null) {
 		    Toast.makeText(context, "Device does not support Bluetooth", Toast.LENGTH_LONG).show();
 		    finish();
 		}
-//		copyFiles();
 	}
 	
 	@Override
@@ -141,13 +127,6 @@ public class BluetoothActivity extends Activity {
 		case R.id.discover:
 			discover();
 			return true;
-		case R.id.BTtest:
-			try {
-				test();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			return true;
 		}
 		return false;
 	}
@@ -205,64 +184,18 @@ public class BluetoothActivity extends Activity {
 		adapter.notifyDataSetChanged();
 	}
 	
-	private void test() throws IOException{
-		File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-		File f = getDatabasePath(dbName);
-		FileInputStream fis = new FileInputStream(f);
-		byte[] bytes = new byte[(int) f.length()];
-		fis.read(bytes);
-		handler.sendDb(bytes);
-	}
-	
-//	private void test() throws IOException {
-//		File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-//		InputStream fis = new FileInputStream(new File (dir, "hund.jpg"));
-//		File out = new File(dir, "hund2.jpg");
-//		OutputStream fos = new FileOutputStream(out);
-//		
-//		byte[] buffer = new byte[8192];
-//		int bytes;
-//		while ((bytes = fis.read(buffer)) != -1)
-//			fos.write(buffer, 0, bytes);
-//		if (fis != null)
-//			fis.close();
-//		if (fos != null)
-//			fos.close();
-//	}
-	
-	private void send() {
-		File file = new File("hase.jpg");
-		if (!file.exists()) {
-			Log.e("BT", "File not found");
-			return;
+	public void send() {
+		try {	
+			File f = getDatabasePath(dbName);
+			FileInputStream fis = new FileInputStream(f);
+			byte[] bytes = new byte[(int) f.length()];
+			fis.read(bytes);
+			fis.close();
+			handler.sendDb(bytes);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		byte[] buffer = null;
-		try {
-			buffer = read(file);
-		} catch (IOException e) {}
-		
-		if (srv.isConnected())
-			srv.write(buffer);
-		else if (client.isConnected())
-			client.write(buffer);
-	}
-	
-	public byte[] read(File file) throws IOException {
-	    byte[] buffer = new byte[(int) file.length()];
-	    InputStream ios = null;
-	    try {
-	        ios = new FileInputStream(file);
-	        if (ios.read(buffer) == -1) {
-	            throw new IOException("EOF reached while trying to read the whole file");
-	        }
-	    } finally {
-	        try {
-	            if (ios != null)
-	                ios.close();
-	        } catch (IOException e) {}
-	    }
-	    return buffer;
-	}
+	} 
 	
 	public void connected() {
 		bSend.setVisibility(View.VISIBLE);
@@ -273,19 +206,22 @@ public class BluetoothActivity extends Activity {
 		bSend.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//handler.sendDb(getDatabasePath(dbName));
-			}
-		});
-		
-		bRecieve.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				handler.loadDb(new File (Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), dbName));
+				send();
 			}
 		});
 	}
 	
 	public void setHandler(HandleThread handler) {
 		this.handler = handler;
+	}
+	
+	public void receiveDb() {
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				receive();
+			}
+		});
+		
 	}
 }

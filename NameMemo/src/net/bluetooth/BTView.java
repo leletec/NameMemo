@@ -1,4 +1,4 @@
-package bluetooth;
+package net.bluetooth;
 
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;

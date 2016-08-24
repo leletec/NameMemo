@@ -46,10 +46,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="bluetooth.BluetoothActivity"
+            android:name="net.bluetooth.BluetoothActivity"
             android:label="@string/app_name" />
         <activity
-            android:name="nfc.NfcActivity"
+            android:name="net.nfc.NfcActivity"
             android:label="@string/app_name" />
         <activity
             android:name="wifiP2P.WifiActivity"

@@ -1,4 +1,4 @@
-package bluetooth;
+package net.bluetooth;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -13,7 +13,6 @@ import android.util.Log;
 public class AcceptThread extends Thread {
 	private final BluetoothServerSocket srvSock;
 	private HandleThread conn;
-	private boolean connected;
 	private final BluetoothActivity activity;
 	
 	public AcceptThread(BluetoothAdapter adapter, String name, UUID uuid, BluetoothActivity activity) {
@@ -37,7 +36,6 @@ public class AcceptThread extends Thread {
 	                Log.d("BT", "Accept sock " + sock);
 					conn = new HandleThread(sock, activity);
 					conn.start();
-					connected = true;
 					activity.runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
@@ -62,13 +60,5 @@ public class AcceptThread extends Thread {
 			srvSock.close();
 			Log.d("BT", "Closed srv");
 		} catch (IOException e) {}
-	}
-	
-	public boolean isConnected() {
-		return connected;
-	}
-	
-	public void write(byte[] bytes) {
-		conn.write(bytes);
 	}
 }

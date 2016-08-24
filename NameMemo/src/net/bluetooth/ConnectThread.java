@@ -1,4 +1,4 @@
-package bluetooth;
+package net.bluetooth;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -14,7 +14,6 @@ public class ConnectThread extends Thread {
 	private final BluetoothAdapter adapter;
 	private final BluetoothActivity activity;
 	private HandleThread conn;
-	private boolean connected;
 	
 	public ConnectThread (BluetoothAdapter adapter, BluetoothDevice device, UUID uuid, BluetoothActivity activity) {
 		this.activity = activity;
@@ -50,10 +49,8 @@ public class ConnectThread extends Thread {
 		}
 
 		Log.d("BT", "Connect sock " + sock);
-		// Do work to manage the connection (in a separate thread)
 		conn = new HandleThread(sock, activity);
 		conn.start();
-		connected = true;
 		activity.runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
@@ -62,18 +59,10 @@ public class ConnectThread extends Thread {
 		});	
 	}
 
-	/** Will cancel an in-progress connection, and close the socket */
-	public void cancel() {
-		try {
-			sock.close();
-		} catch (IOException e) { }
-	}
-	
-	public boolean isConnected() {
-		return connected;
-	}
-	
-	public void write(byte[] bytes) {
-		conn.write(bytes);
-	}
+//	/** Will cancel an in-progress connection, and close the socket */
+//	public void cancel() {
+//		try {
+//			sock.close();
+//		} catch (IOException e) { }
+//	}
 }

@@ -1,4 +1,4 @@
-package bluetooth;
+package net.bluetooth;
 
 import java.util.ArrayList;
 

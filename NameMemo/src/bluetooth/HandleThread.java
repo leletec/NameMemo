@@ -1,6 +1,8 @@
 package bluetooth;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -10,10 +12,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
+import states.DialogState;
 import android.bluetooth.BluetoothSocket;
 import android.os.Environment;
+import android.provider.SyncStateContract.Constants;
 import android.util.Log;
-
 
 /* For client and server */
 public class HandleThread extends Thread {
@@ -23,83 +26,67 @@ public class HandleThread extends Thread {
 	private final BluetoothActivity activity;
 	private byte[] buffer; // bytes returned from read()
 	ArrayList<Byte> bytes;
-	
+
 	public HandleThread(BluetoothSocket sock, BluetoothActivity activity) {
 		this.sock = sock;
 		this.activity = activity;
-		InputStream tmpIn = null; // Once again, using tmp-Objects because of final attributes
+		InputStream tmpIn = null; // Once again, using tmp-Objects because of
+									// final attributes
 		OutputStream tmpOut = null;
 		bytes = new ArrayList<Byte>();
-		
+
 		try {
 			tmpIn = sock.getInputStream();
 			tmpOut = sock.getOutputStream();
-		} catch (IOException e) {e.printStackTrace();}
-		
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		in = tmpIn;
 		out = tmpOut;
 	}
-	
+
 	public void run() {
 		activity.setHandler(this);
-		try {
-			bytes = new ArrayList<Byte>();
-			int i;
-			do {
-				i = in.read();
-				Log.d("BT", "read int " + i);
-				if (i != -1)
-					bytes.add((byte)i);
-			} while (i != -1);
-			
-			byte[] buffer = new byte[bytes.size()];
-			for (i = 0; i < bytes.size(); ++i)
-				buffer[i] = bytes.get(i);
-			
-			in.read(buffer);
-			File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-			File out = new File(dir, "test.db");
-			OutputStream fos = new FileOutputStream(out);
-			fos.write(buffer);
-			Log.d("BT", "wrote file");
-			if (fos != null)
-				fos.close();
-		} catch (Exception e) {
-			e.printStackTrace();
+		byte[] buffer = new byte[16384];
 
-			try {
-				byte[] buffer = new byte[bytes.size()];
-				for (int i = 0; i < bytes.size(); ++i)
-					buffer[i] = bytes.get(i);
-				
-				in.read(buffer);
-				File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-				File out = new File(dir, "test.db");
-				OutputStream fos = new FileOutputStream(out);
-				fos.write(buffer);
-				Log.d("BT", "wrote file");
-				if (fos != null)
-					fos.close();
-			}catch (Exception e1) {
-				e.printStackTrace();
+		try {
+			File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+			File f = new File(dir, "test.db");
+			OutputStream fos = new FileOutputStream(f);
+
+			for (;;) {
+				try {
+					int length = in.read(buffer);
+					fos.write(buffer, 0, length);
+				} catch (IOException ex) {
+					break;
+				}
 			}
+			fos.close();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
-	
+
 	/* Call this from the main activity to send data to the remote device */
 	public void write(byte[] bytes) {
 		try {
 			out.write(bytes);
 			out.close();
-		} catch (IOException e) {e.printStackTrace(); }
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-	
+
 	public void write(byte b) {
 		try {
 			out.write(b);
-		} catch (IOException e) {e.printStackTrace(); }
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-	
+
 	public void close() {
 		try {
 			out.close();
@@ -112,27 +99,42 @@ public class HandleThread extends Thread {
 	public void cancel() {
 		try {
 			sock.close();
-		} catch (IOException e) {e.printStackTrace(); }
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-	
-	public void sendDb(File file) {
-		String s = "Hallo Welt!";
-		byte[] b = s.getBytes();
-		write(b);
+
+	public void sendDb(byte[] bytes) throws IOException {
+		try {
+			int chunkLength = 8192;
+			int pos = 0;
+			
+			while (pos < bytes.length) {
+				int l = bytes.length - pos;
+				if (l > chunkLength)
+					l = chunkLength;
+				out.write(bytes, pos, l);
+				pos += l;
+			}
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-	
+
 	public void loadDb(File file) {
-//		try {
-//			FileOutputStream fos = new FileOutputStream(file);
-//			fos.write(buffer);
-//			fos.close();
-//			Log.d("BT", "File recieved");
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		// try {
+		// FileOutputStream fos = new FileOutputStream(file);
+		// fos.write(buffer);
+		// fos.close();
+		// Log.d("BT", "File recieved");
+		// } catch (Exception e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
 		buffer = new byte[bytes.size()];
-		for (int i=0 ; i < buffer.length; ++i)
+		for (int i = 0; i < buffer.length; ++i)
 			buffer[i] = bytes.get(i);
 		OutputStream out;
 		try {
@@ -143,6 +145,6 @@ public class HandleThread extends Thread {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 }

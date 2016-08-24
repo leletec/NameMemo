@@ -1,5 +1,8 @@
 package bluetooth;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -205,14 +208,10 @@ public class BluetoothActivity extends Activity {
 	private void test() throws IOException{
 		File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 		File f = getDatabasePath(dbName);
-		InputStream fis = new FileInputStream(f);
-		byte[] buffer = new byte[(int)f.length()];
-		fis.read(buffer);
-		if (fis != null)
-			fis.close();
-		for (int i=0; i < buffer.length; ++i)
-			handler.write(buffer[i]);
-		handler.close();
+		FileInputStream fis = new FileInputStream(f);
+		byte[] bytes = new byte[(int) f.length()];
+		fis.read(bytes);
+		handler.sendDb(bytes);
 	}
 	
 //	private void test() throws IOException {
@@ -274,7 +273,7 @@ public class BluetoothActivity extends Activity {
 		bSend.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				handler.sendDb(getDatabasePath(dbName));
+				//handler.sendDb(getDatabasePath(dbName));
 			}
 		});
 		

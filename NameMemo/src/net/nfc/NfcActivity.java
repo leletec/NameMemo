@@ -4,6 +4,7 @@ import net.Net;
 import de.leander.projekt.R;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.nfc.NfcAdapter;
@@ -20,6 +21,7 @@ import android.widget.Toast;
  */
 @SuppressLint("NewApi") //TODO?
 public class NfcActivity extends Net {
+	
 	private NfcAdapter adapter;
 	private final Context context = this;
 	private Uri[] fileUris;
@@ -46,8 +48,14 @@ public class NfcActivity extends Net {
 	@Override
 	protected void onStart() {
 		super.onStart();
+
 		bImport = (Button) findViewById(R.id.bImport);
 		adapter = NfcAdapter.getDefaultAdapter(context);
+		
+		if (!(adapter.isEnabled() && adapter.isNdefPushEnabled())) {
+			startActivity(new Intent(android.provider.Settings.ACTION_NFC_SETTINGS));
+			Toast.makeText(this, "Please enable NFC and AndroidBeam", Toast.LENGTH_SHORT).show();
+		}
 		
 		bImport.setOnClickListener(new OnClickListener() {
 			@Override

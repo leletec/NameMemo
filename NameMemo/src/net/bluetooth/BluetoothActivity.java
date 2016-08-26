@@ -76,8 +76,8 @@ public class BluetoothActivity extends Net {
 		if (adapter.isEnabled()) {
 			setup();
 		} else {
-			Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-			startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+			Intent enableBt = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+			startActivityForResult(enableBt, REQUEST_ENABLE_BT);
 		}
 	}
 	

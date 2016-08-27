@@ -17,10 +17,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
 		super(context, DATABASENAME, null, VERSION);
 	}
 
+	@Override
 	public void onCreate(SQLiteDatabase db) {
 		tabel.onCreate(db);
 	}
 
+	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		tabel.onUpgrade(db, oldVersion, newVersion);
 	}

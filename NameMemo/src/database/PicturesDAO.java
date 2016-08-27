@@ -12,7 +12,7 @@ import android.util.Log;
 
 public class PicturesDAO {
 
-	private SQLiteDatabase database;
+	protected SQLiteDatabase database;
 	private MySQLiteHelper dbHelper;
 
 	public PicturesDAO(Context context) {
@@ -43,6 +43,17 @@ public class PicturesDAO {
 		values.put("imagingmode", imagingmode);
 		database.insert(TablePictures.NAME, null, values);
 	}
+	
+	public void add(Picture pic) {
+		ContentValues values = new ContentValues();
+		values.put("source", pic.getSource());
+		values.put("name", pic.getName());
+		values.put("called", pic.getCalled());
+		values.put("gotright", pic.getGotright());
+		values.put("inarow", pic.getInarow());
+		values.put("imagingmode", pic.getImagingmode());
+		database.insert(TablePictures.NAME, null, values);
+	}
 
 	/**
 	 * Updates an entry of the database.
@@ -62,22 +73,32 @@ public class PicturesDAO {
 		values.put("gotright", gotright);
 		values.put("inarow", inarow);
 		values.put("imagingmode", imagingmode);
-		database.update(TablePictures.NAME, values, "source = ?",
-				new String[] { source });
+		database.update(TablePictures.NAME, values, "source = ?", new String[] { source });
+	}
+	
+	public void update(Picture pic) {
+		ContentValues values = new ContentValues();
+		values.put("source", pic.getSource());
+		values.put("name", pic.getName());
+		values.put("called", pic.getCalled());
+		values.put("gotright", pic.getGotright());
+		values.put("inarow", pic.getInarow());
+		values.put("imagingmode", pic.getImagingmode());
+		database.update(TablePictures.NAME, values, "source = ?", new String[] { pic.getSource() });
 	}
 
 	/**
 	 * @return A list of all entries in the database.
 	 */
-	public List<Pictures> getAllBilder() {
-		List<Pictures> pictures = new ArrayList<Pictures>();
+	public List<Picture> getAllBilder() {
+		List<Picture> pictures = new ArrayList<Picture>();
 
 		Cursor cursor = database.query(TablePictures.NAME, null, null, null,
 				null, null, null);
 
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
-			Pictures picture = cursorToPictures(cursor);
+			Picture picture = cursorToPictures(cursor);
 			pictures.add(picture);
 			cursor.moveToNext();
 		}
@@ -90,8 +111,8 @@ public class PicturesDAO {
 	 * @param cursor	Current position in the database.
 	 * @return			An entry of the database.
 	 */
-	private Pictures cursorToPictures(Cursor cursor) {
-		Pictures picture = new Pictures();
+	private Picture cursorToPictures(Cursor cursor) {
+		Picture picture = new Picture();
 		picture.setSource(cursor.getString(1));
 		picture.setName(cursor.getString(2));
 		picture.setCalled(cursor.getInt(3));

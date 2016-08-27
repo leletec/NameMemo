@@ -50,6 +50,8 @@ public class HandleThread extends Thread {
 			fos.close();
 			if (receiving)
 				activity.receiveDb();
+			else
+				activity.finish();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.nfc.NfcAdapter;
+import android.nfc.NfcAdapter.OnNdefPushCompleteCallback;
+import android.nfc.NfcEvent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,9 +33,11 @@ public class NfcActivity extends Net {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_nfc);
+		bImport = (Button) findViewById(R.id.bImport);
+		adapter = NfcAdapter.getDefaultAdapter(context);
 		
 		// Check if NFC is supported
-		if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_NFC)) {
+		if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_NFC) || adapter == null) {
 			Toast.makeText(context, "This device does not support NFC", Toast.LENGTH_LONG).show();
 			finish();
 		}
@@ -42,19 +46,6 @@ public class NfcActivity extends Net {
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
 			Toast.makeText(context, "This device does not support Android Beam", Toast.LENGTH_LONG).show();
 			finish();
-		}
-	}
-	
-	@Override
-	protected void onStart() {
-		super.onStart();
-
-		bImport = (Button) findViewById(R.id.bImport);
-		adapter = NfcAdapter.getDefaultAdapter(context);
-		
-		if (!(adapter.isEnabled() && adapter.isNdefPushEnabled())) {
-			startActivity(new Intent(android.provider.Settings.ACTION_NFC_SETTINGS));
-			Toast.makeText(this, "Please enable NFC and AndroidBeam", Toast.LENGTH_SHORT).show();
 		}
 		
 		bImport.setOnClickListener(new OnClickListener() {
@@ -65,6 +56,24 @@ public class NfcActivity extends Net {
 		});
 		
 		send();
+		
+		adapter.setOnNdefPushCompleteCallback(new OnNdefPushCompleteCallback() {
+			@Override
+			public void onNdefPushComplete(NfcEvent event) {
+				finish();
+			}
+		}, this);
+	}
+	
+	@Override
+	protected void onStart() {
+		super.onStart();
+
+		//Force user to enable NFC and Android Beam
+		if (!(adapter.isEnabled() && adapter.isNdefPushEnabled())) {
+			startActivity(new Intent(android.provider.Settings.ACTION_NFC_SETTINGS));
+			Toast.makeText(this, "Please enable NFC and AndroidBeam", Toast.LENGTH_SHORT).show();
+		}
 	}
 
 	@Override

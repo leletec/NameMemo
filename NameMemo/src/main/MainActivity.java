@@ -40,7 +40,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
-import database.Pictures;
+import database.Picture;
 import database.PicturesDAO;
 import de.leander.projekt.R;
 
@@ -48,7 +48,7 @@ import de.leander.projekt.R;
 public class MainActivity extends Activity implements OnClickListener {
 	private PicturesDAO datasource;
 	private int currentPicture;
-	private Pictures[] pictures;
+	private Picture[] pictures;
 	private Button text;
 	private Button yes;
 	private Button no;
@@ -126,13 +126,13 @@ public class MainActivity extends Activity implements OnClickListener {
 						pictures[currentPicture].getCalled() + 1,
 						pictures[currentPicture].getGotright() + 1,
 						pictures[currentPicture].getInarow() + 1,
-						pictures[currentPicture].getImagingcode());
+						pictures[currentPicture].getImagingmode());
 				loadPictures();
 				Log.d("Picture", "name:" + pictures[currentPicture].getName()
 						+ " called:" + pictures[currentPicture].getCalled()
 						+ " gotright:" + pictures[currentPicture].getGotright()
 						+ "in a row:" + pictures[currentPicture].getInarow()
-						+ "imagingcode:" + pictures[currentPicture].getImagingcode());
+						+ "imagingcode:" + pictures[currentPicture].getImagingmode());
 				if (pictures[currentPicture].getInarow() >= 3)
 					deleteDialog(pictures[currentPicture].getSource(),
 							pictures[currentPicture].getName());
@@ -144,13 +144,13 @@ public class MainActivity extends Activity implements OnClickListener {
 						pictures[currentPicture].getName(),
 						pictures[currentPicture].getCalled() + 1,
 						pictures[currentPicture].getGotright(), 0,
-						pictures[currentPicture].getImagingcode());
+						pictures[currentPicture].getImagingmode());
 				loadPictures();
 				Log.d("Picture", "name:" + pictures[currentPicture].getName()
 						+ " called:" + pictures[currentPicture].getCalled()
 						+ " gotright:" + pictures[currentPicture].getGotright()
 						+ "in a row:" + pictures[currentPicture].getInarow()
-						+ "imagingcode:" + pictures[currentPicture].getImagingcode());
+						+ "imagingcode:" + pictures[currentPicture].getImagingmode());
 				showNext();
 				break;
 			}
@@ -267,9 +267,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		 */
 		case R.id.addExamples:
 			File f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)	+ File.separator + app_name, "hund.jpg");
-			datasource.add(f.getAbsolutePath(), "Hund", Pictures.Imported); //XXX
+			datasource.add(f.getAbsolutePath(), "Hund", Picture.Imported); //XXX
 			f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + app_name, "hase.jpg");
-			datasource.add(f.getAbsolutePath(), "Hase", Pictures.Imported); //XXX
+			datasource.add(f.getAbsolutePath(), "Hase", Picture.Imported); //XXX
 			loadPictures();
 			return true;
 		case R.id.captureImage:
@@ -301,11 +301,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		String oldSource = null;
 		if (pictures != null && pictures.length != 0)
 			oldSource = pictures[currentPicture].getSource();
-		pictures = datasource.getAllBilder().toArray(new Pictures[0]);
+		pictures = datasource.getAllBilder().toArray(new Picture[0]);
 		if (pictures.length == 0) {
 			File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), app_name);
 			File f = new File(dir, "katze.png");
-			datasource.add(f.getAbsolutePath(), "Katze", Pictures.Imported); //XXX
+			datasource.add(f.getAbsolutePath(), "Katze", Picture.Imported); //XXX
 			Log.d("loadPictures", "loaded 'Katze', source: " + f.getAbsolutePath());
 			loadPictures();
 			return;
@@ -313,7 +313,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		for (int i = 0; i < pictures.length; i++)
 			if (pictures[i].getSource().equals(oldSource))
 				currentPicture = i;
-		for (Pictures pic : pictures)
+		for (Picture pic : pictures)
 			Log.d("Bilder", pic + "loaded");
 		Log.d("Bilder", "Arraylength: " + pictures.length);
 	}
@@ -460,10 +460,10 @@ public class MainActivity extends Activity implements OnClickListener {
 								.findViewById(R.id.ETname);
 						if (f == null)
 							datasource.add(camera.getUri().getPath(), name
-									.getText().toString(), Pictures.Camera);
+									.getText().toString(), Picture.Camera);
 						else
 							datasource.add(f.getAbsolutePath(), name.getText()
-									.toString(), Pictures.Phone);
+									.toString(), Picture.Phone);
 						loadPictures();
 					}
 				});
@@ -600,7 +600,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		FileListAdapter adapter = new FileListAdapter(this, filelist);
 		ListView listview = new ListView(this);
 		listview.setAdapter(adapter);
-
 		builder.setView(listview);
 		Log.d("path", dir.getAbsolutePath());
 		builder.setNegativeButton(R.string.dialogCancel,

@@ -4,12 +4,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 import database.ImportNewDb;
 import database.MySQLiteHelper;
@@ -32,62 +34,79 @@ public abstract class Net extends Activity{
 
 	abstract public void send();
 	
-	/*
-	 * http://stackoverflow.com/questions/4452538/location-of-sqlite-database-on-the-device
-	 */
-//	protected void receive() {
-//		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//		builder.setTitle("Datenbank importieren"); //XXX
-//		builder.setMessage("Wollen Sie die Datenbank kopieren?"); //XXX
-//		builder.setPositiveButton(R.string.dialogPositive, new DialogInterface.OnClickListener() {
-//			@Override
-//			public void onClick(DialogInterface arg0, int arg1) {
-//				FileInputStream fis = null;
-//				FileOutputStream fos = null;
-//
-//				try {
-//					fis = new FileInputStream(importFile);
-//					fos = new FileOutputStream(dbFile);
-//					for (;;) {
-//						int i = fis.read();
-//						if (i != -1)
-//							fos.write(i);
-//						else
-//							break;
-//					}
-//					fos.flush();
-//					Toast.makeText(context, "DB imported", Toast.LENGTH_LONG).show();
-//					importFile.delete();
-//				} catch(Exception e) {
-//					e.printStackTrace();
-//					Toast.makeText(context, "DB failed to import", Toast.LENGTH_LONG).show();
-//				} finally {
-//					try {
-//						fos.close();
-//						fis.close();
-//					} catch (Exception e) {}
-//					finally {finish();}
-//				}
-//			}
-//		});
-//		builder.setNegativeButton(R.string.dialogNegative, new DialogInterface.OnClickListener() {
-//			@Override
-//			public void onClick(DialogInterface arg0, int arg1) {
-//				importFile.delete();
-//			}
-//		});
-//		AlertDialog dialog = builder.create();
-//		dialog.show();
-//		dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-//			@Override
-//			public void onDismiss(DialogInterface arg0) {
-//				importFile.delete();
-//			}
-//		});
-//	}
-	
+	@SuppressLint("InflateParams")
 	protected void receive() {
-		ImportNewDb ind = new ImportNewDb(context, dbFile.getAbsolutePath(), importFile.getAbsolutePath());
-		ind.lookForNew();
+		final ImportNewDb helper = new ImportNewDb(this, this, dbFile.getAbsolutePath(), importFile.getAbsolutePath());
+		AlertDialog.Builder builder = new AlertDialog.Builder(context);
+		builder.setTitle(R.string.nfcImport);
+		builder.setView(getLayoutInflater().inflate(R.layout.importdialog, null));
+		final AlertDialog dialog = builder.create();
+		dialog.show();
+		
+		Button bImpAll = (Button) dialog.findViewById(R.id.bImpAll);
+		Button bImpNew = (Button) dialog.findViewById(R.id.bImpNew);
+		Button bImpUpdate = (Button) dialog.findViewById(R.id.bImpUpdate);
+		Button bImpCancel = (Button) dialog.findViewById(R.id.bImpCancel);
+		
+		bImpAll.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+				copyDb();
+			}
+		});
+		
+		bImpNew.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+				helper.lookForNew();
+			}
+		});
+		
+		bImpUpdate.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				dialog.dismiss();
+				helper.lookForUpdate();
+			}
+		});
+		
+		bImpCancel.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				importFile.delete();
+				dialog.dismiss();
+			}
+		});
+	}
+	
+	private void copyDb() {
+		FileInputStream fis = null;
+		FileOutputStream fos = null;
+		try {
+			fis = new FileInputStream(importFile);
+			fos = new FileOutputStream(dbFile);
+			for (;;) {
+				int i;
+				if ((i = fis.read()) != -1)
+					fos.write(i);
+				else break;
+			}
+			fos.flush();
+			Toast.makeText(context, "Datenbank importiert", Toast.LENGTH_LONG).show(); //XXX
+		} catch(Exception e) {
+			e.printStackTrace();
+			Toast.makeText(context, "Konnte Datenbank nicht importieren", Toast.LENGTH_LONG).show(); //XXX
+		} finally {
+			try {
+				fos.close();
+				fis.close();
+			} catch (Exception e) {}
+			finally {
+				importFile.delete();
+				finish();
+			}
+		}
 	}
 }

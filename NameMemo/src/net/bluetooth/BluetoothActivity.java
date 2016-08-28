@@ -47,7 +47,6 @@ public class BluetoothActivity extends Net {
 	private AcceptThread srv;
 	private ConnectThread client;
 	private Button bSend;
-	private Button bRecieve;
 	private HandleThread handler;
 	
 	@Override
@@ -59,7 +58,6 @@ public class BluetoothActivity extends Net {
 		devLv = (ListView) findViewById(R.id.lvDevices);
 		devTv = (TextView) findViewById(R.id.tvDevices);
 		bSend = (Button) findViewById(R.id.bSend);
-		bRecieve = (Button) findViewById(R.id.bRevieve);
 		
 		registerReceiver(receiver, new IntentFilter(BluetoothDevice.ACTION_FOUND));
 		
@@ -199,8 +197,7 @@ public class BluetoothActivity extends Net {
 	
 	public void connected() {
 		bSend.setVisibility(View.VISIBLE);
-		bRecieve.setVisibility(View.VISIBLE);
-		devLv.setVisibility(View.GONE);
+		devLv.setVisibility(View.INVISIBLE);
 		devTv.setText(R.string.btConnected);
 		
 		bSend.setOnClickListener(new View.OnClickListener() {

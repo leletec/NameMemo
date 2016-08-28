@@ -3,6 +3,7 @@ package database;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.leander.projekt.R;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -54,8 +55,8 @@ public class ImportNewDb {
 	
 	private void dialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
-		builder.setTitle("Neue Daten:"); //XXX
-		builder.setMessage("Wählen Sie, welche Daten Sie übernehmen wollen"); //XXX
+		builder.setTitle(R.string.importDialogTitle);
+		builder.setMessage(R.string.importDialogMessage);
 		
 		DbListAdapter adapter = new DbListAdapter(context, newEntries);
 		ListView listview = new ListView(context);

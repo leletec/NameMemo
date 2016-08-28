@@ -64,7 +64,7 @@ public class BluetoothActivity extends Net {
 		registerReceiver(receiver, new IntentFilter(BluetoothDevice.ACTION_FOUND));
 		
 		if (adapter == null) {
-		    Toast.makeText(context, "Device does not support Bluetooth", Toast.LENGTH_LONG).show();
+		    Toast.makeText(context, R.string.btNotSupported, Toast.LENGTH_LONG).show();
 		    finish();
 		}
 	}
@@ -106,7 +106,7 @@ public class BluetoothActivity extends Net {
 			if (resultCode == RESULT_OK) {
 				setup();
 			} else {
-				Toast.makeText(context, "You did not enable Bluetooth", Toast.LENGTH_LONG).show();
+				Toast.makeText(context, R.string.btNotEnabled, Toast.LENGTH_LONG).show();
 				finish();
 			}
 		}
@@ -137,7 +137,7 @@ public class BluetoothActivity extends Net {
 		srv.start(); //XXX
 		
 		// Show paired devices
-		devTv.setText("Gekoppelte Geräte:");
+		devTv.setText(R.string.btShowPaired);
 		Set<BluetoothDevice> pairedDevices = adapter.getBondedDevices();
 		devList = new ArrayList<BluetoothDevice>();
 		
@@ -153,7 +153,7 @@ public class BluetoothActivity extends Net {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				srv.cancel();
-				Toast.makeText(context, "Versuche Verbindung mit dem Gerät aufzubauen", Toast.LENGTH_SHORT).show();
+				Toast.makeText(context, R.string.btConnecting, Toast.LENGTH_SHORT).show();
 				BluetoothDevice device = (BluetoothDevice) parent.getItemAtPosition(position);
 				client = new ConnectThread(adapter, device, uuid, activity);
 				client.start(); //XXX
@@ -162,7 +162,7 @@ public class BluetoothActivity extends Net {
 	}
 	
 	private void discover() {
-		devTv.setText("Gefundene Geräte:");
+		devTv.setText(R.string.btShowDiscovered);
 		adapter.startDiscovery();
 		devLv.setAdapter(new BTListAdapter(context, new ArrayList<BluetoothDevice>()));
 	}
@@ -201,7 +201,7 @@ public class BluetoothActivity extends Net {
 		bSend.setVisibility(View.VISIBLE);
 		bRecieve.setVisibility(View.VISIBLE);
 		devLv.setVisibility(View.GONE);
-		devTv.setText("Verbunden\nWählen Sie eine der beiden Optionen aus"); //XXX
+		devTv.setText(R.string.btConnected);
 		
 		bSend.setOnClickListener(new View.OnClickListener() {
 			@Override

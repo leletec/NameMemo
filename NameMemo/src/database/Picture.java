@@ -23,7 +23,7 @@ public class Picture {
 		this.gotright = gotright;
 		this.inarow = inarow;
 		this.imagingmode = imagingmode;
-		showAs = name;
+		showAs = null;
 	}
 
 	public Picture() {}
@@ -53,7 +53,7 @@ public class Picture {
 	}
 	
 	public String getShowAs() {
-		return showAs;
+		return (showAs == null)? name : showAs;
 	}
 
 	public void setSource(String source) {

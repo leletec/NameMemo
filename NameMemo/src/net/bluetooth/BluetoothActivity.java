@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import net.Net;
 import de.leander.projekt.R;
+import design.BTListAdapter;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;

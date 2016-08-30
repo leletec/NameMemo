@@ -43,6 +43,7 @@ import android.widget.Toast;
 import database.Picture;
 import database.PicturesDAO;
 import de.leander.projekt.R;
+import design.FileListAdapter;
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 public class MainActivity extends Activity implements OnClickListener {

@@ -6,6 +6,7 @@ import java.util.List;
 
 import net.Net;
 import de.leander.projekt.R;
+import design.DbListAdapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;

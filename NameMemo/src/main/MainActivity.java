@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 
 import states.DialogState;
 import states.MainState;
@@ -62,6 +64,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 	private static final int NFC_ACTIVITY_REQUEST_CODE = 200;
+	private final int inARowRequirement = 3;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -134,7 +137,7 @@ public class MainActivity extends Activity implements OnClickListener {
 						+ " gotright:" + pictures[currentPicture].getGotright()
 						+ "in a row:" + pictures[currentPicture].getInarow()
 						+ "imagingcode:" + pictures[currentPicture].getImagingmode());
-				if (pictures[currentPicture].getInarow() >= 3)
+				if (pictures[currentPicture].getInarow() >= inARowRequirement)
 					deleteDialog(pictures[currentPicture].getSource(),
 							pictures[currentPicture].getName());
 				else
@@ -210,34 +213,34 @@ public class MainActivity extends Activity implements OnClickListener {
 	 * Loads the next picture in the pictures array and displays it.
 	 */
 	private void showNext() {
-		String source;
-//		if (currentPicture + 1 < pictures.length
-//				&& pictures[currentPicture + 1] != null)
-//			currentPicture += 1;
-//		else
-//			currentPicture = 0;
-		currentPicture = (currentPicture+1) % pictures.length;
-		source = pictures[currentPicture].getSource();
-
-//		 String fname = new File(getFilesDir(), source).getAbsolutePath();
-//		 String fname = new File(
-//		 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-//		 + File.separator + app_name, source)
-// 		.getAbsolutePath();
-		String fname = new File(source).getName();
-// 		File mediaStorageDir = new File(
-//		 Environment
-// 		.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-//		app_name);
-
-		Bitmap bmp = BitmapFactory.decodeFile(source);
+		Picture lastPic = pictures[currentPicture], newPic;
+		ArrayList<Picture> tmp = new ArrayList<Picture>();
+		int i;
+		for (Picture pic : pictures) {
+			i = pic.getInarow();
+			do {
+				tmp.add(pic);
+				++i;
+			} while (i < inARowRequirement);
+		}
+		Random r = new Random();
+		i = 0;
+		do {
+			newPic = tmp.get(r.nextInt(tmp.size()));
+			++i;
+		} while (newPic.equals(lastPic) && i < 100);
+		for (i = 0; i < pictures.length; ++i)
+			if (newPic.equals(pictures[i]))
+				currentPicture = i;
+		
+		Bitmap bmp = BitmapFactory.decodeFile(newPic.getSource());
 		if (bmp == null) {
 			missingFileDialog(pictures[currentPicture].getSource(), pictures[currentPicture].getName());
 			return;
-		} else
-			Log.d("changeSource", "Bitmap=" + bmp.toString());
+		}
+		Log.d("showNext", "Bitmap=" + bmp.toString());
 		image.setImageBitmap(bmp);
-		Log.d("source", fname + " loaded");
+		Log.d("showNext", newPic.getShowAs() + " loaded");
 		yes.setVisibility(View.INVISIBLE);
 		no.setVisibility(View.INVISIBLE);
 		text.setText(R.string.name_anzeigen);
@@ -259,10 +262,6 @@ public class MainActivity extends Activity implements OnClickListener {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		// case R.id.importDrawable:
-		// copyFiles();
-		// break;
-		
 		/**
 		 * Loads two more example-pictures in the database.
 		 */

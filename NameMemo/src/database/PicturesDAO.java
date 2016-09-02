@@ -13,18 +13,18 @@ import android.util.Log;
 public class PicturesDAO {
 
 	protected SQLiteDatabase database;
-	private MySQLiteHelper dbHelper;
+	private MySQLiteHelper helper;
 
 	public PicturesDAO(Context context) {
-		dbHelper = new MySQLiteHelper(context);
+		helper = new MySQLiteHelper(context);
 	}
 
 	public void open() throws SQLException {
-		database = dbHelper.getWritableDatabase();
+		database = helper.getWritableDatabase();
 	}
 
 	public void close() {
-		dbHelper.close();
+		helper.close();
 	}
 
 	/**
@@ -90,11 +90,9 @@ public class PicturesDAO {
 	/**
 	 * @return A list of all entries in the database.
 	 */
-	public List<Picture> getAllBilder() {
+	public List<Picture> getAllPics() {
 		List<Picture> pictures = new ArrayList<Picture>();
-
-		Cursor cursor = database.query(TablePictures.NAME, null, null, null,
-				null, null, null);
+		Cursor cursor = database.query(TablePictures.NAME, null, null, null, null, null, null);
 
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {

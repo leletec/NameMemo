@@ -141,7 +141,7 @@ public class ImportNewDb {
 		
 		public List<Picture> getAllBilder(SQLiteDatabase db) {
 			database = db;
-			return super.getAllBilder();
+			return super.getAllPics();
 		}
 	}
 

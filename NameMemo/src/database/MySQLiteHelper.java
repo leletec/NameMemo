@@ -9,21 +9,20 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class MySQLiteHelper extends SQLiteOpenHelper{
 
-	public static final int VERSION = 1;
-	public static String DATABASENAME = "ProjektDB";
-	public TablePictures tabel = new TablePictures();
+	public static final String DATABASENAME = "ProjektDB";
+	private TablePictures pictures = new TablePictures();
+	private TableSettings settings = new TableSettings();
 
 	public MySQLiteHelper(Context context) {
-		super(context, DATABASENAME, null, VERSION);
+		super(context, DATABASENAME, null, 1);
 	}
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		tabel.onCreate(db);
+		pictures.onCreate(db);
+		settings.onCreate(db);
 	}
 
 	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		tabel.onUpgrade(db, oldVersion, newVersion);
-	}
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
 }

@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public class TablePictures{
 
-	public static String NAME = "bilder";
+	public static final String NAME = "bilder";
 
 	private static String CREATESTATEMENT = "CREATE TABLE " + NAME
 			+ "(id INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -21,9 +21,4 @@ public class TablePictures{
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(CREATESTATEMENT);
 	}
-
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// TODO Auto-generated method stub
-	}
-
 }

@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 import states.DialogState;
@@ -44,12 +43,14 @@ import android.widget.ListView;
 import android.widget.Toast;
 import database.Picture;
 import database.PicturesDAO;
+import database.SettingsDAO;
 import de.leander.projekt.R;
 import design.FileListAdapter;
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
 public class MainActivity extends Activity implements OnClickListener {
-	private PicturesDAO datasource;
+	private PicturesDAO pictureDb;
+	private SettingsDAO settingsDb;
 	private int currentPicture;
 	private Picture[] pictures;
 	private Button text;
@@ -61,19 +62,23 @@ public class MainActivity extends Activity implements OnClickListener {
 	private File dir;
 	private File file;
 	private String app_name;
+	private int inarowReq;
+	private int seqType; // 0 = consecutive	|	1 = random
 	
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 	private static final int NFC_ACTIVITY_REQUEST_CODE = 200;
-	private final int inARowRequirement = 3;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		datasource = new PicturesDAO(this);
-		datasource.open();
-		
+		pictureDb = new PicturesDAO(this);
+		pictureDb.open();
+		settingsDb = new SettingsDAO(this);
+		settingsDb.open();
+		settingsDb.init();
+
 		image = (ImageView) findViewById(R.id.image);
 		text = (Button) findViewById(R.id.bText);
 		text.setBackgroundColor(Color.LTGRAY);
@@ -86,9 +91,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		no.setOnClickListener(this);
 		statecontroller = new StateController();
 		camera = new Camera();
-		
 		app_name = getString(R.string.app_name);
-		
+
 		loadPictures();
 		currentPicture = 0;
 	}
@@ -101,6 +105,9 @@ public class MainActivity extends Activity implements OnClickListener {
 			copyExamplePics(dir);
 		else
 			Log.d("setup", "everything is there");
+		
+		inarowReq = settingsDb.get("inarowReq");
+		seqType = settingsDb.get("seqType");
 	}
 
 	/**
@@ -125,7 +132,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				}
 				break;
 			case R.id.bJa:
-				datasource.update(pictures[currentPicture].getSource(),
+				pictureDb.update(pictures[currentPicture].getSource(),
 						pictures[currentPicture].getName(),
 						pictures[currentPicture].getCalled() + 1,
 						pictures[currentPicture].getGotright() + 1,
@@ -137,14 +144,14 @@ public class MainActivity extends Activity implements OnClickListener {
 						+ " gotright:" + pictures[currentPicture].getGotright()
 						+ "in a row:" + pictures[currentPicture].getInarow()
 						+ "imagingcode:" + pictures[currentPicture].getImagingmode());
-				if (pictures[currentPicture].getInarow() >= inARowRequirement)
+				if (pictures[currentPicture].getInarow() >= inarowReq)
 					deleteDialog(pictures[currentPicture].getSource(),
 							pictures[currentPicture].getName());
 				else
 					showNext();
 				break;
 			case R.id.bNein:
-				datasource.update(pictures[currentPicture].getSource(),
+				pictureDb.update(pictures[currentPicture].getSource(),
 						pictures[currentPicture].getName(),
 						pictures[currentPicture].getCalled() + 1,
 						pictures[currentPicture].getGotright(), 0,
@@ -205,34 +212,42 @@ public class MainActivity extends Activity implements OnClickListener {
 	 * Resets the app to the factory settings.
 	 */
 	private void resetToFactory() {
-		datasource.clean();
+		pictureDb.clean();
 		finish();
 	}
 
 	/**
-	 * Loads the next picture in the pictures array and displays it.
+	 * Loads the next or a "random" picture in the pictures array and displays it.
 	 */
 	private void showNext() {
-		Picture lastPic = pictures[currentPicture], newPic;
-		ArrayList<Picture> tmp = new ArrayList<Picture>();
-		int i;
-		for (Picture pic : pictures) {
-			i = pic.getInarow();
+		Picture newPic = null;
+		switch (seqType) {
+		case 0:
+			currentPicture = (currentPicture + 1) % pictures.length;
+			newPic = pictures[currentPicture];
+			break;
+		case 1:
+			Picture lastPic = pictures[currentPicture];
+			ArrayList<Picture> tmp = new ArrayList<Picture>();
+			int i;
+			for (Picture pic : pictures) {
+				i = pic.getInarow();
+				do {
+					tmp.add(pic);
+					++i;
+				} while (i < inarowReq);
+			}
+			Random r = new Random();
+			i = 0;
 			do {
-				tmp.add(pic);
+				newPic = tmp.get(r.nextInt(tmp.size()));
 				++i;
-			} while (i < inARowRequirement);
-		}
-		Random r = new Random();
-		i = 0;
-		do {
-			newPic = tmp.get(r.nextInt(tmp.size()));
-			++i;
-		} while (newPic.equals(lastPic) && i < 100);
-		for (i = 0; i < pictures.length; ++i)
-			if (newPic.equals(pictures[i]))
-				currentPicture = i;
-		
+			} while (newPic.equals(lastPic) && i < 100);
+			for (i = 0; i < pictures.length; ++i)
+				if (newPic.equals(pictures[i]))
+					currentPicture = i;
+		}		
+
 		Bitmap bmp = BitmapFactory.decodeFile(newPic.getSource());
 		if (bmp == null) {
 			missingFileDialog(pictures[currentPicture].getSource(), pictures[currentPicture].getName());
@@ -267,9 +282,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		 */
 		case R.id.addExamples:
 			File f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)	+ File.separator + app_name, "hund.jpg");
-			datasource.add(f.getAbsolutePath(), "Hund", Picture.Imported); //XXX
+			pictureDb.add(f.getAbsolutePath(), "Hund", Picture.Imported); //XXX
 			f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + app_name, "hase.jpg");
-			datasource.add(f.getAbsolutePath(), "Hase", Picture.Imported); //XXX
+			pictureDb.add(f.getAbsolutePath(), "Hase", Picture.Imported); //XXX
 			loadPictures();
 			return true;
 		case R.id.captureImage:
@@ -301,11 +316,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		String oldSource = null;
 		if (pictures != null && pictures.length != 0)
 			oldSource = pictures[currentPicture].getSource();
-		pictures = datasource.getAllBilder().toArray(new Picture[0]);
+		pictures = pictureDb.getAllPics().toArray(new Picture[0]);
 		if (pictures.length == 0) {
 			File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), app_name);
 			File f = new File(dir, "katze.png");
-			datasource.add(f.getAbsolutePath(), "Katze", Picture.Imported); //XXX
+			pictureDb.add(f.getAbsolutePath(), "Katze", Picture.Imported); //XXX
 			Log.d("loadPictures", "loaded 'Katze', source: " + f.getAbsolutePath());
 			loadPictures();
 			return;
@@ -337,7 +352,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						datasource.delete(source);
+						pictureDb.delete(source);
 					}
 				});
 		builder.setNegativeButton(R.string.dialogNegative, null);
@@ -407,7 +422,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						datasource.delete(source);
+						pictureDb.delete(source);
 					}
 				});
 		builder.setNegativeButton(R.string.dialogNegative, null);
@@ -459,10 +474,10 @@ public class MainActivity extends Activity implements OnClickListener {
 						EditText name = (EditText) ((AlertDialog) dialog)
 								.findViewById(R.id.ETname);
 						if (f == null)
-							datasource.add(camera.getUri().getPath(), name
+							pictureDb.add(camera.getUri().getPath(), name
 									.getText().toString(), Picture.Camera);
 						else
-							datasource.add(f.getAbsolutePath(), name.getText()
+							pictureDb.add(f.getAbsolutePath(), name.getText()
 									.toString(), Picture.Phone);
 						loadPictures();
 					}

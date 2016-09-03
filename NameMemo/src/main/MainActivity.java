@@ -29,17 +29,25 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.Editable;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowInsets;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 import database.Picture;
 import database.PicturesDAO;
@@ -299,12 +307,14 @@ public class MainActivity extends Activity implements OnClickListener {
 		case R.id.addNewPic:
 			addPicFromStorageDialog(null);
 			return true;
-		case R.id.BTTest:
+		case R.id.btActivity:
 			bluetooth();
 			return true;
-		case R.id.NFCTest:
+		case R.id.nfcActivity:
 			nfc();
 			return true;
+		case R.id.settingsMenu:
+			settingsDialog();
 		}
 		return false;
 	}
@@ -765,6 +775,40 @@ public class MainActivity extends Activity implements OnClickListener {
 			}
 		});
 		dialog.show();
+	}
+
+	/**
+	 * A dialog where you can change the settings.
+	 */
+	@SuppressLint("InflateParams")
+	private void settingsDialog() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle(R.string.settingsMenu);
+		builder.setView(getLayoutInflater().inflate(R.layout.settings_menu, null));
+		AlertDialog dialog = builder.create();
+		dialog.show();
+		EditText etInarowReq = (EditText) dialog.findViewById(R.id.etInarowReq);
+		etInarowReq.setText(inarowReq + "");
+		etInarowReq.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+			@Override
+			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+				try {
+					StringBuilder sb = new StringBuilder(v.getText());
+					inarowReq = Integer.parseInt(sb.toString());
+					return true;
+				} catch (Exception e) {
+					return false;
+				}
+			}
+		});
+		Switch sRdmSeq = (Switch) dialog.findViewById(R.id.sRdmSeq);
+		sRdmSeq.setChecked(seqType == 1);
+		sRdmSeq.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				seqType = (isChecked)? 1 : 0;
+			}
+		});
 	}
 
 	@Override

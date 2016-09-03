@@ -2,9 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="de.leander.projekt.MainActivity" >
-    <!-- <item 
-        android:id="@+id/importDrawable"
-        android:title="@string/importDrawable" /> -->
     <item 
         android:id="@+id/addExamples"
         android:title="@string/addExamples" />
@@ -21,9 +18,12 @@
         android:id="@+id/cleanProject"
         android:title="@string/cleanProject" />
     <item
-        android:id="@+id/BTTest"
-        android:title="Bluetooth Test" />
+        android:id="@+id/btActivity"
+        android:title="@string/btMenu" />
     <item
-        android:id="@+id/NFCTest"
-        android:title="NFC Test" />
+        android:id="@+id/nfcActivity"
+        android:title="@string/nfcMenu" />
+    <item 
+        android:id="@+id/settingsMenu"
+        android:title="@string/settingsMenu" />
 </menu>

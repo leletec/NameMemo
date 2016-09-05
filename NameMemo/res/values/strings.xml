@@ -9,12 +9,12 @@
     <string name="dialogBack">Zurück</string>
     <string name="dialogCancel">Abbrechen</string>
     <string name="dialogOk">Okay</string>
-    <string name="captureImage">Neues Bild aufnehmen</string>
+    <string name="captureImage">Foto machen</string>
     <string name="infoDialogTitle">Appinfo</string>
     <string name="infoDialog">
         NameMemo - Namenlern App
         \nEine App von: Leander Dreier
-        \nVersion: Beta 0.1
+        \nVersion: Beta 0.1.1
         \nKontakt: leander.dreier@googlemail.com
     </string>
     <string name="mfileDialogTitle">Datei nicht gefunden</string>
@@ -48,7 +48,7 @@
     <string name="nfcMenu">NFC Datenübertragung</string>
     <string name="settingsMenu">Einstellungen</string>
     <string name="inarowReq">Mindestens benötigte Übereinstimmungen zum Löschen eines Bildes</string>
-    <string name="rdmSeq">Außwahl der Bilder nach dem Können des Nutzers</string>
+    <string name="rdmSeq">Auswahl der Bilder nach dem Können des Nutzers</string>
     <string name="colPics">Bilder in einem Ordner zusammenfassen (Für Datenübertragung)</string>
     <string name="invalidInput">Ungültige Eingabe!</string>
     <string name="ensureDiscoverable">Gerät für andere sichtbar machen</string>

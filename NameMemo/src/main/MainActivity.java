@@ -344,7 +344,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	private void missingFileDialog(final String source, String name) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.mfileDialogTitle);
-		builder.setMessage("Die Datei "	+ name + " konnte nicht gefunden werden.\nVielleicht wurde sie gelöscht oder verschoben.\nWollen sie den Verweis darauf löschen?");
+		builder.setMessage("Die Datei "	+ name + " konnte nicht gefunden werden.\nVielleicht wurde sie gelöscht oder verschoben.\nWollen Sie den Verweis darauf löschen?");
 		builder.setPositiveButton(R.string.yes,
 				new DialogInterface.OnClickListener() {
 					@Override
@@ -388,7 +388,8 @@ public class MainActivity extends Activity implements OnClickListener {
 						else {
 							File dst = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + app_name, f.getName());
 							String path = dst.getAbsolutePath();
-							Helper.moveFile(f, dst);
+							if (!f.getAbsolutePath().equals(path))
+								Helper.moveFile(f, dst);
 							pictureDb.add(path, name.getText().toString());
 						}	
 						loadPictures();

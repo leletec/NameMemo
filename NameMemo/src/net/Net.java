@@ -3,7 +3,9 @@ package net;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
+import main.Helper;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -52,7 +54,7 @@ public abstract class Net extends Activity{
 			@Override
 			public void onClick(View v) {
 				dialog.dismiss();
-				copyDb();
+				Helper.moveFile(importFile, dbFile);
 			}
 		});
 		
@@ -79,34 +81,5 @@ public abstract class Net extends Activity{
 				dialog.dismiss();
 			}
 		});
-	}
-	
-	private void copyDb() {
-		FileInputStream fis = null;
-		FileOutputStream fos = null;
-		try {
-			fis = new FileInputStream(importFile);
-			fos = new FileOutputStream(dbFile);
-			for (;;) {
-				int i;
-				if ((i = fis.read()) != -1)
-					fos.write(i);
-				else break;
-			}
-			fos.flush();
-			Toast.makeText(context, "Datenbank importiert", Toast.LENGTH_LONG).show(); //XXX
-		} catch(Exception e) {
-			e.printStackTrace();
-			Toast.makeText(context, "Konnte Datenbank nicht importieren", Toast.LENGTH_LONG).show(); //XXX
-		} finally {
-			try {
-				fos.close();
-				fis.close();
-			} catch (Exception e) {}
-			finally {
-				importFile.delete();
-				finish();
-			}
-		}
 	}
 }

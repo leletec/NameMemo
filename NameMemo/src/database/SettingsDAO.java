@@ -26,6 +26,7 @@ public class SettingsDAO {
 	public void init() {
 		add("inarowReq", 3); // How high Picture.inarow has to go until the delete-dialog appears
 		add("seqType", 1); // sequenceType:	0 = consecutive	|	1 = random
+		add("colPics", 1); // If you want to collect all the pictures in one folder.
 	}
 	
 	private void add(String identifier, int value) {

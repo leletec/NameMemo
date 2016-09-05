@@ -12,7 +12,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:ems="3"
-        android:inputType="number" />
+        android:inputType="number"
+        android:layout_margin="5dp" />
 
     <TextView
         android:id="@+id/tvInarowReq"
@@ -25,21 +26,35 @@
         android:layout_toStartOf="@id/etInarowReq"
         android:text="@string/inarowReq"
         android:textColor="#000000"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:layout_margin="5dp" />
 
     <Switch
         android:id="@+id/sRdmSeq"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/etInarowReq"
         android:text="@string/rdmSeq"
         android:textColor="#000000"
         android:textOff="AUS"
         android:textOn="AN"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:layout_margin="5dp" />
+
+    <Switch
+        android:id="@+id/sColPics"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/sRdmSeq"
+        android:text="@string/colPics"
+        android:textColor="#000000"
+        android:textOff="AUS"
+        android:textOn="AN"
+        android:textSize="20sp"
+        android:layout_margin="5dp" />
 
 </RelativeLayout>

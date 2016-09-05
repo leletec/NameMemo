@@ -54,4 +54,6 @@
     <string name="settingsMenu">Einstellungen</string>
     <string name="inarowReq">Mindestens benötigte Übereinstimmungen zum Löschen eines Bildes</string>
     <string name="rdmSeq">Außwahl der Bilder nach dem Können des Nutzers</string>
+    <string name="colPics">Bilder in einem Ordner zusammenfassen (Für Datenübertragung)</string>
+    <string name="invalidInput">Ungültige Eingabe!</string>
 </resources>

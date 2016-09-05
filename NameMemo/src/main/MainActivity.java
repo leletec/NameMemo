@@ -71,7 +71,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	private File file;
 	private String app_name;
 	private int inarowReq;
-	private int seqType; // 0 = consecutive	|	1 = random
+	private boolean rdmSeq;
+	private boolean colPics;
+	private final Context context = this;
 	
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 	private static final int NFC_ACTIVITY_REQUEST_CODE = 200;
@@ -115,7 +117,8 @@ public class MainActivity extends Activity implements OnClickListener {
 			Log.d("setup", "everything is there");
 		
 		inarowReq = settingsDb.get("inarowReq");
-		seqType = settingsDb.get("seqType");
+		rdmSeq = settingsDb.get("seqType") == 1;
+		colPics = settingsDb.get("colPics") == 1;
 	}
 
 	/**
@@ -176,6 +179,10 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 	}
 
+	/**
+	 * Copies three example pictures to the app's pictures directory.
+	 * @param dir	The directory to copy to
+	 */
 	private void copyExamplePics(File dir) {
 		int[] files = new int[] { R.raw.hund, R.raw.katze, R.raw.hase };
 		String[] filenames = new String[] { "hund.jpg", "katze.png", "hase.jpg" };
@@ -186,34 +193,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		for (int i = 0; i < files.length; i++) {
 			int resId = files[i];
 			String filename = filenames[i];
-			InputStream in = null;
-			OutputStream out = null;
-			
-			try {
-				in = getResources().openRawResource(resId);
-				out = new FileOutputStream(new File(dir, filename));
-				copyFile(in, out);
-				Log.d("setup", "copied file " + filename);
-			} catch (IOException e) {
-			Log.e("setup", "Failed to copy asset file: " + filename, e);
-			} finally {
-				if (in != null)
-					try {
-						in.close();
-					} catch (IOException e) {}
-				if (out != null)
-					try {
-						out.close();
-					} catch (IOException e) {}
-		 	}
+			InputStream in = getResources().openRawResource(resId);
+			File dst = new File(dir, filename);
+			Helper.copyFile(in, dst);
+			Log.d("setup", "copied file " + filename);
 		}
-	}
-		
-	private void copyFile(InputStream in, OutputStream out) throws IOException {
-		byte[] buffer = new byte[1024];
-		int read;
-		while ((read = in.read(buffer)) != -1)
-			out.write(buffer, 0, read);
 	}
 	
 	/**
@@ -229,12 +213,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	 */
 	private void showNext() {
 		Picture newPic = null;
-		switch (seqType) {
-		case 0:
-			currentPicture = (currentPicture + 1) % pictures.length;
-			newPic = pictures[currentPicture];
-			break;
-		case 1:
+		if (rdmSeq) {
 			Picture lastPic = pictures[currentPicture];
 			ArrayList<Picture> tmp = new ArrayList<Picture>();
 			int i;
@@ -254,7 +233,10 @@ public class MainActivity extends Activity implements OnClickListener {
 			for (i = 0; i < pictures.length; ++i)
 				if (newPic.equals(pictures[i]))
 					currentPicture = i;
-		}		
+		} else {
+			currentPicture = (currentPicture + 1) % pictures.length;
+			newPic = pictures[currentPicture];
+		}	
 
 		Bitmap bmp = BitmapFactory.decodeFile(newPic.getSource());
 		if (bmp == null) {
@@ -455,11 +437,11 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	/**
 	 * Prompts the user for the name to be associated with a newly taken picture.
-	 * @param File	The new picture.
+	 * @param F	The new picture.
 	 */
 	@SuppressLint("InflateParams")
-	private void newShotDialog(File File) {
-		file = File;
+	private void newShotDialog(File F) {
+		file = F;
 		try {
 			statecontroller.showNShotDialog();
 		} catch (Exception e1) {
@@ -484,11 +466,13 @@ public class MainActivity extends Activity implements OnClickListener {
 						EditText name = (EditText) ((AlertDialog) dialog)
 								.findViewById(R.id.ETname);
 						if (f == null)
-							pictureDb.add(camera.getUri().getPath(), name
-									.getText().toString(), Picture.Camera);
-						else
-							pictureDb.add(f.getAbsolutePath(), name.getText()
-									.toString(), Picture.Phone);
+							pictureDb.add(camera.getUri().getPath(), name.getText().toString(), Picture.Camera);
+						else {
+							File dst = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + app_name, f.getName());
+							String path = dst.getAbsolutePath();
+							Helper.moveFile(f, dst);
+							pictureDb.add(path, name.getText().toString(), Picture.Phone);
+						}	
 						loadPictures();
 					}
 				});
@@ -530,7 +514,7 @@ public class MainActivity extends Activity implements OnClickListener {
 					Toast.LENGTH_SHORT).show();
 			return;
 		}
-		Uri fileUri = camera.getOutputMediaFile(); // create a file to save the image
+		Uri fileUri = camera.getOutputMediaFile(app_name); // create a file to save the image
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
 		try {
 			statecontroller.showCameraIntent();
@@ -595,9 +579,6 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	/**
-	 * Creates a dialog with a list of image-files and directories.
-	 * You can go into a directory by clicking it, go out of a directory by clicking ".." or click at a picture-file.
-	 * If you do so, you get to see a preview of that picture and you can decide if you want to add it or not.
 	 * @param Dir	The directory you are currently in.
 	 */
 	@SuppressLint("InflateParams")
@@ -787,6 +768,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		builder.setView(getLayoutInflater().inflate(R.layout.settings_menu, null));
 		AlertDialog dialog = builder.create();
 		dialog.show();
+		
 		EditText etInarowReq = (EditText) dialog.findViewById(R.id.etInarowReq);
 		etInarowReq.setText(inarowReq + "");
 		etInarowReq.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -794,19 +776,36 @@ public class MainActivity extends Activity implements OnClickListener {
 			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 				try {
 					StringBuilder sb = new StringBuilder(v.getText());
-					inarowReq = Integer.parseInt(sb.toString());
+					int i = Integer.parseInt(sb.toString());
+					if (i > 0)
+						inarowReq = i;
+					else
+						Toast.makeText(context, R.string.invalidInput, Toast.LENGTH_SHORT).show();
+					settingsDb.set("inarowReq", inarowReq);
 					return true;
 				} catch (Exception e) {
 					return false;
 				}
 			}
 		});
+		
 		Switch sRdmSeq = (Switch) dialog.findViewById(R.id.sRdmSeq);
-		sRdmSeq.setChecked(seqType == 1);
+		sRdmSeq.setChecked(rdmSeq);
 		sRdmSeq.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				seqType = (isChecked)? 1 : 0;
+				rdmSeq = isChecked;
+				settingsDb.set("seqType", rdmSeq? 1:0);
+			}
+		});
+		
+		Switch sColPics = (Switch) dialog.findViewById(R.id.sColPics);
+		sColPics.setChecked(colPics);
+		sColPics.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				colPics = isChecked;
+				settingsDb.set("colPics", colPics? 1:0);
 			}
 		});
 	}

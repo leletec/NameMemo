@@ -133,14 +133,12 @@ public class MainActivity extends Activity implements OnClickListener {
 						pictures[currentPicture].getName(),
 						pictures[currentPicture].getCalled() + 1,
 						pictures[currentPicture].getGotright() + 1,
-						pictures[currentPicture].getInarow() + 1,
-						pictures[currentPicture].getImagingmode());
+						pictures[currentPicture].getInarow() + 1);
 				loadPictures();
 				Log.d("Picture", "name:" + pictures[currentPicture].getName()
 						+ " called:" + pictures[currentPicture].getCalled()
 						+ " gotright:" + pictures[currentPicture].getGotright()
-						+ "in a row:" + pictures[currentPicture].getInarow()
-						+ "imagingcode:" + pictures[currentPicture].getImagingmode());
+						+ "in a row:" + pictures[currentPicture].getInarow());
 				if (pictures[currentPicture].getInarow() >= inarowReq)
 					deleteDialog(pictures[currentPicture].getSource(),
 							pictures[currentPicture].getName());
@@ -151,14 +149,13 @@ public class MainActivity extends Activity implements OnClickListener {
 				pictureDb.update(pictures[currentPicture].getSource(),
 						pictures[currentPicture].getName(),
 						pictures[currentPicture].getCalled() + 1,
-						pictures[currentPicture].getGotright(), 0,
-						pictures[currentPicture].getImagingmode());
+						pictures[currentPicture].getGotright(),
+						0);
 				loadPictures();
 				Log.d("Picture", "name:" + pictures[currentPicture].getName()
 						+ " called:" + pictures[currentPicture].getCalled()
 						+ " gotright:" + pictures[currentPicture].getGotright()
-						+ "in a row:" + pictures[currentPicture].getInarow()
-						+ "imagingcode:" + pictures[currentPicture].getImagingmode());
+						+ "in a row:" + pictures[currentPicture].getInarow());
 				showNext();
 				break;
 			}
@@ -251,9 +248,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		 */
 		case R.id.addExamples:
 			File f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)	+ File.separator + app_name, "hund.jpg");
-			pictureDb.add(f.getAbsolutePath(), "Hund", Picture.Imported); //XXX
+			pictureDb.add(f.getAbsolutePath(), "Hund");
 			f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + app_name, "hase.jpg");
-			pictureDb.add(f.getAbsolutePath(), "Hase", Picture.Imported); //XXX
+			pictureDb.add(f.getAbsolutePath(), "Hase");
 			loadPictures();
 			return true;
 		case R.id.captureImage:
@@ -291,7 +288,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		if (pictures.length == 0) {
 			File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), app_name);
 			File f = new File(dir, "katze.png");
-			pictureDb.add(f.getAbsolutePath(), "Katze", Picture.Imported); //XXX
+			pictureDb.add(f.getAbsolutePath(), "Katze");
 			Log.d("loadPictures", "loaded 'Katze', source: " + f.getAbsolutePath());
 			loadPictures();
 			return;
@@ -390,12 +387,12 @@ public class MainActivity extends Activity implements OnClickListener {
 						EditText name = (EditText) ((AlertDialog) dialog)
 								.findViewById(R.id.etName);
 						if (f == null)
-							pictureDb.add(camera.getUri().getPath(), name.getText().toString(), Picture.Camera);
+							pictureDb.add(camera.getUri().getPath(), name.getText().toString());
 						else {
 							File dst = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + app_name, f.getName());
 							String path = dst.getAbsolutePath();
 							Helper.moveFile(f, dst);
-							pictureDb.add(path, name.getText().toString(), Picture.Phone);
+							pictureDb.add(path, name.getText().toString());
 						}	
 						loadPictures();
 					}

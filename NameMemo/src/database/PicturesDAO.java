@@ -31,16 +31,14 @@ public class PicturesDAO {
 	 * Adds an entry to the database.
 	 * @param source		The source of the picture.
 	 * @param name			The name related with the picture.
-	 * @param imagingmode	Where the picture came from.
 	 */
-	public void add(String source, String name, int imagingmode) {
+	public void add(String source, String name) {
 		ContentValues values = new ContentValues();
 		values.put("source", source);
 		values.put("name", name);
 		values.put("called", 0);
 		values.put("gotright", 0);
 		values.put("inarow", 0);
-		values.put("imagingmode", imagingmode);
 		database.insert(TablePictures.NAME, null, values);
 	}
 	
@@ -51,7 +49,6 @@ public class PicturesDAO {
 		values.put("called", pic.getCalled());
 		values.put("gotright", pic.getGotright());
 		values.put("inarow", pic.getInarow());
-		values.put("imagingmode", pic.getImagingmode());
 		database.insert(TablePictures.NAME, null, values);
 	}
 
@@ -62,17 +59,14 @@ public class PicturesDAO {
 	 * @param called		How often the picture got called.
 	 * @param gotright		How often the user got the name to the picture right.
 	 * @param inarow		How often he got it right in a row.
-	 * @param imagingmode	Where the picture came from.
 	 */
-	public void update(String source, String name, int called, int gotright,
-			int inarow, int imagingmode) {
+	public void update(String source, String name, int called, int gotright, int inarow) {
 		ContentValues values = new ContentValues();
 		values.put("source", source);
 		values.put("name", name);
 		values.put("called", called);
 		values.put("gotright", gotright);
 		values.put("inarow", inarow);
-		values.put("imagingmode", imagingmode);
 		database.update(TablePictures.NAME, values, "source = ?", new String[] { source });
 	}
 	
@@ -83,7 +77,6 @@ public class PicturesDAO {
 		values.put("called", pic.getCalled());
 		values.put("gotright", pic.getGotright());
 		values.put("inarow", pic.getInarow());
-		values.put("imagingmode", pic.getImagingmode());
 		database.update(TablePictures.NAME, values, "source = ?", new String[] { pic.getSource() });
 	}
 

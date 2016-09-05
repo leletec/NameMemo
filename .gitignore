@@ -37,3 +37,7 @@ proguard/
 .~lock.*
 
 RemoteSystemsTempFiles/
+
+# Android Studio
+.idea
+*.iml

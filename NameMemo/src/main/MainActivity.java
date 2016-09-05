@@ -307,7 +307,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	private void deleteDialog(final String source, String name) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.deleteDialogTitle);
-		builder.setMessage("Soll der Eintrag '" + name + "' gel�scht werden?");
+		builder.setMessage("Soll der Eintrag '" + name + "' gelöscht werden?");
 		builder.setPositiveButton(R.string.yes,
 				new DialogInterface.OnClickListener() {
 					@Override
@@ -344,7 +344,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	private void missingFileDialog(final String source, String name) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.mfileDialogTitle);
-		builder.setMessage("Die Datei "	+ name + " konnte nicht gefunden werden.\nVielleicht wurde sie gel�scht oder verschoben.\nWollen Sie den Verweis darauf l�schen?");
+		builder.setMessage("Die Datei "	+ name + " konnte nicht gefunden werden.\nVielleicht wurde sie gelöscht oder verschoben.\nWollen Sie den Verweis darauf löschen?");
 		builder.setPositiveButton(R.string.yes,
 				new DialogInterface.OnClickListener() {
 					@Override

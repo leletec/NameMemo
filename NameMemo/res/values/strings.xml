@@ -37,7 +37,7 @@
     <string name="cDMainPic">Ordnen Sie diesem Bild einen Namen zu</string>
     <string name="nfcInstruction">Halten Sie die beiden Geräte Rücken an Rücken
         \nund tippen sie den Bildschirm des sendenden Geräts an.
-        \nDanach drücken sie den Button auf dem empfangenden Gerät</string>
+        \nDanach drücken sie den Button unten auf dem empfangenden Gerät</string>
     <string name="nfcImport">Datenbank importieren</string>
     <string name="cDPreview">Vorschaubild</string>
     <string name="impAll">Datenbank überschreiben</string>
@@ -51,4 +51,6 @@
     <string name="rdmSeq">Außwahl der Bilder nach dem Können des Nutzers</string>
     <string name="colPics">Bilder in einem Ordner zusammenfassen (Für Datenübertragung)</string>
     <string name="invalidInput">Ungültige Eingabe!</string>
+    <string name="ensureDiscoverable">Gerät für andere sichtbar machen</string>
+    <string name="discover">Nach anderen Geräten suchen</string>
 </resources>

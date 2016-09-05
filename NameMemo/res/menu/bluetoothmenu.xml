@@ -2,12 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item 
         android:id="@+id/ensureDiscoverable"
-        android:title="Gerät für andere erkennbar machen" />
+        android:title="@string/ensureDiscoverable" />
     <item
         android:id="@+id/discover"
-        android:title="Nach Geräten suchen" />
-    <item
-        android:id="@+id/BTtest"
-        android:title="Test" />
+        android:title="@string/discover" />
 
 </menu>

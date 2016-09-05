@@ -464,7 +464,7 @@ public class MainActivity extends Activity implements OnClickListener {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						EditText name = (EditText) ((AlertDialog) dialog)
-								.findViewById(R.id.ETname);
+								.findViewById(R.id.etName);
 						if (f == null)
 							pictureDb.add(camera.getUri().getPath(), name.getText().toString(), Picture.Camera);
 						else {

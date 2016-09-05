@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="de.leander.projekt.MainActivity" >
-    <item 
-        android:id="@+id/addExamples"
-        android:title="@string/addExamples" />
-    <item
-        android:id="@+id/captureImage"
-        android:title="@string/captureImage" />
-    <item
-    	android:id="@+id/addNewPic"
-    	android:title="@string/addNewPic" />
-    <item
-        android:id="@+id/infoDialog"
-        android:title="@string/infoDialogTitle" />
-    <item
-        android:id="@+id/cleanProject"
-        android:title="@string/cleanProject" />
-    <item
-        android:id="@+id/btActivity"
-        android:title="@string/btMenu" />
-    <item
-        android:id="@+id/nfcActivity"
-        android:title="@string/nfcMenu" />
-    <item 
-        android:id="@+id/settingsMenu"
-        android:title="@string/settingsMenu" />
+	xmlns:tools="http://schemas.android.com/tools"
+	tools:context="de.leander.projekt.MainActivity" >
+	<item 
+		android:id="@+id/addExamples"
+		android:title="@string/addExamples" />
+	<item
+		android:id="@+id/captureImage"
+		android:title="@string/captureImage" />
+	<item
+		android:id="@+id/addNewPic"
+		android:title="@string/addNewPic" />
+	<item
+		android:id="@+id/infoDialog"
+		android:title="@string/infoDialogTitle" />
+	<item
+		android:id="@+id/cleanProject"
+		android:title="@string/cleanProject" />
+	<item
+		android:id="@+id/btActivity"
+		android:title="@string/btMenu" />
+	<item
+		android:id="@+id/nfcActivity"
+		android:title="@string/nfcMenu" />
+	<item 
+		android:id="@+id/settingsMenu"
+		android:title="@string/settingsMenu" />
 </menu>

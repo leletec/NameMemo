@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent" >
 
-    <TextView
-        android:id="@+id/tvDevices"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:gravity="center"
-        android:text=""
-        android:textColor="#000000"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:layout_margin="5dp" />
+	<TextView
+		android:id="@+id/tvDevices"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentEnd="true"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentStart="true"
+		android:layout_alignParentTop="true"
+		android:gravity="center"
+		android:text=""
+		android:textColor="#000000"
+		android:textSize="25sp"
+		android:textStyle="bold"
+		android:layout_margin="5dp" />
 
-    <Button
-        android:id="@+id/bSend"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:text="@string/send"
-        android:visibility="gone" />
+	<Button
+		android:id="@+id/bSend"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentStart="true"
+		android:layout_alignParentEnd="true"
+		android:text="@string/send"
+		android:visibility="gone" />
 
-    <ListView
-        android:id="@+id/lvDevices"
-        android:layout_width="match_parent"
-        android:layout_height="374dp"
-        android:layout_above="@id/bSend"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@id/tvDevices" />
+	<ListView
+		android:id="@+id/lvDevices"
+		android:layout_width="match_parent"
+		android:layout_height="374dp"
+		android:layout_above="@id/bSend"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentStart="true"
+		android:layout_alignParentEnd="true"
+		android:layout_below="@id/tvDevices" />
 
 </RelativeLayout>

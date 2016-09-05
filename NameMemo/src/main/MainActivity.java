@@ -248,7 +248,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		Log.d("showNext", newPic.getShowAs() + " loaded");
 		yes.setVisibility(View.INVISIBLE);
 		no.setVisibility(View.INVISIBLE);
-		text.setText(R.string.name_anzeigen);
+		text.setText(R.string.showName);
 		if (statecontroller.getMainstate() != MainState.SHOWSPICTURE)
 			try {
 				statecontroller.showPicture();
@@ -340,14 +340,14 @@ public class MainActivity extends Activity implements OnClickListener {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.deleteDialogTitle);
 		builder.setMessage("Soll der Eintrag '" + name + "' gelöscht werden?");
-		builder.setPositiveButton(R.string.dialogPositive,
+		builder.setPositiveButton(R.string.yes,
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						pictureDb.delete(source);
 					}
 				});
-		builder.setNegativeButton(R.string.dialogNegative, null);
+		builder.setNegativeButton(R.string.no, null);
 		AlertDialog dialog = builder.create();
 		dialog.show();
 		dialog.setOnDismissListener(new OnDismissListener() {
@@ -410,14 +410,14 @@ public class MainActivity extends Activity implements OnClickListener {
 		builder.setMessage("Die Datei "
 				+ name
 				+ " konnte nicht gefunden werden.\nVielleicht wurde sie gelöscht oder verschoben.\nWollen sie den Verweis darauf löschen?");
-		builder.setPositiveButton(R.string.dialogPositive,
+		builder.setPositiveButton(R.string.yes,
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						pictureDb.delete(source);
 					}
 				});
-		builder.setNegativeButton(R.string.dialogNegative, null);
+		builder.setNegativeButton(R.string.no, null);
 		AlertDialog dialog = builder.create();
 		dialog.show();
 		dialog.setOnDismissListener(new OnDismissListener() {
@@ -881,7 +881,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				|| statecontroller.getMainstate() == MainState.CAMERAINTENT) {
 			yes.setVisibility(View.INVISIBLE);
 			no.setVisibility(View.INVISIBLE);
-			text.setText(R.string.name_anzeigen);
+			text.setText(R.string.showName);
 		} else if (statecontroller.getMainstate() == MainState.SHOWSNAME) {
 			yes.setVisibility(View.VISIBLE);
 			no.setVisibility(View.VISIBLE);

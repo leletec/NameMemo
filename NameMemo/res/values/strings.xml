@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">NameMemo</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="importDrawable">Import</string>
-    <string name="gewusst">Ja</string>
-    <string name="nichtgewusst">Nein</string>
-    <string name="name_anzeigen">Name anzeigen</string>
+    <string name="yes">Ja</string>
+    <string name="no">Nein</string>
+    <string name="showName">Name anzeigen</string>
     <string name="addExamples">Einträge zur Datenbank hinzugügen</string>
     <string name="deleteDialogTitle">Glückwunsch!</string>
-    <string name="dialogPositive">Ja</string>
-    <string name="dialogNegative">Nein</string>
     <string name="dialogBack">Zurück</string>
     <string name="dialogCancel">Abbrechen</string>
     <string name="dialogOk">Okay</string>
@@ -18,7 +13,7 @@
     <string name="infoDialogTitle">Appinfo</string>
     <string name="infoDialog">
         NameMemo - Namenlern App
-        \nAutor: Leander Dreier
+        \nEine App von: Leander Dreier
         \nVersion: indev
         \nKontakt: leander.dreier@googlemail.com
     </string>
@@ -26,11 +21,9 @@
     <string name="nPicDialogTitle">Neues Bild aufgenommen</string>
     <string name="nPicDialogTitle2">Neues Bild hinzugefügt!</string>
     <string name="nPicDialogMessage">Geben Sie den Namen ein der diesem Bild zugeordnet werden soll!</string>
-    <string name="cleanProject">Verbrannte Erde</string>
+    <string name="cleanProject">App zurücksetzen</string>
     <string name="addNewPic">Neues Bild aus Datei hinzufügen</string>
-    <string name="queryPairedBtTitle">Gekoppelte Geräte:</string>
     <string name="notInList">Das gesuchte Gerät ist nicht in der Liste</string>
-    <string name="discoveryBtTitle">Gefundene Geräte:</string>
     <string name="importDialogTitle">Neue Datensätze:</string>
     <string name="importDialogMessage">Wählen Sie, welche Daten Sie übernehmen wollen</string>
     <string name="btConnected">Verbunden\nDrücken Sie Senden auf dem entsprechenden Gerät</string>
@@ -42,7 +35,9 @@
     <string name="send">Senden</string>
     <string name="receive">Empfangen</string>
     <string name="cDMainPic">Ordnen Sie diesem Bild einen Namen zu</string>
-    <string name="nfcInstruction">Halten Sie die beiden Geräte Rücken an Rücken\nund tippen sie den Bildschirm des sendenden Geräts an</string>
+    <string name="nfcInstruction">Halten Sie die beiden Geräte Rücken an Rücken
+        \nund tippen sie den Bildschirm des sendenden Geräts an.
+        \nDanach drücken sie den Button auf dem empfangenden Gerät</string>
     <string name="nfcImport">Datenbank importieren</string>
     <string name="cDPreview">Vorschaubild</string>
     <string name="impAll">Datenbank überschreiben</string>

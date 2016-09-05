@@ -17,7 +17,8 @@ public abstract class Helper {
 			e.printStackTrace();
 		} finally {
 			try {
-				in.close();
+				if (in != null)
+					in.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -39,8 +40,10 @@ public abstract class Helper {
 	    	e.printStackTrace();
 	    } finally {
 			try {
-				out.close();
-				in.close();
+				if (out != null)
+					out.close();
+				if (in != null)
+					in.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

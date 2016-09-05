@@ -307,7 +307,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	private void deleteDialog(final String source, String name) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.deleteDialogTitle);
-		builder.setMessage("Soll der Eintrag '" + name + "' gelöscht werden?");
+		builder.setMessage("Soll der Eintrag '" + name + "' gelï¿½scht werden?");
 		builder.setPositiveButton(R.string.yes,
 				new DialogInterface.OnClickListener() {
 					@Override
@@ -344,7 +344,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	private void missingFileDialog(final String source, String name) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.mfileDialogTitle);
-		builder.setMessage("Die Datei "	+ name + " konnte nicht gefunden werden.\nVielleicht wurde sie gelöscht oder verschoben.\nWollen Sie den Verweis darauf löschen?");
+		builder.setMessage("Die Datei "	+ name + " konnte nicht gefunden werden.\nVielleicht wurde sie gelï¿½scht oder verschoben.\nWollen Sie den Verweis darauf lï¿½schen?");
 		builder.setPositiveButton(R.string.yes,
 				new DialogInterface.OnClickListener() {
 					@Override
@@ -365,7 +365,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	/**
 	 * Prompts the user for the name to be associated with a newly taken picture.
-	 * @param F	The new picture.
+	 * @param f	The new picture.
 	 */
 	private void newShotDialog(final File f) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -527,7 +527,8 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	/**
 	 * The preview for the AddPicFromStorageDialog().
-	 * @param File	The picture you clicked on.
+	 * @param file	The picture you clicked on.
+	 * @param dir	The directory you are in.
 	 */
 	private void previewDialog(final File file, final File dir) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);

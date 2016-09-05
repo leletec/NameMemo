@@ -120,7 +120,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	 */
 	public void onClick(View view) {
 		if (pictures[currentPicture] == null)
-			Log.e("error", "currentBild(" + currentPicture + ") ist null");
+			Log.e("error", "currentPicture(" + currentPicture + ") is null");
 		else {
 			switch (view.getId()) {
 			case R.id.bText:
@@ -138,7 +138,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				Log.d("Picture", "name:" + pictures[currentPicture].getName()
 						+ " called:" + pictures[currentPicture].getCalled()
 						+ " gotright:" + pictures[currentPicture].getGotright()
-						+ "in a row:" + pictures[currentPicture].getInarow());
+						+ " in a row:" + pictures[currentPicture].getInarow());
 				if (pictures[currentPicture].getInarow() >= inarowReq)
 					deleteDialog(pictures[currentPicture].getSource(),
 							pictures[currentPicture].getName());
@@ -155,7 +155,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				Log.d("Picture", "name:" + pictures[currentPicture].getName()
 						+ " called:" + pictures[currentPicture].getCalled()
 						+ " gotright:" + pictures[currentPicture].getGotright()
-						+ "in a row:" + pictures[currentPicture].getInarow());
+						+ " in a row:" + pictures[currentPicture].getInarow());
 				showNext();
 				break;
 			}
@@ -297,8 +297,8 @@ public class MainActivity extends Activity implements OnClickListener {
 			if (pictures[i].getSource().equals(oldSource))
 				currentPicture = i;
 		for (Picture pic : pictures)
-			Log.d("Bilder", pic + "loaded");
-		Log.d("Bilder", "Arraylength: " + pictures.length);
+			Log.d("loadPictures", pic + "loaded");
+		Log.d("loadPictures", "Arraylength: " + pictures.length);
 	}
 
 	/**
@@ -424,7 +424,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		if (!Environment.getExternalStorageState().equals(
 				Environment.MEDIA_MOUNTED)) {
-			Toast.makeText(this, "'ExternalStorage' can not be written", Toast.LENGTH_SHORT).show(); //XXX
+			Toast.makeText(this, R.string.writeErr, Toast.LENGTH_SHORT).show();
 			return;
 		}
 		Uri fileUri = camera.getOutputMediaFile(app_name); // create a file to save the image
@@ -439,14 +439,13 @@ public class MainActivity extends Activity implements OnClickListener {
 		case CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE:
 			if (resultCode == RESULT_OK) {
 				Uri uri = camera.fixFileOrientation();
-				Toast.makeText(this, "Image saved to:\n" + uri,	Toast.LENGTH_LONG).show(); //XXX
 				image.setImageURI(uri);
 				newShotDialog(null);
 			} else {
 				if (resultCode == RESULT_CANCELED)
-					Toast.makeText(this, "Capturing image canceled", Toast.LENGTH_SHORT).show(); //XXX
+					Toast.makeText(this, R.string.canceled, Toast.LENGTH_SHORT).show();
 				else
-					Toast.makeText(this, "Capturing image failed", Toast.LENGTH_SHORT).show(); //XXX
+					Toast.makeText(this, R.string.failed, Toast.LENGTH_SHORT).show();
 			}
 		}
 	}
@@ -458,7 +457,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		if (isExternalStorageReadable()) {
 			AddPicFromStorageDialog(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),	app_name));
 		} else
-			Toast.makeText(this, "'ExternalStorage' can not be read", Toast.LENGTH_SHORT).show(); //XXX
+			Toast.makeText(this, R.string.readErr, Toast.LENGTH_SHORT).show();
 	}
 
 	/**
@@ -503,7 +502,7 @@ public class MainActivity extends Activity implements OnClickListener {
 						});
 						dialog.dismiss();
 					} else
-						Toast.makeText(context, "Can't read parent folder!", Toast.LENGTH_SHORT).show(); //XXX
+						Toast.makeText(context, R.string.readErr, Toast.LENGTH_SHORT).show();
 				} else if (file.isDirectory()) {
 					if (file.canRead()) {
 						dialog.setOnDismissListener(new OnDismissListener() {
@@ -514,7 +513,7 @@ public class MainActivity extends Activity implements OnClickListener {
 						});
 						dialog.dismiss();
 					} else
-						Toast.makeText(context,	"Can't read folder '" + file.getName() + "'!", Toast.LENGTH_SHORT).show(); //XXX
+						Toast.makeText(context,	R.string.readErr, Toast.LENGTH_SHORT).show();
 				} else {
 					dialog.setOnDismissListener(new OnDismissListener() {
 						@Override

@@ -8,7 +8,6 @@ import java.util.Random;
 import net.bluetooth.BluetoothActivity;
 import net.nfc.NfcActivity;
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -19,7 +18,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -45,7 +43,7 @@ import database.SettingsDAO;
 import de.leander.projekt.R;
 import design.FileListAdapter;
 
-@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+@SuppressLint("InflateParams")
 public class MainActivity extends Activity implements OnClickListener {
 	//Tables
 	private PicturesDAO pictureDb;
@@ -369,7 +367,6 @@ public class MainActivity extends Activity implements OnClickListener {
 	 * Prompts the user for the name to be associated with a newly taken picture.
 	 * @param F	The new picture.
 	 */
-	@SuppressLint("InflateParams")
 	private void newShotDialog(final File f) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		if (f == null) {
@@ -463,7 +460,6 @@ public class MainActivity extends Activity implements OnClickListener {
 	/**
 	 * @param dir	The directory you are currently in.
 	 */
-	@SuppressLint("InflateParams")
 	private void AddPicFromStorageDialog(final File dir) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.addNewPic);
@@ -558,7 +554,6 @@ public class MainActivity extends Activity implements OnClickListener {
 	/**
 	 * A dialog where you can change the settings.
 	 */
-	@SuppressLint("InflateParams")
 	private void settingsDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.settingsMenu);

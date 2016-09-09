@@ -1,43 +1,8 @@
-# github.com/github/gitignore/blob/master/Android.gitignore
-
-# Built application files
-*.apk
-*.ap_
-
-# Files for the ART/Dalvik VM
-*.dex
-
-# Java class files
-*.class
-
-# Generated files
-bin/
-gen/
-out/
-
-# Gradle files
-.gradle/
-build/
-
-# Local configuration file
-local.properties
-
-# Eclipse
-proguard/
-.classpath/
-.project/
-.settings/
-.metadata/
-.recommenders/
-
-# Log Files
-*.log
-
-# Lock files (LibreOffice)
-.~lock.*
-
-RemoteSystemsTempFiles/
-
-# Android Studio
-.idea
 *.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures

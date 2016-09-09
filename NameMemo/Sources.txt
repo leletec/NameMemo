@@ -1,2 +1,0 @@
-https://developer.android.com/reference/packages.html
-https://developer.android.com/guide/topics/media/camera.html

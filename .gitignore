@@ -22,14 +22,6 @@ build/
 # Local configuration file
 local.properties
 
-# Eclipse
-proguard/
-.classpath/
-.project/
-.settings/
-.metadata/
-.recommenders/
-
 # Log Files
 *.log
 
@@ -39,5 +31,10 @@ proguard/
 RemoteSystemsTempFiles/
 
 # Android Studio
-.idea
 *.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+/build
+/captures

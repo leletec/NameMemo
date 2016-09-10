@@ -19,6 +19,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -48,6 +50,9 @@ import de.leletec.namememo.R;
 import design.FileListAdapter;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+
+// https://inthecheesefactory.com/blog/get-to-know-glide-recommended-by-google/en
+import com.bumptech.glide.Glide;
 
 import static de.leletec.namememo.R.menu.menubar;
 
@@ -74,8 +79,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 	private final Context context = this;
 	private int currentPicture;
 	private Picture[] pictures;
-	private Camera camera;
 	private String app_name;
+	private File cFile; // File used for camera operations
+	private int ivHeight; // height of the ImageView
+	private int ivWidth; // width of the ImageView
 
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
 
@@ -100,7 +107,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 		text.setOnClickListener(this);
 		yes.setOnClickListener(this);
 		no.setOnClickListener(this);
-		camera = new Camera();
 		app_name = getString(R.string.app_name);
 
 		loadPictures();
@@ -124,6 +130,17 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
+
+		// http://stackoverflow.com/questions/1016896/get-screen-dimensions-in-pixels
+		Display display = getWindowManager().getDefaultDisplay();
+		Point size = new Point();
+		display.getSize(size);
+		ivHeight = (int) Math.round(size.y * 0.75);
+		ivWidth = size.x;
+		image.setMaxWidth(ivWidth);
+		image.setMinimumWidth(ivWidth);
+		image.setMaxHeight(ivHeight);
+		image.setMinimumHeight(ivHeight);
 	}
 
 	@Override
@@ -260,13 +277,13 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 			newPic = pictures[currentPicture];
 		}
 
-		Bitmap bmp = BitmapFactory.decodeFile(newPic.getSource());
-		if (bmp == null) {
+		File newFile = new File(newPic.getSource());
+		if (!newFile.exists()) {
 			missingFileDialog(pictures[currentPicture].getSource(), pictures[currentPicture].getName());
 			return;
 		}
-		Log.d("showNext", "Bitmap=" + bmp.toString());
-		image.setImageBitmap(bmp);
+		Glide.with(this).load(newFile).override(ivWidth, ivHeight).into(image);
+
 		Log.d("showNext", newPic.getShowAs() + " loaded");
 		yes.setVisibility(View.INVISIBLE);
 		no.setVisibility(View.INVISIBLE);
@@ -407,7 +424,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 	/**
 	 * Prompts the user for the name to be associated with a newly taken picture.
 	 *
-	 * @param f The new picture.
+	 * @param f The new picture. 'null' if it was taken by the camera.
 	 */
 	private void newShotDialog(final File f) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -426,7 +443,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 						EditText name = (EditText) ((AlertDialog) dialog)
 								.findViewById(R.id.etName);
 						if (f == null)
-							pictureDb.add(camera.getUri().getPath(), name.getText().toString());
+							pictureDb.add(cFile.getPath(), name.getText().toString());
 						else {
 							File dst = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + app_name, f.getName());
 							String path = dst.getAbsolutePath();
@@ -467,19 +484,17 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 			Toast.makeText(this, R.string.writeErr, Toast.LENGTH_SHORT).show();
 			return;
 		}
-		Uri fileUri = camera.getOutputMediaFile(app_name); // create a file to save the image
-		intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri); // set the image file name
+		cFile = Helper.getOutputMediaFile(app_name); // create a file to save the image
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(cFile)); // set the image file name
 		startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
-
 			case CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE:
 				if (resultCode == RESULT_OK) {
-					Uri uri = camera.fixFileOrientation();
-					image.setImageURI(uri);
+					Glide.with(this).load(cFile).override(ivWidth, ivHeight).into(image);
 					newShotDialog(null);
 				} else {
 					if (resultCode == RESULT_CANCELED)

@@ -59,4 +59,5 @@
     <string name="canceled">Abgebrochen</string>
     <string name="failed">Fehlgeschlagen</string>
     <string name="cleanProjectMessage">Wollen Sie wirklich alle Daten aus der Datenbank löschen?\nDieser Schritt kann nicht rückgängig gemacht werden!</string>
+    <string name="emptyDb">Die Datenbank ist leer.\nLade Beispielkatze</string>
 </resources>

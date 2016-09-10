@@ -322,6 +322,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 		List<Picture> allPics = pictureDb.getAllPics();
 		pictures = allPics.toArray(new Picture[allPics.size()]);
 		if (pictures.length == 0) {
+			Toast.makeText(this, R.string.emptyDb, Toast.LENGTH_SHORT).show();
 			File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), app_name);
 			File f = new File(dir, "katze.png");
 			pictureDb.add(f.getAbsolutePath(), "Katze");

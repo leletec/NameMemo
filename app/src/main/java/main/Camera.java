@@ -73,54 +73,34 @@ public class Camera {
 	 * @return	The "repaired" file's Uri.
 	 */
 	public Uri fixFileOrientation() {
-		BitmapFactory.Options bounds = new BitmapFactory.Options();
-		BitmapFactory.Options opts = new BitmapFactory.Options();
 		String fname = new File(uri.getPath()).getAbsolutePath();
-		Bitmap bm;
-
-		bounds.inJustDecodeBounds = true;
-		BitmapFactory.decodeFile(fname, bounds);
-		bm = BitmapFactory.decodeFile(fname, opts);
-		ExifInterface exif = null;
+		Bitmap bm = BitmapFactory.decodeFile(fname);
+		ExifInterface exif;
 		try {
 			exif = new ExifInterface(fname);
 		}
 		catch (IOException e) {
-			Log.e("camera", e.toString());
 			e.printStackTrace();
 			return uri;
 		}
+		int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
+		Bitmap bmRot = Helper.rotateBitmap(bm, orientation);
+		if (bmRot == null)
+			return uri;
 
-		String oristr = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
-		int ori = ExifInterface.ORIENTATION_NORMAL;
-		if (oristr != null)
-			ori = Integer.parseInt(oristr);
-
-		int angle = 0;
-		if (ori == ExifInterface.ORIENTATION_ROTATE_90)
-			angle = 90;
-		else if (ori == ExifInterface.ORIENTATION_ROTATE_180)
-			angle = 180;
-		else if (ori == ExifInterface.ORIENTATION_ROTATE_270)
-			angle = 270;
-
-		Matrix mat = new Matrix();
-		mat.setRotate(angle, bm.getWidth() / 2.0f, bm.getHeight() / 2.0f);
-		Bitmap rotbm = Bitmap.createBitmap(bm, 0, 0, bounds.outWidth, bounds.outHeight, mat, true);
 		FileOutputStream fos = null;
 		try {
 			fos = new FileOutputStream(fname);
 		}
 		catch (FileNotFoundException e) {
-			Log.e("camera", e.toString());
 			e.printStackTrace();
 		}
-		rotbm.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+		bmRot.compress(Bitmap.CompressFormat.JPEG, 100, fos);
 		try {
-			fos.close();
+			if (fos != null)
+				fos.close();
 		}
 		catch (IOException e) {
-			Log.e("camera", e.toString());
 			e.printStackTrace();
 		}
 

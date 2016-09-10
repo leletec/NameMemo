@@ -2,16 +2,14 @@ package main;
 
 import java.io.File;
 import java.io.InputStream;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import net.bluetooth.BluetoothActivity;
 import net.nfc.NfcActivity;
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -26,7 +24,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -34,7 +31,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewConfiguration;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -53,34 +49,44 @@ import design.FileListAdapter;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
+
 import static de.leletec.namememo.R.menu.menubar;
 
+@SuppressWarnings("ResultOfMethodCallIgnored")
 @SuppressLint("InflateParams")
 // http://stackoverflow.com/questions/26432544/missing-actionbar-in-material-design
 public class MainActivity extends AppCompatActivity implements OnClickListener {
 	//Tables
 	private PicturesDAO pictureDb;
 	private SettingsDAO settingsDb;
-	
+
 	// Views
 	private Button text;
 	private Button yes;
 	private Button no;
 	private ImageView image;
-	
+
 	// Settings
 	private int inarowReq;
 	private boolean rdmSeq;
 	private boolean colPics;
-	
+
 	// misc
 	private final Context context = this;
 	private int currentPicture;
 	private Picture[] pictures;
 	private Camera camera;
 	private String app_name;
-	
+
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+	/**
+	 * ATTENTION: This was auto-generated to implement the App Indexing API.
+	 * See https://g.co/AppIndexing/AndroidStudio for more information.
+	 */
+	private GoogleApiClient client;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -111,33 +117,34 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
 		// http://stackoverflow.com/questions/33162152/storage-permission-error-in-marshmallow
 		if (Build.VERSION.SDK_INT >= 23) {
-			if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-				Log.v("setup","Permission is granted");
+			if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+				Log.v("setup", "Permission is granted");
 			} else {
-				Log.v("setup","Permission is revoked");
+				Log.v("setup", "Permission is revoked");
 				ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
 			}
-		}
-		else { //permission is automatically granted on sdk<23 upon installation
-			Log.v("setup","Permission is granted");
+		} else { //permission is automatically granted on sdk<23 upon installation
+			Log.v("setup", "Permission is granted");
 		}
 
+		// ATTENTION: This was auto-generated to implement the App Indexing API.
+		// See https://g.co/AppIndexing/AndroidStudio for more information.
+		client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 	}
 
-	public void foo() {
-
-	}
-	
 	@Override
 	protected void onStart() {
 		super.onStart();
+		// ATTENTION: This was auto-generated to implement the App Indexing API.
+		// See https://g.co/AppIndexing/AndroidStudio for more information.
+		client.connect();
 		File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), app_name);
 		if (!(new File(dir, "katze.png").exists() && new File(dir, "hund.jpg").exists() && new File(dir, "hase.jpg").exists()))
 			copyExamplePics(dir);
 		else
 			Log.d("setup", "everything is there");
 		Log.d("setup", "Fancy log " + dir.getAbsolutePath() + new File(dir, "katze.png").exists());
-		
+
 		inarowReq = settingsDb.get("inarowReq");
 		rdmSeq = settingsDb.get("seqType") == 1;
 		colPics = settingsDb.get("colPics") == 1;
@@ -153,56 +160,55 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 			Log.e("error", "currentPicture(" + currentPicture + ") is null");
 		else {
 			switch (view.getId()) {
-			case R.id.bText:
-				text.setText(pictures[currentPicture].getName());
-				yes.setVisibility(View.VISIBLE);
-				no.setVisibility(View.VISIBLE);
-				break;
-			case R.id.bJa:
-				pictureDb.update(pictures[currentPicture].getSource(),
-						pictures[currentPicture].getName(),
-						pictures[currentPicture].getCalled() + 1,
-						pictures[currentPicture].getGotright() + 1,
-						pictures[currentPicture].getInarow() + 1);
-				loadPictures();
-				Log.d("Picture", "name:" + pictures[currentPicture].getName()
-						+ " called:" + pictures[currentPicture].getCalled()
-						+ " gotright:" + pictures[currentPicture].getGotright()
-						+ " in a row:" + pictures[currentPicture].getInarow());
-				if (pictures[currentPicture].getInarow() >= inarowReq)
-					deleteDialog(pictures[currentPicture].getSource(),
-							pictures[currentPicture].getName());
-				else
+				case R.id.bText:
+					text.setText(pictures[currentPicture].getName());
+					yes.setVisibility(View.VISIBLE);
+					no.setVisibility(View.VISIBLE);
+					break;
+				case R.id.bJa:
+					pictureDb.update(pictures[currentPicture].getSource(),
+							pictures[currentPicture].getName(),
+							pictures[currentPicture].getCalled() + 1,
+							pictures[currentPicture].getGotright() + 1,
+							pictures[currentPicture].getInarow() + 1);
+					loadPictures();
+					Log.d("Picture", "name:" + pictures[currentPicture].getName()
+							+ " called:" + pictures[currentPicture].getCalled()
+							+ " gotright:" + pictures[currentPicture].getGotright()
+							+ " in a row:" + pictures[currentPicture].getInarow());
+					if (pictures[currentPicture].getInarow() >= inarowReq)
+						deleteDialog(pictures[currentPicture].getSource(),
+								pictures[currentPicture].getName());
+					else
+						showNext();
+					break;
+				case R.id.bNein:
+					pictureDb.update(pictures[currentPicture].getSource(),
+							pictures[currentPicture].getName(),
+							pictures[currentPicture].getCalled() + 1,
+							pictures[currentPicture].getGotright(),
+							0);
+					loadPictures();
+					Log.d("Picture", "name:" + pictures[currentPicture].getName()
+							+ " called:" + pictures[currentPicture].getCalled()
+							+ " gotright:" + pictures[currentPicture].getGotright()
+							+ " in a row:" + pictures[currentPicture].getInarow());
 					showNext();
-				break;
-			case R.id.bNein:
-				pictureDb.update(pictures[currentPicture].getSource(),
-						pictures[currentPicture].getName(),
-						pictures[currentPicture].getCalled() + 1,
-						pictures[currentPicture].getGotright(),
-						0);
-				loadPictures();
-				Log.d("Picture", "name:" + pictures[currentPicture].getName()
-						+ " called:" + pictures[currentPicture].getCalled()
-						+ " gotright:" + pictures[currentPicture].getGotright()
-						+ " in a row:" + pictures[currentPicture].getInarow());
-				showNext();
-				break;
+					break;
 			}
 		}
 	}
 
 	/**
 	 * Copies three example pictures to the app's pictures directory.
-	 * @param dir	The directory to copy to
+	 *
+	 * @param dir The directory to copy to
 	 */
 	private void copyExamplePics(File dir) {
-		int[] files = new int[] { R.raw.hund, R.raw.katze, R.raw.hase };
-		String[] filenames = new String[] { "hund.jpg", "katze.png", "hase.jpg" };
-		
-		if(!dir.exists())
-			dir.mkdirs();
-		Log.d("setup", ""+new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), app_name).exists());
+		int[] files = new int[]{R.raw.hund, R.raw.katze, R.raw.hase};
+		String[] filenames = new String[]{"hund.jpg", "katze.png", "hase.jpg"};
+
+		dir.mkdirs();
 
 		for (int i = 0; i < files.length; i++) {
 			int resId = files[i];
@@ -213,23 +219,34 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 			Log.d("setup", "copied file " + filename);
 		}
 	}
-	
+
 	/**
 	 * Resets the app to the factory settings.
 	 */
 	private void resetToFactory() {
-		pictureDb.clean();
-		finish();
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle(R.string.cleanProject);
+		builder.setMessage(R.string.cleanProjectMessage);
+		builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialogInterface, int i) {
+				pictureDb.clean();
+				Toast.makeText(context, "Datenbank wurde gelöscht", Toast.LENGTH_SHORT).show(); //XXX
+				finish();
+			}
+		});
+		builder.setNegativeButton(R.string.no, null);
+		builder.create().show();
 	}
 
 	/**
 	 * Loads the next or a "random" picture in the pictures array and displays it.
 	 */
 	private void showNext() {
-		Picture newPic = null;
+		Picture newPic;
 		if (rdmSeq) {
 			Picture lastPic = pictures[currentPicture];
-			ArrayList<Picture> tmp = new ArrayList<Picture>();
+			ArrayList<Picture> tmp = new ArrayList<>();
 			int i;
 			for (Picture pic : pictures) {
 				i = pic.getInarow();
@@ -250,7 +267,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 		} else {
 			currentPicture = (currentPicture + 1) % pictures.length;
 			newPic = pictures[currentPicture];
-		}	
+		}
 
 		Bitmap bmp = BitmapFactory.decodeFile(newPic.getSource());
 		if (bmp == null) {
@@ -275,36 +292,31 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		/**
-		 * Loads two more example-pictures in the database.
-		 */
-		case R.id.addExamples:
-			File f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)	+ File.separator + app_name, "hund.jpg");
-			pictureDb.add(f.getAbsolutePath(), "Hund");
-			f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + app_name, "hase.jpg");
-			pictureDb.add(f.getAbsolutePath(), "Hase");
-			loadPictures();
-			return true;
-		case R.id.captureImage:
-			cameraIntent();
-			return true;
-		case R.id.infoDialog:
-			infoDialog();
-			return true;
-		case R.id.cleanProject:
-			resetToFactory();
-			return true;
-		case R.id.addNewPic:
-			addPicFromStorageDialog();
-			return true;
-		case R.id.btActivity:
-			bluetooth();
-			return true;
-		case R.id.nfcActivity:
-			nfc();
-			return true;
-		case R.id.settingsMenu:
-			settingsDialog();
+			/**
+			 * Loads two more example-pictures in the database.
+			 */
+			case R.id.addExamples:
+				File f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + app_name, "hund.jpg");
+				pictureDb.add(f.getAbsolutePath(), "Hund");
+				f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + app_name, "hase.jpg");
+				pictureDb.add(f.getAbsolutePath(), "Hase");
+				Toast.makeText(this, "Beispielbilder wurden hinzugefügt", Toast.LENGTH_SHORT).show(); //XXX
+				loadPictures();
+				return true;
+			case R.id.captureImage:
+				cameraIntent();
+				return true;
+			case R.id.infoDialog:
+				infoDialog();
+				return true;
+			case R.id.addNewPic:
+				addPicFromStorageDialog();
+				return true;
+			case R.id.connMenu:
+				connDialog();
+				return true;
+			case R.id.settingsMenu:
+				settingsDialog();
 		}
 		return false;
 	}
@@ -316,7 +328,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 		String oldSource = null;
 		if (pictures != null && pictures.length != 0)
 			oldSource = pictures[currentPicture].getSource();
-		pictures = pictureDb.getAllPics().toArray(new Picture[0]);
+		List<Picture> allPics = pictureDb.getAllPics();
+		pictures = allPics.toArray(new Picture[allPics.size()]);
 		if (pictures.length == 0) {
 			File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), app_name);
 			File f = new File(dir, "katze.png");
@@ -335,8 +348,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
 	/**
 	 * Shows a dialog where the user can delete a picture from the database after repeatedly remembering the name correctly.
-	 * @param source	The source of that picture.
-	 * @param name		The name belonging to that picture.
+	 *
+	 * @param source The source of that picture.
+	 * @param name   The name belonging to that picture.
 	 */
 	private void deleteDialog(final String source, String name) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -372,13 +386,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
 	/**
 	 * If the database retains a path to a file that doesn't exist anymore, this dialog is shown to the user, who can then delete the dangling path from the database.
-	 * @param source	The source of the missing file.
-	 * @param name		The name belonging to the missing picture.
+	 *
+	 * @param source The source of the missing file.
+	 * @param name   The name belonging to the missing picture.
 	 */
 	private void missingFileDialog(final String source, String name) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.mfileDialogTitle);
-		builder.setMessage("Die Datei "	+ name + " konnte nicht gefunden werden.\nVielleicht wurde sie gelöscht oder verschoben.\nWollen Sie den Verweis darauf löschen?");
+		builder.setMessage("Die Datei " + name + " konnte nicht gefunden werden.\nVielleicht wurde sie gelöscht oder verschoben.\nWollen Sie den Verweis darauf löschen?");
 		builder.setPositiveButton(R.string.yes,
 				new DialogInterface.OnClickListener() {
 					@Override
@@ -399,7 +414,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
 	/**
 	 * Prompts the user for the name to be associated with a newly taken picture.
-	 * @param f	The new picture.
+	 *
+	 * @param f The new picture.
 	 */
 	private void newShotDialog(final File f) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -408,7 +424,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 			builder.setMessage(R.string.nPicDialogMessage);
 		} else {
 			builder.setTitle(R.string.nPicDialogTitle2);
-			builder.setMessage("Geben Sie einen Namen ein, der der Datei '"	+ f.getName() + "' zugeordnet werden soll!");
+			builder.setMessage("Geben Sie einen Namen ein, der der Datei '" + f.getName() + "' zugeordnet werden soll!");
 		}
 		builder.setView(getLayoutInflater().inflate(R.layout.npicdialog, null));
 		builder.setPositiveButton(R.string.dialogOk,
@@ -425,7 +441,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 							if (!f.getAbsolutePath().equals(path))
 								Helper.moveFile(f, dst);
 							pictureDb.add(path, name.getText().toString());
-						}	
+						}
 						loadPictures();
 					}
 				});
@@ -445,7 +461,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 	private boolean isExternalStorageReadable() {
 		String state = Environment.getExternalStorageState();
 		return (Environment.MEDIA_MOUNTED.equals(state) || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state));
-		
+
 	}
 
 	/**
@@ -467,18 +483,18 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
-		
-		case CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE:
-			if (resultCode == RESULT_OK) {
-				Uri uri = camera.fixFileOrientation();
-				image.setImageURI(uri);
-				newShotDialog(null);
-			} else {
-				if (resultCode == RESULT_CANCELED)
-					Toast.makeText(this, R.string.canceled, Toast.LENGTH_SHORT).show();
-				else
-					Toast.makeText(this, R.string.failed, Toast.LENGTH_SHORT).show();
-			}
+
+			case CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE:
+				if (resultCode == RESULT_OK) {
+					Uri uri = camera.fixFileOrientation();
+					image.setImageURI(uri);
+					newShotDialog(null);
+				} else {
+					if (resultCode == RESULT_CANCELED)
+						Toast.makeText(this, R.string.canceled, Toast.LENGTH_SHORT).show();
+					else
+						Toast.makeText(this, R.string.failed, Toast.LENGTH_SHORT).show();
+				}
 		}
 	}
 
@@ -487,13 +503,13 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 	 */
 	private void addPicFromStorageDialog() {
 		if (isExternalStorageReadable()) {
-			AddPicFromStorageDialog(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),	app_name));
+			AddPicFromStorageDialog(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), app_name));
 		} else
 			Toast.makeText(this, R.string.readErr, Toast.LENGTH_SHORT).show();
 	}
 
 	/**
-	 * @param dir	The directory you are currently in.
+	 * @param dir The directory you are currently in.
 	 */
 	private void AddPicFromStorageDialog(final File dir) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -502,7 +518,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 		if (dir.exists()) {
 			files = dir.listFiles();
 		}
-		ArrayList<File> filelist = new ArrayList<File>();
+		ArrayList<File> filelist = new ArrayList<>();
 		filelist.add(new File(".."));
 		for (File file : files) {
 			String fname = file.getName();
@@ -520,7 +536,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 		listview.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+									int position, long id) {
 				final File file = ((File) parent.getItemAtPosition(position));
 				String fname = file.getName();
 				if (fname.equals("..")) {
@@ -544,7 +560,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 						});
 						dialog.dismiss();
 					} else
-						Toast.makeText(context,	R.string.readErr, Toast.LENGTH_SHORT).show();
+						Toast.makeText(context, R.string.readErr, Toast.LENGTH_SHORT).show();
 				} else {
 					dialog.setOnDismissListener(new OnDismissListener() {
 						@Override
@@ -553,7 +569,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 						}
 					});
 				}
-					dialog.dismiss();
+				dialog.dismiss();
 			}
 		});
 		dialog.show();
@@ -561,8 +577,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
 	/**
 	 * The preview for the AddPicFromStorageDialog().
-	 * @param file	The picture you clicked on.
-	 * @param dir	The directory you are in.
+	 *
+	 * @param file The picture you clicked on.
+	 * @param dir  The directory you are in.
 	 */
 	private void previewDialog(final File file, final File dir) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -596,7 +613,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 		builder.setView(getLayoutInflater().inflate(R.layout.settings_menu, null));
 		AlertDialog dialog = builder.create();
 		dialog.show();
-		
+
 		EditText etInarowReq = (EditText) dialog.findViewById(R.id.etInarowReq);
 		etInarowReq.setText(inarowReq + "");
 		etInarowReq.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -616,41 +633,55 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 				}
 			}
 		});
-		
+
 		Switch sRdmSeq = (Switch) dialog.findViewById(R.id.sRdmSeq);
 		sRdmSeq.setChecked(rdmSeq);
 		sRdmSeq.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				rdmSeq = isChecked;
-				settingsDb.set("seqType", rdmSeq? 1:0);
+				settingsDb.set("seqType", rdmSeq ? 1 : 0);
 			}
 		});
-		
+
 		Switch sColPics = (Switch) dialog.findViewById(R.id.sColPics);
 		sColPics.setChecked(colPics);
 		sColPics.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				colPics = isChecked;
-				settingsDb.set("colPics", colPics? 1:0);
+				settingsDb.set("colPics", colPics ? 1 : 0);
+			}
+		});
+
+		Button bClean = (Button) dialog.findViewById(R.id.bClean);
+		bClean.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				resetToFactory();
 			}
 		});
 	}
 
-	/**
-	 * Opens a new intent where you can do bluetooth stuff.
-	 */
-	private void bluetooth() {
-		Intent intent = new Intent(this, BluetoothActivity.class);
-		startActivity(intent);
+	private void connDialog() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle(R.string.connMenu);
+		CharSequence[] foo = new CharSequence[] {"Bluetooth", "NFC"};
+		builder.setItems(foo, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialogInterface, int i) {
+				switch (i) {
+				case 0:	startActivity(new Intent(context, BluetoothActivity.class)); break;
+				case 1: startActivity(new Intent(context, NfcActivity.class));
+				}
+			}
+		});
+		builder.setNegativeButton(R.string.dialogCancel, null);
+		builder.create().show();
 	}
-	
-	/**
-	 * Opens a new intent where you can do NFC stuff.
-	 */
-	private void nfc() {
-		Intent intent = new Intent(this, NfcActivity.class);
-		startActivity(intent);
+
+	@Override
+	public void onStop() {
+		super.onStop();
 	}
 }

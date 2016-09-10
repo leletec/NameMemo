@@ -63,8 +63,8 @@ public class BluetoothActivity extends Net {
 		registerReceiver(receiver, new IntentFilter(BluetoothDevice.ACTION_FOUND));
 		
 		if (adapter == null) {
-		    Toast.makeText(context, R.string.btNotSupported, Toast.LENGTH_LONG).show();
-		    finish();
+			Toast.makeText(context, R.string.btNotSupported, Toast.LENGTH_LONG).show();
+			finish();
 		}
 	}
 	
@@ -220,6 +220,5 @@ public class BluetoothActivity extends Net {
 				receive();
 			}
 		});
-		
 	}
 }

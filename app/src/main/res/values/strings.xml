@@ -14,7 +14,7 @@
     <string name="infoDialog">
         NameMemo - Namenlern App
         \nEine App von: Leander Dreier
-        \nVersion: Beta 0.1.1
+        \nVersion: Beta 0.2.0
         \nKontakt: leander.dreier@googlemail.com
     </string>
     <string name="mfileDialogTitle">Datei nicht gefunden</string>
@@ -45,7 +45,7 @@
     <string name="impUpdate">Neue Einträge und Updates</string>
     <string name="input">Eingabe</string>
     <string name="btMenu">Bluetooth Datenübertragung</string>
-    <string name="nfcMenu">NFC Datenübertragung</string>
+    <string name="connMenu">Datenübertragung</string>
     <string name="settingsMenu">Einstellungen</string>
     <string name="inarowReq">Mindestens benötigte Übereinstimmungen zum Löschen eines Bildes</string>
     <string name="rdmSeq">Auswahl der Bilder nach dem Können des Nutzers</string>
@@ -57,4 +57,5 @@
     <string name="readErr">Kein Lesezugriff möglich</string>
     <string name="canceled">Abgebrochen</string>
     <string name="failed">Fehlgeschlagen</string>
+    <string name="cleanProjectMessage">Wollen Sie wirklich alle Daten aus der Datenbank löschen?\nDieser Schritt kann nicht rückgängig gemacht werden!</string>
 </resources>

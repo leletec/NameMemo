@@ -33,7 +33,7 @@ public class SettingsDAO {
 	}
 
 	/**
-	 * Helper method for init();
+	 * Helper method for init()
 	 */
 	private void add(String identifier, int value) {
 		ContentValues values = new ContentValues();
@@ -43,7 +43,8 @@ public class SettingsDAO {
 	}
 
 	/**
-	 * Set a specific setting
+	 * Set a specific setting.
+	 *
 	 * @param identifier    the setting
 	 * @param value         it's value
 	 */
@@ -55,7 +56,8 @@ public class SettingsDAO {
 	}
 
 	/**
-	 * Get a specific setting
+	 * Get a specific setting.
+	 *
 	 * @param identifier    the setting
 	 * @return              it's value
 	 */

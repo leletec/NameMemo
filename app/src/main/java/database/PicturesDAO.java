@@ -29,6 +29,7 @@ public class PicturesDAO {
 
 	/**
 	 * Adds an entry to the database.
+	 *
 	 * @param source		The source of the picture.
 	 * @param name			The name related with the picture.
 	 */
@@ -54,6 +55,7 @@ public class PicturesDAO {
 
 	/**
 	 * Updates an entry of the database.
+	 *
 	 * @param source		The source of the picture.
 	 * @param name			The name related with the picture.
 	 * @param called		How often the picture got called.
@@ -99,6 +101,7 @@ public class PicturesDAO {
 
 	/**
 	 * Helper method for getAllPics().
+	 *
 	 * @param cursor	Current position in the database.
 	 * @return			An entry of the database.
 	 */
@@ -115,6 +118,7 @@ public class PicturesDAO {
 
 	/**
 	 * Remove an entry from the table.
+	 *
 	 * @param source	Its source.
 	 */
 	public void delete(String source) {

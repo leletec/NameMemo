@@ -44,7 +44,8 @@
     <string name="impNew">Neue Einträge hinzufügen</string>
     <string name="impUpdate">Neue Einträge und Updates</string>
     <string name="input">Eingabe</string>
-    <string name="btMenu">Bluetooth Datenübertragung</string>
+    <string name="btLabel">Bluetooth Datenübertragung</string>
+    <string name="nfcLabel">NFC Datenübertragung</string>
     <string name="connMenu">Datenübertragung</string>
     <string name="settingsMenu">Einstellungen</string>
     <string name="inarowReq">Mindestens benötigte Übereinstimmungen zum Löschen eines Bildes</string>

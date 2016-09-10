@@ -98,7 +98,7 @@ public class PicturesDAO {
 	}
 
 	/**
-	 * Helper method for getAllBilder().
+	 * Helper method for getAllPics().
 	 * @param cursor	Current position in the database.
 	 * @return			An entry of the database.
 	 */
@@ -114,7 +114,7 @@ public class PicturesDAO {
 	}
 
 	/**
-	 * Remove an entry from the database.
+	 * Remove an entry from the table.
 	 * @param source	Its source.
 	 */
 	public void delete(String source) {
@@ -123,9 +123,9 @@ public class PicturesDAO {
 	}
 
 	/**
-	 * Delete the whole database.
+	 * Delete the whole table.
 	 */
-	public void clean() { //verbrannte Erde
+	public void clean() {
 		database.delete(TablePictures.NAME, null, null);
 		database.close();
 	}

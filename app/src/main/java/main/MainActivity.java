@@ -49,10 +49,6 @@ import design.FileListAdapter;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
-
 import static de.leletec.namememo.R.menu.menubar;
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
@@ -138,7 +134,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 			copyExamplePics(dir);
 		else
 			Log.d("setup", "everything is there");
-		Log.d("setup", "Fancy log " + dir.getAbsolutePath() + new File(dir, "katze.png").exists());
 
 		inarowReq = settingsDb.get("inarowReq");
 		rdmSeq = settingsDb.get("seqType") == 1;
@@ -226,6 +221,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 			@Override
 			public void onClick(DialogInterface dialogInterface, int i) {
 				pictureDb.clean();
+				settingsDb.clean();
 				Toast.makeText(context, "Datenbank wurde gelöscht", Toast.LENGTH_SHORT).show(); //XXX
 				finish();
 			}
@@ -671,7 +667,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 				}
 			}
 		});
-		builder.setNegativeButton(R.string.dialogCancel, null);
 		builder.create().show();
 	}
 

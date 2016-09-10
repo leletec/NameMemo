@@ -36,11 +36,11 @@
 		</activity>		
 		<activity
 			android:name="net.bluetooth.BluetoothActivity"
-			android:label="@string/btMenu"
+			android:label="@string/btLabel"
 			android:screenOrientation="portrait"  />
 		<activity
 			android:name="net.nfc.NfcActivity"
-			android:label="@string/connMenu"
+			android:label="@string/nfcLabel"
 			android:screenOrientation="portrait"  />
 	</application>
 

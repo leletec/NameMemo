@@ -82,11 +82,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 	private String app_name;
 
 	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
-	/**
-	 * ATTENTION: This was auto-generated to implement the App Indexing API.
-	 * See https://g.co/AppIndexing/AndroidStudio for more information.
-	 */
-	private GoogleApiClient client;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -127,17 +122,17 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 			Log.v("setup", "Permission is granted");
 		}
 
-		// ATTENTION: This was auto-generated to implement the App Indexing API.
-		// See https://g.co/AppIndexing/AndroidStudio for more information.
-		client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+		// http://stackoverflow.com/questions/7655874/how-do-you-remove-the-title-text-from-the-android-actionbar
+		try {
+			getSupportActionBar().setDisplayShowTitleEnabled(false);
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	protected void onStart() {
 		super.onStart();
-		// ATTENTION: This was auto-generated to implement the App Indexing API.
-		// See https://g.co/AppIndexing/AndroidStudio for more information.
-		client.connect();
 		File dir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), app_name);
 		if (!(new File(dir, "katze.png").exists() && new File(dir, "hund.jpg").exists() && new File(dir, "hase.jpg").exists()))
 			copyExamplePics(dir);

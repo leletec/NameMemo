@@ -18,7 +18,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
-/*
+/**
  * https://developer.android.com/training/beam-files/send-files.html
  */
 @SuppressLint("NewApi") //TODO?
@@ -76,6 +76,9 @@ public class NfcActivity extends Net {
 		}
 	}
 
+	/**
+	 * Set the file to be sent by NFC.
+	 */
 	@Override
 	public void send() {
 		fileUris = new Uri[1];

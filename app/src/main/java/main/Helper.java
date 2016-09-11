@@ -1,9 +1,5 @@
 package main;
 
-import android.graphics.Bitmap;
-import android.graphics.Matrix;
-import android.media.ExifInterface;
-import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 
@@ -15,8 +11,14 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Helper class for several methods.
+ */
 public abstract class Helper {
 
+	/**
+	 * Copy file from 'src' to 'dst'.
+	 */
 	public static void copyFile(File src, File dst) {
 		FileInputStream in = null;
 		try {
@@ -58,15 +60,17 @@ public abstract class Helper {
 			}
 	    }
 	}
-	
+
+	/**
+	 * Copy file from 'src' to 'dst', then delete 'src'.
+	 */
 	public static void moveFile(File src, File dst) {
 		copyFile(src, dst);
 		src.delete();
 	}
 
 	/**
-	 * TODO source for that
-	 * Create a File for saving an image.
+	 * Create a time-coded File for saving an image.
 	 */
 	public static File getOutputMediaFile(String dir) {
 		File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), dir);

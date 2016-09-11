@@ -51,14 +51,14 @@ import design.FileListAdapter;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
-// https://inthecheesefactory.com/blog/get-to-know-glide-recommended-by-google/en
+/** https://inthecheesefactory.com/blog/get-to-know-glide-recommended-by-google/en */
 import com.bumptech.glide.Glide;
 
 import static de.leletec.namememo.R.menu.menubar;
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
 @SuppressLint("InflateParams")
-// http://stackoverflow.com/questions/26432544/missing-actionbar-in-material-design
+/** http://stackoverflow.com/questions/26432544/missing-actionbar-in-material-design */
 public class MainActivity extends AppCompatActivity implements OnClickListener {
 	//Tables
 	private PicturesDAO pictureDb;
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 		loadPictures();
 		currentPicture = 0;
 
-		// http://stackoverflow.com/questions/33162152/storage-permission-error-in-marshmallow
+		/** http://stackoverflow.com/questions/33162152/storage-permission-error-in-marshmallow */
 		if (Build.VERSION.SDK_INT >= 23) {
 			if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
 				Log.v("setup", "Permission is granted");
@@ -124,14 +124,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 			Log.v("setup", "Permission is granted");
 		}
 
-		// http://stackoverflow.com/questions/7655874/how-do-you-remove-the-title-text-from-the-android-actionbar
+		/** http://stackoverflow.com/questions/7655874/how-do-you-remove-the-title-text-from-the-android-actionbar */
 		try {
 			getSupportActionBar().setDisplayShowTitleEnabled(false);
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
 
-		// http://stackoverflow.com/questions/1016896/get-screen-dimensions-in-pixels
+		/** http://stackoverflow.com/questions/1016896/get-screen-dimensions-in-pixels */
 		Display display = getWindowManager().getDefaultDisplay();
 		Point size = new Point();
 		display.getSize(size);
@@ -155,6 +155,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 		inarowReq = settingsDb.get("inarowReq");
 		rdmSeq = settingsDb.get("seqType") == 1;
 		colPics = settingsDb.get("colPics") == 1;
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
 	}
 
 	/**
@@ -209,7 +214,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 	/**
 	 * Copies three example pictures to the app's pictures directory.
 	 *
-	 * @param dir The directory to copy to
+	 * @param dir the directory to copy to
 	 */
 	private void copyExamplePics(File dir) {
 		int[] files = new int[]{R.raw.hund, R.raw.katze, R.raw.hase};
@@ -670,6 +675,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 		});
 	}
 
+	/**
+	 * A dialog where you can choose whether you want to connect via bluetooth or NFC
+	 */
 	private void connDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.connMenu);
@@ -684,10 +692,5 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 			}
 		});
 		builder.create().show();
-	}
-
-	@Override
-	public void onStop() {
-		super.onStop();
 	}
 }

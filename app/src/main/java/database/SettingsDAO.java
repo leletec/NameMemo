@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+/**
+ * The DAO for the "Settings" table
+ */
 public class SettingsDAO {
 
 	private SQLiteDatabase database;

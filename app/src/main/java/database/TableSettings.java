@@ -2,6 +2,9 @@ package database;
 
 import android.database.sqlite.SQLiteDatabase;
 
+/**
+ * A table to save the app's settings.
+ */
 public class TableSettings {
 
 	public static final String NAME = "settings";

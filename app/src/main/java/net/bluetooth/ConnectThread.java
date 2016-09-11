@@ -8,7 +8,9 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.util.Log;
 
-/* For client */
+/**
+ * Thread for bluetooth client.
+ */
 public class ConnectThread extends Thread {
 	private final BluetoothSocket sock;
 	private final BluetoothAdapter adapter;
@@ -58,11 +60,4 @@ public class ConnectThread extends Thread {
 			}
 		});	
 	}
-
-//	/** Will cancel an in-progress connection, and close the socket */
-//	public void cancel() {
-//		try {
-//			sock.close();
-//		} catch (IOException e) { }
-//	}
 }

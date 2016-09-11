@@ -3,7 +3,7 @@ package database;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
- * Currently the only table
+ * A table to save the relationship between pictures, names and other important values.
  */
 public class TablePictures{
 

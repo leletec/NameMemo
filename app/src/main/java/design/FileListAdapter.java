@@ -7,6 +7,9 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
+/**
+ * ListAdapter for AddPicFromStorageDialog().
+ */
 public class FileListAdapter extends AbstractListAdapter<File> {
 
 	public FileListAdapter(Context context, ArrayList<File> list) {

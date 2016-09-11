@@ -17,6 +17,9 @@ import database.ImportNewDb;
 import database.MySQLiteHelper;
 import de.leletec.namememo.R;
 
+/**
+ * Abstract class for Bluetooth and NFCActivity
+ */
 public abstract class Net extends AppCompatActivity {
 	protected String dbName;
 	protected File dbFile;

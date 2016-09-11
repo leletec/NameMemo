@@ -8,7 +8,10 @@ import java.io.OutputStream;
 import net.Net;
 import android.bluetooth.BluetoothSocket;
 
-/* For client and server */
+/**
+ * Thread to handle a bluetooth connection.
+ * To be used by server and client.
+ */
 public class HandleThread extends Thread {
 	private final InputStream in;
 	private final OutputStream out;
@@ -57,6 +60,10 @@ public class HandleThread extends Thread {
 		}
 	}
 
+	/**
+	 * Send your database to your opposite.
+	 * @param bytes the bytes of that db
+	 */
 	public void sendDb(byte[] bytes) {
 		try {
 			int chunkLength = 8192;

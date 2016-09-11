@@ -9,6 +9,7 @@
     <string name="dialogBack">Zurück</string>
     <string name="dialogCancel">Abbrechen</string>
     <string name="dialogOk">Okay</string>
+    <string name="dialogFinish">Fertig</string>
     <string name="captureImage">Foto machen</string>
     <string name="infoDialogTitle">Appinfo</string>
     <string name="infoDialog">

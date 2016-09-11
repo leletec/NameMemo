@@ -7,6 +7,9 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
+/**
+ * ListAdapter for BluetoothActivity.
+ */
 public class BTListAdapter extends AbstractListAdapter<BluetoothDevice>{
 
 	public BTListAdapter(Context context, ArrayList<BluetoothDevice> list) {

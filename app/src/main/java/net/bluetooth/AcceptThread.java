@@ -8,8 +8,9 @@ import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.util.Log;
 
-
-/* For server */
+/**
+ * Thread for bluetooth server.
+ */
 public class AcceptThread extends Thread {
 	private final BluetoothServerSocket srvSock;
 	private HandleThread conn;
@@ -54,7 +55,9 @@ public class AcceptThread extends Thread {
 			}
 		}
 	}
-	/** Will cancel the listening socket, and cause the thread to finish */
+	/**
+	 * Will cancel the listening socket, and cause the thread to finish.
+	 */
 	public void cancel() {
 		try {
 			srvSock.close();

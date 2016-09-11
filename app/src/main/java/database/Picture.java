@@ -10,19 +10,6 @@ public class Picture {
 	private int gotright;
 	private int inarow;
 	private String showAs;
-	
-	public final static int Imported = 10;
-	public final static int Camera = 20;
-	public final static int Phone = 30;
-
-	public Picture(String source, String name, int called, int gotright, int inarow) {
-		this.source = source;
-		this.name = name;
-		this.called = called;
-		this.gotright = gotright;
-		this.inarow = inarow;
-		showAs = null;
-	}
 
 	public Picture() {}
 
@@ -73,7 +60,12 @@ public class Picture {
 	public void setShowAs(String showAs) {
 		this.showAs = showAs;
 	}
-	
+
+	/**
+	 *
+	 * @param o The Picture to be compared
+	 * @return  if the two Pictures match in all their attributes
+	 */
 	@Override
 	public boolean equals(Object o) {
 		Picture p = (Picture) o;

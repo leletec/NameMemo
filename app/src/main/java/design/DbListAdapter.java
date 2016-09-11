@@ -7,6 +7,9 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
+/**
+ * ListAdapter for ImportNewDb.
+ */
 public class DbListAdapter extends AbstractListAdapter<Picture> {
 
 	public DbListAdapter(Context context, ArrayList<Picture> list) {

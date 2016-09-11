@@ -27,7 +27,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-/*
+/**
  * https://developer.android.com/guide/topics/connectivity/net.bluetooth.html
  * https://github.com/googlesamples/android-BluetoothChat
  * http://stackoverflow.com/questions/24573755/android-net.bluetooth-socket-connect-fails
@@ -130,6 +130,9 @@ public class BluetoothActivity extends Net {
 		return false;
 	}
 
+	/**
+	 * Start the server and show paired devices
+	 */
 	public void setup() {
 		// Start a server
 		srv = new AcceptThread(adapter, name, uuid, activity);
@@ -159,7 +162,10 @@ public class BluetoothActivity extends Net {
 			}
 		});
 	}
-	
+
+	/**
+	 * Look for new devices.
+	 */
 	private void discover() {
 		devTv.setText(R.string.btShowDiscovered);
 		adapter.startDiscovery();
@@ -177,12 +183,18 @@ public class BluetoothActivity extends Net {
 		}
 	};
 
+	/**
+	 * Amend the list of BluetoothDevices by 'device'.
+	 */
 	private void amendList(BluetoothDevice device) {
 		BTListAdapter adapter = (BTListAdapter) devLv.getAdapter();
 		adapter.add(device);
 		adapter.notifyDataSetChanged();
 	}
-	
+
+	/**
+	 * Send your database to your opposite
+	 */
 	public void send() {
 		try {	
 			File f = getDatabasePath(dbName);
@@ -194,8 +206,12 @@ public class BluetoothActivity extends Net {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	} 
-	
+	}
+
+	/**
+	 * To be called when you successfully establish a connection.
+	 * Get a new sight of the Activity.
+	 */
 	public void connected() {
 		bSend.setVisibility(View.VISIBLE);
 		devLv.setVisibility(View.INVISIBLE);
@@ -212,7 +228,10 @@ public class BluetoothActivity extends Net {
 	public void setHandler(HandleThread handler) {
 		this.handler = handler;
 	}
-	
+
+	/**
+	 * To be called if you received a database.
+	 */
 	public void receiveDb() {
 		runOnUiThread(new Runnable() {
 			@Override

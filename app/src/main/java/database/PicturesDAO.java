@@ -10,6 +10,9 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+/**
+ * The DAO for the "Pictures" table.
+ */
 public class PicturesDAO {
 
 	protected SQLiteDatabase database;
@@ -28,10 +31,10 @@ public class PicturesDAO {
 	}
 
 	/**
-	 * Adds an entry to the database.
+	 * Add an entry to the database.
 	 *
-	 * @param source		The source of the picture.
-	 * @param name			The name related with the picture.
+	 * @param source	the source of the Picture.
+	 * @param name		the name related with the Picture.
 	 */
 	public void add(String source, String name) {
 		ContentValues values = new ContentValues();
@@ -42,7 +45,12 @@ public class PicturesDAO {
 		values.put("inarow", 0);
 		database.insert(TablePictures.NAME, null, values);
 	}
-	
+
+	/**
+	 * Add an entry to the database.
+	 *
+	 * @param pic       the Picture
+	 */
 	public void add(Picture pic) {
 		ContentValues values = new ContentValues();
 		values.put("source", pic.getSource());
@@ -54,12 +62,12 @@ public class PicturesDAO {
 	}
 
 	/**
-	 * Updates an entry of the database.
+	 * Update an entry of the database.
 	 *
-	 * @param source		The source of the picture.
-	 * @param name			The name related with the picture.
-	 * @param called		How often the picture got called.
-	 * @param gotright		How often the user got the name to the picture right.
+	 * @param source		The source of the Picture.
+	 * @param name			The name related with the Picture.
+	 * @param called		How often the Picture got called.
+	 * @param gotright		How often the user got the name to the Picture right.
 	 * @param inarow		How often he got it right in a row.
 	 */
 	public void update(String source, String name, int called, int gotright, int inarow) {
@@ -71,7 +79,12 @@ public class PicturesDAO {
 		values.put("inarow", inarow);
 		database.update(TablePictures.NAME, values, "source = ?", new String[] { source });
 	}
-	
+
+	/**
+	 * Update an entry of the database.
+	 *
+	 * @param pic       the Picture
+	 */
 	public void update(Picture pic) {
 		ContentValues values = new ContentValues();
 		values.put("source", pic.getSource());
@@ -102,8 +115,8 @@ public class PicturesDAO {
 	/**
 	 * Helper method for getAllPics().
 	 *
-	 * @param cursor	Current position in the database.
-	 * @return			An entry of the database.
+	 * @param cursor	    Current position in the database.
+	 * @return			    An entry of the database.
 	 */
 	private Picture cursorToPictures(Cursor cursor) {
 		Picture picture = new Picture();
@@ -119,7 +132,7 @@ public class PicturesDAO {
 	/**
 	 * Remove an entry from the table.
 	 *
-	 * @param source	Its source.
+	 * @param source	    its source
 	 */
 	public void delete(String source) {
 		database.delete(TablePictures.NAME, "source = ?",

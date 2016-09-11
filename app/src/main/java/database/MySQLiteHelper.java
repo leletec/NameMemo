@@ -4,9 +4,6 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-/**
- * TODO
- */
 public class MySQLiteHelper extends SQLiteOpenHelper{
 
 	public static final String DATABASENAME = "ProjektDB";
@@ -17,6 +14,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
 		super(context, DATABASENAME, null, 1);
 	}
 
+	/**
+	 * Gets called when you use getReadableDatabase().
+	 */
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		pictures.onCreate(db);

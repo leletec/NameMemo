@@ -10,6 +10,11 @@ import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+/**
+ * Abstract ListAdapter-class.
+ *
+ * @param <E>   the data type to be displayed
+ */
 public abstract class AbstractListAdapter<E> extends BaseAdapter{
 
 	protected ArrayList<E> list;
@@ -37,6 +42,9 @@ public abstract class AbstractListAdapter<E> extends BaseAdapter{
 
 	public abstract View getView(int position, View convertView, ViewGroup parent);
 
+	/**
+	 * Abstract class for the View to be displayed in the ListAdapter.
+	 */
 	protected abstract class AbstractView extends RelativeLayout{
 		protected TextView tv;
 
@@ -50,7 +58,12 @@ public abstract class AbstractListAdapter<E> extends BaseAdapter{
 			tv.setLayoutParams(params);
 			addView(tv);
 		}
-		
+
+		/**
+		 * Configure the View. To be called for each entry of the list.
+		 *
+		 * @param e     the entry
+		 */
 		public abstract void configure(E e);
 	}
 }

@@ -7,41 +7,4 @@
 	Timer t = new Timer();
 	t.schedule(tt, 5000);
 
-private void copyFiles() {
-	int[] files = new int[] { R.raw.hund, R.raw.katze, R.raw.hase };
-	String[] filenames = new String[] { "hund.jpg", "katze.png", "hase.jpg" };
-	
-	if (files != null)
-		for (int i = 0; i < files.length; i++) {
-			int resId = files[i];
-			String filename = filenames[i];
-			InputStream in = null;
-			OutputStream out = null;
-			try {
-				in = getResources().openRawResource(resId);
-				out = openFileOutput(filename, Context.MODE_PRIVATE);
-				copyFile(in, out);
-			} catch (IOException e) {
-				Log.e("tag", "Failed to copy asset file: " + filename, e);
-			} finally {
-				if (in != null) {
-					try {
-						in.close();
-					} catch (IOException e) {}
-	 			}
-				if (out != null) {
-					try {
-						out.close();
-					} catch (IOException e) {}
-	 			}
-			}
-		}
-}
-	
-private void copyFile(InputStream in, OutputStream out) throws IOException {
-	byte[] buffer = new byte[1024];
-	int read;
-	while ((read = in.read(buffer)) != -1)
-		out.write(buffer, 0, read);
-}
 		

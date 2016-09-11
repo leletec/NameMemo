@@ -453,7 +453,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 							File dst = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + app_name, f.getName());
 							String path = dst.getAbsolutePath();
 							if (!f.getAbsolutePath().equals(path))
-								Helper.moveFile(f, dst);
+								Helper.copyFile(f, dst);
 							pictureDb.add(path, name.getText().toString());
 						}
 						loadPictures();
@@ -595,9 +595,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 	 */
 	private void previewDialog(final File file, final File dir) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		Bitmap bmp = BitmapFactory.decodeFile(file.getAbsolutePath());
 		ImageView iv = new ImageView(this);
-		iv.setImageBitmap(bmp);
+		Glide.with(this).load(file).override(Math.round(ivWidth / 2), Math.round(ivHeight / 2)).into(iv);
 		builder.setView(iv);
 		builder.setPositiveButton(R.string.dialogOk,
 				new DialogInterface.OnClickListener() {

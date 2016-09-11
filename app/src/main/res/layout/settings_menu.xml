@@ -35,7 +35,7 @@
 		android:layout_height="wrap_content"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentRight="true"
-		android:layout_below="@+id/etInarowReq"
+		android:layout_below="@id/etInarowReq"
 		android:text="@string/rdmSeq"
 		android:textColor="#000000"
 		android:textOff="AUS"
@@ -57,12 +57,26 @@
 		android:textSize="20sp"
 		android:layout_margin="5dp" />
 
+	<Switch
+		android:id="@+id/sAddPicGallery"
+		android:text="@string/addPicGallery"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/sColPics"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentRight="true"
+		android:layout_margin="5dp"
+		android:textColor="#000000"
+		android:textOff="AUS"
+		android:textOn="AN"
+		android:textSize="20sp"/>
+
 	<Button
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:text="@string/cleanProject"
 		android:id="@+id/bClean"
-		android:layout_below="@+id/sColPics"
+		android:layout_below="@id/sAddPicGallery"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentRight="true"
 		android:layout_margin="5dp"

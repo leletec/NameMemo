@@ -1,7 +1,10 @@
 package main;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -17,7 +20,6 @@ import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.net.Uri;
@@ -74,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 	private int inarowReq;
 	private boolean rdmSeq;
 	private boolean colPics;
+	private boolean addPicGallery;
 
 	// misc
 	private final Context context = this;
@@ -84,7 +87,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 	private int ivHeight; // height of the ImageView
 	private int ivWidth; // width of the ImageView
 
-	private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+	private static final int CAPTURE_IMAGE_REQUEST = 100;
+	private static final int NEW_IMAGE_REQUEST = 200;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -155,6 +159,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 		inarowReq = settingsDb.get("inarowReq");
 		rdmSeq = settingsDb.get("seqType") == 1;
 		colPics = settingsDb.get("colPics") == 1;
+		addPicGallery = settingsDb.get("addPicType") == 1;
 	}
 
 	@Override
@@ -491,22 +496,42 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 		}
 		cFile = Helper.getOutputMediaFile(app_name); // create a file to save the image
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(cFile)); // set the image file name
-		startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+		startActivityForResult(intent, CAPTURE_IMAGE_REQUEST);
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
-			case CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE:
-				if (resultCode == RESULT_OK) {
-					Glide.with(this).load(cFile).override(ivWidth, ivHeight).into(image);
-					newShotDialog(null);
-				} else {
-					if (resultCode == RESULT_CANCELED)
-						Toast.makeText(this, R.string.canceled, Toast.LENGTH_SHORT).show();
-					else
-						Toast.makeText(this, R.string.failed, Toast.LENGTH_SHORT).show();
+		case CAPTURE_IMAGE_REQUEST:
+			if (resultCode == RESULT_OK) {
+				Glide.with(this).load(cFile).override(ivWidth, ivHeight).into(image);
+				newShotDialog(null);
+			} else {
+				if (resultCode == RESULT_CANCELED)
+					Toast.makeText(this, R.string.canceled, Toast.LENGTH_SHORT).show();
+				else
+					Toast.makeText(this, R.string.failed, Toast.LENGTH_SHORT).show();
+			}
+			break;
+		case NEW_IMAGE_REQUEST:
+			if (resultCode == RESULT_OK && data != null && data.getData() != null) {
+				Uri uri = data.getData();
+				Log.d("gallery", "Path: " + uri.getPath());
+				File dst = Helper.getOutputMediaFile(app_name);
+				try {
+					Bitmap bm = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+					Log.d("gallery", String.valueOf(bm));
+					OutputStream out = new FileOutputStream(dst);
+					bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
+				} catch (IOException e) {
+					e.printStackTrace();
+					Toast.makeText(this, R.string.failed, Toast.LENGTH_SHORT).show();
+					return;
 				}
+				newShotDialog(dst);
+			} else {
+				Toast.makeText(this, R.string.failed, Toast.LENGTH_SHORT).show();
+			}
 		}
 	}
 
@@ -514,10 +539,19 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 	 * This dialog lets the user walk through the directory tree, previewing and adding images with the help of previewDialog().
 	 */
 	private void addPicFromStorageDialog() {
-		if (isExternalStorageReadable()) {
-			AddPicFromStorageDialog(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), app_name));
-		} else
+		if (!isExternalStorageReadable()) {
 			Toast.makeText(this, R.string.readErr, Toast.LENGTH_SHORT).show();
+			return;
+		}
+		if (addPicGallery) {
+			/** http://codetheory.in/android-pick-select-image-from-gallery-with-intents/ */
+			Intent intent = new Intent();
+			intent.setType("image/*");
+			intent.setAction(Intent.ACTION_GET_CONTENT);
+			startActivityForResult(Intent.createChooser(intent, getString(R.string.addNewPic)), NEW_IMAGE_REQUEST);
+		} else {
+			AddPicFromStorageDialog(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), app_name));
+		}
 	}
 
 	/**
@@ -662,6 +696,16 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				colPics = isChecked;
 				settingsDb.set("colPics", colPics ? 1 : 0);
+			}
+		});
+
+		Switch sAddPicGallery = (Switch) dialog.findViewById(R.id.sAddPicGallery);
+		sAddPicGallery.setChecked(addPicGallery);
+		sAddPicGallery.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+				addPicGallery = b;
+				settingsDb.set("addPicType", b ? 1 : 0);
 			}
 		});
 

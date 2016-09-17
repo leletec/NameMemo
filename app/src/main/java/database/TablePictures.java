@@ -7,15 +7,14 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public class TablePictures{
 
-	public static final String NAME = "bilder";
+	public static final String NAME = "pictures";
 
 	private static String CREATESTATEMENT = "CREATE TABLE " + NAME
 			+ "(id INTEGER PRIMARY KEY AUTOINCREMENT, "
 			+ "source TEXT NOT NULL, "
 			+ "name TEXT NOT NULL, "
 			+ "called INT NOT NULL, "
-			+ "gotright INT DEFAULT 0, " //XXX
-			+ "inarow INT DEFAULT 0);";
+			+ "inarow INT NOT NULL);";
 
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(CREATESTATEMENT);

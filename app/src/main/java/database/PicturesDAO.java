@@ -41,7 +41,6 @@ public class PicturesDAO {
 		values.put("source", source);
 		values.put("name", name);
 		values.put("called", 0);
-		values.put("gotright", 0);
 		values.put("inarow", 0);
 		database.insert(TablePictures.NAME, null, values);
 	}
@@ -56,7 +55,6 @@ public class PicturesDAO {
 		values.put("source", pic.getSource());
 		values.put("name", pic.getName());
 		values.put("called", pic.getCalled());
-		values.put("gotright", pic.getGotright());
 		values.put("inarow", pic.getInarow());
 		database.insert(TablePictures.NAME, null, values);
 	}
@@ -67,15 +65,13 @@ public class PicturesDAO {
 	 * @param source		The source of the Picture.
 	 * @param name			The name related with the Picture.
 	 * @param called		How often the Picture got called.
-	 * @param gotright		How often the user got the name to the Picture right.
 	 * @param inarow		How often he got it right in a row.
 	 */
-	public void update(String source, String name, int called, int gotright, int inarow) {
+	public void update(String source, String name, int called, int inarow) {
 		ContentValues values = new ContentValues();
 		values.put("source", source);
 		values.put("name", name);
 		values.put("called", called);
-		values.put("gotright", gotright);
 		values.put("inarow", inarow);
 		database.update(TablePictures.NAME, values, "source = ?", new String[] { source });
 	}
@@ -90,7 +86,6 @@ public class PicturesDAO {
 		values.put("source", pic.getSource());
 		values.put("name", pic.getName());
 		values.put("called", pic.getCalled());
-		values.put("gotright", pic.getGotright());
 		values.put("inarow", pic.getInarow());
 		database.update(TablePictures.NAME, values, "source = ?", new String[] { pic.getSource() });
 	}
@@ -123,9 +118,8 @@ public class PicturesDAO {
 		picture.setSource(cursor.getString(1));
 		picture.setName(cursor.getString(2));
 		picture.setCalled(cursor.getInt(3));
-		picture.setGotright(cursor.getInt(4));
-		picture.setInarow(cursor.getInt(5));
-		Log.d("cursor", "source:"+picture.getSource()+" name:"+picture.getName()+" called:"+picture.getCalled()+" gotright:"+picture.getGotright()+" inarow:"+picture.getInarow());
+		picture.setInarow(cursor.getInt(4));
+		Log.d("cursor", "source:"+picture.getSource() + " name:"+picture.getName() + " called:"+picture.getCalled() + " inarow:"+picture.getInarow());
 		return picture;
 	}
 

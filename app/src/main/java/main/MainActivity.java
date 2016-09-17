@@ -186,12 +186,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 					pictureDb.update(pictures[currentPicture].getSource(),
 							pictures[currentPicture].getName(),
 							pictures[currentPicture].getCalled() + 1,
-							pictures[currentPicture].getGotright() + 1,
 							pictures[currentPicture].getInarow() + 1);
 					loadPictures();
 					Log.d("Picture", "name:" + pictures[currentPicture].getName()
 							+ " called:" + pictures[currentPicture].getCalled()
-							+ " gotright:" + pictures[currentPicture].getGotright()
 							+ " in a row:" + pictures[currentPicture].getInarow());
 					if (pictures[currentPicture].getInarow() >= inarowReq)
 						deleteDialog(pictures[currentPicture].getSource(),
@@ -203,12 +201,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 					pictureDb.update(pictures[currentPicture].getSource(),
 							pictures[currentPicture].getName(),
 							pictures[currentPicture].getCalled() + 1,
-							pictures[currentPicture].getGotright(),
 							0);
 					loadPictures();
 					Log.d("Picture", "name:" + pictures[currentPicture].getName()
 							+ " called:" + pictures[currentPicture].getCalled()
-							+ " gotright:" + pictures[currentPicture].getGotright()
 							+ " in a row:" + pictures[currentPicture].getInarow());
 					showNext();
 					break;
@@ -518,6 +514,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 				Uri uri = data.getData();
 				Log.d("gallery", "Path: " + uri.getPath());
 				File dst = Helper.getOutputMediaFile(app_name);
+				if (dst == null) {
+					Toast.makeText(this, R.string.writeErr, Toast.LENGTH_SHORT).show();
+					return;
+				}
 				try {
 					Bitmap bm = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
 					Log.d("gallery", String.valueOf(bm));

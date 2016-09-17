@@ -7,7 +7,6 @@ public class Picture {
 	private String source;
 	private String name;
 	private int called;
-	private int gotright;
 	private int inarow;
 	private String showAs;
 
@@ -23,10 +22,6 @@ public class Picture {
 
 	public int getCalled() {
 		return called;
-	}
-
-	public int getGotright() {
-		return gotright;
 	}
 
 	public int getInarow() {
@@ -49,10 +44,6 @@ public class Picture {
 		this.called = called;
 	}
 
-	public void setGotright(int gotright) {
-		this.gotright = gotright;
-	}
-
 	public void setInarow(int inarow) {
 		this.inarow = inarow;
 	}
@@ -69,6 +60,6 @@ public class Picture {
 	@Override
 	public boolean equals(Object o) {
 		Picture p = (Picture) o;
-		return (p.source.equals(source) && p.name.equals(name) && p.called == called && p.gotright == gotright && p.inarow == inarow);
+		return (p.source.equals(source) && p.name.equals(name) && p.called == called && p.inarow == inarow);
 	}
 }

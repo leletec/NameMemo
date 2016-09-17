@@ -62,4 +62,5 @@
     <string name="cleanProjectMessage">Wollen Sie wirklich alle Daten aus der Datenbank löschen?\nDieser Schritt kann nicht rückgängig gemacht werden!</string>
     <string name="emptyDb">Die Datenbank ist leer.\nLade Beispielkatze</string>
     <string name="addPicGallery">Zum hinzufügen von Bildern einen eigenen Intent benutzen\nIst rechenaufwändiger!</string>
+    <string name="alreadyThere">Die Datei wird bereits von der App verwendet</string>
 </resources>

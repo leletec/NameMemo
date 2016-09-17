@@ -311,10 +311,17 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 			 */
 			case R.id.addExamples:
 				File f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + app_name, "hund.jpg");
-				pictureDb.add(f.getAbsolutePath(), "Hund");
+				boolean d = pictureDb.add(f.getAbsolutePath(), "Hund");
 				f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + app_name, "hase.jpg");
-				pictureDb.add(f.getAbsolutePath(), "Hase");
-				Toast.makeText(this, "Beispielbilder wurden hinzugefügt", Toast.LENGTH_SHORT).show(); //XXX
+				boolean r = pictureDb.add(f.getAbsolutePath(), "Hase");
+
+				if (r && d)
+					Toast.makeText(this, "Beispielbilder wurden hinzugefügt", Toast.LENGTH_SHORT).show(); //XXX
+				else if (r || d)
+					Toast.makeText(this, "Beispielbild wurde hinzugefügt", Toast.LENGTH_SHORT).show(); //XXX
+				else
+					Toast.makeText(this, "Beispielbilder waren bereits vorhanden", Toast.LENGTH_SHORT).show(); //XXX
+
 				loadPictures();
 				return true;
 			case R.id.captureImage:
@@ -449,13 +456,15 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 						EditText name = (EditText) ((AlertDialog) dialog)
 								.findViewById(R.id.etName);
 						if (f == null)
-							pictureDb.add(cFile.getPath(), name.getText().toString());
+							if (!pictureDb.add(cFile.getPath(), name.getText().toString()))
+								Toast.makeText(context, R.string.alreadyThere, Toast.LENGTH_SHORT).show();
 						else {
 							File dst = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + app_name, f.getName());
 							String path = dst.getAbsolutePath();
 							if (!f.getAbsolutePath().equals(path))
 								Helper.copyFile(f, dst);
-							pictureDb.add(path, name.getText().toString());
+							if (!pictureDb.add(path, name.getText().toString()))
+								Toast.makeText(context, R.string.alreadyThere, Toast.LENGTH_SHORT).show();
 						}
 						loadPictures();
 					}

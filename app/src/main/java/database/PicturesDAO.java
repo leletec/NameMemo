@@ -35,28 +35,30 @@ public class PicturesDAO {
 	 *
 	 * @param source	the source of the Picture.
 	 * @param name		the name related with the Picture.
+	 * @return          'true' if it insertion was successful, 'false' if it failed (because the source already existed)
 	 */
-	public void add(String source, String name) {
+	public boolean add(String source, String name) {
 		ContentValues values = new ContentValues();
 		values.put("source", source);
 		values.put("name", name);
 		values.put("called", 0);
 		values.put("inarow", 0);
-		database.insert(TablePictures.NAME, null, values);
+		return database.insert(TablePictures.NAME, null, values) == -1;
 	}
 
 	/**
 	 * Add an entry to the database.
 	 *
 	 * @param pic       the Picture
+	 * @return          'true' if it insertion was successful, 'false' if it failed (because the source already existed)
 	 */
-	public void add(Picture pic) {
+	public boolean add(Picture pic) {
 		ContentValues values = new ContentValues();
 		values.put("source", pic.getSource());
 		values.put("name", pic.getName());
 		values.put("called", pic.getCalled());
 		values.put("inarow", pic.getInarow());
-		database.insert(TablePictures.NAME, null, values);
+		return database.insert(TablePictures.NAME, null, values) == -1;
 	}
 
 	/**

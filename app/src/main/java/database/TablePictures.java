@@ -10,8 +10,7 @@ public class TablePictures{
 	public static final String NAME = "pictures";
 
 	private static String CREATESTATEMENT = "CREATE TABLE " + NAME
-			+ "(id INTEGER PRIMARY KEY AUTOINCREMENT, "
-			+ "source TEXT NOT NULL, "
+			+ "(source TEXT PRIMARY KEY, "
 			+ "name TEXT NOT NULL, "
 			+ "called INT NOT NULL, "
 			+ "inarow INT NOT NULL);";

@@ -33,7 +33,7 @@ Programms](#2. Grundfunktionen des Programms|outline)
 4.1[Einstellungen in der
 Datenbank](#4.1 Einstellungen in der Datenbank|outline)
 
-4.2Bilder in der Datenbank
+4.2[Bilder in der Datenbank](#4.2 Bilder in der Datenbank|outline)
 
 4.3Hinzufügen von Wertepaaren
 
@@ -139,6 +139,12 @@ Wie oben bereits erwähnt, wird zum Speichern sowohl der „Bilderdaten“
 als auch der Einstellungen eine Datenbank verwendet um die Daten bei
 einem Schließen der Anwendung nicht zu verlieren.
 
+Zu diesem Zweck wird Engine SQLite eingesetzt, da sie bereits auf jedem
+Android-gerät vorhanden ist. Die beiden Tabellen „settings“ und
+„pictures“ werden von je einer DAO (Data Access Object)-Klasse
+verwaltet. Nur darauf wird im sonstigen Code zugegriffen und so sind sie
+für die gesamte Interaktion mit der Datenbank zuständig.
+
 4.1 Einstellungen in der Datenbank
 ----------------------------------
 
@@ -173,5 +179,21 @@ vorgenommen werden, wird in der Tabelle nach der Kennung gesucht und der
 dazugehörige Wert geändert. Zum Zwischenspeichern werden die Werte,
 wieder anhand ihrer Kennung, bei onStart() und bei einer Änderung aus
 der Datenbank ausgelesen.
+
+4.2 Bilder in der Datenbank
+---------------------------
+
+In der anderen Tabelle, „pictures“, werden die verschiedenen benötigten
+Daten zu den jeweiligen Bildern gesichert. Zum einen wird der Pfad zu
+der entsprechenden Bilddatei gespeichert. Es wird darauf verzichtet, die
+Datei aus der Datenbank rekonstruieren zu können, um Speicherplatz und
+Ressourcen zu sparen. Weiter werden der vom Nutzer zugeordnete Name, die
+Anzahl an Gesamtaufrufen und die Anzahl an positiven Rückmeldungen des
+Nutzer (drücken von „Ja“) in Folge gesichert. Letzterer Wert wird auf 0
+zurückgesetzt, sobald nach Erscheinen des Bildes auf „Nein“ gedrückt
+wird.
+
+Der Pfad der Bilder ist dabei der Primärschlüssel der Tabelle, was
+bewirkt, dass man eine Bilddatei nicht mehrmals verwenden kann.
 
 [^1]:

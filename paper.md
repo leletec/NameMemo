@@ -195,18 +195,25 @@ der Datenbank ausgelesen.
 4.2 Bilder in der Datenbank
 ---------------------------
 
-In der anderen Tabelle, „pictures“, werden die verschiedenen benötigten
-Daten zu den jeweiligen Bildern gesichert. Zum einen wird der Pfad zu
-der entsprechenden Bilddatei gespeichert. Es wird darauf verzichtet, die
-Datei aus der Datenbank rekonstruieren zu können, um Speicherplatz und
-Ressourcen zu sparen. Weiter werden der vom Nutzer zugeordnete Name, die
-Anzahl an Gesamtaufrufen und die Anzahl an positiven Rückmeldungen des
-Nutzer (drücken von „Ja“) in Folge gesichert. Letzterer Wert wird auf 0
-zurückgesetzt, sobald nach Erscheinen des Bildes auf „Nein“ gedrückt
-wird.
+In der anderen Tabelle – „pictures“ – werden die verschiedenen
+benötigten Daten zu den jeweiligen Bildern gesichert. Zum einen wird der
+Pfad zu der entsprechenden Bilddatei gespeichert. Es wird darauf
+verzichtet, die Datei aus der Datenbank rekonstruieren zu können, um
+Speicherplatz und Ressourcen zu sparen. Weiter werden der vom Nutzer
+zugeordnete Name, die Anzahl an Gesamtaufrufen und die Anzahl an
+positiven Rückmeldungen des Nutzer (drücken von „Ja“) in Folge
+gesichert. Letzterer Wert wird auf 0 zurückgesetzt, sobald nach
+Erscheinen des Bildes auf „Nein“ gedrückt wird.
 
 Der Pfad der Bilder ist dabei der Primärschlüssel der Tabelle, was
-bewirkt, dass man eine Bilddatei nicht mehrmals verwenden kann.
+bewirkt, dass man eine Bilddatei nicht mehrmals verwenden kann. Dadurch
+kann man eine gesuchte Zeile durch eben diesen Pfad genau identifizieren
+um sie dann zu ändern. Für einfachere Handhabung zur Laufzeit werden
+Daten zu Bildern nicht direkt aus der Datenbank abgerufen. Stattdessen
+wird, wenn nötig eine Liste aller Einträge der Tabelle abgefragt und als
+Array gespeichert. Dieser wird dann unter anderem dafür verwendet, das
+nächste anzuzeigende Bild zu bestimmen und die Informationen dazu
+auszulesen.
 
 [^1]: Bump Technologies(Hrsg.), *Glide*, Internetseite:
     <https://github.com/bumptech/glide/blob/master/README.md> vom

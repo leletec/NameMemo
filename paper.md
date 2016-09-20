@@ -35,11 +35,13 @@ Datenbank](#4.1 Einstellungen in der Datenbank|outline)
 
 4.2[Bilder in der Datenbank](#4.2 Bilder in der Datenbank|outline)
 
-4.3Hinzufügen von Wertepaaren
+4.3[Hinzufügen von Wertepaaren](#4.3 Hinzufügen von Wertepaaren|outline)
 
-4.3.1Aufnahme eines neuen Fotos
+4.3.1[Aufnahme eines neuen
+Fotos](#4.3.1 Aufnahme eines neues Fotos|outline)
 
-4.3.2Auswahl eines bereits vorhandenen Bildes
+4.3.2[Auswahl eines bereits vorhandenen
+Bildes](#4.3.2 Auswahl eines bereits vorhandenen Bildes|outline)
 
 5.Datenaustausch mit anderen Systemen
 
@@ -214,6 +216,26 @@ wird, wenn nötig eine Liste aller Einträge der Tabelle abgefragt und als
 Array gespeichert. Dieser wird dann unter anderem dafür verwendet, das
 nächste anzuzeigende Bild zu bestimmen und die Informationen dazu
 auszulesen.
+
+4.3 Hinzufügen von Wertepaaren
+------------------------------
+
+In dem Programm sind bereits drei Beispielbilder vorhanden. Der Zweck
+der App ist aber natürlich eigene Bilder hinzuzufügen um dann den Namen
+der jeweils zu sehenden Person zu lernen. Dafür stehen dem Nutzer lokal
+zwei Möglichkeiten zur Verfügung: die Aufnahme eines neuen Fotos mit der
+Kamera des Handys und das Auswählen eines bereits vorhandenen Bildes in
+dem Speicher des Handys.
+
+4.3.1 Aufnahme eines neues Fotos
+--------------------------------
+
+…
+
+4.3.2 Auswahl eines bereits vorhandenen Bildes
+----------------------------------------------
+
+…
 
 [^1]: Bump Technologies(Hrsg.), *Glide*, Internetseite:
     <https://github.com/bumptech/glide/blob/master/README.md> vom

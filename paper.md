@@ -130,7 +130,19 @@ and efficient open source media management and image loading framework
 for Android that wraps media decoding, memory and disk caching, and
 resource pooling into a simple and easy to use interface.“[^1] Glide
 kümmert sich nicht nur automatisch um die korrekte Rotation des Bildes,
-sondern sorgt auch für einfache Größenmanipulation dessen.
+sondern sorgt auch für einfache Größenmanipulation dessen. Das bedeutet,
+dass jedes Bild, welches in eine ImageView geladen wird, in seiner Größe
+angepasst wird.
+
+Hierfür werden beim Start der App Werte für Höhe und Breite generiert
+und gespeichert. Die Breite entspricht dabei der Breite jener Fläche des
+Displays, dass die Anwendung enthält.[^2] Die Höhe allerdings entspricht
+nur 75% der Höhe jener Fläche um dem Platzanspruch der Action Bar
+gerecht zu werden. Für die „normale“ ImageView werden diese Werte als
+minimale und maximale Größe gesetzt und die Bilder werden auch in dieser
+Größe von Glide geladen. Für die Bildvorschau beim Hinzufügen von
+Dateien in Listenform werden die Werte vor Weiterverwendung noch
+halbiert.
 
 4. Die Datenbank
 ================
@@ -196,4 +208,11 @@ wird.
 Der Pfad der Bilder ist dabei der Primärschlüssel der Tabelle, was
 bewirkt, dass man eine Bilddatei nicht mehrmals verwenden kann.
 
-[^1]:
+[^1]: Bump Technologies(Hrsg.), *Glide*, Internetseite:
+    <https://github.com/bumptech/glide/blob/master/README.md> vom
+    13.07.2016, aufgerufen am 16.09.2016
+
+[^2]: vgl. Android Open Source Project (Hrsg.), *Display | Android
+    Developers*, Internetseite:
+    <https://developer.android.com/reference/android/view/Display.html>,
+    aufgerufen am 20.09.2016

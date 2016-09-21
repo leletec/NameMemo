@@ -4,7 +4,7 @@
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
     <string name="showName">Name anzeigen</string>
-    <string name="addExamples">Einträge zur Datenbank hinzugügen</string>
+    <string name="addExamples">Einträge zur Datenbank hinzufügen</string>
     <string name="deleteDialogTitle">Glückwunsch!</string>
     <string name="dialogBack">Zurück</string>
     <string name="dialogCancel">Abbrechen</string>
@@ -15,7 +15,7 @@
     <string name="infoDialog">
         NameMemo - Namenlern App
         \nEine App von: Leander Dreier
-        \nVersion: 1.0.0
+        \nVersion: 1.1.0
         \nKontakt: leander.dreier@googlemail.com
     </string>
     <string name="mfileDialogTitle">Datei nicht gefunden</string>
@@ -49,9 +49,9 @@
     <string name="nfcLabel">NFC Datenübertragung</string>
     <string name="connMenu">Datenübertragung</string>
     <string name="settingsMenu">Einstellungen</string>
-    <string name="inarowReq">Mindestens benötigte Übereinstimmungen zum Löschen eines Bildes</string>
-    <string name="rdmSeq">Auswahl der Bilder nach dem Können des Nutzers</string>
-    <string name="colPics">Bilder in einem Ordner zusammenfassen (Für Datenübertragung)</string>
+    <string name="inarowReq">"Schwierigkeitsgrad"</string>
+    <string name="rdmSeq">Fortgeschrittener Bilderzyklus</string>
+    <string name="colPics">Bilder in einem Ordner zusammenfassen</string>
     <string name="invalidInput">Ungültige Eingabe!</string>
     <string name="ensureDiscoverable">Gerät für andere sichtbar machen</string>
     <string name="discover">Nach anderen Geräten suchen</string>
@@ -61,6 +61,6 @@
     <string name="failed">Fehlgeschlagen</string>
     <string name="cleanProjectMessage">Wollen Sie wirklich alle Daten aus der Datenbank löschen?\nDieser Schritt kann nicht rückgängig gemacht werden!</string>
     <string name="emptyDb">Die Datenbank ist leer.\nLade Beispielkatze</string>
-    <string name="addPicGallery">Zum hinzufügen von Bildern einen eigenen Intent benutzen\nIst rechenaufwändiger!</string>
+    <string name="addPicGallery">Bilder über Gallerie hinzufügen</string>
     <string name="alreadyThere">Die Datei wird bereits von der App verwendet</string>
 </resources>

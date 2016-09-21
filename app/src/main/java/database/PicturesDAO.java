@@ -117,10 +117,10 @@ public class PicturesDAO {
 	 */
 	private Picture cursorToPictures(Cursor cursor) {
 		Picture picture = new Picture();
-		picture.setSource(cursor.getString(1));
-		picture.setName(cursor.getString(2));
-		picture.setCalled(cursor.getInt(3));
-		picture.setInarow(cursor.getInt(4));
+		picture.setSource(cursor.getString(0));
+		picture.setName(cursor.getString(1));
+		picture.setCalled(cursor.getInt(2));
+		picture.setInarow(cursor.getInt(3));
 		Log.d("cursor", "source:"+picture.getSource() + " name:"+picture.getName() + " called:"+picture.getCalled() + " inarow:"+picture.getInarow());
 		return picture;
 	}

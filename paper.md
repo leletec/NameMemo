@@ -53,7 +53,7 @@ Bildes](#4.3.2 Auswahl eines bereits vorhandenen Bildes|outline)
 
 6.Danksagungen
 
-7.Literaturverzeichnis
+7.[Literaturverzeichnis](#7. Literaturverzeichnis|outline)
 
 8.Eidesstattliche Erklärung
 
@@ -227,21 +227,25 @@ zwei Möglichkeiten zur Verfügung: die Aufnahme eines neuen Fotos mit der
 Kamera des Handys und das Auswählen eines bereits vorhandenen Bildes in
 dem Speicher des Handys.
 
-4.3.1 Aufnahme eines neues Fotos
---------------------------------
+### 4.3.1 Aufnahme eines neues Fotos
 
 …
 
-4.3.2 Auswahl eines bereits vorhandenen Bildes
-----------------------------------------------
+### 4.3.2 Auswahl eines bereits vorhandenen Bildes
 
 …
 
-[^1]: Bump Technologies(Hrsg.), *Glide*, Internetseite:
-    <https://github.com/bumptech/glide/blob/master/README.md> vom
-    13.07.2016, aufgerufen am 16.09.2016
+7. Literaturverzeichnis
+=======================
 
-[^2]: vgl. Android Open Source Project (Hrsg.), *Display | Android
-    Developers*, Internetseite:
-    <https://developer.android.com/reference/android/view/Display.html>,
-    aufgerufen am 20.09.2016
+Bump Technologies: *Glide*, Internetseite:
+<https://github.com/bumptech/glide/blob/master/README.md> vom
+13.07.2016, aufgerufen am 16.09.2016
+
+Android Open Source Project: *Display*, Internetseite:
+<https://developer.android.com/reference/android/view/Display.html>,
+aufgerufen am 20.09.2016
+
+[^1]: BUMP TECHNOLOGIES
+
+[^2]: ANDROID OPEN SOURCE PROJECT

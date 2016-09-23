@@ -17,7 +17,7 @@ Reifeprüfungsjahrgang: *2017*
 
 Kursleiter: *OStR Pabst*
 
-Abgabetermin:
+Abgabetermin: *08. November 2016*
 
 Inhaltsverzeichnis
 
@@ -119,7 +119,7 @@ entfernt, erscheint eine Meldung darüber sowie ein Platzhaltebild.
 Zu Beginn wurden die anzuzeigenden Bilder in der ImageView durch Bitmaps
 erzeugt. Macht man allerdings ein neues Foto mit dem von Android
 bereitgestellten Intent, so muss dieses Bild oft erst noch gedreht
-werden. Dieser ist notwendig, da die Ausrichtung des Handys bei dem
+werden. Dieser ist notwendig, da die Ausrichtung des Gerätes bei dem
 Erstellen des Bildes nur in Form von Exif-Daten (vergleichbar mit
 Metadaten) gespeichert wird. Erzeugt man nun die Bitmap des gewünschten
 Bildes, muss man diese Daten erst auslesen und das Bild manuell drehen,
@@ -172,7 +172,7 @@ Algorithmus erscheinen sollen (Standard: zufällig), ob alle Bilddateien
 in einem Ordner gesammelt werden sollen: ist diese Option auf „an“
 gestellt, werden Bilder, die vom Speicher hinzugefügt werden, in diesen
 Ordner kopiert (Standardwert: an), und ob man eben bei diesem Hinzufügen
-von Bilder aus dem Speicher des Handys einen Android üblichen Intent
+von Bilder aus dem Speicher des Gerätes einen Android üblichen Intent
 oder einen einfacher gehaltenen Dialog in Listenform verwenden möchte
 (Standard: Intent).
 
@@ -224,12 +224,24 @@ In dem Programm sind bereits drei Beispielbilder vorhanden. Der Zweck
 der App ist aber natürlich eigene Bilder hinzuzufügen um dann den Namen
 der jeweils zu sehenden Person zu lernen. Dafür stehen dem Nutzer lokal
 zwei Möglichkeiten zur Verfügung: die Aufnahme eines neuen Fotos mit der
-Kamera des Handys und das Auswählen eines bereits vorhandenen Bildes in
-dem Speicher des Handys.
+geräteinternen Kamera und das Auswählen eines bereits vorhandenen Bildes
+in dem Speicher des Handys.
 
 ### 4.3.1 Aufnahme eines neues Fotos
 
-…
+Möchte man ein neues Foto schießen, so gelangt man in einen Intent der
+Kamera-App seines Gerätes, wo man wie gewohnt sein Bild aufnehmen kann.
+Hat man dies erfolgreich abgeschlossen, kann man dem Bild in dem
+erscheinenden Dialog noch einen Namen zuweisen. Nachdem man auch dies
+getan hat ist die Verknüpfung in der Datenbank gespeichert und wird von
+nun an mit auftauchen. Die Bilddateien werden bei diesem Prozess in
+einem eigenen Ordner gespeichert. Er befindet sich im Gerätespeicher
+unter „Pictures“ und heißt wie die App, also „NameMemo“ und wird vom
+Programm angelegt, falls er noch nicht existiert.
+
+Dieses Feature benötigt keine besonderen Berechtigungen, da es die
+Kamera nicht direkt, sondern über einen standardisierten Intent
+verwendet.
 
 ### 4.3.2 Auswahl eines bereits vorhandenen Bildes
 

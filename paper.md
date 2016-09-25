@@ -245,7 +245,27 @@ verwendet.
 
 ### 4.3.2 Auswahl eines bereits vorhandenen Bildes
 
-…
+Eine weitere Möglichkeit ist es, Dateien zu verwenden, welche bereits im
+Speicher vorhanden ist. Dafür gibt es nun wiederum zwei Varianten.
+Welche verwendet wird, kann im Einstellungsdialog ausgewählt werden.
+
+Zum einen kann man seine Bilddatei in gewohnter Weise mithilfe von
+Android-Hausmitteln finden. Ist diese Option aktiv, erscheint zuerst ein
+Dialog zum Auswählen der Anwendung, mit der man sein Bild auswählen
+möchte (zum Beispiel „Galerie“ oder „Fotos“). Das weitere Vorgehen hängt
+dann von der jeweiligen Anwendung ab.
+
+Zum anderen ist es auch möglich, die Datei direkt in der App mithilfe
+einer einfachen Liste in einem Dialog auszuwählen. In diesem werden alle
+JPG- und PNG-Dateien, sowie alle Ordner im aktuellen Verzeichnis, sowie
+ganz oben ein Eintrag „..“ angezeigt. Wählt man „..“ aus, gelangt man im
+Dateisystem eine Ebene nach oben und wählt man einen Ordner aus, gelangt
+man in diesen. Gestartet wird in dem App-eigenen Verzeichnis für Bilder,
+wie oben beschrieben.
+
+Bei beiden Varianten wird man, sobald man seine Auswahl getroffen hat,
+aufgefordert, einen Namen zu dem Bild einzugeben. Nach der Eingabe wird
+der Eintrag in der Datenbank abgespeichert.
 
 7. Literaturverzeichnis
 =======================

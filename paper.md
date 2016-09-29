@@ -43,19 +43,27 @@ Fotos](#4.3.1 Aufnahme eines neues Fotos|outline)
 4.3.2[Auswahl eines bereits vorhandenen
 Bildes](#4.3.2 Auswahl eines bereits vorhandenen Bildes|outline)
 
-5.Datenaustausch mit anderen Systemen
+5.[Datenaustausch mit anderen
+Systemen](#5. Datenaustausch mit anderen Systemen|outline)
 
-5.1Near Field Communication (NFC)
+5.1[Near Field Communication
+(NFC)](#5.1 Near Field Communication (NFC)|outline)
 
-5.2Bluetooth
+5.2[Bluetooth](#5.2 Bluetooth|outline)
 
-5.3Vergleich und Fazit
+5.3[Server](#5.3 Server|outline)
 
-6.Danksagungen
+5.3[Vergleich und Fazit](#5.4 Vergleich und Fazit|outline)
 
-7.[Literaturverzeichnis](#7. Literaturverzeichnis|outline)
+6.Entscheidungen während des Projekts
 
-8.Eidesstattliche Erklärung
+6.1Design
+
+7.[Danksagungen](#6. Danksagungen|outline)
+
+8.[Literaturverzeichnis](#7. Literaturverzeichnis|outline)
+
+9.[Eidesstattliche Erklärung](#8. Eidesstattliche Erklärung|outline)
 
 1. Einleitung
 =============
@@ -267,17 +275,79 @@ Bei beiden Varianten wird man, sobald man seine Auswahl getroffen hat,
 aufgefordert, einen Namen zu dem Bild einzugeben. Nach der Eingabe wird
 der Eintrag in der Datenbank abgespeichert.
 
+5. Datenaustausch mit anderen Systemen
+======================================
+
+Soviel nun zu der lokalen Funktionsweise des Programms. Kommen wir nun
+zu dem Kernaspekt der App: dem Datenaustausch mit anderen Systemen. Mit
+der Anwendung ist es möglich, die Tabelle „pictures“ der Datenbank mit
+anderen Systemen zu teilen und seinen Fortschritt somit zu
+synchronisieren. Im Folgenden werden drei Varianten vorgestellt werden:
+Die Übertragung mithilfe von Near Field Communication (im Folgenden
+„NFC” abgekürzt), via Bluetooth und mithilfe eines festen Servers im
+Internet. Implementiert sind allerdings nur die ersten beiden. Warum,
+wird in [Punkt 5.4](#5.4 Vergleich und Fazit|outline) genauer erläutert.
+
+5.1 Near Field Communication (NFC)
+----------------------------------
+
+Die beiden implementierten Ausführungen werden jeweils in einer
+separaten Activity umgesetzt. Somit gibt es 3 Activitys: eine für das
+Hauptprogramm und je eine für Bluetooth und NFC. Wie es zu dieser
+Entscheidung kam, wird in Punkt 6.1 dargelegt.
+
+Near Field Communication wurde 2002 gemeinsam von Sony Corporation und
+NXP Semiconductors entwickelt und ermöglicht es, eine drahtlose
+Verbindung zwischen zwei Geräten aufzubauen, indem diese nahe aneinander
+gehalten werden. Im Falle eines Smartphones oder Tablets entspricht dies
+„Rücken an Rücken“. Sobald sich zwei Geräte nahe genug kommen, wird die
+Verbindung hergestellt.[^3]
+
+5.2 Bluetooth
+-------------
+
+5.3 Server
+----------
+
+5.4 Vergleich und Fazit
+-----------------------
+
+6. Danksagungen
+===============
+
+- Pabst
+
+- oki
+
+- Alle Korrekturleser
+
+- StackOverflow
+
 7. Literaturverzeichnis
 =======================
 
-Bump Technologies: *Glide*, Internetseite:
+Bump Technologies: *Glide*,
 <https://github.com/bumptech/glide/blob/master/README.md> vom
 13.07.2016, aufgerufen am 16.09.2016
 
-Android Open Source Project: *Display*, Internetseite:
+Android Open Source Project: *Display*,
 <https://developer.android.com/reference/android/view/Display.html>,
 aufgerufen am 20.09.2016
+
+Cuno, Andrea: *Near Field Communication*,
+<https://www.net.in.tum.de/fileadmin/TUM/NET/NET-2010-08-2/NET-2010-08-2_01.pdf>,
+aufgerufen am 29.09.2016
+
+Curran, Kevin; Millar, Amanda; Garvey, Conor Mc.: *International Journal
+of Electrical and Computer Engineering *Vol. 2 No. 3, von Juni 2012,
+Seite 371
+(<http://search.proquest.com/openview/822cf597b6e8dab49e0eb29493af13e9/1?pq-origsite=gscholar>)
+
+8. Eidesstattliche Erklärung
+============================
 
 [^1]: BUMP TECHNOLOGIES
 
 [^2]: ANDROID OPEN SOURCE PROJECT
+
+[^3]: Vgl. CUNO, 1

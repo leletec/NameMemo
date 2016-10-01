@@ -53,17 +53,17 @@ Systemen](#5. Datenaustausch mit anderen Systemen|outline)
 
 5.3[Server](#5.3 Server|outline)
 
-5.3[Vergleich und Fazit](#5.4 Vergleich und Fazit|outline)
+5.4[Vergleich und Fazit](#5.4 Vergleich und Fazit|outline)
 
 6.Entscheidungen während des Projekts
 
 6.1Design
 
-7.[Danksagungen](#6. Danksagungen|outline)
+7.[Danksagungen](#7. Danksagungen|outline)
 
 8.[Literaturverzeichnis](#7. Literaturverzeichnis|outline)
 
-9.[Eidesstattliche Erklärung](#8. Eidesstattliche Erklärung|outline)
+9.[Eidesstattliche Erklärung](#9. Eidesstattliche Erklärung|outline)
 
 1. Einleitung
 =============
@@ -288,20 +288,38 @@ Die Übertragung mithilfe von Near Field Communication (im Folgenden
 Internet. Implementiert sind allerdings nur die ersten beiden. Warum,
 wird in [Punkt 5.4](#5.4 Vergleich und Fazit|outline) genauer erläutert.
 
-5.1 Near Field Communication (NFC)
-----------------------------------
-
 Die beiden implementierten Ausführungen werden jeweils in einer
 separaten Activity umgesetzt. Somit gibt es 3 Activitys: eine für das
 Hauptprogramm und je eine für Bluetooth und NFC. Wie es zu dieser
 Entscheidung kam, wird in Punkt 6.1 dargelegt.
 
+5.1 Near Field Communication (NFC)
+----------------------------------
+
 Near Field Communication wurde 2002 gemeinsam von Sony Corporation und
 NXP Semiconductors entwickelt und ermöglicht es, eine drahtlose
-Verbindung zwischen zwei Geräten aufzubauen, indem diese nahe aneinander
-gehalten werden. Im Falle eines Smartphones oder Tablets entspricht dies
-„Rücken an Rücken“. Sobald sich zwei Geräte nahe genug kommen, wird die
-Verbindung hergestellt.[^3]
+Verbindung zwischen zwei Geräten oder zwischen einem Gerät und einem NFC
+Tag aufzubauen, indem diese nahe aneinander gehalten werden, sprich im
+Abstand von wenigen Zentimetern. Im Falle eines Smartphones oder Tablets
+entspricht dies „Rücken an Rücken“. Sobald sich zwei Partner nahe genug
+kommen, wird die Verbindung hergestellt. Die Limitierung der Entfernung
+ist dem Sicherheitsaspekt von NFC geschuldet, da diese somit nicht
+belauscht werden kann. Dadurch wird NFC in verschiedensten Gebieten
+eingesetzt, wie beispielsweise um Zahlungen zu tätigen oder Schlüssel
+für andere Verbindungen (zum Beispiel Wi-Fi oder Bluetooth) zu
+übertragen. Aber auch um kleinere Dateien schnell und einfach zu
+übertragen ist NFC bestens geeignet.[^3]
+
+Geräte, welche mit Android laufen und NFC unterstützen, besitzen
+parallel drei Verschiedene Betriebsarten:
+
+1.  Lese- / Schreibmodus: Ermöglicht es dem Gerät NFC Tags oder Sticker
+    zu lesen und / oder zu schreiben.
+2.  P2P-Modus: Ermöglicht es dem Gerät Daten mit anderen gleichstehenden
+    Geräten auszutauschen. Dieser Modus benutzt Android Beam.
+3.  Kartenemulationsmodus: Ermöglicht es dem Gerät selbst als NFC Karte
+    zu agieren. Die emulierte Karte kann dann von anderen externen NFC
+    Lesern gelesen werden.[^4]
 
 5.2 Bluetooth
 -------------
@@ -312,7 +330,7 @@ Verbindung hergestellt.[^3]
 5.4 Vergleich und Fazit
 -----------------------
 
-6. Danksagungen
+7. Danksagungen
 ===============
 
 - Pabst
@@ -323,31 +341,41 @@ Verbindung hergestellt.[^3]
 
 - StackOverflow
 
-7. Literaturverzeichnis
+8. Literaturverzeichnis
 =======================
 
-Bump Technologies: *Glide*,
+BUMP Technologies: *Glide*,
 <https://github.com/bumptech/glide/blob/master/README.md> vom
 13.07.2016, aufgerufen am 16.09.2016
 
-Android Open Source Project: *Display*,
+ANDROID Open Source Project: *Display*,
 <https://developer.android.com/reference/android/view/Display.html>,
 aufgerufen am 20.09.2016
 
-Cuno, Andrea: *Near Field Communication*,
+CUNO, Andrea: *Near Field Communication*,
 <https://www.net.in.tum.de/fileadmin/TUM/NET/NET-2010-08-2/NET-2010-08-2_01.pdf>,
 aufgerufen am 29.09.2016
 
-Curran, Kevin; Millar, Amanda; Garvey, Conor Mc.: *International Journal
+CURRAN, Kevin; Millar, Amanda; Garvey, Conor Mc.: *International Journal
 of Electrical and Computer Engineering *Vol. 2 No. 3, von Juni 2012,
 Seite 371
-(<http://search.proquest.com/openview/822cf597b6e8dab49e0eb29493af13e9/1?pq-origsite=gscholar>)
+([http://search.proquest.com/openview/822cf597b6e8dab49e0eb29493af13e9/1](http://search.proquest.com/openview/822cf597b6e8dab49e0eb29493af13e9/1?pq-origsite=gscholar))
 
-8. Eidesstattliche Erklärung
+ECMA International: *Near Field Communication - Interface and Protocol
+(NFCIP-1)* 3. Auflage, Juni 2013
+(<http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-340.pdf>)
+
+ANDROID Open Source Project: *Near Field Communication*,
+<https://developer.android.com/guide/topics/connectivity/nfc/index.html>,
+aufgerufen am 01.10.2016
+
+9. Eidesstattliche Erklärung
 ============================
 
-[^1]: BUMP TECHNOLOGIES
+[^1]: BUMP
 
-[^2]: ANDROID OPEN SOURCE PROJECT
+[^2]: ANDROID
 
-[^3]: Vgl. CUNO, 1
+[^3]: Vgl. CURRAN 2012, 371
+
+[^4]: Vgl. ANDROID

@@ -2,7 +2,6 @@ package net.nfc;
 
 import net.Net;
 import de.leletec.namememo.R;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -21,19 +20,16 @@ import android.widget.Toast;
 /**
  * https://developer.android.com/training/beam-files/send-files.html
  */
-@SuppressLint("NewApi") //TODO?
 public class NfcActivity extends Net {
-	
+
 	private NfcAdapter adapter;
 	private final Context context = this;
-	private Uri[] fileUris;
-	private Button bImport;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_nfc);
-		bImport = (Button) findViewById(R.id.bImport);
+		Button bImport = (Button) findViewById(R.id.bImport);
 		adapter = NfcAdapter.getDefaultAdapter(context);
 		
 		// Check if NFC is supported
@@ -81,7 +77,7 @@ public class NfcActivity extends Net {
 	 */
 	@Override
 	public void send() {
-		fileUris = new Uri[1];
+		Uri[] fileUris = new Uri[1];
 		dbFile.setReadable(true, false);
 		Uri fileUri = Uri.fromFile(dbFile);
 		if (fileUri != null) {

@@ -43,6 +43,9 @@ Fotos](#4.3.1 Aufnahme eines neues Fotos|outline)
 4.3.2[Auswahl eines bereits vorhandenen
 Bildes](#4.3.2 Auswahl eines bereits vorhandenen Bildes|outline)
 
+4.3.3[Lesen einer externen
+Datei](#0.0.3.4.3.3 Lesen einer externen Datei|outline)
+
 5.[Datenaustausch mit anderen
 Systemen](#5. Datenaustausch mit anderen Systemen|outline)
 
@@ -275,6 +278,10 @@ Bei beiden Varianten wird man, sobald man seine Auswahl getroffen hat,
 aufgefordert, einen Namen zu dem Bild einzugeben. Nach der Eingabe wird
 der Eintrag in der Datenbank abgespeichert.
 
+### 4.3.3 Lesen einer externen Datei
+
+...
+
 5. Datenaustausch mit anderen Systemen
 ======================================
 
@@ -300,8 +307,7 @@ Near Field Communication wurde 2002 gemeinsam von Sony Corporation und
 NXP Semiconductors entwickelt und ermöglicht es, eine drahtlose
 Verbindung zwischen zwei Geräten oder zwischen einem Gerät und einem NFC
 Tag aufzubauen, indem diese nahe aneinander gehalten werden, sprich im
-Abstand von wenigen Zentimetern. Im Falle eines Smartphones oder Tablets
-entspricht dies „Rücken an Rücken“. Sobald sich zwei Partner nahe genug
+Abstand von wenigen Zentimetern. Sobald sich zwei Partner nahe genug
 kommen, wird die Verbindung hergestellt. Die Limitierung der Entfernung
 ist dem Sicherheitsaspekt von NFC geschuldet, da diese somit nicht
 belauscht werden kann. Dadurch wird NFC in verschiedensten Gebieten
@@ -320,6 +326,30 @@ parallel drei Verschiedene Betriebsarten:
 3.  Kartenemulationsmodus: Ermöglicht es dem Gerät selbst als NFC Karte
     zu agieren. Die emulierte Karte kann dann von anderen externen NFC
     Lesern gelesen werden.[^4]
+
+In NameMemo hat man die Möglichkeit, die Datenbankdatei der App auf ein
+anderes Gerät zu übertragen, auf dem die Anwendung läuft, um dann auf
+dem Zielgerät weitere Operationen damit zu starten. Somit wird hier
+Variante 2 von oben benutzt, es wird die Datei also mithilfe der Android
+Beam file transfer API übertragen. Um diese Funktion nutzen zu können,
+werden zwei NFC-fähige Geräte mit Android 4.1 oder höher benötigt. Diese
+beiden Kriterien werden daher im onCreate() der Activity geprüft, die
+für die Datenübertragung via NFC zuständig und für beide Partner gleich
+ist. Danach wird in onStart() die Aktivierung von NFC und Android Beam
+durch den Nutzer erzwungen. Da es nicht möglich scheint, ein Feedback
+über den aktuellen Aktivitätszustand zu bekommen, wird der Dialog zur
+Aktivierung solange wieder erscheinen, bis der Nutzer die notwendigen
+Features aktiviert oder die App beendet. Sind dann beide Geräte
+erfolgreich in der Activity angekommen, wird
+*NfcAdapter.setBeamPushUris(datenbankdatei, this)* aufgerufen. Dies
+führt dazu, dass nun eben die Datenbankdatei bei einer Übertragung
+gesendet wird. Um nun eine Übertragung zu beginnen, müssen die beiden
+Geräte „Rücken an Rücken“ gebracht werden und auf dem Sender muss der
+Bildschirm berührt werden. Nachdem die Datei übertragen wurde können die
+Geräte voneinander entfernt werden und es muss nur noch, da es auch hier
+kein Feedback gibt, bei dem Empfänger auf den Button gedrückt werden um
+den in [Punkt 4.3.3](#0.0.3.4.3.3 Lesen einer externen Datei|outline)
+beschriebenen Vorgang zu starten.
 
 5.2 Bluetooth
 -------------

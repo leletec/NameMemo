@@ -173,7 +173,7 @@ für die gesamte Interaktion mit der Datenbank zuständig.
 4.1 Einstellungen in der Datenbank
 ----------------------------------
 
-Die Tabelle „settings“ ist dabei, wie es der Name vermuten lässt, für
+Die Tabelle *settings* ist dabei, wie es der Name vermuten lässt, für
 die Einstellungen zuständig. So wird hier gespeichert, wie oft der
 Benutzer bei einem Bild nacheinander auf „Ja“ drücken muss, bevor er
 angeboten bekommt, es zu löschen. Weiter wird gespeichert, ob die Bilder
@@ -287,64 +287,64 @@ der Eintrag in der Datenbank abgespeichert.
 
 Soviel nun zu der lokalen Funktionsweise des Programms. Kommen wir nun
 zu dem Kernaspekt der App: dem Datenaustausch mit anderen Systemen. Mit
-der Anwendung ist es möglich, die Tabelle „pictures“ der Datenbank mit
+der Anwendung ist es möglich, die Tabelle *pictures* der Datenbank mit
 anderen Systemen zu teilen und seinen Fortschritt somit zu
 synchronisieren. Im Folgenden werden drei Varianten vorgestellt werden:
-Die Übertragung mithilfe von Near Field Communication (im Folgenden
-„NFC” abgekürzt), via Bluetooth und mithilfe eines festen Servers im
-Internet. Implementiert sind allerdings nur die ersten beiden. Warum,
-wird in [Punkt 5.4](#5.4 Vergleich und Fazit|outline) genauer erläutert.
+die Übertragung mithilfe von Near Field Communication (NFC), via
+Bluetooth und mithilfe eines festen Servers im Internet. Implementiert
+sind allerdings nur die ersten beiden. Warum, wird in [Punkt
+5.4](#5.4 Vergleich und Fazit|outline) genauer erläutert.
 
 Die beiden implementierten Ausführungen werden jeweils in einer
 separaten Activity umgesetzt. Somit gibt es 3 Activitys: eine für das
-Hauptprogramm und je eine für Bluetooth und NFC. Wie es zu dieser
+Hauptprogramm, eine für Bluetooth und eine für NFC. Wie es zu dieser
 Entscheidung kam, wird in Punkt 6.1 dargelegt.
 
 5.1 Near Field Communication (NFC)
 ----------------------------------
 
-Near Field Communication wurde 2002 gemeinsam von Sony Corporation und
-NXP Semiconductors entwickelt und ermöglicht es, eine drahtlose
-Verbindung zwischen zwei Geräten oder zwischen einem Gerät und einem NFC
-Tag aufzubauen, indem diese nahe aneinander gehalten werden, sprich im
-Abstand von wenigen Zentimetern. Sobald sich zwei Partner nahe genug
-kommen, wird die Verbindung hergestellt. Die Limitierung der Entfernung
-ist dem Sicherheitsaspekt von NFC geschuldet, da diese somit nicht
-belauscht werden kann. Dadurch wird NFC in verschiedensten Gebieten
-eingesetzt, wie beispielsweise um Zahlungen zu tätigen oder Schlüssel
-für andere Verbindungen (zum Beispiel Wi-Fi oder Bluetooth) zu
-übertragen. Aber auch um kleinere Dateien schnell und einfach zu
-übertragen ist NFC bestens geeignet.[^3]
+Near Field Communication wurde 2002 gemeinsam von Sony und NXP
+Semiconductors entwickelt und ermöglicht es, eine drahtlose Verbindung
+zwischen zwei Geräten oder zwischen einem Gerät und einem NFC-Tag
+aufzubauen, indem diese nahe aneinander gehalten werden. Die Reichweite
+beträgt dabei wenige Zentimeter. Sobald sich zwei Partner nahe genug
+kommen, wird die Verbindung hergestellt. NFC will durch diese
+Limitierung Lauschangriffe erschweren. Deshalb wird NFC in
+verschiedensten Gebieten eingesetzt, wie beispielsweise, um Zahlungen zu
+tätigen, Schlüssel für andere Verbindungen (zum Beispiel Wi-Fi oder
+Bluetooth) oder auch kleinere Dateien schnell und einfach zu
+übertragen.[^3]
 
-Geräte, welche mit Android laufen und NFC unterstützen, besitzen
-parallel drei Verschiedene Betriebsarten:
+Geräte, welche mit Android laufen und NFC unterstützen, besitzen drei
+verschiedene Betriebsarten:
 
 1.  Lese- / Schreibmodus: Ermöglicht es dem Gerät NFC Tags oder Sticker
     zu lesen und / oder zu schreiben.
-2.  P2P-Modus: Ermöglicht es dem Gerät Daten mit anderen gleichstehenden
-    Geräten auszutauschen. Dieser Modus benutzt Android Beam.
-3.  Kartenemulationsmodus: Ermöglicht es dem Gerät selbst als NFC Karte
-    zu agieren. Die emulierte Karte kann dann von anderen externen NFC
-    Lesern gelesen werden.[^4]
+2.  P2P-Modus: Ermöglicht es dem Gerät, Daten mit anderen
+    gleichstehenden Geräten auszutauschen. Dieser Modus benutzt
+    Android Beam.
+3.  Kartenemulationsmodus: Ermöglicht es dem Gerät, selbst als NFC Karte
+    zu agieren. Die emulierte Karte kann dann von anderen externen
+    NFC-Lesern gelesen werden.[^4]
 
 In NameMemo hat man die Möglichkeit, die Datenbankdatei der App auf ein
 anderes Gerät zu übertragen, auf dem die Anwendung läuft, um dann auf
 dem Zielgerät weitere Operationen damit zu starten. Somit wird hier
 Variante 2 von oben benutzt, es wird die Datei also mithilfe der Android
-Beam file transfer API übertragen. Um diese Funktion nutzen zu können,
-werden zwei NFC-fähige Geräte mit Android 4.1 oder höher benötigt. Diese
-beiden Kriterien werden daher im onCreate() der Activity geprüft, die
-für die Datenübertragung via NFC zuständig und für beide Partner gleich
-ist. Danach wird in onStart() die Aktivierung von NFC und Android Beam
-durch den Nutzer erzwungen. Da es nicht möglich scheint, ein Feedback
-über den aktuellen Aktivitätszustand zu bekommen, wird der Dialog zur
-Aktivierung solange wieder erscheinen, bis der Nutzer die notwendigen
-Features aktiviert oder die App beendet. Sind dann beide Geräte
-erfolgreich in der Activity angekommen, wird
-*NfcAdapter.setBeamPushUris(datenbankdatei, this)* aufgerufen. Dies
-führt dazu, dass nun eben die Datenbankdatei bei einer Übertragung
-gesendet wird. Um nun eine Übertragung zu beginnen, müssen die beiden
-Geräte „Rücken an Rücken“ gebracht werden und auf dem Sender muss der
+Beam Dateiübertragungs-API übertragen. Um diese Funktion nutzen zu
+können, werden zwei NFC-fähige Geräte mit Android 4.1 oder höher
+benötigt. Diese beiden Kriterien werden daher im *onCreate()* der
+Activity geprüft, die für die Datenübertragung via NFC zuständig und für
+beide Partner gleich ist. Danach wird in *onStart()* die Aktivierung von
+NFC und Android Beam durch den Nutzer erzwungen. Da es nicht möglich
+scheint, ein Feedback über den aktuellen Aktivitätszustand zu bekommen,
+wird der Dialog zur Aktivierung solange wieder erscheinen, bis der
+Nutzer die notwendigen Features aktiviert oder die App beendet. Sind
+dann beide Geräte erfolgreich in der Activity angekommen, wird
+*NfcAdapter.setBeamPushUris(datenbankdatei,this)* aufgerufen. Dies führt
+dazu, dass nun eben die Datenbankdatei bei einer Übertragung gesendet
+wird. Um jetzt eine Übertragung zu beginnen, müssen die beiden Geräte
+„Rücken an Rücken“ gebracht werden und auf dem Sender muss der
 Bildschirm berührt werden. Nachdem die Datei übertragen wurde können die
 Geräte voneinander entfernt werden und es muss nur noch, da es auch hier
 kein Feedback gibt, bei dem Empfänger auf den Button gedrückt werden um

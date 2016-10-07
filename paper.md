@@ -44,7 +44,7 @@ Fotos](#4.3.1 Aufnahme eines neues Fotos|outline)
 Bildes](#4.3.2 Auswahl eines bereits vorhandenen Bildes|outline)
 
 4.3.3[Lesen einer externen
-Datei](#0.0.3.4.3.3 Lesen einer externen Datei|outline)
+Datei](#4.3.3 Lesen einer externen Datei|outline)
 
 5.[Datenaustausch mit anderen
 Systemen](#5. Datenaustausch mit anderen Systemen|outline)
@@ -364,11 +364,65 @@ wird. Um jetzt eine Übertragung zu beginnen, müssen die beiden Geräte
 Bildschirm berührt werden. Nachdem die Datei übertragen wurde können die
 Geräte voneinander entfernt werden und es muss nur noch, da es auch hier
 kein Feedback gibt, bei dem Empfänger auf den Button gedrückt werden um
-den in [Punkt 4.3.3](#0.0.3.4.3.3 Lesen einer externen Datei|outline)
-beschriebenen Vorgang zu starten.
+den in Punkt 4.3.3 beschriebenen Vorgang zu starten.
 
 5.2 Bluetooth
 -------------
+
+Der Kern der Bluetooth-Spezifikation definiert die Technologie als
+Baustein für Entwickler, die damit interoperable Geräte produzieren und
+somit zu einem florierenden Bluetooth-Ökosystem beitragen können. Sie
+wird von der *Bluetooth Special Interest Group (SIG*) überwacht und von
+den *Bluetooth SIG Working Groups* regelmäßig aktualisiert und
+verbessert um sich dem sich entwickelnden Markt anzupassen. Man
+unterscheidet grundlegend zwischen zwei Varianten von Bluetooth:
+*Bluetooth Basic Rate/Enhanced Data Rate (BR/EDR)*, verabschiedet als
+Version 2.0/2.1 und *Bluetooth with low energy (LE)*, verabschiedet als
+Version 4.0/4.1/4.2. Die beiden Implementationen sind für verschiedene
+Anwendungsgebiete optimiert und benutzen unterschiedliche Chipsets:
+Bluetooth BR/EDR erzeugt eine anhaltende Verbindung über kurze Distanz,
+Bluetooth LE ermöglicht kurze Stöße von Funkverbindungen über längere
+Distanz und schont somit eine eventuell vorhandene Batterie. Geräte wie
+Smartphones oder Tablets arbeiten im* Dual-Mode*, können sich also
+sowohl mit BR/EDR- als auch mit LE-Geräten verbinden.[^5]
+
+Somit wird Bluetooth auch von Android unterstützt, wobei der Zugriff auf
+die Funktionen durch die *Android Bluetooth APIs* geregelt wird. Mit
+diesen APIs kann eine Anwendung auf Android unter anderem nach anderen
+Bluetooth-Geräten suchen, gekoppelte Geräte mithilfe des *Bluetooth
+Adapters* anzeigen, sich mit anderen Geräten über die *Network Service
+Discovery* verbinden und mit verbundenen Geräten Daten austauschen.
+Bluetooth LE wird dabei erst ab Android 4.3 von der API unterstützt.
+
+In NameMemo gelangt man, nach entsprechender Auswahl, auf die
+BluetoothActivity, wo in *onCreate()* geprüft wird, ob das Gerät
+Bluetooth unterstützt. Ist dies der Fall, wird in *onStart()* noch
+kontrolliert, ob Bluetooth auch aktiviert ist und der Nutzer
+gegebenenfalls durch einen Dialog des Systems dazu aufgefordert dies
+nachzuholen. Wird dies abgelehnt, kehrt man wieder zur *MainActivity*
+zurück. Ist man allerdings erfolgreich in der Activity angekommen, wird
+ein neuer **„Server“** gestartet und es wird gleichzeitig eine Liste mit
+gekoppelten Geräten angezeigt. Alternativ hat man auch die Möglichkeit
+nach neuen Geräten zu suchen, wozu man sie erst sichtbar schalten muss.
+Wird ein Eintrag aus der Liste ausgewählt, wird der eigene **Server
+**geschlossen und es wird ein **„Client“** erstellt, welcher dann
+versucht mit dem **Server** der anderen Partei eine **Verbindung**
+herzustellen.
+
+Doch nun zu den Details: Da eine Verbindung via Bluetooth keine
+Server-Client-, sondern eine Peer-to-Peer-Verbindung ist, werden in dem
+Sinne keine echten Server oder Clients erstellt. Die Begriffe dienen nur
+zur Veranschaulichung der eingenommenen Rolle. So wird im *onStart()*
+der Activity ein Thread gestartet, welcher nach einer eingehenden
+Verbindung lauscht (*AcceptThread*). Wird aber auf einen Listeneintrag
+getippt, wird dieser Thread geschlossen und es wird stattdessen einer
+gestartet, dessen Aufgabe es ist, mit dem AcceptThread einer anderen
+Instanz Kontakt aufzunehmen und eine Verbindung aufzubauen (*Connect
+Thread*). Diese Verbindung besteht dann in einem weiteren Thread,
+welcher auf beiden Verbindungspartnern läuft und den weiteren
+Datenaustausch ermöglicht (*HandleThread*).
+
+...
 
 5.3 Server
 ----------
@@ -413,6 +467,10 @@ ANDROID Open Source Project: *Near Field Communication*,
 <https://developer.android.com/guide/topics/connectivity/nfc/index.html>,
 aufgerufen am 01.10.2016
 
+BLUETOOTH SIG, Inc.: *Bluetooth Core Specification*,
+<https://www.bluetooth.com/specifications/bluetooth-core-specification>,
+aufgerufen am 07.10.2016, 2016
+
 9. Eidesstattliche Erklärung
 ============================
 
@@ -423,3 +481,5 @@ aufgerufen am 01.10.2016
 [^3]: Vgl. CURRAN 2012, 371
 
 [^4]: Vgl. ANDROID
+
+[^5]: Vgl. BLUETOOTH

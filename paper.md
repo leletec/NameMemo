@@ -202,13 +202,13 @@ Auf technischer Ebene besteht jede „Einstellung“ aus einem String
 Primärschlüssel, um Überschneidungen zu verhindern. Soll eine Änderung
 vorgenommen werden, wird in der Tabelle nach der Kennung gesucht und der
 dazugehörige Wert geändert. Zum Zwischenspeichern werden die Werte,
-wieder anhand ihrer Kennung, bei onStart() und bei einer Änderung aus
+wieder anhand ihrer Kennung, bei *onStart()* und bei einer Änderung aus
 der Datenbank ausgelesen.
 
 4.2 Bilder in der Datenbank
 ---------------------------
 
-In der anderen Tabelle – „pictures“ – werden die verschiedenen
+In der anderen Tabelle – *pictures* – werden die verschiedenen
 benötigten Daten zu den jeweiligen Bildern gesichert. Zum einen wird der
 Pfad zu der entsprechenden Bilddatei gespeichert. Es wird darauf
 verzichtet, die Datei aus der Datenbank rekonstruieren zu können, um
@@ -247,7 +247,7 @@ erscheinenden Dialog noch einen Namen zuweisen. Nachdem man auch dies
 getan hat ist die Verknüpfung in der Datenbank gespeichert und wird von
 nun an mit auftauchen. Die Bilddateien werden bei diesem Prozess in
 einem eigenen Ordner gespeichert. Er befindet sich im Gerätespeicher
-unter „Pictures“ und heißt wie die App, also „NameMemo“ und wird vom
+unter „Pictures“, heißt wie die App, also „NameMemo“ und wird vom
 Programm angelegt, falls er noch nicht existiert.
 
 Dieses Feature benötigt keine besonderen Berechtigungen, da es die
@@ -280,7 +280,23 @@ der Eintrag in der Datenbank abgespeichert.
 
 ### 4.3.3 Lesen einer externen Datei
 
-...
+Zum Schluss bietet sich noch die Möglichkeit, die Datenbankdatei einer
+anderen Instanz der App, welche auf einem anderen Gerät läuft, geschickt
+zu bekommen um dann auf verschiedene Weisen weiter damit zu arbeiten.
+Die Handlungsmöglichkeiten durch den Nutzer werden dabei in einem Dialog
+dargestellt, welcher in der abstrakten Klasse *net.Net* implementiert
+ist. Diese benutzt dann, je nach Auswahl, verschiedene Methoden der
+Helferklassen *database.ImportNewDb* oder *main.Helper*. Die
+Auswahlmöglichkeiten sind folgende:
+
+-   Ersetzen der kompletten, aktuellen Datenbankdatei mit der neuen.
+-   Erzeugen einer Liste mit in der momentanen Datenbank noch nicht
+    vorhandenen Einträgen. Der Nutzer kann die gewünschten Datenpaare
+    dann einzeln übernehmen.
+-   Erzeugen einer Liste wie oben, aber auch mit
+    aktualisierten Einträgen. Das Vorgehen ist entsprechend.
+-   Löschen der neuen Datei. Dieser Schritt wird bei jedem Abschluss
+    automatisch ausgeführt und entspricht hier einem Abbruch.
 
 5. Datenaustausch mit anderen Systemen
 ======================================
@@ -363,9 +379,7 @@ beschriebenen Vorgang zu starten.
 7. Danksagungen
 ===============
 
-- Pabst
-
-- oki
+- Dominik Okwieka
 
 - Alle Korrekturleser
 

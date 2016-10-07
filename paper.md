@@ -392,7 +392,7 @@ diesen APIs kann eine Anwendung auf Android unter anderem nach anderen
 Bluetooth-Geräten suchen, gekoppelte Geräte mithilfe des *Bluetooth
 Adapters* anzeigen, sich mit anderen Geräten über die *Network Service
 Discovery* verbinden und mit verbundenen Geräten Daten austauschen.
-Bluetooth LE wird dabei erst ab Android 4.3 von der API unterstützt.
+Bluetooth LE wird dabei erst ab Android 4.3 von der API unterstützt.[^6]
 
 In NameMemo gelangt man, nach entsprechender Auswahl, auf die
 BluetoothActivity, wo in *onCreate()* geprüft wird, ob das Gerät
@@ -471,6 +471,10 @@ BLUETOOTH SIG, Inc.: *Bluetooth Core Specification*,
 <https://www.bluetooth.com/specifications/bluetooth-core-specification>,
 aufgerufen am 07.10.2016, 2016
 
+ANDROID Open Source Project: *Bluetooth*,
+<https://developer.android.com/guide/topics/connectivity/bluetooth.html>,
+aufgerufen am 07.10.2016
+
 9. Eidesstattliche Erklärung
 ============================
 
@@ -483,3 +487,5 @@ aufgerufen am 07.10.2016, 2016
 [^4]: Vgl. ANDROID
 
 [^5]: Vgl. BLUETOOTH
+
+[^6]: Vgl. ANDROID

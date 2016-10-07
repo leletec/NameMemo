@@ -28,7 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * https://developer.android.com/guide/topics/connectivity/net.bluetooth.html
+ * https://developer.android.com/guide/topics/connectivity/bluetooth.html
  * https://github.com/googlesamples/android-BluetoothChat
  * http://stackoverflow.com/questions/24573755/android-net.bluetooth-socket-connect-fails
  * http://stackoverflow.com/questions/858980/file-to-byte-in-java

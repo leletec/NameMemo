@@ -16,7 +16,7 @@ public class AcceptThread extends Thread {
 	private HandleThread conn;
 	private final BluetoothActivity activity;
 	
-	public AcceptThread(BluetoothAdapter adapter, String name, UUID uuid, BluetoothActivity activity) {
+	AcceptThread(BluetoothAdapter adapter, String name, UUID uuid, BluetoothActivity activity) {
 		this.activity = activity;
 		// Use a temporary object that is later assigned to srvSock, because srvSock is final
 		BluetoothServerSocket tmp = null;

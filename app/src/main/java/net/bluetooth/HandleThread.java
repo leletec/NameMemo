@@ -18,7 +18,7 @@ public class HandleThread extends Thread {
 	private final BluetoothActivity activity;
 	private boolean receiving = false;
 
-	public HandleThread(BluetoothSocket sock, BluetoothActivity activity) {
+	HandleThread(BluetoothSocket sock, BluetoothActivity activity) {
 		this.activity = activity;
 		InputStream tmpIn = null;
 		OutputStream tmpOut = null;

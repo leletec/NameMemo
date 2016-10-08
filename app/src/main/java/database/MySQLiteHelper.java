@@ -10,7 +10,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
 	private TablePictures pictures = new TablePictures();
 	private TableSettings settings = new TableSettings();
 
-	public MySQLiteHelper(Context context) {
+	MySQLiteHelper(Context context) {
 		super(context, DATABASENAME, null, 1);
 	}
 

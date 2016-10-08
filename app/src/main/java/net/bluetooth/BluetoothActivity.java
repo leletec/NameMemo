@@ -31,8 +31,6 @@ import android.widget.Toast;
  * https://developer.android.com/guide/topics/connectivity/bluetooth.html
  * https://github.com/googlesamples/android-BluetoothChat
  * http://stackoverflow.com/questions/24573755/android-net.bluetooth-socket-connect-fails
- * http://stackoverflow.com/questions/858980/file-to-byte-in-java
- * http://stackoverflow.com/questions/4350084/byte-to-file-in-java
  */
 public class BluetoothActivity extends Net {
 	private static final int REQUEST_ENABLE_BT = 200;
@@ -193,7 +191,7 @@ public class BluetoothActivity extends Net {
 	}
 
 	/**
-	 * Send your database to your opposite
+	 * Send your database to your opposite.
 	 */
 	public void send() {
 		try {	

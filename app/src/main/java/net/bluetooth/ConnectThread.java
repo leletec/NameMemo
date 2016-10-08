@@ -17,7 +17,7 @@ public class ConnectThread extends Thread {
 	private final BluetoothActivity activity;
 	private HandleThread conn;
 	
-	public ConnectThread (BluetoothAdapter adapter, BluetoothDevice device, UUID uuid, BluetoothActivity activity) {
+	ConnectThread(BluetoothAdapter adapter, BluetoothDevice device, UUID uuid, BluetoothActivity activity) {
 		this.activity = activity;
 		// Use a temporary object that is later assigned to sock, because sock is final
 		BluetoothSocket tmp = null;

@@ -411,18 +411,29 @@ herzustellen.
 
 Doch nun zu den Details: Da eine Verbindung via Bluetooth keine
 Server-Client-, sondern eine Peer-to-Peer-Verbindung ist, werden in dem
-Sinne keine echten Server oder Clients erstellt. Die Begriffe dienen nur
-zur Veranschaulichung der eingenommenen Rolle. So wird im *onStart()*
-der Activity ein Thread gestartet, welcher nach einer eingehenden
-Verbindung lauscht (*AcceptThread*). Wird aber auf einen Listeneintrag
-getippt, wird dieser Thread geschlossen und es wird stattdessen einer
-gestartet, dessen Aufgabe es ist, mit dem AcceptThread einer anderen
-Instanz Kontakt aufzunehmen und eine Verbindung aufzubauen (*Connect
-Thread*). Diese Verbindung besteht dann in einem weiteren Thread,
-welcher auf beiden Verbindungspartnern läuft und den weiteren
+Sinne keine echten Server oder Clients erstellt. Die verwendeten
+Begriffe dienen nur zur Veranschaulichung der eingenommenen Rolle. So
+wird im *onStart()* der Activity ein Thread gestartet, welcher nach
+einer eingehenden Verbindung lauscht (*AcceptThread*). Wird aber auf
+einen Listeneintrag getippt, wird dieser Thread geschlossen und es wird
+stattdessen einer gestartet, dessen Aufgabe es ist, mit dem AcceptThread
+einer anderen Instanz Kontakt aufzunehmen und eine Verbindung aufzubauen
+(*Connect Thread*). Diese Verbindung besteht dann in einem weiteren
+Thread, welcher auf beiden Verbindungspartnern läuft und den weiteren
 Datenaustausch ermöglicht (*HandleThread*).
 
-...
+Wurde eine Verbindung hergestellt und der HandleThread gestartet, so
+erscheint statt der oben genannten Liste nun auf beiden Geräten ein
+Button zum Senden, welcher nun von dem entsprechenden Part gedrückt
+werden soll. Ist dies geschehen wird in der sendenden Instanz die
+Datenbankdatei zu einem Byte-Array umgewandelt und anschließend in
+Teilen mit einer Länge von 8192 Bytes, also 8 Kilobytes an das Gegenüber
+gesendet. Diese Aufteilung erfolgt, da es zu Komplikationen kommen kann,
+werden zu große Datenpakete auf einmal über Bluetooth verschickt. Der
+empfangende Part liest den ankommenden Stream währenddessen aus und
+erstellt eine Datei, die der ursprünglich gesendeten entspricht. Ist der
+Vorgang abgeschlossen, wird die Activity des Senders beendet und der
+Empfänger verfährt weiter, wie in Punkt 4.3.3 beschrieben.
 
 5.3 Server
 ----------

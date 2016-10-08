@@ -440,25 +440,27 @@ Empfänger verfährt weiter, wie in Punkt 4.3.3 beschrieben.
 
 Eine weitere Möglichkeit zum Verschicken der Daten wäre es, einen Server
 zu hosten, mit welchem sich zwei Clients verbinden und Daten austauschen
-können. Dies wurde in NameMemo nicht umgesetzt, im Folgenden wird also
+können. Dies wurde in NameMemo nicht umgesetzt; im Folgenden wird also
 nur eine mögliche Vorgehensweise beschreiben.
 
-Auf dem Server läuft eine Software, welche auf HTTP(*Hypertext Transfer
-Protocol*)-Anfragen reagieren kann. Vergleichbar ist dies mit einem
-Webserver, der eine Internetseite, wie zum Beispiel
-[http://www.pabst-software.de](http://www.pabst-software.de/), hostet.
-Nun wird hier allerdings keine, mit einem Webbrowser aufrufbare,
+Auf dem Server läuft eine Software, welche auf HTTP-Anfragen reagieren
+kann. Vergleichbar ist dies mit einem Webserver, der eine Internetseite,
+wie zum Beispiel
+[http://www.](http://www.google.com/)[google.com](http://www.google.com/),
+hostet. Nun wird hier allerdings keine, mit einem Webbrowser aufrufbare,
 graphische Seite, sondern lediglich eine einfache, textbasierte
 Möglichkeit mit dem Server zu kommunizieren benötigt. Dies ist in Java
-beispielsweise mithilfe von Jetty möglich.
+beispielsweise mithilfe von Jetty möglich. Jetty ist ein auf Java
+basierter Webserver, welcher in einen Server eingebettet werden
+kann.[^7]
 
 Um die Übertragung zu instanziieren, senden beide Android-Geräte einen
-Request an den Server, damit dieser erkennt, dass sie bereit sind Daten
-auszutauschen. Als Response schickt der Server dann eine Liste der
-anderen aktiven Geräte zurück, wo sich der Benutzer nun das gewünschte
-Ziel aussuchen kann. Wird der Wunsch abgesetzt, einem bestimmten Gerät
-Daten zu schicken oder von ihm zu empfangen, muss dies erst durch den
-ausgewählten Client bestätigt werden um unerwünschten Datenaustausch zu
+Request an den Server, damit dieser erkennt, dass sie zum Datenaustausch
+bereit sind. Als Response schickt der Server dann eine Liste der anderen
+aktiven Geräte zurück, wo sich der Benutzer nun das gewünschte Ziel
+aussuchen kann. Wird der Wunsch abgesetzt, einem bestimmten Gerät Daten
+zu schicken oder von ihm zu empfangen, muss dies erst durch den
+ausgewählten Client bestätigt werden, um unerwünschten Datenaustausch zu
 vermeiden. Haben sich nun zwei Partner gefunden, können sie mithilfe
 weiterer Requests und Antworten darauf Dateien und andere Informationen
 verschicken. Ein Request ist dabei eine Zeichenkette, in welche die
@@ -533,3 +535,5 @@ aufgerufen am 08.10. 2016
 [^5]: Vgl. BLUETOOTH
 
 [^6]: Vgl. ANDROID
+
+[^7]: Vgl. PABST

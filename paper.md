@@ -54,7 +54,7 @@ Systemen](#5. Datenaustausch mit anderen Systemen|outline)
 
 5.2[Bluetooth](#5.2 Bluetooth|outline)
 
-5.3[Server](#5.3 Server|outline)
+5.3[Server-](#5.3 Server-Client|outline)[Client](#5.3 Server-Client|outline)
 
 5.4[Vergleich und Fazit](#5.4 Vergleich und Fazit|outline)
 
@@ -435,8 +435,8 @@ erstellt eine Datei, die der ursprünglich gesendeten entspricht. Ist der
 Vorgang abgeschlossen, wird die Activity des Senders beendet und der
 Empfänger verfährt weiter, wie in Punkt 4.3.3 beschrieben.
 
-5.3 Server
-----------
+5.3 Server-Client
+-----------------
 
 Eine weitere Möglichkeit zum Verschicken der Daten wäre es, einen Server
 zu hosten, mit welchem sich zwei Clients verbinden und Daten austauschen
@@ -465,10 +465,74 @@ vermeiden. Haben sich nun zwei Partner gefunden, können sie mithilfe
 weiterer Requests und Antworten darauf Dateien und andere Informationen
 verschicken. Ein Request ist dabei eine Zeichenkette, in welche die
 Datei umgewandelt werden und aus welcher die Datei am Ziel wieder
-erstellt werden muss.
+erstellt werden muss. Das kann wie oben durch ein Byte-Array oder durch
+eine Umwandlung der Daten in XML erfolgen.
 
 5.4 Vergleich und Fazit
 -----------------------
+
+Kommen wir nun zu einem Vergleich der drei oben genannten Varianten und
+damit zu einem Fazit, beziehungsweise dem Grund der Auswahl der ersten
+beiden für das Projekt.
+
+NFC: NFC ist die, für den Benutzer und den Programmierer, einfachste
+Möglichkeit die Datenbankdatei zu verschicken. Es müssen lediglich die
+beiden Geräte aneinander gehalten und der Bildschirm des Senders berührt
+werden. Dadurch besteht allerdings die Einschränkung der Reichweite auf
+circa 4 Zentimeter, wodurch wiederum ein sehr hohes Sicherheitsniveau
+gewährt wird. Eine weitere Einschränkung ist die, dass nicht alle Geräte
+NFC und Android Beam unterstützen; dieses Problem betrifft vor allem
+Geräte mit einer Android-Version kleiner als 4.1. Durch Android Beam ist
+darüber hinaus die Größe der Datei, welche verschickt werden kann,
+limitiert und für S-Beam, welches für größere Dateien gedacht ist, steht
+keine API bereit. Dies ist kein Problem für die Datenbankdatei von
+NameMemo, wohl aber für das zusätzliche, automatische Verschicken von
+Bildern, das in der App nicht umgesetzt wurde.
+
+Bluetooth: Bluetooth ist im Vergleich zu NFC etwas komplexer: Der
+gewünschte Verbindungspartner muss erst gesucht werden, wozu er sich
+sichtbar schalten muss. Dabei kann es problematisch sein, wenn sich
+mehrere sichtbare Geräte mit gleichem oder ähnlichen Anzeigenamen in der
+Umgebung befinden. Die Reichweite ist mit zehn bis 100 Metern[^8]
+deutlich höher als bei NFC, was es aber auf potentiellen Angreifern
+deutlich leichter macht die Verbindung zu belauschen oder zu
+manipulieren. Mithilfe von Software wie *Bloover*, *BackTrack* oder
+*BTCrack* lässt sich leicht eine eventuell vorhandene Lücke in der
+Bluetooth Architektur, oder ähnliches, ausnutzen.[^9] Bluetooth ist auf
+Handys schon länger verbreitet als Android, weshalb man heutzutage so
+gut wie immer davon ausgehen kann, dass es auch auf den zwei Geräten
+unterstützt wird, die synchronisiert werden sollen. Auch gibt es
+keinerlei Einschränkungen bezüglich einer Dateigröße, da Dateien sowieso
+nicht im Ganzen übertragen werden (siehe oben).
+
+Server-Client: Diese Herangehensweise ist, verglichen mit den anderen
+beiden, bei weitem die komplexeste, da man für die Umsetzung als erstes
+einen Server hosten und warten muss. Zudem müssen sich beide Clients mit
+dem Server verbinden können, sei dies über ein lokales Netzwerk oder
+über das Internet. Letzteres kann darüber hinaus zusätzliche Kosten für
+die Clients verursachen oder kann bei Geräten wie Tablets gar nicht erst
+möglich sein. Des weiteren ist eine „Standard“-Verbindung über HTTP
+nicht gegen Mithören gesichert und sollte daher, zum Beispiel via HTTPS,
+abgesichert werden. Ein Vorteil der Server-Client-Kommunikation ist die
+Reichweite, welche, bei einem Server im Internet oder Nutzung eines
+VPNs, unbegrenzt hoch sein kann, gegeben den Fall, dass man sich mit dem
+Netz verbinden kann. Zwar gibt es bei dieser Methode technisch kaum eine
+Datenbeschränkung, jedoch ist die Wartezeit zu beachten, welche mit dem
+Down- beziehungsweise Upload von großen Datenpaketen einhergeht.
+
+Fazit: Der Datenaustausch von NameMemo ist nicht über weitere Distanzen
+vorgesehen. Zudem Soll die Anwendung ohne einen Server auskommen und
+somit eine potentiell längere Lebensdauer haben. Außerdem richtet sich
+die App an Benutzer mit unterschiedlicher technischer Erfahrung. Aus
+diesem Grund wurde die Idee eines Server-Client-Modells als nicht
+zielführend betrachtet und verworfen. Mit NFC wird eine besonders
+einfache und sichere und mit Bluetooth eine besonders kompatible
+Möglichkeit, mehrere Geräte synchron zu halten, implementiert. Dem
+Nutzer wird empfohlen, nach Möglichkeit NFC zu verwenden und ansonsten
+auf Bluetooth auszuweichen. Der Gedanke Bilder automatisch zu
+synchronisieren wurde auf Grund von Komplexität und mangelndem Nutzen
+ebenso nicht umgesetzt, da das Senden von Bilddateien auch mit
+„Android-Hausmitteln“ einfach zu bewerkstelligen ist.
 
 7. Danksagungen
 ===============
@@ -521,6 +585,14 @@ aufgerufen am 08.10.2016, 05.02.2015 15:06
 ECLIPSE Foundation: *jetty://*, <http://www.eclipse.org/jetty/>,
 aufgerufen am 08.10. 2016
 
+KARBACHER: *Bluetooth Sendeleistung und Reichweite*,
+<http://www.karbacher.org/lexikon/bluetooth-sendeleistung-und-reichweite/>,
+aufgerufen am 09.10.2016
+
+BECKER, Andreas: Bluetooth Security & Hacks,
+<https://gsyc.urjc.es/~anto/ubicuos2/bluetooth_security_and_hacks.pdf>,
+aufgerufen am 09.10.2016, 16.08.2007
+
 9. Eidesstattliche Erklärung
 ============================
 
@@ -537,3 +609,7 @@ aufgerufen am 08.10. 2016
 [^6]: Vgl. ANDROID
 
 [^7]: Vgl. PABST
+
+[^8]: KARBACHER
+
+[^9]: BECKER, 9 f. und 22

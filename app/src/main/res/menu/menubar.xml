@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 Attributions:
-	"settings": 'Gear icon' by 'MGalloway (WMF)' (found on: https://commons.wikimedia.org/wiki/File:Gear_icon.svg)
+	"settings": 'Gear icon' by 'MGalloway (WMF)', https://commons.wikimedia.org/wiki/File:Gear_icon.svg, edited
+	"connectivity": 'Sharethis' by 'ZyMOS', https://commons.wikimedia.org/wiki/File:Sharethis.svg, edited
 -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
 	  xmlns:tools="http://schemas.android.com/tools"

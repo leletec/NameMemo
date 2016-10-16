@@ -46,6 +46,7 @@ public class ImportNewDb {
 	 * Open the two databases and get a list of entries for each if them.
 	 */
 	private void openDb() {
+		if (!new File(oldPath).exists() || !new File(impPath).exists()) return;
 		if ((oldDb = SQLiteDatabase.openDatabase(oldPath, null, SQLiteDatabase.OPEN_READWRITE)) == null) return;
 		if ((impDb = SQLiteDatabase.openDatabase(impPath, null, SQLiteDatabase.OPEN_READONLY)) == null) return;
 		dao = new ImportDAO(context);

@@ -47,12 +47,13 @@ public abstract class Net extends AppCompatActivity {
 			@Override
 			public void onClick(DialogInterface dialogInterface, int i) {
 				switch (i) {
-				case 0: Helper.moveFile(importFile, dbFile); break;
+				case 0: Helper.moveFile(importFile, dbFile); finish(); break;
 				case 1: helper.lookForNew(); break;
 				case 2: helper.lookForUpdate(); break;
-				case 3: importFile.delete();
+				case 3: importFile.delete(); finish();
 				}
 			}
 		});
+		builder.create().show();
 	}
 }

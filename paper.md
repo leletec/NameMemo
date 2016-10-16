@@ -58,9 +58,18 @@ Systemen](#5. Datenaustausch mit anderen Systemen|outline)
 
 5.4[Vergleich und Fazit](#5.4 Vergleich und Fazit|outline)
 
-6.Entscheidungen während des Projekts
+6.[Entscheidungen während des
+Projekts](#6. Entscheidungen während des Projekts|outline)
 
-6.1Design
+6.1[Strukturierung in Activitys und
+Dialoge](#6.1 Strukturierung in Activitys und Dialoge|outline)
+
+6.2[Gestaltung der
+](#6.2 Gestaltung der Actionbar|outline)[Actionbar](#6.2 Gestaltung der Actionbar|outline)
+
+6.3Fixierung der Orientierung
+
+6.4Mechanismus zum Durchgehen der Bilder
 
 7.[Danksagungen](#7. Danksagungen|outline)
 
@@ -309,12 +318,9 @@ synchronisieren. Im Folgenden werden drei Varianten vorgestellt werden:
 die Übertragung mithilfe von Near Field Communication (NFC), via
 Bluetooth und mithilfe eines festen Servers im Internet. Implementiert
 sind allerdings nur die ersten beiden. Warum, wird in [Punkt
-5.4](#5.4 Vergleich und Fazit|outline) genauer erläutert.
-
-Die beiden implementierten Ausführungen werden jeweils in einer
-separaten Activity umgesetzt. Somit gibt es 3 Activitys: eine für das
-Hauptprogramm, eine für Bluetooth und eine für NFC. Wie es zu dieser
-Entscheidung kam, wird in Punkt 6.1 dargelegt.
+5.4](#5.4 Vergleich und Fazit|outline) genauer erläutert. Die beiden
+implementierten Ausführungen werden jeweils in einer separaten Activity
+umgesetzt.
 
 5.1 Near Field Communication (NFC)
 ----------------------------------
@@ -534,6 +540,41 @@ synchronisieren wurde auf Grund von Komplexität und mangelndem Nutzen
 ebenso nicht umgesetzt, da das Senden von Bilddateien auch mit
 „Android-Hausmitteln“ einfach zu bewerkstelligen ist.
 
+6. Entscheidungen während des Projekts
+======================================
+
+Wie bei jedem Projekt, wurden auch bei diesem verschiedene
+Entscheidungen getroffen, welche im weiteren Verlauf teilweise auch
+wieder verworfen oder geändert werden. Im Folgenden werden die
+wichtigsten Entschlüsse, welche während NameMemo gefasst wurden,
+dargelegt.
+
+6.1 Strukturierung in Activitys und Dialoge
+-------------------------------------------
+
+NameMemo besteht aus sechs Activitys und 13 Dialogen. Dieses Verhältnis
+ist nicht zufällig, sondern wurde aus verschiedenen Gründen bewusst
+gewählt.
+
+Ein Anlass für diese Gestaltung ist die Vorbeugung von
+Orientierungslosigkeit beim Navigieren durch die App, da man bei den
+Dialogen stets die aktuelle Activity im Hintergrund sieht und einfach zu
+dieser zurückkehren kann, indem man diesen antippt. Ein weiterer Grund
+ist die Simplizität vieler Dialoge, wodurch es sich beispielsweise für
+den Dialog zum Anzeigen der Verbindungsmöglichkeiten nicht lohnen würde,
+eine neue Activity zu starten. Darüber hinaus entsteht so eine
+Gliederung der Bedienungsmöglichkeiten, wie man an dem Diagramm[^10] gut
+erkennen kann: Alles, was mit Datenaustausch mit anderen Systemen zu tun
+hat, ist klar von dem lokalen Part abgegrenzt; auch das Hinzufügen von
+Bildern auf lokaler Ebene ist separiert. Dies fördert eine
+Übersichtlichkeit, sowohl des Codes als auch für den Nutzer. Zudem sind
+einige Activitys und Dialoge von Android vorgegeben und können somit
+nicht in ihrer Darstellungsform manipuliert werden. Alle diese Punkte
+führen also zu der, in NameMemo gegebenen, Struktur.
+
+6.2 Gestaltung der Actionbar
+----------------------------
+
 7. Danksagungen
 ===============
 
@@ -613,3 +654,5 @@ aufgerufen am 09.10.2016, 16.08.2007
 [^8]: KARBACHER
 
 [^9]: BECKER, 9 f. und 22
+
+[^10]: Anlage 1

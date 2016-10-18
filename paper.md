@@ -647,24 +647,28 @@ KARBACHER: *Bluetooth Sendeleistung und Reichweite*,
 <http://www.karbacher.org/lexikon/bluetooth-sendeleistung-und-reichweite/>,
 aufgerufen am 09.10.2016
 
-BECKER, Andreas: Bluetooth Security & Hacks,
+BECKER, Andreas: *Bluetooth Security & Hacks*,
 <https://gsyc.urjc.es/~anto/ubicuos2/bluetooth_security_and_hacks.pdf>,
 aufgerufen am 09.10.2016, 16.08.2007
+
+ANDROID Open Source Project: *Action Bar*,
+<https://developer.android.com/design/patterns/actionbar.html>,
+aufgerufen am 18.10.2016
 
 9. Eidesstattliche Erklärung
 ============================
 
 [^1]: BUMP
 
-[^2]: ANDROID
+[^2]: ANDROID, *Display*
 
 [^3]: Vgl. CURRAN 2012, 371
 
-[^4]: Vgl. ANDROID
+[^4]: Vgl. ANDROID, *Near Field Communication*
 
 [^5]: Vgl. BLUETOOTH
 
-[^6]: Vgl. ANDROID
+[^6]: Vgl. ANDROID, *Bluetooth*
 
 [^7]: Vgl. PABST
 

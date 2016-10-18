@@ -38,3 +38,6 @@ RemoteSystemsTempFiles/
 /.idea/libraries
 /build
 /captures
+
+# Generated JavaDoc
+JavaDoc/**

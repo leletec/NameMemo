@@ -43,7 +43,7 @@ public class PicturesDAO {
 		values.put("name", name);
 		values.put("called", 0);
 		values.put("inarow", 0);
-		return database.insert(TablePictures.NAME, null, values) == -1;
+		return database.insert(TablePictures.NAME, null, values) != -1;
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class PicturesDAO {
 		values.put("name", pic.getName());
 		values.put("called", pic.getCalled());
 		values.put("inarow", pic.getInarow());
-		return database.insert(TablePictures.NAME, null, values) == -1;
+		return database.insert(TablePictures.NAME, null, values) != -1;
 	}
 
 	/**

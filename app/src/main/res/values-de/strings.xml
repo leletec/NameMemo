@@ -12,12 +12,6 @@
     <string name="dialogFinish">Fertig</string>
     <string name="captureImage">Foto machen</string>
     <string name="infoDialogTitle">Appinfo</string>
-    <string name="infoDialog" translatable="false">
-        NameMemo - Namenlern App
-        \nEine App von: Leander Dreier
-        \nVersion: 1.1.1
-        \nKontakt: leander.dreier@googlemail.com
-    </string>
     <string name="mfileDialogTitle">Datei nicht gefunden</string>
     <string name="nPicDialogTitle">Neues Bild aufgenommen</string>
     <string name="nPicDialogTitle2">Neues Bild hinzugefügt</string>

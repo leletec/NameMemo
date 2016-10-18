@@ -575,6 +575,23 @@ führen also zu der, in NameMemo gegebenen, Struktur.
 6.2 Gestaltung der Actionbar
 ----------------------------
 
+Die Actionbar, auch Appbar genannt, sprich die Leiste oben auf dem
+Bildschirm, ist bei NameMemo speziell gestaltet. Normalerweise könnte
+man den Namen der App, beziehungsweise Activity, das Icon der App und
+ein bis zwei Symbole bei einem normal großen Handy anordnen. Bei dieser
+Anwendung jedoch wird bei der MainActivity auf ein Appicon und eine
+Beschriftung verzichtet. Dies dient dem Zweck, dass nun vier, und damit
+alle wichtigen, Menüsymbole Platz finden. Die Icons hierfür sind zum
+Teil von Android und zum Teil nachbearbeitete Symbole aus dem Internet.
+Es wird ein grau auf schwarzes Design für die Actionbar umgesetzt. Ein
+Grund für das Legen der Menüelemente in die Actionbar ist die einfachere
+Erreichbarkeit als im Action Overflow, ein anderer ist eine Verbesserung
+des Designs. Um die vier Einträge alle anzeigen zu können, muss in der
+*menubar.xml* für die entsprechenden Items der Eintrag
+*app:showAsAction* auf *always* gesetzt werden, da Android bei einer
+Verwendung von *ifRoom* mehr Einträge in den Overflow verschiebt als
+nötig.
+
 7. Danksagungen
 ===============
 

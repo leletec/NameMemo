@@ -9,7 +9,7 @@
       <w>100</w>
       <h>40</h>
     </coordinates>
-    <panel_attributes>Activitys
+    <panel_attributes>Activities
 bg=red</panel_attributes>
     <additional_attributes/>
   </element>
@@ -81,7 +81,7 @@ bg=orange</panel_attributes>
       <w>100</w>
       <h>40</h>
     </coordinates>
-    <panel_attributes>Activitys
+    <panel_attributes>Activities
 von Android
 bg=orange</panel_attributes>
     <additional_attributes/>
@@ -736,9 +736,9 @@ valign=top</panel_attributes>
       <h>80</h>
     </coordinates>
     <panel_attributes>*Begriffserklärung:*
-"Activitiys von Android": Activitys, welche nicht selbst programmiert wurden, sondern von Android stammen
+"Activities von Android": Activities, welche nicht selbst programmiert wurden, sondern von Android stammen
 "Dialoge": AlertDialogs
-"Dialoge von Android": wie Activiys von Android, nur dass diese in Form eines Dialogs (nicht bildfüllend) sind
+"Dialoge von Android": wie Activities von Android, nur dass diese in Form eines Dialogs (nicht bildfüllend) sind
 </panel_attributes>
     <additional_attributes/>
   </element>

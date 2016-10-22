@@ -4,7 +4,7 @@ Deckblatt
 <span id="anchor"></span>Christoph-Scheiner-Gymnasium Ingolstadt
 
 Rahmenthema des wissenschaftspropädeutischen Seminars: *Programmieren
-von Android™-Apps*
+von Android-Apps*
 
 Leitfach: *Informatik*
 
@@ -140,14 +140,15 @@ Die Einträge in dieser Datenbank können zusätzlich auf ein anderes Gerät
 =======================
 
 Zu Beginn wurden die anzuzeigenden Bilder in der ImageView durch Bitmaps
-erzeugt. Macht man allerdings ein neues Foto mit der von Android™
+erzeugt. Macht man allerdings ein neues Foto mit der von Android
 bereitgestellten Activity, so muss dieses Bild oft erst noch gedreht
 werden. Dies ist notwendig, da die Ausrichtung des Gerätes bei dem
 Erstellen des Bildes nur in Form von Exif-Daten (vergleichbar mit
 Metadaten) gespeichert wird. Erzeugt man nun die Bitmap des gewünschten
 Bildes, muss man diese Daten erst auslesen und das Bild manuell drehen,
-bevor sie in die ImageView geladen werden kann. Dies ist sehr teuer,
-weshalb es bei einigen Geräten zu Abstürzen des Programms führt.
+bevor sie in die ImageView geladen werden kann. Dies benötigt viel
+Speicher, weshalb es bei einigen Geräten zu Abstürzen des Programms
+führt.
 
 Aus diesem Grund verwendet NameMemo nun das Framework Glide, die auf der
 dazugehörigen GitHub-Seite wie folgt beschrieben wird: „Glide is a fast
@@ -172,14 +173,14 @@ Listenform werden die Werte vor Weiterverwendung noch halbiert.
 ================
 
 Wie oben bereits erwähnt, wird zum Speichern sowohl der „Bilderdaten“
-als auch der Einstellungen eine Datenbank verwendet um die Daten bei
+als auch der Einstellungen eine Datenbank verwendet, um die Daten bei
 einem Schließen der Anwendung nicht zu verlieren.
 
 Zu diesem Zweck wird die Engine SQLite eingesetzt, da sie bereits auf
-jedem Android-gerät vorhanden ist. Die beiden Tabellen „settings“ und
-„pictures“ werden von je einer DAO (Data Access Object)-Klasse
-verwaltet. Nur darauf wird im sonstigen Code zugegriffen wodurch sie für
-die gesamte Interaktion mit der Datenbank zuständig sind.
+jedem Androidgerät vorhanden ist. Die beiden Tabellen *settings* und
+*pictures* werden von je einer DAO (Data Access Object)-Klasse
+verwaltet. Nur darauf wird im sonstigen Code zugegriffen, wodurch sie
+für die gesamte Interaktion mit der Datenbank zuständig sind.
 
 4.1 Einstellungen in der Datenbank
 ----------------------------------

@@ -61,7 +61,7 @@ Systemen](#5. Datenaustausch mit anderen Systemen|outline)
 6.[Entscheidungen während des
 Projekts](#6. Entscheidungen während des Projekts|outline)
 
-6.1[Strukturierung in Activitys und
+6.1[Strukturierung in Activities und
 Dialoge](#6.1 Strukturierung in Activitys und Dialoge|outline)
 
 6.2[Gestaltung der
@@ -112,19 +112,19 @@ Freude.
 ================================
 
 Wie oben beschrieben, geht es in NameMemo um die Zuordnung von Namen zu
-Bildern und das Lernen dieser Verknüpfung. (In der weiteren Arbeit wird
-von einer Standardzuordnung Name-Bild ausgegangen.)
+Bildern und das Lernen dieser Verknüpfungen. (In der weiteren Arbeit
+wird von einer Standardzuordnung Name-Bild ausgegangen.)
 
 Dies wird folgendermaßen umgesetzt: Zuerst sieht der Nutzer ein Bild und
 einen Button mit der Beschriftung „Name anzeigen“. Jetzt ist der Nutzer
 angehalten, sich den zu dem gezeigten Bild gehörigen Namen zu überlegen.
 Hat er das getan, drückt er den gezeigten Button, worauf nun der
 tatsächliche Name und zwei weitere Buttons – „Ja“ und „Nein“ –
-erscheinen. Hat der Nutzer den Namen nun gewusst, drückt er auf „Ja“,
+erscheinen. Hat der Nutzer den Namen gewusst, drückt er auf „Ja“,
 andernfalls auf „Nein“ und ein neues Bild erscheint, wo das Prozedere
 von vorne beginnt. Das Ergebnis wird in einer Datenbank abgespeichert
-und beeinflusst unter anderem, wie häufig das Bild von nun an erscheinen
-wird.
+und kann unter anderem beeinflussen, wie häufig das Bild von nun an
+erscheinen wird.
 
 Zudem hat der Nutzer, ab einer gewissen Anzahl aufeinanderfolgender,
 positiver Bestätigungen (Standard: 3), die Möglichkeit den Eintrag aus
@@ -133,13 +133,16 @@ Je näher man dieser Hürde ist, desto seltener wird das Bild, mit den
 Standardeinstellungen, zur Abfrage aufkommen. Wurden alle Einträge
 entfernt, erscheint eine Meldung darüber sowie ein Platzhaltebild.
 
+Die Einträge in dieser Datenbank können zusätzlich auf ein anderes Gerät
+übertragen werden um somit zwei Instanzen der App synchron zu halten.
+
 3. Das Laden der Bilder
 =======================
 
 Zu Beginn wurden die anzuzeigenden Bilder in der ImageView durch Bitmaps
-erzeugt. Macht man allerdings ein neues Foto mit dem von Android
-bereitgestellten Intent, so muss dieses Bild oft erst noch gedreht
-werden. Dieser ist notwendig, da die Ausrichtung des Gerätes bei dem
+erzeugt. Macht man allerdings ein neues Foto mit der von Android
+bereitgestellten Activity, so muss dieses Bild oft erst noch gedreht
+werden. Dies ist notwendig, da die Ausrichtung des Gerätes bei dem
 Erstellen des Bildes nur in Form von Exif-Daten (vergleichbar mit
 Metadaten) gespeichert wird. Erzeugt man nun die Bitmap des gewünschten
 Bildes, muss man diese Daten erst auslesen und das Bild manuell drehen,
@@ -159,12 +162,11 @@ angepasst wird.
 Hierfür werden beim Start der App Werte für Höhe und Breite generiert
 und gespeichert. Die Breite entspricht dabei der Breite jener Fläche des
 Displays, dass die Anwendung enthält.[^2] Die Höhe allerdings entspricht
-nur 75% der Höhe jener Fläche um dem Platzanspruch der Action Bar
-gerecht zu werden. Für die „normale“ ImageView werden diese Werte als
-minimale und maximale Größe gesetzt und die Bilder werden auch in dieser
-Größe von Glide geladen. Für die Bildvorschau beim Hinzufügen von
-Dateien in Listenform werden die Werte vor Weiterverwendung noch
-halbiert.
+nur 75% der Höhe jener Fläche um dem Platzanspruch der Actionbar gerecht
+zu werden. Für die „normale“ ImageView werden diese Werte als minimale
+und maximale Größe gesetzt und die Bilder werden auch in dieser Größe
+von Glide geladen. Für die Bildvorschau beim Hinzufügen von Dateien in
+Listenform werden die Werte vor Weiterverwendung noch halbiert.
 
 4. Die Datenbank
 ================
@@ -173,11 +175,11 @@ Wie oben bereits erwähnt, wird zum Speichern sowohl der „Bilderdaten“
 als auch der Einstellungen eine Datenbank verwendet um die Daten bei
 einem Schließen der Anwendung nicht zu verlieren.
 
-Zu diesem Zweck wird Engine SQLite eingesetzt, da sie bereits auf jedem
-Android-gerät vorhanden ist. Die beiden Tabellen „settings“ und
+Zu diesem Zweck wird die Engine SQLite eingesetzt, da sie bereits auf
+jedem Android-gerät vorhanden ist. Die beiden Tabellen „settings“ und
 „pictures“ werden von je einer DAO (Data Access Object)-Klasse
-verwaltet. Nur darauf wird im sonstigen Code zugegriffen und so sind sie
-für die gesamte Interaktion mit der Datenbank zuständig.
+verwaltet. Nur darauf wird im sonstigen Code zugegriffen wodurch sie für
+die gesamte Interaktion mit der Datenbank zuständig sind.
 
 4.1 Einstellungen in der Datenbank
 ----------------------------------
@@ -189,18 +191,17 @@ angeboten bekommt, es zu löschen. Weiter wird gespeichert, ob die Bilder
 nacheinander oder in einer zufälligen Reihenfolge nach dem in
 [2.](#2. Grundfunktionen des Programms|outline) beschriebenen
 Algorithmus erscheinen sollen (Standard: zufällig), ob alle Bilddateien
-in einem Ordner gesammelt werden sollen: ist diese Option auf „an“
-gestellt, werden Bilder, die vom Speicher hinzugefügt werden, in diesen
-Ordner kopiert (Standardwert: an), und ob man eben bei diesem Hinzufügen
-von Bilder aus dem Speicher des Gerätes einen Android üblichen Intent
-oder einen einfacher gehaltenen Dialog in Listenform verwenden möchte
-(Standard: Intent).
+in einem Ordner gesammelt werden sollen: ist diese Option aktiviert,
+werden Bilder, die vom Speicher hinzugefügt werden, in diesen Ordner
+kopiert (Standardwert: an), und ob man eben bei diesem Hinzufügen von
+Bilder aus dem Speicher des Gerätes eine Android übliche Activity oder
+einen einfacher gehaltenen Dialog in Listenform verwenden möchte
+(Standard: Activity).
 
 Die Standardwerte werden bei dem Starten des Programms gesetzt, sofern
 die Einträge nicht bereits in der Datenbank vorhanden sind, also im
-Normalfall nur bei dem ersten Start der App oder nach einem Reset.
-
-In der Anwendung kann der Nutzer, wenn er sich in der MainActivity
+Normalfall nur bei dem ersten Start der App oder nach einem Reset. In
+der Anwendung kann der Nutzer, wenn er sich in der MainActivity
 befindet, alle oben beschriebenen Einstellungen in einem dafür
 vorgesehenen Dialog ändern. In diesem Dialog findet man auch die
 Möglichkeit alle Daten aus der Datenbank, also aus beiden Tabellen, zu
@@ -230,12 +231,12 @@ Erscheinen des Bildes auf „Nein“ gedrückt wird.
 Der Pfad der Bilder ist dabei der Primärschlüssel der Tabelle, was
 bewirkt, dass man eine Bilddatei nicht mehrmals verwenden kann. Dadurch
 kann man eine gesuchte Zeile durch eben diesen Pfad genau identifizieren
-um sie dann zu ändern. Für einfachere Handhabung zur Laufzeit werden
-Daten zu Bildern nicht direkt aus der Datenbank abgerufen. Stattdessen
-wird, wenn nötig eine Liste aller Einträge der Tabelle abgefragt und als
-Array gespeichert. Dieser wird dann unter anderem dafür verwendet, das
-nächste anzuzeigende Bild zu bestimmen und die Informationen dazu
-auszulesen.
+um sie dann zu manipulieren. Für einfachere Handhabung zur Laufzeit
+werden Daten zu Bildern nicht direkt aus der Datenbank abgerufen.
+Stattdessen wird, wenn nötig, eine Liste aller Einträge der Tabelle
+abgefragt und als Array gespeichert. Dieser wird dann unter anderem
+dafür verwendet, das nächste anzuzeigende Bild zu bestimmen und die
+Informationen dazu auszulesen.
 
 4.3 Hinzufügen von Wertepaaren
 ------------------------------
@@ -249,7 +250,7 @@ in dem Speicher des Handys.
 
 ### 4.3.1 Aufnahme eines neues Fotos
 
-Möchte man ein neues Foto schießen, so gelangt man in einen Intent der
+Möchte man ein neues Foto schießen, so gelangt man in eine Activity der
 Kamera-App seines Gerätes, wo man wie gewohnt sein Bild aufnehmen kann.
 Hat man dies erfolgreich abgeschlossen, kann man dem Bild in dem
 erscheinenden Dialog noch einen Namen zuweisen. Nachdem man auch dies
@@ -260,25 +261,25 @@ unter „Pictures“, heißt wie die App, also „NameMemo“ und wird vom
 Programm angelegt, falls er noch nicht existiert.
 
 Dieses Feature benötigt keine besonderen Berechtigungen, da es die
-Kamera nicht direkt, sondern über einen standardisierten Intent
+Kamera nicht direkt, sondern über eine standardisierte Activity
 verwendet.
 
 ### 4.3.2 Auswahl eines bereits vorhandenen Bildes
 
 Eine weitere Möglichkeit ist es, Dateien zu verwenden, welche bereits im
-Speicher vorhanden ist. Dafür gibt es nun wiederum zwei Varianten.
+Speicher vorhanden sind. Dafür gibt es nun wiederum zwei Varianten.
 Welche verwendet wird, kann im Einstellungsdialog ausgewählt werden.
 
 Zum einen kann man seine Bilddatei in gewohnter Weise mithilfe von
 Android-Hausmitteln finden. Ist diese Option aktiv, erscheint zuerst ein
-Dialog zum Auswählen der Anwendung, mit der man sein Bild auswählen
-möchte (zum Beispiel „Galerie“ oder „Fotos“). Das weitere Vorgehen hängt
-dann von der jeweiligen Anwendung ab.
+Dialog zum Auswählen der Anwendung, mit der man sein Bild finden möchte
+(zum Beispiel „Galerie“ oder „Fotos“). Das weitere Vorgehen hängt dann
+von der jeweiligen Anwendung ab.
 
 Zum anderen ist es auch möglich, die Datei direkt in der App mithilfe
 einer einfachen Liste in einem Dialog auszuwählen. In diesem werden alle
-JPG- und PNG-Dateien, sowie alle Ordner im aktuellen Verzeichnis, sowie
-ganz oben ein Eintrag „..“ angezeigt. Wählt man „..“ aus, gelangt man im
+JPG- und PNG-Dateien, alle Ordner im aktuellen Verzeichnis, sowie ganz
+oben ein Eintrag „..“ angezeigt. Wählt man „..“ aus, gelangt man im
 Dateisystem eine Ebene nach oben und wählt man einen Ordner aus, gelangt
 man in diesen. Gestartet wird in dem App-eigenen Verzeichnis für Bilder,
 wie oben beschrieben.
@@ -549,10 +550,10 @@ wieder verworfen oder geändert werden. Im Folgenden werden die
 wichtigsten Entschlüsse, welche während NameMemo gefasst wurden,
 dargelegt.
 
-6.1 Strukturierung in Activitys und Dialoge
--------------------------------------------
+6.1 Strukturierung in Activities und Dialoge
+--------------------------------------------
 
-NameMemo besteht aus sechs Activitys und 13 Dialogen. Dieses Verhältnis
+NameMemo besteht aus sechs Activities und 13 Dialogen. Dieses Verhältnis
 ist nicht zufällig, sondern wurde aus verschiedenen Gründen bewusst
 gewählt.
 
@@ -568,7 +569,7 @@ erkennen kann: Alles, was mit Datenaustausch mit anderen Systemen zu tun
 hat, ist klar von dem lokalen Part abgegrenzt; auch das Hinzufügen von
 Bildern auf lokaler Ebene ist separiert. Dies fördert eine
 Übersichtlichkeit, sowohl des Codes als auch für den Nutzer. Zudem sind
-einige Activitys und Dialoge von Android vorgegeben und können somit
+einige Activities und Dialoge von Android vorgegeben und können somit
 nicht in ihrer Darstellungsform manipuliert werden. Alle diese Punkte
 führen also zu der, in NameMemo gegebenen, Struktur.
 
@@ -660,7 +661,7 @@ aufgerufen am 18.10.2016
 
 [^1]: BUMP
 
-[^2]: ANDROID, *Display*
+[^2]: Vgl. ANDROID, *Display*
 
 [^3]: Vgl. CURRAN 2012, 371
 

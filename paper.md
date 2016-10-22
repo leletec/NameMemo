@@ -4,7 +4,7 @@ Deckblatt
 <span id="anchor"></span>Christoph-Scheiner-Gymnasium Ingolstadt
 
 Rahmenthema des wissenschaftspropädeutischen Seminars: *Programmieren
-von Android-Apps*
+von Android™-Apps*
 
 Leitfach: *Informatik*
 
@@ -140,7 +140,7 @@ Die Einträge in dieser Datenbank können zusätzlich auf ein anderes Gerät
 =======================
 
 Zu Beginn wurden die anzuzeigenden Bilder in der ImageView durch Bitmaps
-erzeugt. Macht man allerdings ein neues Foto mit der von Android
+erzeugt. Macht man allerdings ein neues Foto mit der von Android™
 bereitgestellten Activity, so muss dieses Bild oft erst noch gedreht
 werden. Dies ist notwendig, da die Ausrichtung des Gerätes bei dem
 Erstellen des Bildes nur in Form von Exif-Daten (vergleichbar mit
@@ -597,6 +597,8 @@ nötig.
 ===============
 
 - Dominik Okwieka
+
+- Simon Stolz
 
 - StackOverflow
 

@@ -594,6 +594,39 @@ des Designs. Um die vier Einträge alle anzeigen zu können, muss in der
 Verwendung von *ifRoom* mehr Einträge in den Overflow verschiebt als
 nötig.
 
+6.3 Fixierung der Orientierung
+------------------------------
+
+Eine Android-App kann allgemein verschiedene Ausrichtungen
+beziehungsweise Orientierungen haben. Einige Möglichkeiten sind dabei
+*landscape* („auf der Seite liegend“), *portrait* („aufrecht stehend“),
+*reverseLandscape* (landscape „von der anderen Seite“) oder
+*reversePortrait* (portrait „von der anderen Seite“).[^11] Ändert sich
+die Ausrichtung einer App, wenn man zum Beispiel das Gerät dreht, wird
+die aktuelle Activity, an die neuen Gegebenheiten angepasst,
+neugestartet. Dadurch gehen lokale Änderungen an dieser verloren, außer
+sie werden durch spezielle Maßnahmen gesichert.
+
+So kann der aktuelle Zustand einer Activity oder App mithilfe eines
+Statecontrollers gespeichert werden, welcher jede Zustandsänderung
+aufzeichnet und bei Bedarf (Neustarten der Activity) den aktuellen
+Zustand zurückgibt. Weitere Möglichkeiten sind das Benutzen von
+SharedPreferences, einem Interface dass das Zugreifen auf und
+Modifizieren von Einstellungsdaten erlaubt[^12], oder das Speichern von
+wichtigen Werten in einer Datenbank, wie es in NameMemo auch zum Teil
+umgesetzt wird.
+
+Allerdings ist die Orientierung von NameMemo auf *portrait* begrenzt, da
+eine Unterstützung der anderen Modi nicht sinnvoll erscheint. Dies liegt
+vor allem an der Tatsache, dass die App vor allem für Bilder von
+einzelnen Personen gedacht ist, welche meistens im portrait-Mode
+aufgenommen werden. Zusätzlich würde das ständige Updaten des Zustands
+unter Verwendung eines Statecontrollers die Komplexität des Codes,
+aufgrund der vielen Dialoge, deutlich erhöhen. In einer früheren Version
+der Anwendung wurde dieser Weg bereits getestet, dann aber aufgrund der
+oben genannten Punkte verworfen und die Orientierung im AndroidManifest
+auf *portrait* festgesetzt.
+
 7. Danksagungen
 ===============
 
@@ -642,7 +675,7 @@ aufgerufen am 07.10.2016
 PABST, Martin: *Cient-Server-Kommunikation von Android (Client) zu Java
 (Server) via http*,
 <http://www.pabst-software.de/doku.php?id=programmieren:java:android:httpclient:start>,
-aufgerufen am 08.10.2016, 05.02.2015 15:06
+aufgerufen am 08.10.2016, zuletzt geändert am 05.02.2015 um 15:06
 
 ECLIPSE Foundation: *jetty://*, <http://www.eclipse.org/jetty/>,
 aufgerufen am 08.10. 2016
@@ -658,6 +691,14 @@ aufgerufen am 09.10.2016, 16.08.2007
 ANDROID Open Source Project: *Action Bar*,
 <https://developer.android.com/design/patterns/actionbar.html>,
 aufgerufen am 18.10.2016
+
+ANDROID Open Source Project: *&lt;activity&gt;*,
+<https://developer.android.com/guide/topics/manifest/activity-element.html>,
+aufgerufen am 23.10.2016
+
+ANDROID Open Source Project: *SharedPreferences*,
+<https://developer.android.com/reference/android/content/SharedPreferences.html>,
+aufgerufen am 23.10.2016
 
 9. Eidesstattliche Erklärung
 ============================
@@ -681,3 +722,7 @@ aufgerufen am 18.10.2016
 [^9]: BECKER, 9 f. und 22
 
 [^10]: Anlage 1
+
+[^11]: ANDROID, *&lt;activity&gt;*
+
+[^12]: ANDROID, *SharedPreferences*

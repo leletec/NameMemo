@@ -1,81 +1,91 @@
-Deckblatt
-=========
+**Christoph-Scheiner-Gymnasium Ingolstadt**
 
-<span id="anchor"></span>Christoph-Scheiner-Gymnasium Ingolstadt
+Seminararbeit
 
-Rahmenthema des wissenschaftspropädeutischen Seminars: *Programmieren
-von Android-Apps*
+aus dem wissenschaftspropädeutischen Seminar
 
-Leitfach: *Informatik*
+„Programmieren von Android-Apps“
 
-Thema der Arbeit: *Erstellung einer Android-App zum Lernen von Namen mit
-besonderem Augenmerk auf Datenaustausch mit anderen Systemen*
+im Fach Informatik
 
-Verfasser: *Leander Dreier*
+**Erstellung einer Android-App zum Lernen von Namen\
+mit besonderem Augenmerk auf Datenaustausch mit anderen Systemen**
 
-Reifeprüfungsjahrgang: *2017*
+angefertigt vonLeander Dreier
 
-Kursleiter: *OStR Pabst*
+Reifeprüfungsjahrgang2017
 
-Abgabetermin: *08. November 2016*
+KursleiterOStR Pabst
+
+Ingolstadt, den 07. November 2016
 
 Inhaltsverzeichnis
 
-1.[Einleitung](#1. Einleitung|outline)
+1.[Einleitung](#1. Einleitung|outline)........... . . 1
 
 2.[Grundfunktionen des
-Programms](#2. Grundfunktionen des Programms|outline)
+Programms](#2. Grundfunktionen des Programms|outline)........ . 1
 
-3.[Das Laden der Bilder](#3. Das Laden der Bilder|outline)
+3.[Das Laden der Bilder](#3. Das Laden der Bilder|outline)........... 2
 
-4.[Die Datenbank](#4. Die Datenbank|outline)
+4.[Die Datenbank](#4. Die Datenbank|outline).......... .. 3
 
 4.1[Einstellungen in der
-Datenbank](#4.1 Einstellungen in der Datenbank|outline)
+Datenbank](#4.1 Einstellungen in der Datenbank|outline)....... . 3
 
 4.2[Bilder in der Datenbank](#4.2 Bilder in der Datenbank|outline)
+......... 4
 
-4.3[Hinzufügen von Wertepaaren](#4.3 Hinzufügen von Wertepaaren|outline)
+4.3[Hinzufügen von
+Wertepaaren](#4.3 Hinzufügen von Wertepaaren|outline)......... 4
 
 4.3.1[Aufnahme eines neuen
-Fotos](#4.3.1 Aufnahme eines neues Fotos|outline)
+Fotos](#4.3.1 Aufnahme eines neues Fotos|outline)....... 5
 
 4.3.2[Auswahl eines bereits vorhandenen
-Bildes](#4.3.2 Auswahl eines bereits vorhandenen Bildes|outline)
+Bildes](#4.3.2 Auswahl eines bereits vorhandenen Bildes|outline) ..... 5
 
 4.3.3[Lesen einer externen
-Datei](#4.3.3 Lesen einer externen Datei|outline)
+Datei](#4.3.3 Lesen einer externen Datei|outline)....... . 6
 
 5.[Datenaustausch mit anderen
-Systemen](#5. Datenaustausch mit anderen Systemen|outline)
+Systemen](#5. Datenaustausch mit anderen Systemen|outline) ....... . 6
 
 5.1[Near Field Communication
-(NFC)](#5.1 Near Field Communication (NFC)|outline)
+(NFC)](#5.1 Near Field Communication (NFC)|outline) ........ 6
 
-5.2[Bluetooth](#5.2 Bluetooth|outline)
+5.2[Bluetooth](#5.2 Bluetooth|outline)............ 7
 
-5.3[Server-](#5.3 Server-Client|outline)[Client](#5.3 Server-Client|outline)
+5.3[Server-](#5.3 Server-Client|outline)[Client](#5.3 Server-Client|outline)...........
+9
 
-5.4[Vergleich und Fazit](#5.4 Vergleich und Fazit|outline)
+5.4[Vergleich und Fazit](#5.4 Vergleich und Fazit|outline).......... 10
 
 6.[Entscheidungen während des
-Projekts](#6. Entscheidungen während des Projekts|outline)
+Projekts](#6. Entscheidungen während des Projekts|outline) ........ 11
 
 6.1[Strukturierung in Activities und
-Dialoge](#6.1 Strukturierung in Activitys und Dialoge|outline)
+Dialoge](#6.1 Strukturierung in Activities und Dialoge|outline).......
+12
 
 6.2[Gestaltung der
-](#6.2 Gestaltung der Actionbar|outline)[Actionbar](#6.2 Gestaltung der Actionbar|outline)
+](#6.2 Gestaltung der Actionbar|outline)[Actionbar](#6.2 Gestaltung der Actionbar|outline).........
+12
 
-6.3Fixierung der Orientierung
+6.3[Fixierung der
+](#6.3 Fixierung der Orientierung|outline)[Orientierung](#6.3 Fixierung der Orientierung|outline).........
+13
 
-6.4Mechanismus zum Durchgehen der Bilder
+6.4[Algorithmu](#6.4 Algorithmus zum Durchgehen der Bilder|outline)[s
+zum Durchgehen der
+Bilder](#6.4 Algorithmus zum Durchgehen der Bilder|outline) ...... 13
 
-7.[Danksagungen](#7. Danksagungen|outline)
+7.[Danksagungen](#7. Danksagungen|outline).......... .. 15
 
-8.[Literaturverzeichnis](#7. Literaturverzeichnis|outline)
+8.[Literaturverzeichnis](#8. Literaturverzeichnis|outline)........... 15
 
 9.[Eidesstattliche Erklärung](#9. Eidesstattliche Erklärung|outline)
+.......... 17
 
 1. Einleitung
 =============
@@ -177,18 +187,18 @@ als auch der Einstellungen eine Datenbank verwendet, um die Daten bei
 einem Schließen der Anwendung nicht zu verlieren.
 
 Zu diesem Zweck wird die Engine SQLite eingesetzt, da sie bereits auf
-jedem Androidgerät vorhanden ist. Die beiden Tabellen *settings* und
-*pictures* werden von je einer DAO (Data Access Object)-Klasse
-verwaltet. Nur darauf wird im sonstigen Code zugegriffen, wodurch sie
-für die gesamte Interaktion mit der Datenbank zuständig sind.
+jedem Androidgerät vorhanden ist. Die beiden Tabellen settings und
+pictures werden von je einer DAO (Data Access Object)-Klasse verwaltet.
+Nur darauf wird im sonstigen Code zugegriffen, wodurch sie für die
+gesamte Interaktion mit der Datenbank zuständig sind.
 
 4.1 Einstellungen in der Datenbank
 ----------------------------------
 
-Die Tabelle *settings* ist dabei, wie es der Name vermuten lässt, für
-die Einstellungen zuständig. So wird hier gespeichert, wie oft der
-Benutzer bei einem Bild nacheinander auf „Ja“ drücken muss, bevor er
-angeboten bekommt, es zu löschen. Weiter wird gespeichert, ob die Bilder
+Die Tabelle settings ist dabei, wie es der Name vermuten lässt, für die
+Einstellungen zuständig. So wird hier gespeichert, wie oft der Benutzer
+bei einem Bild nacheinander auf „Ja“ drücken muss, bevor er angeboten
+bekommt, es zu löschen. Weiter wird gespeichert, ob die Bilder
 nacheinander oder in einer zufälligen Reihenfolge nach dem in
 [2.](#2. Grundfunktionen des Programms|outline) beschriebenen
 Algorithmus erscheinen sollen (Standard: zufällig), ob alle Bilddateien
@@ -213,21 +223,21 @@ Auf technischer Ebene besteht jede „Einstellung“ aus einem String
 Primärschlüssel, um Überschneidungen zu verhindern. Soll eine Änderung
 vorgenommen werden, wird in der Tabelle nach der Kennung gesucht und der
 dazugehörige Wert geändert. Zum Zwischenspeichern werden die Werte,
-wieder anhand ihrer Kennung, bei *onStart()* und bei einer Änderung aus
+wieder anhand ihrer Kennung, bei onStart() und bei einer Änderung aus
 der Datenbank ausgelesen.
 
 4.2 Bilder in der Datenbank
 ---------------------------
 
-In der anderen Tabelle – *pictures* – werden die verschiedenen
-benötigten Daten zu den jeweiligen Bildern gesichert. Zum einen wird der
-Pfad zu der entsprechenden Bilddatei gespeichert. Es wird darauf
-verzichtet, die Datei aus der Datenbank rekonstruieren zu können, um
-Speicherplatz und Ressourcen zu sparen. Weiter werden der vom Nutzer
-zugeordnete Name, die Anzahl an Gesamtaufrufen und die Anzahl an
-positiven Rückmeldungen des Nutzer (drücken von „Ja“) in Folge
-gesichert. Letzterer Wert wird auf 0 zurückgesetzt, sobald nach
-Erscheinen des Bildes auf „Nein“ gedrückt wird.
+In der anderen Tabelle – pictures – werden die verschiedenen benötigten
+Daten zu den jeweiligen Bildern gesichert. Zum einen wird der Pfad zu
+der entsprechenden Bilddatei gespeichert. Es wird darauf verzichtet, die
+Datei aus der Datenbank rekonstruieren zu können, um Speicherplatz und
+Ressourcen zu sparen. Weiter werden der vom Nutzer zugeordnete Name, die
+Anzahl an Gesamtaufrufen und die Anzahl an positiven Rückmeldungen des
+Nutzer (drücken von „Ja“) in Folge gesichert. Letzterer Wert wird auf 0
+zurückgesetzt, sobald nach Erscheinen des Bildes auf „Nein“ gedrückt
+wird.
 
 Der Pfad der Bilder ist dabei der Primärschlüssel der Tabelle, was
 bewirkt, dass man eine Bilddatei nicht mehrmals verwenden kann. Dadurch
@@ -295,9 +305,9 @@ Zum Schluss bietet sich noch die Möglichkeit, die Datenbankdatei einer
 anderen Instanz der App, welche auf einem anderen Gerät läuft, geschickt
 zu bekommen um dann auf verschiedene Weisen weiter damit zu arbeiten.
 Die Handlungsmöglichkeiten durch den Nutzer werden dabei in einem Dialog
-dargestellt, welcher in der abstrakten Klasse *net.Net* implementiert
-ist. Diese benutzt dann, je nach Auswahl, verschiedene Methoden der
-Helferklassen *database.ImportNewDb* oder *main.Helper*. Die
+dargestellt, welcher in der abstrakten Klasse net.Net implementiert ist.
+Diese benutzt dann, je nach Auswahl, verschiedene Methoden der
+Helferklassen database.ImportNewDb oder main.Helper. Die
 Auswahlmöglichkeiten sind folgende:
 
 -   Ersetzen der kompletten, aktuellen Datenbankdatei mit der neuen.
@@ -314,7 +324,7 @@ Auswahlmöglichkeiten sind folgende:
 
 Soviel nun zu der lokalen Funktionsweise des Programms. Kommen wir nun
 zu dem Kernaspekt der App: dem Datenaustausch mit anderen Systemen. Mit
-der Anwendung ist es möglich, die Tabelle *pictures* der Datenbank mit
+der Anwendung ist es möglich, die Tabelle pictures der Datenbank mit
 anderen Systemen zu teilen und seinen Fortschritt somit zu
 synchronisieren. Im Folgenden werden drei Varianten vorgestellt werden:
 die Übertragung mithilfe von Near Field Communication (NFC), via
@@ -357,15 +367,15 @@ dem Zielgerät weitere Operationen damit zu starten. Somit wird hier
 Variante 2 von oben benutzt, es wird die Datei also mithilfe der Android
 Beam Dateiübertragungs-API übertragen. Um diese Funktion nutzen zu
 können, werden zwei NFC-fähige Geräte mit Android 4.1 oder höher
-benötigt. Diese beiden Kriterien werden daher im *onCreate()* der
-Activity geprüft, die für die Datenübertragung via NFC zuständig und für
-beide Partner gleich ist. Danach wird in *onStart()* die Aktivierung von
-NFC und Android Beam durch den Nutzer erzwungen. Da es nicht möglich
-scheint, ein Feedback über den aktuellen Aktivitätszustand zu bekommen,
-wird der Dialog zur Aktivierung solange wieder erscheinen, bis der
-Nutzer die notwendigen Features aktiviert oder die App beendet. Sind
-dann beide Geräte erfolgreich in der Activity angekommen, wird
-*NfcAdapter.setBeamPushUris(datenbankdatei,this)* aufgerufen. Dies führt
+benötigt. Diese beiden Kriterien werden daher im onCreate() der Activity
+geprüft, die für die Datenübertragung via NFC zuständig und für beide
+Partner gleich ist. Danach wird in onStart() die Aktivierung von NFC und
+Android Beam durch den Nutzer erzwungen. Da es nicht möglich scheint,
+ein Feedback über den aktuellen Aktivitätszustand zu bekommen, wird der
+Dialog zur Aktivierung solange wieder erscheinen, bis der Nutzer die
+notwendigen Features aktiviert oder die App beendet. Sind dann beide
+Geräte erfolgreich in der Activity angekommen, wird
+NfcAdapter.setBeamPushUris(datenbankdatei,this) aufgerufen. Dies führt
 dazu, dass nun eben die Datenbankdatei bei einer Übertragung gesendet
 wird. Um jetzt eine Übertragung zu beginnen, müssen die beiden Geräte
 „Rücken an Rücken“ gebracht werden und auf dem Sender muss der
@@ -403,27 +413,26 @@ Discovery* verbinden und mit verbundenen Geräten Daten austauschen.
 Bluetooth LE wird dabei erst ab Android 4.3 von der API unterstützt.[^6]
 
 In NameMemo gelangt man, nach entsprechender Auswahl, auf die
-BluetoothActivity, wo in *onCreate()* geprüft wird, ob das Gerät
-Bluetooth unterstützt. Ist dies der Fall, wird in *onStart()* noch
-kontrolliert, ob Bluetooth auch aktiviert ist und der Nutzer
-gegebenenfalls durch einen Dialog des Systems dazu aufgefordert dies
-nachzuholen. Wird dies abgelehnt, kehrt man wieder zur *MainActivity*
-zurück. Ist man allerdings erfolgreich in der Activity angekommen, wird
-ein neuer **„Server“** gestartet und es wird gleichzeitig eine Liste mit
-gekoppelten Geräten angezeigt. Alternativ hat man auch die Möglichkeit
-nach neuen Geräten zu suchen, wozu man sie erst sichtbar schalten muss.
-Wird ein Eintrag aus der Liste ausgewählt, wird der eigene **Server
-**geschlossen und es wird ein **„Client“** erstellt, welcher dann
-versucht mit dem **Server** der anderen Partei eine **Verbindung**
-herzustellen.
+BluetoothActivity, wo in onCreate() geprüft wird, ob das Gerät Bluetooth
+unterstützt. Ist dies der Fall, wird in onStart() noch kontrolliert, ob
+Bluetooth auch aktiviert ist und der Nutzer gegebenenfalls durch einen
+Dialog des Systems dazu aufgefordert dies nachzuholen. Wird dies
+abgelehnt, kehrt man wieder zur MainActivity zurück. Ist man allerdings
+erfolgreich in der Activity angekommen, wird ein neuer **„Server“**
+gestartet und es wird gleichzeitig eine Liste mit gekoppelten Geräten
+angezeigt. Alternativ hat man auch die Möglichkeit nach neuen Geräten zu
+suchen, wozu man sie erst sichtbar schalten muss. Wird ein Eintrag aus
+der Liste ausgewählt, wird der eigene **Server **geschlossen und es wird
+ein **„Client“** erstellt, welcher dann versucht mit dem **Server** der
+anderen Partei eine **Verbindung** herzustellen.
 
 Doch nun zu den Details: Da eine Verbindung via Bluetooth keine
 Server-Client-, sondern eine Peer-to-Peer-Verbindung ist, werden in dem
 Sinne keine echten Server oder Clients erstellt. Die verwendeten
 Begriffe dienen nur zur Veranschaulichung der eingenommenen Rolle. So
-wird im *onStart()* der Activity ein Thread gestartet, welcher nach
-einer eingehenden Verbindung lauscht (*AcceptThread*). Wird aber auf
-einen Listeneintrag getippt, wird dieser Thread geschlossen und es wird
+wird im onStart() der Activity ein Thread gestartet, welcher nach einer
+eingehenden Verbindung lauscht (*AcceptThread*). Wird aber auf einen
+Listeneintrag getippt, wird dieser Thread geschlossen und es wird
 stattdessen einer gestartet, dessen Aufgabe es ist, mit dem AcceptThread
 einer anderen Instanz Kontakt aufzunehmen und eine Verbindung aufzubauen
 (*Connect Thread*). Diese Verbindung besteht dann in einem weiteren
@@ -589,10 +598,9 @@ Es wird ein grau auf schwarzes Design für die Actionbar umgesetzt. Ein
 Grund für das Legen der Menüelemente in die Actionbar ist die einfachere
 Erreichbarkeit als im Action Overflow, ein anderer ist eine Verbesserung
 des Designs. Um die vier Einträge alle anzeigen zu können, muss in der
-*menubar.xml* für die entsprechenden Items der Eintrag
-*app:showAsAction* auf *always* gesetzt werden, da Android bei einer
-Verwendung von *ifRoom* mehr Einträge in den Overflow verschiebt als
-nötig.
+menubar.xml für die entsprechenden Items der Eintrag app:showAsAction
+auf *always* gesetzt werden, da Android bei einer Verwendung von
+*ifRoom* mehr Einträge in den Overflow verschiebt als nötig.
 
 6.3 Fixierung der Orientierung
 ------------------------------
@@ -626,6 +634,21 @@ aufgrund der vielen Dialoge, deutlich erhöhen. In einer früheren Version
 der Anwendung wurde dieser Weg bereits getestet, dann aber aufgrund der
 oben genannten Punkte verworfen und die Orientierung im AndroidManifest
 auf *portrait* festgesetzt.
+
+6.4 Durchgehen der Bilder
+-------------------------
+
+Beim Durchwechseln der Bilder gab es zu Beginn zwei Möglichkeiten: Das
+Verwenden von Buttons (siehe jetzige Implementierung) oder das Verwenden
+einer ???-Activity, wodurch man durch Wischen des Bildschirms auf die
+entsprechende Seite eine Zustimmung oder Ablehnung signalisiert
+(entsprechend den *Ja* und *Nein* Buttons). Wie man in [Punkt
+2](#2. Grundfunktionen des Programms|outline) sehen kann, wurde erstere
+Variante umgesetzt. Die Begründung hierfür ist zum einen die, dass sich
+der Nutzer bei der jetzigen Implementierung länger mit den einzelnen
+Bildern auseinander setzen muss, da er zwei Aktionen ausführen muss um
+zum nächsten Bild zu kommen, was den Lernprozess fördert. Zudem soll
+eine Verwechslung der Anwendung mit einer Dating-App vermieden werden.
 
 7. Danksagungen
 ===============
@@ -702,6 +725,16 @@ aufgerufen am 23.10.2016
 
 9. Eidesstattliche Erklärung
 ============================
+
+Ich erkläre, dass ich die Seminararbeit ohne fremde Hilfe angefertigt
+und nur die im Literaturverzeichnis aufgeführten Quellen und Hilfsmittel
+verwendet habe.
+
+Ingolstadt, den 07. November 2016
+
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+(Unterschrift)
 
 [^1]: BUMP
 

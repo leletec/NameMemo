@@ -75,7 +75,7 @@ public class SettingsDAO {
 	 * Delete the whole table.
 	 */
 	public void clean() {
-		database.delete(TablePictures.NAME, null, null);
+		database.delete(TableSettings.NAME, null, null);
 		database.close();
 	}
 }

@@ -34,14 +34,14 @@ public class NfcActivity extends Net {
 
 		// Check if NFC is supported
 		if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_NFC) || adapter == null) {
-			Toast.makeText(context, "This device does not support NFC", Toast.LENGTH_LONG).show();
+			Toast.makeText(context, R.string.noNFC, Toast.LENGTH_LONG).show();
 			finish();
 			return;
 		}
 		
 		//Check if Android Beam file transfer is supported
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
-			Toast.makeText(context, "This device does not support Android Beam", Toast.LENGTH_LONG).show();
+			Toast.makeText(context, R.string.noAndroidBeam, Toast.LENGTH_LONG).show();
 			finish();
 			return;
 		}
@@ -70,7 +70,7 @@ public class NfcActivity extends Net {
 		//Force user to enable NFC and Android Beam
 		if (!(adapter.isEnabled() && adapter.isNdefPushEnabled())) {
 			startActivity(new Intent(android.provider.Settings.ACTION_NFC_SETTINGS));
-			Toast.makeText(this, "Please enable NFC and AndroidBeam", Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.enableNFC, Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -84,6 +84,7 @@ public class NfcActivity extends Net {
 		Uri fileUri = Uri.fromFile(dbFile);
 		if (fileUri == null) {
 			Log.e("NFC", "No File URI available for file.");
+			Toast.makeText(this, R.string.readErr, Toast.LENGTH_LONG).show();
 			finish();
 			return;
 		}

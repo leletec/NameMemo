@@ -63,4 +63,7 @@
     <string name="emptyDb">Die Datenbank ist leer.\nLade Beispielkatze</string>
     <string name="addPicGallery">Bilder über Gallerie hinzufügen</string>
     <string name="alreadyThere">Die Datei wird bereits von der App verwendet</string>
+    <string name="noNFC">Dieses Gerät unterstützt NFC nicht!</string>
+    <string name="noAndroidBeam">Dieses Gerät unterstützt Android Beam nicht!</string>
+    <string name="enableNFC">Aktivieren Sie bitte NFC und Android Beam!</string>
 </resources>

@@ -139,7 +139,7 @@ public class BluetoothActivity extends Net {
 		// Show paired devices
 		devTv.setText(R.string.btShowPaired);
 		Set<BluetoothDevice> pairedDevices = adapter.getBondedDevices();
-		devList = new ArrayList<BluetoothDevice>();
+		devList = new ArrayList<>();
 		
 		if (pairedDevices.size() > 0) {
 			for (BluetoothDevice device : pairedDevices) {

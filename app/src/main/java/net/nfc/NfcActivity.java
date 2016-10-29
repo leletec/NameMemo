@@ -31,17 +31,19 @@ public class NfcActivity extends Net {
 		setContentView(R.layout.activity_nfc);
 		Button bImport = (Button) findViewById(R.id.bImport);
 		adapter = NfcAdapter.getDefaultAdapter(context);
-		
+
 		// Check if NFC is supported
 		if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_NFC) || adapter == null) {
 			Toast.makeText(context, "This device does not support NFC", Toast.LENGTH_LONG).show();
 			finish();
+			return;
 		}
 		
 		//Check if Android Beam file transfer is supported
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
 			Toast.makeText(context, "This device does not support Android Beam", Toast.LENGTH_LONG).show();
 			finish();
+			return;
 		}
 		
 		bImport.setOnClickListener(new OnClickListener() {
@@ -80,11 +82,12 @@ public class NfcActivity extends Net {
 		Uri[] fileUris = new Uri[1];
 		dbFile.setReadable(true, false);
 		Uri fileUri = Uri.fromFile(dbFile);
-		if (fileUri != null) {
-			fileUris[0] = fileUri;
-		} else {
+		if (fileUri == null) {
 			Log.e("NFC", "No File URI available for file.");
+			finish();
+			return;
 		}
+		fileUris[0] = fileUri;
 		adapter.setBeamPushUris(fileUris, this);
 	}
 }

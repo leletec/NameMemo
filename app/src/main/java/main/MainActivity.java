@@ -455,10 +455,10 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 					public void onClick(DialogInterface dialog, int which) {
 						EditText name = (EditText) ((AlertDialog) dialog)
 								.findViewById(R.id.etName);
-						if (f == null)
+						if (f == null) {
 							if (!pictureDb.add(cFile.getPath(), name.getText().toString()))
 								Toast.makeText(context, R.string.alreadyThere, Toast.LENGTH_SHORT).show();
-						else {
+						} else {
 							File dst = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + app_name, f.getName());
 							String path = dst.getAbsolutePath();
 							if (!f.getAbsolutePath().equals(path))

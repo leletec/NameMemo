@@ -68,7 +68,9 @@ public class SettingsDAO {
 	public int get(String identifier) {
 		Cursor c = database.query(TableSettings.NAME, new String[] {"value"}, "identifier = '" + identifier + "'", null, null, null, null);
 		c.moveToFirst();
-		return c.getInt(0);
+		int v = c.getInt(0);
+		c.close();
+		return v;
 	}
 
 	/**
@@ -76,6 +78,7 @@ public class SettingsDAO {
 	 */
 	public void clean() {
 		database.delete(TableSettings.NAME, null, null);
+		close();
 		database.close();
 	}
 }

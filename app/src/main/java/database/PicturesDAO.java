@@ -97,15 +97,14 @@ public class PicturesDAO {
 	 */
 	public List<Picture> getAllPics() {
 		List<Picture> pictures = new ArrayList<Picture>();
-		Cursor cursor = database.query(TablePictures.NAME, null, null, null, null, null, null);
+		Cursor c = database.query(TablePictures.NAME, null, null, null, null, null, null);
 
-		cursor.moveToFirst();
-		while (!cursor.isAfterLast()) {
-			Picture picture = cursorToPictures(cursor);
-			pictures.add(picture);
-			cursor.moveToNext();
+		c.moveToFirst();
+		while (!c.isAfterLast()) {
+			pictures.add(cursorToPicture(c));
+			c.moveToNext();
 		}
-		cursor.close();
+		c.close();
 		return pictures;
 	}
 
@@ -115,7 +114,7 @@ public class PicturesDAO {
 	 * @param cursor	    Current position in the database.
 	 * @return			    An entry of the database.
 	 */
-	private Picture cursorToPictures(Cursor cursor) {
+	private Picture cursorToPicture(Cursor cursor) {
 		Picture picture = new Picture();
 		picture.setSource(cursor.getString(0));
 		picture.setName(cursor.getString(1));
@@ -140,6 +139,7 @@ public class PicturesDAO {
 	 */
 	public void clean() {
 		database.delete(TablePictures.NAME, null, null);
+		close();
 		database.close();
 	}
 }

@@ -1,4 +1,4 @@
-**Christoph-Scheiner-Gymnasium Ingolstadt**
+Christoph-Scheiner-Gymnasium Ingolstadt
 
 Seminararbeit
 
@@ -8,8 +8,8 @@ aus dem wissenschaftspropädeutischen Seminar
 
 im Fach Informatik
 
-**Erstellung einer Android-App zum Lernen von Namen\
-mit besonderem Augenmerk auf Datenaustausch mit anderen Systemen**
+Erstellung einer Android-App zum Lernen von Namen\
+mit besonderem Augenmerk auf Datenaustausch mit anderen Systemen
 
 angefertigt vonLeander Dreier
 
@@ -52,17 +52,17 @@ Datei](#4.3.3 Lesen einer externen Datei|outline)....... . 6
 Systemen](#5. Datenaustausch mit anderen Systemen|outline) ....... . 6
 
 5.1[Near Field Communication
-(NFC)](#5.1 Near Field Communication (NFC)|outline) ........ 6
+(NFC)](#5.1 Near Field Communication (NFC)|outline) ........ 7
 
-5.2[Bluetooth](#5.2 Bluetooth|outline)............ 7
+5.2[Bluetooth](#5.2 Bluetooth|outline)............ 9
 
 5.3[Server-](#5.3 Server-Client|outline)[Client](#5.3 Server-Client|outline)...........
-9
+10
 
 5.4[Vergleich und Fazit](#5.4 Vergleich und Fazit|outline).......... 10
 
 6.[Entscheidungen während des
-Projekts](#6. Entscheidungen während des Projekts|outline) ........ 11
+Projekts](#6. Entscheidungen während des Projekts|outline) ........ 12
 
 6.1[Strukturierung in Activities und
 Dialoge](#6.1 Strukturierung in Activities und Dialoge|outline).......
@@ -70,22 +70,20 @@ Dialoge](#6.1 Strukturierung in Activities und Dialoge|outline).......
 
 6.2[Gestaltung der
 ](#6.2 Gestaltung der Actionbar|outline)[Actionbar](#6.2 Gestaltung der Actionbar|outline).........
-12
+13
 
 6.3[Fixierung der
 ](#6.3 Fixierung der Orientierung|outline)[Orientierung](#6.3 Fixierung der Orientierung|outline).........
 13
 
-6.4[Algorithmu](#6.4 Algorithmus zum Durchgehen der Bilder|outline)[s
-zum Durchgehen der
-Bilder](#6.4 Algorithmus zum Durchgehen der Bilder|outline) ...... 13
+7.[Ausblick](#7. Ausblick|outline)............. 14
 
-7.[Danksagungen](#7. Danksagungen|outline).......... .. 15
+8.[Danksagungen](#8. Danksagungen|outline).......... ..
 
-8.[Literaturverzeichnis](#8. Literaturverzeichnis|outline)........... 15
+9.[Literaturverzeichnis](#9. Literaturverzeichnis|outline)...........
 
-9.[Eidesstattliche Erklärung](#9. Eidesstattliche Erklärung|outline)
-.......... 17
+10.[Eidesstattliche Erklärung
+](#10. Eidesstattliche Erklärung|outline)..........
 
 1. Einleitung
 =============
@@ -635,22 +633,54 @@ der Anwendung wurde dieser Weg bereits getestet, dann aber aufgrund der
 oben genannten Punkte verworfen und die Orientierung im AndroidManifest
 auf *portrait* festgesetzt.
 
-6.4 Durchgehen der Bilder
--------------------------
+7. Ausblick
+===========
 
-Beim Durchwechseln der Bilder gab es zu Beginn zwei Möglichkeiten: Das
-Verwenden von Buttons (siehe jetzige Implementierung) oder das Verwenden
-einer ???-Activity, wodurch man durch Wischen des Bildschirms auf die
-entsprechende Seite eine Zustimmung oder Ablehnung signalisiert
-(entsprechend den *Ja* und *Nein* Buttons). Wie man in [Punkt
-2](#2. Grundfunktionen des Programms|outline) sehen kann, wurde erstere
-Variante umgesetzt. Die Begründung hierfür ist zum einen die, dass sich
-der Nutzer bei der jetzigen Implementierung länger mit den einzelnen
-Bildern auseinander setzen muss, da er zwei Aktionen ausführen muss um
-zum nächsten Bild zu kommen, was den Lernprozess fördert. Zudem soll
-eine Verwechslung der Anwendung mit einer Dating-App vermieden werden.
+Wie bereits in der Einleitung erwähnt, kann die App, in leicht
+veränderter Form, auch zu anderen Zwecken eingesetzt werden.
 
-7. Danksagungen
+&lt;TODO: Einleitung&gt;
+
+Dabei ändern sich die Anforderungen an das Programm wie folgt:
+
+Zu Beginn der Arbeit mit den Patienten ist es sinnvoll, eine, für alle
+gleichbleibende, Grundlage an Bildern gegeben zu haben, um Ergebnisse
+einfacher miteinander vergleichen zu können. Somit werden also beim
+ersten Start der App bereits einige Datensätze in die Datenbank
+eingetragen sein (vergleiche Beispielkatze aktuell). Diese Bilder
+enthalten dann besonders einfach zu erkennende Darstellungen, wie
+beispielsweise Emojis oder Emoticons, wodurch auch die Größe der
+Anwendung nicht zu sehr zunimmt. Im Laufe der Therapie können dann, wie
+jetzt auch, individuell Datensätze hinzugefügt werden.
+
+Beim Abarbeiten der Einträge bieten sich ebenfalls neue Vorgehensweisen
+an: Der Glückwunschdialog, welcher erscheint, sobald man in diesem Fall
+eine Emotion korrekt betiteln konnte, soll zur besseren Nachverfolgung
+nicht die Möglichkeit bieten, den entsprechenden Eintrag zu löschen,
+sondern lediglich einen motivierenden Highscore anzeigen. Zu diesem
+Zweck ist auch das Speichern zusätzlicher Daten in der Datenbank
+vonnöten, wie die höchste bisherige Kette an richtigen Zuordnungen.
+Darüber hinaus ist das Sichern der Gesamtzahl der bisherigen korrekten
+Zuordnungen eines Eintrages neben der Zahl der Aufrufe insgesamt
+hilfreich, um eine Angabe über die relative Häufigkeit richtiger und
+falscher Zuordnungen produzieren zu können. Solche Werte können dann, in
+einer Statistik aufbereitet, ausgegeben werden.
+
+Je nachdem, wie verlässlich der Patient ist, kann es sinnvoll sein,
+Nebenfunktionen der Anwendung, wie das Ändern von Einstellungen, nur der
+behandelnden Kraft zugängig zu machen. Dies wird durch einen
+zusätzlichen Schalter in den Einstellungen erreicht, welcher mit einem
+PIN-Code gesichert wird. Um möglichst aussagekräftige Ergebnisse zu
+erzielen, kann es darüber hinaus sinnvoll sein, dass der Nutzer zu jedem
+Bild die zugehörige Emotion in ein Textfeld eingeben muss und nicht
+einfach mithilfe von Buttons zum nächsten Bild zu gelangen. Dieser
+Schritt schützt nicht nur vor Betrügen des Patienten, man kann somit
+auch die inkorrekten Eingaben abspeichern und später auswerten.
+
+Um die Schwierigkeit zusätzlich zu erhöhen, bietet sich noch an, nur
+Ausschnitte der Gesichter, wie die Augen- oder Mundpartie zu zeigen.
+
+8. Danksagungen
 ===============
 
 - Dominik Okwieka
@@ -659,7 +689,7 @@ eine Verwechslung der Anwendung mit einer Dating-App vermieden werden.
 
 - StackOverflow
 
-8. Literaturverzeichnis
+9. Literaturverzeichnis
 =======================
 
 BUMP Technologies: *Glide*,
@@ -723,8 +753,8 @@ ANDROID Open Source Project: *SharedPreferences*,
 <https://developer.android.com/reference/android/content/SharedPreferences.html>,
 aufgerufen am 23.10.2016
 
-9. Eidesstattliche Erklärung
-============================
+10. Eidesstattliche Erklärung
+=============================
 
 Ich erkläre, dass ich die Seminararbeit ohne fremde Hilfe angefertigt
 und nur die im Literaturverzeichnis aufgeführten Quellen und Hilfsmittel
@@ -732,9 +762,9 @@ verwendet habe.
 
 Ingolstadt, den 07. November 2016
 
-\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
-(Unterschrift)
+(Leander Dreier)
 
 [^1]: BUMP
 

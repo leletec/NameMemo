@@ -1,11 +1,11 @@
 package design;
 
-import java.util.ArrayList;
-
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
 
 /**
  * ListAdapter for BluetoothActivity.

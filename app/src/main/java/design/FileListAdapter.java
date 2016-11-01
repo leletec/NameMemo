@@ -1,11 +1,11 @@
 package design;
 
-import java.io.File;
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.io.File;
+import java.util.ArrayList;
 
 /**
  * ListAdapter for AddPicFromStorageDialog().

@@ -1,12 +1,13 @@
 package net.bluetooth;
 
+import android.bluetooth.BluetoothSocket;
+
+import net.Net;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
-import net.Net;
-import android.bluetooth.BluetoothSocket;
 
 /**
  * Thread to handle a bluetooth connection.

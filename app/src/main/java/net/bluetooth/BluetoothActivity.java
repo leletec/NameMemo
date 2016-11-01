@@ -1,15 +1,5 @@
 package net.bluetooth;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Set;
-import java.util.UUID;
-
-import net.Net;
-import de.leletec.namememo.R;
-import design.BTListAdapter;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
@@ -26,6 +16,18 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import net.Net;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.UUID;
+
+import de.leletec.namememo.R;
+import design.BTListAdapter;
 
 /**
  * https://developer.android.com/guide/topics/connectivity/bluetooth.html

@@ -1,12 +1,12 @@
 package net.bluetooth;
 
-import java.io.IOException;
-import java.util.UUID;
-
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.util.Log;
+
+import java.io.IOException;
+import java.util.UUID;
 
 /**
  * Thread for bluetooth client.

@@ -1,12 +1,5 @@
 package database;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import net.Net;
-import de.leletec.namememo.R;
-import design.DbListAdapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -16,6 +9,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+
+import net.Net;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import de.leletec.namememo.R;
+import design.DbListAdapter;
 
 /**
  * Helps to import entries of a new database to your existing one

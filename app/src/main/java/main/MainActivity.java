@@ -1,16 +1,5 @@
 package main;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-import net.bluetooth.BluetoothActivity;
-import net.nfc.NfcActivity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -27,6 +16,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Display;
@@ -45,16 +36,26 @@ import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide; /* https://inthecheesefactory.com/blog/get-to-know-glide-recommended-by-google/en */
+
+import net.bluetooth.BluetoothActivity;
+import net.nfc.NfcActivity;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import database.Picture;
 import database.PicturesDAO;
 import database.SettingsDAO;
 import de.leletec.namememo.R;
 import design.FileListAdapter;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-
-/** https://inthecheesefactory.com/blog/get-to-know-glide-recommended-by-google/en */
-import com.bumptech.glide.Glide;
 
 import static de.leletec.namememo.R.menu.menubar;
 

@@ -1,11 +1,12 @@
 package design;
 
-import java.util.ArrayList;
-
-import database.Picture;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+
+import database.Picture;
 
 /**
  * ListAdapter for ImportNewDb.

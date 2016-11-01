@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLHierarchy</id>
+    <coordinates>
+      <x>860</x>
+      <y>200</y>
+      <w>280</w>
+      <h>500</h>
+    </coordinates>
+    <panel_attributes>type=Package
+app
+	manifests
+	java
+		database
+		design
+		main
+		net
+			bluetooth
+			nfc
+	res
+		layout
+		menu
+		mipmap
+		raw
+		values
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

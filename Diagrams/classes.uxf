@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>9</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>162</x>
+      <y>90</y>
+      <w>387</w>
+      <h>369</h>
+    </coordinates>
+    <panel_attributes>main::MainActivity
+--
+...
+--
+#onCreate(Bundle savedInstanceState): void
+#onStart(): void
++onStop(): void
++onCreateOptionsMenu(Menu menu): boolean
++onOptionsItemSelected(MenuItem item): boolean
+#onActivityResult(int requestCode, int resultCode, Intent data): void
++onClick(View view): void
+-copyExamplePics(File dir): void
+-resetToFactory(): void
+-showNext(): void
+-loadPictures(): void
+-isExternalStorageReadable(): boolean
+-cameraIntent(): void
+-deleteDialog(final String source, String name): void
+-infoDialog(): void
+-missingFileDialog(final String source, String name): void
+-newShotDialog(final File f): void
+-addPicFromStorageDialog(): void
+-AddPicFromStorageDialog(final File dir): void
+-previewDialog(final File file, final File dir): void
+-settingsDialog(): void
+-connDialog(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>558</x>
+      <y>90</y>
+      <w>387</w>
+      <h>252</h>
+    </coordinates>
+    <panel_attributes>net.bluetooth::BluetoothActivity
+--
+...
+--
+#onCreate(Bundle savedInstanceState): void
+#onStart(): void
+#onDestroy(): void
+-ensureDiscoverable(): void
+#onActivityResult(int requestCode, int resultCode, Intent data): void
++onCreateOptionsMenu(Menu menu): boolean
++onOptionsItemSelected(MenuItem item): boolean
++setup(): void
+-discover(): void
+-amendList(BluetoothDevice device): void
++send(): void
++connected(): void
++setHandler(HandleThread handler): void
++receiveDb(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>954</x>
+      <y>90</y>
+      <w>162</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>database::Picture
+--
+-source: String
+-name: String
+-called: int
+-inarow: int
+-showAs: String
+--
+~Picture(): ctor
++equals(Object o): boolean
+...
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1125</x>
+      <y>90</y>
+      <w>468</w>
+      <h>135</h>
+    </coordinates>
+    <panel_attributes>database::ImportNewDb
+--
+...
+--
++ImportNewDb(Net activity, Context context, String oldPath, String impPath): ctor
+-openDb(): void
++lookForNew(): void
++lookForUpdate(): void
+-dialog(final String mode): void
+-search(List&lt;Picture&gt; list, Picture pic): Picture
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1602</x>
+      <y>90</y>
+      <w>369</w>
+      <h>225</h>
+    </coordinates>
+    <panel_attributes>database::PicturesDAO
+--
+#database: SQLiteDatabase
+-helper: MySQLiteHelper
+--
++PicturesDAO(Context context): ctor
++open(): void
+-close(): void
++add(String source, String name): boolean
++add(Picture pic): boolean
++update(String source, String name, int called, int inarow): void
+~update(Picture pic): void
++getAllPics(): List&lt;Picture&gt;
+-cursorToPicture(Cursor cursor): Picture
++delete(String source): void
++clean(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>162</x>
+      <y>468</y>
+      <w>216</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>database::SettingsDAO
+--
+-database: SQLiteDatabase
+-helper: MySQLiteHelper
+--
++SettingsDAO(Context context): ctor
++open(): void
+-close(): void
++init(): void
+-add(String identifier, int value): void
++set(String identifier, int value): void
++get(String identifier): int
++clean(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>558</x>
+      <y>351</y>
+      <w>387</w>
+      <h>135</h>
+    </coordinates>
+    <panel_attributes>/design::AbstractListAdapter/
+--
+#list: ArrayList&lt;E&gt;
+#context: Context
+--
+~AbstractListAdapter(Context context, ArrayList&lt;E&gt; list): ctor
++getCount(): int
++getItem(int position): Object
++getItemId(int position): long
++getView(int position, View convertView, ViewGroup parent): View
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>954</x>
+      <y>351</y>
+      <w>405</w>
+      <h>135</h>
+    </coordinates>
+    <panel_attributes>net.bluetooth::HandleThread
+--
+-in: InputStream
+-out: OutputStream
+-activity: BluetoothActivity
+-receiving: boolean
+--
+~HandleThread(BluetoothSocket sock, BluetoothActivity activity): ctor
++run(): void
+~sendDb(byte[] bytes): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1368</x>
+      <y>351</y>
+      <w>261</w>
+      <h>135</h>
+    </coordinates>
+    <panel_attributes>/net::Net/
+--
+#dbName: String
+#dbFile: File
++importFile: File
+-context: Context
+--
+#onCreate(Bundle savedInstanceState): void
++send(): void
+#receive(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1638</x>
+      <y>351</y>
+      <w>396</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>database::MySQLiteHelper
+--
++DATABASENAME = "NameMemo": String
+-pictures = new TablePictures(): TablePictures
+-settings = new TableSettings(): TableSettings
+--
+~MySQLiteHelper(Context context): ctor
++onCreate(SQLiteDatabase db): void
++onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>387</x>
+      <y>495</y>
+      <w>567</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>net.bluetooth::AcceptThread
+--
+-srvSock: BluetoothServerSocket
+-activity: BluetoothActivity
+--
+~AcceptThread(BluetoothAdapter adapter, String name, UUID uuid, BluetoothActivity activity): ctor
++run(): void
+~cancel(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>963</x>
+      <y>495</y>
+      <w>639</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>net.bluetooth::ConnectThread
+--
+-sock: BluetoothSocket
+-adapter: BluetoothAdapter
+-activity: BluetoothActivity
+--
+~ConnectThread(BluetoothAdapter adapter, BluetoothDevice device, UUID uuid, BluetoothActivity activity): ctor
++run(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1197</x>
+      <y>234</y>
+      <w>261</w>
+      <h>108</h>
+    </coordinates>
+    <panel_attributes>net.nfc::NfcActivity
+--
+-adapter: NfcAdapter
+-context = this: Context
+--
+#onCreate(Bundle savedInstanceState): void
+#onStart(): void
++send(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>954</x>
+      <y>252</y>
+      <w>234</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>/main::Helper/
+--
+--
+~copyFile(File src, File dst): void
+~copyFile(InputStream in, File dst): void
++moveFile(File src, File dst): void
+~getOutputMediaFile(String dir): File
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>387</x>
+      <y>612</y>
+      <w>405</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>design::BTListAdapter
+--
+--
++BTListAdapter(Context context, ArrayList&lt;BluetoothDevice&gt; list): ctor
++getView(int position, View convertView, ViewGroup parent): View
++add(BluetoothDevice device): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>801</x>
+      <y>612</y>
+      <w>225</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>database::TablePictures
+--
+~NAME = "pictures": String
+--
+~onCreate(SQLiteDatabase db): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1035</x>
+      <y>612</y>
+      <w>225</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>database::TableSettings
+--
+~NAME = "settings": String
+--
+~onCreate(SQLiteDatabase db): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1269</x>
+      <y>612</y>
+      <w>387</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>design::DbListAdapter
+--
+--
++DbListAdapter(Context context, ArrayList&lt;Picture&gt; list): ctor
++getView(int position, View convertView, ViewGroup parent): View
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1665</x>
+      <y>612</y>
+      <w>387</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>design::FileListAdapter
+--
+--
++FileListAdapter(Context context, ArrayList&lt;File&gt; list): ctor
++getView(int position, View convertView, ViewGroup parent): View
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

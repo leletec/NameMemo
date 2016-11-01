@@ -4,8 +4,8 @@
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>40</x>
-      <y>120</y>
+      <x>190</x>
+      <y>150</y>
       <w>100</w>
       <h>40</h>
     </coordinates>
@@ -16,8 +16,8 @@ bg=red</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>40</x>
-      <y>220</y>
+      <x>190</x>
+      <y>250</y>
       <w>100</w>
       <h>40</h>
     </coordinates>
@@ -76,8 +76,8 @@ bg=orange</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>40</x>
-      <y>170</y>
+      <x>190</x>
+      <y>200</y>
       <w>100</w>
       <h>40</h>
     </coordinates>
@@ -223,8 +223,8 @@ bg=blue</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>40</x>
-      <y>270</y>
+      <x>190</x>
+      <y>300</y>
       <w>100</w>
       <h>40</h>
     </coordinates>
@@ -262,8 +262,8 @@ bg=green</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>240</x>
-      <y>180</y>
+      <x>390</x>
+      <y>210</y>
       <w>280</w>
       <h>30</h>
     </coordinates>
@@ -341,8 +341,8 @@ r1=NFC und/oder Android Beam nicht aktiviert</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>160</x>
-      <y>210</y>
+      <x>310</x>
+      <y>240</y>
       <w>90</w>
       <h>30</h>
     </coordinates>
@@ -435,8 +435,8 @@ Bluetooth nicht aktiviert</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>160</x>
-      <y>240</y>
+      <x>310</x>
+      <y>270</y>
       <w>90</w>
       <h>30</h>
     </coordinates>
@@ -674,8 +674,8 @@ m1=Zustimmung</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>160</x>
-      <y>180</y>
+      <x>310</x>
+      <y>210</y>
       <w>90</w>
       <h>30</h>
     </coordinates>
@@ -718,8 +718,8 @@ m1=Zustimmung</panel_attributes>
   <element>
     <id>UMLObject</id>
     <coordinates>
-      <x>10</x>
-      <y>10</y>
+      <x>170</x>
+      <y>40</y>
       <w>710</w>
       <h>320</h>
     </coordinates>
@@ -730,8 +730,8 @@ valign=top</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>30</x>
-      <y>30</y>
+      <x>180</x>
+      <y>60</y>
       <w>690</w>
       <h>80</h>
     </coordinates>
@@ -745,8 +745,8 @@ valign=top</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>240</x>
-      <y>210</y>
+      <x>390</x>
+      <y>240</y>
       <w>470</w>
       <h>30</h>
     </coordinates>
@@ -756,8 +756,8 @@ valign=top</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>240</x>
-      <y>240</y>
+      <x>390</x>
+      <y>270</y>
       <w>240</w>
       <h>30</h>
     </coordinates>
@@ -802,8 +802,8 @@ bg=#FFE1FF</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>150</x>
-      <y>120</y>
+      <x>300</x>
+      <y>150</y>
       <w>30</w>
       <h>200</h>
     </coordinates>

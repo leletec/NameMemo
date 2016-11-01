@@ -15,8 +15,7 @@ public class ConnectThread extends Thread {
 	private final BluetoothSocket sock;
 	private final BluetoothAdapter adapter;
 	private final BluetoothActivity activity;
-	private HandleThread conn;
-	
+
 	ConnectThread(BluetoothAdapter adapter, BluetoothDevice device, UUID uuid, BluetoothActivity activity) {
 		this.activity = activity;
 		// Use a temporary object that is later assigned to sock, because sock is final
@@ -27,7 +26,9 @@ public class ConnectThread extends Thread {
 		try {
 			Log.d("BT", "Device: " + device.getName() + " | " + device.getAddress());
 			tmp = device.createInsecureRfcommSocketToServiceRecord(uuid); // Same UUID in server and client
-		} catch (IOException e) {}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		sock = tmp;
 	}
 	
@@ -36,7 +37,9 @@ public class ConnectThread extends Thread {
 		adapter.cancelDiscovery();
 		try {
 			Thread.sleep(1000);
-		} catch (InterruptedException e) {}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
 		try {
 			// Connect the device through the socket. This will block until it succeeds or throws an exception
@@ -46,12 +49,14 @@ public class ConnectThread extends Thread {
 			// Unable to connect; close the socket and get out
 			try {
 				sock.close();
-			} catch (IOException closeException) { }
+			} catch (IOException closeException) {
+				closeException.printStackTrace();
+			}
 			return;
 		}
 
 		Log.d("BT", "Connect sock " + sock);
-		conn = new HandleThread(sock, activity);
+		HandleThread conn = new HandleThread(sock, activity);
 		conn.start();
 		activity.runOnUiThread(new Runnable() {
 			@Override

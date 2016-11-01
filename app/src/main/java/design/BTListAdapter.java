@@ -29,9 +29,15 @@ public class BTListAdapter extends AbstractListAdapter<BluetoothDevice>{
 		return view;
 	}
 
+	/**
+	 * Add an item to the list
+	 *
+	 * @param device    item to be added
+	 */
 	public void add(BluetoothDevice device) {
 		list.add(device);
 	}
+
 	
 	private class BtView extends AbstractView {
 

@@ -20,7 +20,7 @@ public abstract class AbstractListAdapter<E> extends BaseAdapter{
 	protected ArrayList<E> list;
 	protected Context context;
 
-	public AbstractListAdapter(Context context, ArrayList<E> list) {
+	AbstractListAdapter(Context context, ArrayList<E> list) {
 		this.context = context;
 		this.list = list;
 	}

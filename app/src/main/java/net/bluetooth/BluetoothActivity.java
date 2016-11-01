@@ -35,7 +35,7 @@ import design.BTListAdapter;
  * http://stackoverflow.com/questions/24573755/android-net.bluetooth-socket-connect-fails
  */
 public class BluetoothActivity extends Net {
-	private static final int REQUEST_ENABLE_BT = 200;
+	private static final int REQUEST_ENABLE_BT = 300;
 	private static final String name = "NameMemo";
 	private static final UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 	
@@ -44,7 +44,6 @@ public class BluetoothActivity extends Net {
 	private BluetoothAdapter adapter;
 	private ListView devLv;
 	private TextView devTv;
-	private ArrayList<BluetoothDevice> devList;
 	private AcceptThread srv;
 	private ConnectThread client;
 	private Button bSend;
@@ -141,7 +140,7 @@ public class BluetoothActivity extends Net {
 		// Show paired devices
 		devTv.setText(R.string.btShowPaired);
 		Set<BluetoothDevice> pairedDevices = adapter.getBondedDevices();
-		devList = new ArrayList<>();
+		ArrayList<BluetoothDevice> devList = new ArrayList<>();
 		
 		if (pairedDevices.size() > 0) {
 			for (BluetoothDevice device : pairedDevices) {

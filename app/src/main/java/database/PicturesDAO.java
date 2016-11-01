@@ -26,7 +26,7 @@ public class PicturesDAO {
 		database = helper.getWritableDatabase();
 	}
 
-	public void close() {
+	private void close() {
 		helper.close();
 	}
 
@@ -83,7 +83,7 @@ public class PicturesDAO {
 	 *
 	 * @param pic       the Picture
 	 */
-	public void update(Picture pic) {
+	void update(Picture pic) {
 		ContentValues values = new ContentValues();
 		values.put("source", pic.getSource());
 		values.put("name", pic.getName());
@@ -96,7 +96,7 @@ public class PicturesDAO {
 	 * @return A list of all entries in the database.
 	 */
 	public List<Picture> getAllPics() {
-		List<Picture> pictures = new ArrayList<Picture>();
+		List<Picture> pictures = new ArrayList<>();
 		Cursor c = database.query(TablePictures.NAME, null, null, null, null, null, null);
 
 		c.moveToFirst();

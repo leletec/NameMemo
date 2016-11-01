@@ -19,7 +19,7 @@ public abstract class Helper {
 	/**
 	 * Copy file from 'src' to 'dst'.
 	 */
-	public static void copyFile(File src, File dst) {
+	static void copyFile(File src, File dst) {
 		FileInputStream in = null;
 		try {
 			in = new FileInputStream(src);
@@ -36,10 +36,10 @@ public abstract class Helper {
 		}
 	}
 	
-	/**
-	 * @link http://stackoverflow.com/questions/9292954/how-to-make-a-copy-of-a-file-in-android#9293885
+	/*
+	 * http://stackoverflow.com/questions/9292954/how-to-make-a-copy-of-a-file-in-android#9293885
 	 */
-	public static void copyFile(InputStream in, File dst) {
+	static void copyFile(InputStream in, File dst) {
 		FileOutputStream out = null;
 		try {
 			out = new FileOutputStream(dst);
@@ -72,7 +72,7 @@ public abstract class Helper {
 	/**
 	 * Create a time-coded File for saving an image.
 	 */
-	public static File getOutputMediaFile(String dir) {
+	static File getOutputMediaFile(String dir) {
 		File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), dir);
 		if (!mediaStorageDir.exists()) {
 			if (!mediaStorageDir.mkdirs()) {

@@ -30,6 +30,7 @@ public class DbListAdapter extends AbstractListAdapter<Picture> {
 		return view;
 	}
 
+
 	private class DbView extends AbstractView {
 
 		public DbView(Context context) {

@@ -28,7 +28,6 @@ public class ImportNewDb {
 	private ImportDAO dao;
 	private SQLiteDatabase oldDb; // Already existing db
 	private List<Picture> oldList; // Entries from the "old" db
-	private SQLiteDatabase impDb; // Imported db
 	private List<Picture> impList; // Entries from the imported db
 	private File impFile; // File of the imported db
 	private ArrayList<Picture> newEntries; // Entries to be shown in the dialog
@@ -50,6 +49,7 @@ public class ImportNewDb {
 	private void openDb() {
 		if (!new File(oldPath).exists() || !new File(impPath).exists()) return;
 		if ((oldDb = SQLiteDatabase.openDatabase(oldPath, null, SQLiteDatabase.OPEN_READWRITE)) == null) return;
+		SQLiteDatabase impDb; // Imported db
 		if ((impDb = SQLiteDatabase.openDatabase(impPath, null, SQLiteDatabase.OPEN_READONLY)) == null) return;
 		dao = new ImportDAO(context);
 		oldList = dao.getAllPics(oldDb);
@@ -61,7 +61,7 @@ public class ImportNewDb {
 	 */
 	public void lookForNew() {
 		openDb();
-		newEntries = new ArrayList<Picture>();
+		newEntries = new ArrayList<>();
 		for (Picture pic : impList)
 			if (search(oldList, pic) == null) {
 				newEntries.add(pic);
@@ -75,7 +75,7 @@ public class ImportNewDb {
 	 */
 	public void lookForUpdate() {
 		openDb();
-		newEntries = new ArrayList<Picture>();
+		newEntries = new ArrayList<>();
 		Picture oldPic;
 		for (Picture newPic : impList)
 			if ((oldPic = search(oldList, newPic)) == null) {
@@ -98,7 +98,7 @@ public class ImportNewDb {
 		AlertDialog.Builder builder = new AlertDialog.Builder(context);
 		builder.setTitle(R.string.importDialogTitle);
 		builder.setMessage(R.string.importDialogMessage);
-		
+
 		DbListAdapter adapter = new DbListAdapter(context, newEntries);
 		ListView listview = new ListView(context);
 		listview.setAdapter(adapter);
@@ -119,19 +119,24 @@ public class ImportNewDb {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Picture pic = (Picture) parent.getItemAtPosition(position);
-				if (mode.equals("new")) {
+				switch (mode) {
+				case "new":
 					dao.add(oldDb, pic);
 					dialog.dismiss();
 					lookForNew();
-				}
-				else if (mode.equals("update")) {
+					break;
+				case "update":
 					if (pic.getShowAs().startsWith("New:"))
 						dao.add(oldDb, pic);
 					else if (pic.getShowAs().startsWith("Update:"))
 						dao.update(oldDb, pic);
 					dialog.dismiss();
 					lookForUpdate();
-				} else dialog.dismiss();
+					break;
+				default:
+					dialog.dismiss();
+					break;
+				}
 			}
 		});
 	}
@@ -153,7 +158,7 @@ public class ImportNewDb {
 	 */
 	private class ImportDAO extends PicturesDAO {
 
-		public ImportDAO(Context context) {
+		ImportDAO(Context context) {
 			super(context);
 		}
 		
@@ -162,12 +167,12 @@ public class ImportNewDb {
 			super.add(pic);
 		}
 		
-		public void update(SQLiteDatabase db, Picture pic) {
+		void update(SQLiteDatabase db, Picture pic) {
 			database = db;
 			super.update(pic);
 		}
 		
-		public List<Picture> getAllPics(SQLiteDatabase db) {
+		List<Picture> getAllPics(SQLiteDatabase db) {
 			database = db;
 			return super.getAllPics();
 		}

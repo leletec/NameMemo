@@ -61,7 +61,7 @@ import static de.leletec.namememo.R.menu.menubar;
 
 @SuppressWarnings("ResultOfMethodCallIgnored")
 @SuppressLint("InflateParams")
-/** http://stackoverflow.com/questions/26432544/missing-actionbar-in-material-design */
+/* http://stackoverflow.com/questions/26432544/missing-actionbar-in-material-design */
 public class MainActivity extends AppCompatActivity implements OnClickListener {
 	//Tables
 	private PicturesDAO pictureDb;
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 		loadPictures();
 		currentPicture = 0;
 
-		/** http://stackoverflow.com/questions/33162152/storage-permission-error-in-marshmallow */
+		/* http://stackoverflow.com/questions/33162152/storage-permission-error-in-marshmallow */
 		if (Build.VERSION.SDK_INT >= 23) {
 			if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
 				Log.v("setup", "Permission is granted");
@@ -129,14 +129,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 			Log.v("setup", "Permission is granted");
 		}
 
-		/** http://stackoverflow.com/questions/7655874/how-do-you-remove-the-title-text-from-the-android-actionbar */
+		/* http://stackoverflow.com/questions/7655874/how-do-you-remove-the-title-text-from-the-android-actionbar */
 		try {
 			getSupportActionBar().setDisplayShowTitleEnabled(false);
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
 
-		/** http://stackoverflow.com/questions/1016896/get-screen-dimensions-in-pixels */
+		/* http://stackoverflow.com/questions/1016896/get-screen-dimensions-in-pixels */
 		Display display = getWindowManager().getDefaultDisplay();
 		Point size = new Point();
 		display.getSize(size);
@@ -168,6 +168,92 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 		super.onStop();
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		getMenuInflater().inflate(menubar, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		/**
+		 * Loads two more example-pictures in the database.
+		 */
+		case R.id.addExamples:
+			File f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + app_name, "hund.jpg");
+			boolean d = pictureDb.add(f.getAbsolutePath(), "Hund");
+			f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + app_name, "hase.jpg");
+			boolean r = pictureDb.add(f.getAbsolutePath(), "Hase");
+
+			if (r && d)
+				Toast.makeText(this, "Beispielbilder wurden hinzugefügt", Toast.LENGTH_SHORT).show(); //XXX
+			else if (r || d)
+				Toast.makeText(this, "Beispielbild wurde hinzugefügt", Toast.LENGTH_SHORT).show(); //XXX
+			else
+				Toast.makeText(this, "Beispielbilder waren bereits vorhanden", Toast.LENGTH_SHORT).show(); //XXX
+
+			loadPictures();
+			return true;
+		case R.id.captureImage:
+			cameraIntent();
+			return true;
+		case R.id.infoDialog:
+			infoDialog();
+			return true;
+		case R.id.addNewPic:
+			addPicFromStorageDialog();
+			return true;
+		case R.id.connMenu:
+			connDialog();
+			return true;
+		case R.id.settingsMenu:
+			settingsDialog();
+		}
+		return false;
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (requestCode) {
+		case CAPTURE_IMAGE_REQUEST:
+			if (resultCode == RESULT_OK) {
+				Glide.with(this).load(cFile).override(ivWidth, ivHeight).into(image);
+				newShotDialog(null);
+			} else {
+				if (resultCode == RESULT_CANCELED)
+					Toast.makeText(this, R.string.canceled, Toast.LENGTH_SHORT).show();
+				else
+					Toast.makeText(this, R.string.failed, Toast.LENGTH_SHORT).show();
+			}
+			break;
+		case NEW_IMAGE_REQUEST:
+			if (resultCode == RESULT_OK && data != null && data.getData() != null) {
+				Uri uri = data.getData();
+				Log.d("gallery", "Path: " + uri.getPath());
+				File dst = Helper.getOutputMediaFile(app_name);
+				if (dst == null) {
+					Toast.makeText(this, R.string.writeErr, Toast.LENGTH_SHORT).show();
+					return;
+				}
+				try {
+					Bitmap bm = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+					Log.d("gallery", String.valueOf(bm));
+					OutputStream out = new FileOutputStream(dst);
+					bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
+				} catch (IOException e) {
+					e.printStackTrace();
+					Toast.makeText(this, R.string.failed, Toast.LENGTH_SHORT).show();
+					return;
+				}
+				newShotDialog(dst);
+			} else {
+				Toast.makeText(this, R.string.failed, Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
 	/**
 	 * Handles the three buttons:
 	 * Clicking the textbox while you only see the picture reveals the name and the Yes and No buttons.
@@ -178,37 +264,37 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 			Log.e("error", "currentPicture(" + currentPicture + ") is null");
 		else {
 			switch (view.getId()) {
-				case R.id.bText:
-					text.setText(pictures[currentPicture].getName());
-					yes.setVisibility(View.VISIBLE);
-					no.setVisibility(View.VISIBLE);
-					break;
-				case R.id.bJa:
-					pictureDb.update(pictures[currentPicture].getSource(),
-							pictures[currentPicture].getName(),
-							pictures[currentPicture].getCalled() + 1,
-							pictures[currentPicture].getInarow() + 1);
-					loadPictures();
-					Log.d("Picture", "name:" + pictures[currentPicture].getName()
-							+ " called:" + pictures[currentPicture].getCalled()
-							+ " in a row:" + pictures[currentPicture].getInarow());
-					if (pictures[currentPicture].getInarow() >= inarowReq)
-						deleteDialog(pictures[currentPicture].getSource(),
-								pictures[currentPicture].getName());
-					else
-						showNext();
-					break;
-				case R.id.bNein:
-					pictureDb.update(pictures[currentPicture].getSource(),
-							pictures[currentPicture].getName(),
-							pictures[currentPicture].getCalled() + 1,
-							0);
-					loadPictures();
-					Log.d("Picture", "name:" + pictures[currentPicture].getName()
-							+ " called:" + pictures[currentPicture].getCalled()
-							+ " in a row:" + pictures[currentPicture].getInarow());
+			case R.id.bText:
+				text.setText(pictures[currentPicture].getName());
+				yes.setVisibility(View.VISIBLE);
+				no.setVisibility(View.VISIBLE);
+				break;
+			case R.id.bJa:
+				pictureDb.update(pictures[currentPicture].getSource(),
+						pictures[currentPicture].getName(),
+						pictures[currentPicture].getCalled() + 1,
+						pictures[currentPicture].getInarow() + 1);
+				loadPictures();
+				Log.d("Picture", "name:" + pictures[currentPicture].getName()
+						+ " called:" + pictures[currentPicture].getCalled()
+						+ " in a row:" + pictures[currentPicture].getInarow());
+				if (pictures[currentPicture].getInarow() >= inarowReq)
+					deleteDialog(pictures[currentPicture].getSource(),
+							pictures[currentPicture].getName());
+				else
 					showNext();
-					break;
+				break;
+			case R.id.bNein:
+				pictureDb.update(pictures[currentPicture].getSource(),
+						pictures[currentPicture].getName(),
+						pictures[currentPicture].getCalled() + 1,
+						0);
+				loadPictures();
+				Log.d("Picture", "name:" + pictures[currentPicture].getName()
+						+ " called:" + pictures[currentPicture].getCalled()
+						+ " in a row:" + pictures[currentPicture].getInarow());
+				showNext();
+				break;
 			}
 		}
 	}
@@ -297,52 +383,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 		text.setText(R.string.showName);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-		getMenuInflater().inflate(menubar, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-			/**
-			 * Loads two more example-pictures in the database.
-			 */
-			case R.id.addExamples:
-				File f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + app_name, "hund.jpg");
-				boolean d = pictureDb.add(f.getAbsolutePath(), "Hund");
-				f = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + app_name, "hase.jpg");
-				boolean r = pictureDb.add(f.getAbsolutePath(), "Hase");
-
-				if (r && d)
-					Toast.makeText(this, "Beispielbilder wurden hinzugefügt", Toast.LENGTH_SHORT).show(); //XXX
-				else if (r || d)
-					Toast.makeText(this, "Beispielbild wurde hinzugefügt", Toast.LENGTH_SHORT).show(); //XXX
-				else
-					Toast.makeText(this, "Beispielbilder waren bereits vorhanden", Toast.LENGTH_SHORT).show(); //XXX
-
-				loadPictures();
-				return true;
-			case R.id.captureImage:
-				cameraIntent();
-				return true;
-			case R.id.infoDialog:
-				infoDialog();
-				return true;
-			case R.id.addNewPic:
-				addPicFromStorageDialog();
-				return true;
-			case R.id.connMenu:
-				connDialog();
-				return true;
-			case R.id.settingsMenu:
-				settingsDialog();
-		}
-		return false;
-	}
-
 	/**
 	 * Loads the array from the database and adds a cat picture if the database would otherwise be empty.
 	 */
@@ -367,6 +407,31 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 		for (Picture pic : pictures)
 			Log.d("loadPictures", pic + "loaded");
 		Log.d("loadPictures", "Arraylength: " + pictures.length);
+	}
+
+	/**
+	 * @return If external storage is available to at least read
+	 */
+	private boolean isExternalStorageReadable() {
+		String state = Environment.getExternalStorageState();
+		return (Environment.MEDIA_MOUNTED.equals(state) || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state));
+
+	}
+
+	/**
+	 * Creates a intent to take a new photo (to add to the database).
+	 */
+	private void cameraIntent() {
+		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+		if (!Environment.getExternalStorageState().equals(
+				Environment.MEDIA_MOUNTED)) {
+			Toast.makeText(this, R.string.writeErr, Toast.LENGTH_SHORT).show();
+			return;
+		}
+		cFile = Helper.getOutputMediaFile(app_name); // create a file to save the image
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(cFile)); // set the image file name
+		startActivityForResult(intent, CAPTURE_IMAGE_REQUEST);
 	}
 
 	/**
@@ -481,71 +546,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 	}
 
 	/**
-	 * @return If external storage is available to at least read
-	 */
-	private boolean isExternalStorageReadable() {
-		String state = Environment.getExternalStorageState();
-		return (Environment.MEDIA_MOUNTED.equals(state) || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state));
-
-	}
-
-	/**
-	 * Creates a intent to take a new photo (to add to the database).
-	 */
-	private void cameraIntent() {
-		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-		if (!Environment.getExternalStorageState().equals(
-				Environment.MEDIA_MOUNTED)) {
-			Toast.makeText(this, R.string.writeErr, Toast.LENGTH_SHORT).show();
-			return;
-		}
-		cFile = Helper.getOutputMediaFile(app_name); // create a file to save the image
-		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(cFile)); // set the image file name
-		startActivityForResult(intent, CAPTURE_IMAGE_REQUEST);
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		switch (requestCode) {
-		case CAPTURE_IMAGE_REQUEST:
-			if (resultCode == RESULT_OK) {
-				Glide.with(this).load(cFile).override(ivWidth, ivHeight).into(image);
-				newShotDialog(null);
-			} else {
-				if (resultCode == RESULT_CANCELED)
-					Toast.makeText(this, R.string.canceled, Toast.LENGTH_SHORT).show();
-				else
-					Toast.makeText(this, R.string.failed, Toast.LENGTH_SHORT).show();
-			}
-			break;
-		case NEW_IMAGE_REQUEST:
-			if (resultCode == RESULT_OK && data != null && data.getData() != null) {
-				Uri uri = data.getData();
-				Log.d("gallery", "Path: " + uri.getPath());
-				File dst = Helper.getOutputMediaFile(app_name);
-				if (dst == null) {
-					Toast.makeText(this, R.string.writeErr, Toast.LENGTH_SHORT).show();
-					return;
-				}
-				try {
-					Bitmap bm = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-					Log.d("gallery", String.valueOf(bm));
-					OutputStream out = new FileOutputStream(dst);
-					bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
-				} catch (IOException e) {
-					e.printStackTrace();
-					Toast.makeText(this, R.string.failed, Toast.LENGTH_SHORT).show();
-					return;
-				}
-				newShotDialog(dst);
-			} else {
-				Toast.makeText(this, R.string.failed, Toast.LENGTH_SHORT).show();
-			}
-		}
-	}
-
-	/**
 	 * This dialog lets the user walk through the directory tree, previewing and adding images with the help of previewDialog().
 	 */
 	private void addPicFromStorageDialog() {
@@ -554,7 +554,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 			return;
 		}
 		if (addPicGallery) {
-			/** http://codetheory.in/android-pick-select-image-from-gallery-with-intents/ */
+			/* http://codetheory.in/android-pick-select-image-from-gallery-with-intents/ */
 			Intent intent = new Intent();
 			intent.setType("image/*");
 			intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -592,7 +592,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 		listview.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
-									int position, long id) {
+			                        int position, long id) {
 				final File file = ((File) parent.getItemAtPosition(position));
 				String fname = file.getName();
 				if (fname.equals("..")) {

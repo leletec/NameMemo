@@ -29,6 +29,7 @@ public class FileListAdapter extends AbstractListAdapter<File> {
 		return view;
 	}
 
+
 	private class FileView extends AbstractView  {
 
 		public FileView(Context context) {

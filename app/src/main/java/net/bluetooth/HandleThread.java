@@ -65,7 +65,7 @@ public class HandleThread extends Thread {
 	 * Send your database to your opposite.
 	 * @param bytes the bytes of that db
 	 */
-	public void sendDb(byte[] bytes) {
+	void sendDb(byte[] bytes) {
 		try {
 			int chunkLength = 8192;
 			int pos = 0;

@@ -22,7 +22,7 @@ public class SettingsDAO {
 		database = helper.getWritableDatabase();
 	}
 
-	public void close() {
+	private void close() {
 		helper.close();
 	}
 

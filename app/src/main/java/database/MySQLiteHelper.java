@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class MySQLiteHelper extends SQLiteOpenHelper{
 
-	public static final String DATABASENAME = "ProjektDB";
+	public static final String DATABASENAME = "NameMemo";
 	private TablePictures pictures = new TablePictures();
 	private TableSettings settings = new TableSettings();
 

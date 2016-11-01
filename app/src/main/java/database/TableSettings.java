@@ -7,13 +7,12 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public class TableSettings {
 
-	public static final String NAME = "settings";
-	
-	private static String CREATESTATEMENT = "CREATE TABLE " + NAME
-			+ "(identifier TEXT PRIMARY KEY, "
-			+ "value INT NOT NULL);";
+	static final String NAME = "settings";
 
-	public void onCreate(SQLiteDatabase db) {
+	void onCreate(SQLiteDatabase db) {
+		String CREATESTATEMENT = "CREATE TABLE " + NAME
+				+ "(identifier TEXT PRIMARY KEY, "
+				+ "value INT NOT NULL);";
 		db.execSQL(CREATESTATEMENT);
 	}
 }

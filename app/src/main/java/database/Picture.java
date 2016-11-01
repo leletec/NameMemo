@@ -1,7 +1,7 @@
 package database;
 
 /**
- * TODO
+ * Class for the datasets related to the pictures
  */
 public class Picture {
 	private String source;
@@ -10,7 +10,7 @@ public class Picture {
 	private int inarow;
 	private String showAs;
 
-	public Picture() {}
+	Picture() {}
 
 	public String getSource() {
 		return source;
@@ -40,15 +40,15 @@ public class Picture {
 		this.name = name;
 	}
 
-	public void setCalled(int called) {
+	void setCalled(int called) {
 		this.called = called;
 	}
 
-	public void setInarow(int inarow) {
+	void setInarow(int inarow) {
 		this.inarow = inarow;
 	}
 
-	public void setShowAs(String showAs) {
+	void setShowAs(String showAs) {
 		this.showAs = showAs;
 	}
 

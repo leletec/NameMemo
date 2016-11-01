@@ -24,7 +24,6 @@
     <string name="nPicDialogMessage">Geben Sie den Namen ein der diesem Bild zugeordnet werden soll</string>
     <string name="cleanProject">App zurücksetzen</string>
     <string name="addNewPic">Neues Bild aus Datei hinzufügen</string>
-    <string name="notInList">Das gesuchte Gerät ist nicht in der Liste</string>
     <string name="importDialogTitle">Neue Datensätze:</string>
     <string name="importDialogMessage">Wählen Sie, welche Daten Sie übernehmen wollen</string>
     <string name="btConnected">Verbunden\nDrücken Sie Senden auf dem entsprechenden Gerät</string>
@@ -34,13 +33,11 @@
     <string name="btConnecting">Versuche Verbindung mit dem Gerät aufzubauen</string>
     <string name="btShowDiscovered">Gefundene Geräte:</string>
     <string name="send">Senden</string>
-    <string name="receive">Empfangen</string>
     <string name="cDMainPic">Ordnen Sie diesem Bild einen Namen zu</string>
     <string name="nfcInstruction">Halten Sie die beiden Geräte Rücken an Rücken
         \nund tippen sie den Bildschirm des sendenden Geräts an.
         \nDanach drücken sie den Button unten auf dem empfangenden Gerät</string>
     <string name="nfcImport">Datenbank importieren</string>
-    <string name="cDPreview">Vorschaubild</string>
     <string name="impAll">Datenbank überschreiben</string>
     <string name="impNew">Neue Einträge hinzufügen</string>
     <string name="impUpdate">Neue Einträge und Updates</string>

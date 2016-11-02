@@ -100,9 +100,9 @@ Lehrern verwendet werden, um sich die Namen ihrer Schüler leichter zu
 merken, da dies aufgrund der vielen und häufig wechselnden Schüler oft
 ein Problem ist. Ein Lehrer hat bereits angefragt, diese App verwenden
 zu dürfen. Aber natürlich beschränkt sich meine Zielgruppe nicht nur auf
-Lehrer. Alle Arbeitnehmer und -geber, die mit viel Personal arbeiten
-oder alle anderen, die Schwierigkeiten haben, sich Namen zu merken,
-können sich ihr Leben mit diesem Programm ein Stück leichter machen.
+Lehrer. Alle Arbeitnehmer und -geber, die mit viel Personal arbeiten und
+alle anderen, die Schwierigkeiten haben, sich Namen zu merken, können
+sich ihr Leben mit diesem Programm ein Stück leichter machen.
 
 Das Grundprinzip der Anwendung ist es, je ein Bild mit einem Namen zu
 verknüpfen und den Benutzer zu testen, ob er den Namen zu den Bildern
@@ -637,13 +637,38 @@ auf *portrait* festgesetzt.
 ===========
 
 Wie bereits in der Einleitung erwähnt, kann die App, in leicht
-veränderter Form, auch zu anderen Zwecken eingesetzt werden.
+veränderter Form, auch zu anderen Zwecken eingesetzt werden. Dazu gehört
+die Diagnostik und Therapie von Autismus.
 
-&lt;TODO: Einleitung&gt;
+Autistische Störungen gehören zu den schwersten psychischen Problemen
+des Kindesalters. Sie wurden erstmals vor etwas über 100 Jahren
+beschrieben (so zum Beispiel von Theodor Heller, Pädagoge und Leiter der
+Erziehungsanstalt für geistig abnorme und nervöse Kinder in Wien[^13])
+und immer häufiger diagnostiziert. Aktuell geht man davon aus, dass etwa
+1% der Bevölkerung an einer autistischen Störung leidet.[^14] Aktuelle
+wissenschaftliche Forschungen haben ergeben, dass Autisten typische
+Probleme mit der sozialen Kognition haben. Soziale Kognition umfasst
+dabei eine Reihe von Informationsverarbeitungsprozessen, die im Gehirn
+in spezifischen neuronalen Netzwerken, man spricht von social brain, bei
+zwischenmenschlichen Kontakten stattfinden, wie beispielsweise die
+Aufmerksamkeitszuwendung und die Emotionserkennung.[^15]
 
-Dabei ändern sich die Anforderungen an das Programm wie folgt:
+Die App kann dabei zum einen im Rahmen einer Autismus-Diagnostik
+eingesetzt werden, um Hinweise zu bekommen, ob ein Kind Probleme mit der
+Erkennung von Emotionen hat. Zum anderen kann damit in der Therapie das
+Erkennen von Emotionen getestet und trainiert werden, womit bei Erfolg
+der Alltag für den Patienten deutlich erleichtert wird.
 
-Zu Beginn der Arbeit mit den Patienten ist es sinnvoll, eine, für alle
+Dies wird erreicht, indem Fotos von Gesichtern aufgenommen werden, bei
+welchen der Patient anschließend die mimisch ausgedrückten Emotionen
+erkennen soll. Hierbei ist die Funktion, mithilfe der App Fotos
+aufzunehmen und direkt in die Datenbank zu übernehmen, besonders
+hilfreich. Auch die Möglichkeit, mehrere Geräte auf dem selben Stand zu
+halten, ist von Vorteil, da somit das Handy des Nutzers mit dem Gerät
+des behandelnden Arztes synchronisiert werden kann.
+
+Es ändern sich allerdings auch einige Anforderungen an das Programm: Zu
+Beginn der Arbeit mit den Patienten ist es sinnvoll, eine, für alle
 gleichbleibende, Grundlage an Bildern gegeben zu haben, um Ergebnisse
 einfacher miteinander vergleichen zu können. Somit werden also beim
 ersten Start der App bereits einige Datensätze in die Datenbank
@@ -677,7 +702,7 @@ einfach mithilfe von Buttons zum nächsten Bild zu gelangen. Dieser
 Schritt schützt nicht nur vor Betrügen des Patienten, man kann somit
 auch die inkorrekten Eingaben abspeichern und später auswerten.
 
-Um die Schwierigkeit zusätzlich zu erhöhen, bietet sich noch an, nur
+Um die Schwierigkeit zusätzlich zu erhöhen, bietet es sich noch an, nur
 Ausschnitte der Gesichter, wie die Augen- oder Mundpartie zu zeigen.
 
 8. Danksagungen
@@ -705,7 +730,7 @@ CUNO, Andrea: *Near Field Communication*,
 aufgerufen am 29.09.2016
 
 CURRAN, Kevin; Millar, Amanda; Garvey, Conor Mc.: *International Journal
-of Electrical and Computer Engineering *Vol. 2 No. 3, von Juni 2012,
+of Electrical and Computer Engineering *Vol. 2 No. 3, vom Juni 2012,
 Seite 371
 ([http://search.proquest.com/openview/822cf597b6e8dab49e0eb29493af13e9/1](http://search.proquest.com/openview/822cf597b6e8dab49e0eb29493af13e9/1?pq-origsite=gscholar))
 
@@ -753,6 +778,18 @@ ANDROID Open Source Project: *SharedPreferences*,
 <https://developer.android.com/reference/android/content/SharedPreferences.html>,
 aufgerufen am 23.10.2016
 
+HELLER, Theodor: *Über dementia infantilis*, in: Erforsch Behandl Jugndl
+Schwachsinns 2, von 1908, 17-28
+
+AWMF: *Autismus-Spektrum-Störungen im Kindes-, Jugend- und
+Erwachsenenalter – Teil 1: Diagnostik*,
+<http://www.awmf.org/uploads/tx_szleitlinien/028-018l_S3_Autismus-Spektrum-Stoerungen_ASS-Diagnostik_2016-05.pdf>,
+aufgerufen am 01.11.2016
+
+SCHWENCK, Christina; Ciaramidaro, Angela: *Soziale Kognition bei
+Autismus-Spektrum-Störungen und Störungen des Sozialverhaltens*, in:
+Kindheit und Entwicklung, 23 (1), von 2014, S. 5-12
+
 10. Eidesstattliche Erklärung
 =============================
 
@@ -789,3 +826,9 @@ Ingolstadt, den 07. November 2016
 [^11]: ANDROID, *&lt;activity&gt;*
 
 [^12]: ANDROID, *SharedPreferences*
+
+[^13]: Vgl. AWMF, 10
+
+[^14]: Vgl. AWMF, 22
+
+[^15]: SCHWENCK, 5 ff.

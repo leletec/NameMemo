@@ -709,7 +709,8 @@ Schritt schützt nicht nur vor Betrügen des Patienten, man kann somit
 auch die inkorrekten Eingaben abspeichern und später auswerten.
 
 Um die Schwierigkeit zusätzlich zu erhöhen, bietet es sich noch an, nur
-Ausschnitte der Gesichter, wie die Augen- oder Mundpartie zu zeigen.
+die obere oder untere Gesichtshälfte und damit nur Augen- oder
+Mundpartie zu zeigen.
 
 8. Schluss
 ==========
@@ -823,6 +824,18 @@ Ingolstadt, den 07. November 2016
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
 (Leander Dreier)
+
+Anhang 1: Screenshots
+=====================
+
+ Abb. 1.1: Hauptbildschirm 1 Abb. 1.2: Hauptbildschirm 2 Abb. 1.3:
+Glückwunschdialog
+
+ Abb. 1.4: Bild hinzufügen Abb. 1.5: Einstellungen Abb. 1.6: Appinfo
+
+ Abb. 1.7: Datenübertragung Abb. 1.8: Bluetooth 1 Abb. 1.9: Bluetooth 2
+
+ Abb. 1.10: NFC Abb. 1.11: Import 1Abb. 1.12: Import 2
 
 [^1]: BUMP
 

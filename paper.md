@@ -37,7 +37,7 @@ Datenbank](#4.1 Einstellungen in der Datenbank|outline)....... . 3
 ......... 4
 
 4.3[Hinzufügen von
-Wertepaaren](#4.3 Hinzufügen von Wertepaaren|outline)......... 4
+Wertepaaren](#4.3 Hinzufügen von Wertepaaren|outline)......... 5
 
 4.3.1[Aufnahme eines neuen
 Fotos](#4.3.1 Aufnahme eines neues Fotos|outline)....... 5
@@ -49,24 +49,24 @@ Bildes](#4.3.2 Auswahl eines bereits vorhandenen Bildes|outline) ..... 5
 Datei](#4.3.3 Lesen einer externen Datei|outline)....... . 6
 
 5.[Datenaustausch mit anderen
-Systemen](#5. Datenaustausch mit anderen Systemen|outline) ....... . 6
+Systemen](#5. Datenaustausch mit anderen Systemen|outline) ....... . 7
 
 5.1[Near Field Communication
 (NFC)](#5.1 Near Field Communication (NFC)|outline) ........ 7
 
-5.2[Bluetooth](#5.2 Bluetooth|outline)............ 9
+5.2[Bluetooth](#5.2 Bluetooth|outline)............ 8
 
 5.3[Server-](#5.3 Server-Client|outline)[Client](#5.3 Server-Client|outline)...........
 10
 
-5.4[Vergleich und Fazit](#5.4 Vergleich und Fazit|outline).......... 10
+5.4[Vergleich und Fazit](#5.4 Vergleich und Fazit|outline).......... 11
 
 6.[Entscheidungen während des
 Projekts](#6. Entscheidungen während des Projekts|outline) ........ 12
 
 6.1[Strukturierung in Activities und
 Dialoge](#6.1 Strukturierung in Activities und Dialoge|outline).......
-12
+13
 
 6.2[Gestaltung der
 ](#6.2 Gestaltung der Actionbar|outline)[Actionbar](#6.2 Gestaltung der Actionbar|outline).........
@@ -74,19 +74,19 @@ Dialoge](#6.1 Strukturierung in Activities und Dialoge|outline).......
 
 6.3[Fixierung der
 ](#6.3 Fixierung der Orientierung|outline)[Orientierung](#6.3 Fixierung der Orientierung|outline).........
-13
+14
 
 7.[Ausblick](#7. Ausblick|outline)............. 14
 
 8.[Schluss](#8. Schluss|outline)............. 16
 
-9.[Danksagungen](#9. Danksagungen|outline).......... .. 17
+9.[Danksagungen](#9. Danksagungen|outline).......... .. 18
 
 10.[Literaturverzeichnis](#10. Literaturverzeichnis|outline)...........
-17
+18
 
 11.[Eidesstattliche Erklärung
-](#11. Eidesstattliche Erklärung|outline).......... 19
+](#11. Eidesstattliche Erklärung|outline).......... 21
 
 1. Einleitung
 =============

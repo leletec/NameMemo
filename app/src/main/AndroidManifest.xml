@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 Attributions:
-	"app_icon": 'Documents icon' by 'Jatkins', https://commons.wikimedia.org/wiki/File:Documents_icon.svg, edited
+	"app_icon": By Jatkins (Self-created) [Public domain], via Wikimedia Commons; edited
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.leletec.namememo">

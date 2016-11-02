@@ -305,6 +305,11 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 	 * @param dir the directory to copy to
 	 */
 	private void copyExamplePics(File dir) {
+		/* Attribution:
+			katze.png: By Dante839 (Own work) [CC BY-SA 4.0 (http://creativecommons.org/licenses/by-sa/4.0)], via Wikimedia Commons
+			hund.jpg: By Kintaiyo (Own work) [GFDL (http://www.gnu.org/copyleft/fdl.html) or CC BY 3.0 (http://creativecommons.org/licenses/by/3.0)], via Wikimedia Commons
+			hase.jpg: By Alexander Flume (Own work) [CC BY-SA 3.0 (http://creativecommons.org/licenses/by-sa/3.0)], via Wikimedia Commons
+		 */
 		int[] files = new int[]{R.raw.hund, R.raw.katze, R.raw.hase};
 		String[] filenames = new String[]{"hund.jpg", "katze.png", "hase.jpg"};
 

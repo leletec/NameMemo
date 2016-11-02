@@ -646,18 +646,21 @@ Wie bereits in der Einleitung erwähnt, kann die App, in leicht
 veränderter Form, auch zu anderen Zwecken eingesetzt werden. Dazu gehört
 die Diagnostik und Therapie von Autismus.
 
-Autistische Störungen gehören zu den schwersten psychischen Problemen
-des Kindesalters. Sie wurden erstmals vor etwas über 100 Jahren
-beschrieben (so zum Beispiel von Theodor Heller, Pädagoge und Leiter der
-Erziehungsanstalt für geistig abnorme und nervöse Kinder in Wien[^13])
-und immer häufiger diagnostiziert. Aktuell geht man davon aus, dass etwa
-1% der Bevölkerung an einer autistischen Störung leidet.[^14] Aktuelle
-wissenschaftliche Forschungen haben ergeben, dass Autisten typische
-Probleme mit der sozialen Kognition haben. Soziale Kognition umfasst
-dabei eine Reihe von Informationsverarbeitungsprozessen, die im Gehirn
-in spezifischen neuronalen Netzwerken, man spricht von social brain, bei
-zwischenmenschlichen Kontakten stattfinden, wie beispielsweise die
-Aufmerksamkeitszuwendung und die Emotionserkennung.[^15]
+„Autistische Störungen gehören zu den schwersten psychischen Problemen
+des Kindesalters.“[^13] Kinder mit autistischen Symptomen wurden
+erstmals vor etwas über 100 Jahren von dem Pädagogen und Leiter der
+Erziehungsanstalt für geistig abnorme und nervöse Kinder in Wien Theodor
+Heller beschrieben.[^14] Während Autismus lange als eine sehr seltene
+Erkrankung galt[^15], werden autistische Störungen in den letzten
+Jahrzehnten immer häufiger diagnostiziert. Aktuell geht man davon aus,
+dass etwa 1% der Bevölkerung an einer autistischen Störung leidet.[^16]
+Aktuelle wissenschaftliche Forschungen haben ergeben, dass Autisten
+typische Probleme mit der sozialen Kognition haben. Soziale Kognition
+umfasst dabei eine Reihe von Informationsverarbeitungsprozessen, die im
+Gehirn in spezifischen neuronalen Netzwerken, man spricht von social
+brain, bei zwischenmenschlichen Kontakten stattfinden, wie
+beispielsweise die Aufmerksamkeitszuwendung und die
+Emotionserkennung.[^17]
 
 Die App kann dabei zum einen im Rahmen einer Autismus-Diagnostik
 eingesetzt werden, um Hinweise zu bekommen, ob ein Kind Probleme mit der
@@ -805,17 +808,27 @@ ANDROID Open Source Project: *SharedPreferences*,
 <https://developer.android.com/reference/android/content/SharedPreferences.html>,
 aufgerufen am 23.10.2016
 
-HELLER, Theodor: *Über dementia infantilis*, in: Erforsch Behandl Jugndl
-Schwachsinns 2, von 1908, 17-28
+HELLER, Theodor: *Über dementia infantilis*, In: Z Erforsch Behandl
+Jugndl Schwachsinns 2, S. 17–28, zitiert nach der S3-Leitlinie
+„Autismus-Spektrum-Störungen im Kindes-, Jugend- und Erwachsenenalter“
+der Arbeitsgemeinschaft der Wissenschaftlichen Medizinischen
+Fachgesellschaften AWMF, 2016, S. 10
 
 AWMF: *Autismus-Spektrum-Störungen im Kindes-, Jugend- und
 Erwachsenenalter – Teil 1: Diagnostik*,
-<http://www.awmf.org/uploads/tx_szleitlinien/028-018l_S3_Autismus-Spektrum-Stoerungen_ASS-Diagnostik_2016-05.pdf>,
+[http://www.awmf.org/uploads/tx\_szleitlinien/028-018l\_S3\_Autismus-Spektrum-](http://www.awmf.org/uploads/tx_szleitlinien/028-018l_S3_Autismus-Spektrum-Stoerungen_ASS-Diagnostik_2016-05.pdf)[Stoerungen\_ASS-Diagnostik\_2016-05.pdf](http://www.awmf.org/uploads/tx_szleitlinien/028-018l_S3_Autismus-Spektrum-Stoerungen_ASS-Diagnostik_2016-05.pdf),
 aufgerufen am 01.11.2016
 
 SCHWENCK, Christina; Ciaramidaro, Angela: *Soziale Kognition bei
 Autismus-Spektrum-Störungen und Störungen des Sozialverhaltens*, in:
 Kindheit und Entwicklung, 23 (1), von 2014, S. 5-12
+
+POUSTKA, Fritz; Bölte, Sven; Feineis-Metthews, Sabine; Schmötzer,
+Gabriele: *Leitfaden Kinder- und Jugendpsychiatrie, Band 5: Autistische
+Störungen*, aktualisierte Auflage, Hogrefe 2008
+
+NOTERDAEME, Michele: *Autismus-Spektrum-Störungen (ASS). Ein
+integratives Lehrbuch für die Praxis*, Kohlhammer 2010
 
 Verwendete Programme:
 ---------------------
@@ -882,18 +895,22 @@ und Dialoge
 
 [^7]: Vgl. PABST
 
-[^8]: KARBACHER
+[^8]: Vgl. KARBACHER
 
-[^9]: BECKER, 9 f. und 22
+[^9]: Vgl. BECKER, 9 f. und 22
 
 [^10]: Anlage 1
 
-[^11]: ANDROID, *&lt;activity&gt;*
+[^11]: Vgl. ANDROID, *&lt;activity&gt;*
 
-[^12]: ANDROID, *SharedPreferences*
+[^12]: Vgl. ANDROID, *SharedPreferences*
 
-[^13]: Vgl. AWMF, 10
+[^13]: POUSTKA 2008, Einleitung
 
-[^14]: Vgl. AWMF, 22
+[^14]: Vgl. HELLER
 
-[^15]: SCHWENCK, 5 ff.
+[^15]: Vgl. NOTERDAEME 2010, 31
+
+[^16]: Vgl. AWMF, 22
+
+[^17]: Vgl. SCHWENCK 2014, 5 ff.

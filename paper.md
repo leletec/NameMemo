@@ -736,6 +736,11 @@ herunterladen.
 
 - StackOverflow
 
+- Dr. med. Jürgen Dreier, Leiter der Spezialambulanz für Familien mit
+autistischen Kindern und Jugendlichen an der Klinik für Kinder- und
+Jugendpsychiatrie und Psychotherapie der Kliniken St. Elisabeth in
+Neuburg an der Donau – Ansprechpartner in Sachen Autismus, ASS
+
 10. Literaturverzeichnis
 ========================
 
@@ -812,6 +817,21 @@ SCHWENCK, Christina; Ciaramidaro, Angela: *Soziale Kognition bei
 Autismus-Spektrum-Störungen und Störungen des Sozialverhaltens*, in:
 Kindheit und Entwicklung, 23 (1), von 2014, S. 5-12
 
+Verwendete Programme:
+---------------------
+
+Eclipse
+
+Android Studio und SDK Tools
+
+GIMP - GNU Image Manipulation Program
+
+LibreOffice
+
+Pandoc
+
+UMLet
+
 11. Eidesstattliche Erklärung
 =============================
 
@@ -828,14 +848,17 @@ Ingolstadt, den 07. November 2016
 Anhang 1: Screenshots
 =====================
 
- Abb. 1.1: Hauptbildschirm 1 Abb. 1.2: Hauptbildschirm 2 Abb. 1.3:
+Abb. 1.1: Hauptbildschirm 1 Abb. 1.2: Hauptbildschirm 2 Abb. 1.3:
 Glückwunschdialog
 
- Abb. 1.4: Bild hinzufügen Abb. 1.5: Einstellungen Abb. 1.6: Appinfo
+Abb. 1.4: Bild hinzufügen Abb. 1.5: Einstellungen Abb. 1.6: Appinfo
 
- Abb. 1.7: Datenübertragung Abb. 1.8: Bluetooth 1 Abb. 1.9: Bluetooth 2
+Abb. 1.7: Datenübertragung Abb. 1.8: Bluetooth 1 Abb. 1.9: Bluetooth 2
 
- Abb. 1.10: NFC Abb. 1.11: Import 1Abb. 1.12: Import 2
+ Abb. 1.10: NFC Abb. 1.11: Import 1 Abb. 1.12: Import 2
+
+Anhang 2: Diagramme
+===================
 
 [^1]: BUMP
 

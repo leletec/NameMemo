@@ -755,13 +755,46 @@ Neuburg an der Donau – Ansprechpartner in Sachen Autismus
 10. Literaturverzeichnis
 ========================
 
-BUMP Technologies: *Glide*,
-<https://github.com/bumptech/glide/blob/master/README.md> vom
-13.07.2016, aufgerufen am 16.09.2016
+ANDROID Open Source Project: *&lt;activity&gt;*,
+<https://developer.android.com/guide/topics/manifest/activity-element.html>,
+aufgerufen am 23.10.2016
+
+ANDROID Open Source Project: *Action Bar*,
+<https://developer.android.com/design/patterns/actionbar.html>,
+aufgerufen am 18.10.2016
+
+ANDROID Open Source Project: *Bluetooth*,
+<https://developer.android.com/guide/topics/connectivity/bluetooth.html>,
+aufgerufen am 07.10.2016
 
 ANDROID Open Source Project: *Display*,
 <https://developer.android.com/reference/android/view/Display.html>,
 aufgerufen am 20.09.2016
+
+ANDROID Open Source Project: *Near Field Communication*,
+<https://developer.android.com/guide/topics/connectivity/nfc/index.html>,
+aufgerufen am 01.10.2016
+
+ANDROID Open Source Project: *SharedPreferences*,
+<https://developer.android.com/reference/android/content/SharedPreferences.html>,
+aufgerufen am 23.10.2016
+
+AWMF: *Autismus-Spektrum-Störungen im Kindes-, Jugend- und
+Erwachsenenalter – Teil 1: Diagnostik*,
+<http://www.awmf.org/uploads/tx_szleitlinien/028-018l_S3_Autismus-Spektrum-Stoerungen_ASS-Diagnostik_2016-05.pdf>,
+aufgerufen am 01.11.2016
+
+BECKER, Andreas: *Bluetooth Security & Hacks*,
+<https://gsyc.urjc.es/~anto/ubicuos2/bluetooth_security_and_hacks.pdf>,
+aufgerufen am 09.10.2016, 16.08.2007
+
+BLUETOOTH SIG, Inc.: *Bluetooth Core Specification*,
+<https://www.bluetooth.com/specifications/bluetooth-core-specification>,
+aufgerufen am 07.10.2016
+
+BUMP Technologies: *Glide*,
+<https://github.com/bumptech/glide/blob/master/README.md> vom
+13.07.2016, aufgerufen am 16.09.2016
 
 CUNO, Andrea: *Near Field Communication*,
 <https://www.net.in.tum.de/fileadmin/TUM/NET/NET-2010-08-2/NET-2010-08-2_01.pdf>,
@@ -772,49 +805,12 @@ of Electrical and Computer Engineering *Vol. 2 No. 3, vom Juni 2012,
 Seite 371
 ([http://search.proquest.com/openview/822cf597b6e8dab49e0eb29493af13e9/1](http://search.proquest.com/openview/822cf597b6e8dab49e0eb29493af13e9/1?pq-origsite=gscholar))
 
-ECMA International: *Near Field Communication - Interface and Protocol
-(NFCIP-1)* 3. Auflage, Juni 2013
-(<http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-340.pdf>)
-
-ANDROID Open Source Project: *Near Field Communication*,
-<https://developer.android.com/guide/topics/connectivity/nfc/index.html>,
-aufgerufen am 01.10.2016
-
-BLUETOOTH SIG, Inc.: *Bluetooth Core Specification*,
-<https://www.bluetooth.com/specifications/bluetooth-core-specification>,
-aufgerufen am 07.10.2016
-
-ANDROID Open Source Project: *Bluetooth*,
-<https://developer.android.com/guide/topics/connectivity/bluetooth.html>,
-aufgerufen am 07.10.2016
-
-PABST, Martin: *Cient-Server-Kommunikation von Android (Client) zu Java
-(Server) via http*,
-<http://www.pabst-software.de/doku.php?id=programmieren:java:android:httpclient:start>,
-aufgerufen am 08.10.2016, zuletzt geändert am 05.02.2015 um 15:06
-
 ECLIPSE Foundation: *jetty://*, <http://www.eclipse.org/jetty/>,
 aufgerufen am 08.10. 2016
 
-KARBACHER: *Bluetooth Sendeleistung und Reichweite*,
-<http://www.karbacher.org/lexikon/bluetooth-sendeleistung-und-reichweite/>,
-aufgerufen am 09.10.2016
-
-BECKER, Andreas: *Bluetooth Security & Hacks*,
-<https://gsyc.urjc.es/~anto/ubicuos2/bluetooth_security_and_hacks.pdf>,
-aufgerufen am 09.10.2016, 16.08.2007
-
-ANDROID Open Source Project: *Action Bar*,
-<https://developer.android.com/design/patterns/actionbar.html>,
-aufgerufen am 18.10.2016
-
-ANDROID Open Source Project: *&lt;activity&gt;*,
-<https://developer.android.com/guide/topics/manifest/activity-element.html>,
-aufgerufen am 23.10.2016
-
-ANDROID Open Source Project: *SharedPreferences*,
-<https://developer.android.com/reference/android/content/SharedPreferences.html>,
-aufgerufen am 23.10.2016
+ECMA International: *Near Field Communication - Interface and Protocol
+(NFCIP-1)* 3. Auflage, Juni 2013
+(<http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-340.pdf>)
 
 HELLER, Theodor: *Über dementia infantilis*, In: Z Erforsch Behandl
 Jugndl Schwachsinns 2, S. 17–28, zitiert nach der S3-Leitlinie
@@ -822,28 +818,32 @@ Jugndl Schwachsinns 2, S. 17–28, zitiert nach der S3-Leitlinie
 der Arbeitsgemeinschaft der Wissenschaftlichen Medizinischen
 Fachgesellschaften AWMF, 2016, S. 10
 
-AWMF: *Autismus-Spektrum-Störungen im Kindes-, Jugend- und
-Erwachsenenalter – Teil 1: Diagnostik*,
-[http://www.awmf.org/uploads/tx\_szleitlinien/028-018l\_S3\_Autismus-Spektrum-](http://www.awmf.org/uploads/tx_szleitlinien/028-018l_S3_Autismus-Spektrum-Stoerungen_ASS-Diagnostik_2016-05.pdf)[Stoerungen\_ASS-Diagnostik\_2016-05.pdf](http://www.awmf.org/uploads/tx_szleitlinien/028-018l_S3_Autismus-Spektrum-Stoerungen_ASS-Diagnostik_2016-05.pdf),
-aufgerufen am 01.11.2016
+KARBACHER: *Bluetooth Sendeleistung und Reichweite*,
+<http://www.karbacher.org/lexikon/bluetooth-sendeleistung-und-reichweite/>,
+aufgerufen am 09.10.2016
 
-SCHWENCK, Christina; Ciaramidaro, Angela: *Soziale Kognition bei
-Autismus-Spektrum-Störungen und Störungen des Sozialverhaltens*, in:
-Kindheit und Entwicklung, 23 (1), von 2014, S. 5-12
+NOTERDAEME, Michele: *Autismus-Spektrum-Störungen (ASS). Ein
+integratives Lehrbuch für die Praxis*, Kohlhammer 2010
+
+PABST, Martin: *Cient-Server-Kommunikation von Android (Client) zu Java
+(Server) via http*,
+<http://www.pabst-software.de/doku.php?id=programmieren:java:android:httpclient:start>,
+aufgerufen am 08.10.2016, zuletzt geändert am 05.02.2015 um 15:06
 
 POUSTKA, Fritz; Bölte, Sven; Feineis-Metthews, Sabine; Schmötzer,
 Gabriele: *Leitfaden Kinder- und Jugendpsychiatrie, Band 5: Autistische
 Störungen*, aktualisierte Auflage, Hogrefe 2008
 
-NOTERDAEME, Michele: *Autismus-Spektrum-Störungen (ASS). Ein
-integratives Lehrbuch für die Praxis*, Kohlhammer 2010
+SCHWENCK, Christina; Ciaramidaro, Angela: *Soziale Kognition bei
+Autismus-Spektrum-Störungen und Störungen des Sozialverhaltens*, in:
+Kindheit und Entwicklung, 23 (1), von 2014, S. 5-12
 
 Verwendete Programme:
 ---------------------
 
-Eclipse
-
 Android Studio und SDK Tools
+
+Eclipse
 
 GIMP - GNU Image Manipulation Program
 

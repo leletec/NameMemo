@@ -5,7 +5,7 @@
     <id>UMLState</id>
     <coordinates>
       <x>190</x>
-      <y>150</y>
+      <y>190</y>
       <w>100</w>
       <h>40</h>
     </coordinates>
@@ -17,7 +17,7 @@ bg=red</panel_attributes>
     <id>UMLState</id>
     <coordinates>
       <x>190</x>
-      <y>250</y>
+      <y>290</y>
       <w>100</w>
       <h>40</h>
     </coordinates>
@@ -29,7 +29,7 @@ bg=blue</panel_attributes>
     <id>UMLState</id>
     <coordinates>
       <x>850</x>
-      <y>500</y>
+      <y>540</y>
       <w>330</w>
       <h>90</h>
     </coordinates>
@@ -41,7 +41,7 @@ bg=red</panel_attributes>
     <id>UMLState</id>
     <coordinates>
       <x>1400</x>
-      <y>450</y>
+      <y>490</y>
       <w>120</w>
       <h>40</h>
     </coordinates>
@@ -53,7 +53,7 @@ bg=red</panel_attributes>
     <id>UMLState</id>
     <coordinates>
       <x>1270</x>
-      <y>300</y>
+      <y>340</y>
       <w>100</w>
       <h>40</h>
     </coordinates>
@@ -65,7 +65,7 @@ bg=red</panel_attributes>
     <id>UMLState</id>
     <coordinates>
       <x>530</x>
-      <y>510</y>
+      <y>550</y>
       <w>110</w>
       <h>40</h>
     </coordinates>
@@ -77,7 +77,7 @@ bg=orange</panel_attributes>
     <id>UMLState</id>
     <coordinates>
       <x>190</x>
-      <y>200</y>
+      <y>240</y>
       <w>100</w>
       <h>40</h>
     </coordinates>
@@ -90,7 +90,7 @@ bg=orange</panel_attributes>
     <id>UMLState</id>
     <coordinates>
       <x>570</x>
-      <y>670</y>
+      <y>710</y>
       <w>110</w>
       <h>40</h>
     </coordinates>
@@ -102,7 +102,7 @@ bg=orange</panel_attributes>
     <id>UMLState</id>
     <coordinates>
       <x>1410</x>
-      <y>230</y>
+      <y>270</y>
       <w>130</w>
       <h>40</h>
     </coordinates>
@@ -114,7 +114,7 @@ bg=orange</panel_attributes>
     <id>UMLState</id>
     <coordinates>
       <x>1210</x>
-      <y>650</y>
+      <y>690</y>
       <w>120</w>
       <h>40</h>
     </coordinates>
@@ -126,7 +126,7 @@ bg=blue</panel_attributes>
     <id>UMLState</id>
     <coordinates>
       <x>780</x>
-      <y>390</y>
+      <y>430</y>
       <w>120</w>
       <h>40</h>
     </coordinates>
@@ -139,7 +139,7 @@ bg=blue</panel_attributes>
     <id>UMLState</id>
     <coordinates>
       <x>950</x>
-      <y>700</y>
+      <y>740</y>
       <w>100</w>
       <h>40</h>
     </coordinates>
@@ -151,7 +151,7 @@ bg=blue</panel_attributes>
     <id>UMLState</id>
     <coordinates>
       <x>390</x>
-      <y>560</y>
+      <y>600</y>
       <w>130</w>
       <h>40</h>
     </coordinates>
@@ -163,7 +163,7 @@ bg=blue</panel_attributes>
     <id>UMLState</id>
     <coordinates>
       <x>930</x>
-      <y>330</y>
+      <y>370</y>
       <w>100</w>
       <h>40</h>
     </coordinates>
@@ -176,7 +176,7 @@ bg=blue</panel_attributes>
     <id>UMLState</id>
     <coordinates>
       <x>570</x>
-      <y>630</y>
+      <y>670</y>
       <w>110</w>
       <h>40</h>
     </coordinates>
@@ -188,7 +188,7 @@ bg=blue</panel_attributes>
     <id>UMLState</id>
     <coordinates>
       <x>440</x>
-      <y>630</y>
+      <y>670</y>
       <w>100</w>
       <h>40</h>
     </coordinates>
@@ -200,7 +200,7 @@ bg=blue</panel_attributes>
     <id>UMLState</id>
     <coordinates>
       <x>1060</x>
-      <y>650</y>
+      <y>690</y>
       <w>100</w>
       <h>40</h>
     </coordinates>
@@ -212,7 +212,7 @@ bg=blue</panel_attributes>
     <id>UMLState</id>
     <coordinates>
       <x>1270</x>
-      <y>390</y>
+      <y>430</y>
       <w>100</w>
       <h>40</h>
     </coordinates>
@@ -224,7 +224,7 @@ bg=blue</panel_attributes>
     <id>UMLState</id>
     <coordinates>
       <x>190</x>
-      <y>300</y>
+      <y>340</y>
       <w>100</w>
       <h>40</h>
     </coordinates>
@@ -237,7 +237,7 @@ bg=green</panel_attributes>
     <id>UMLState</id>
     <coordinates>
       <x>1690</x>
-      <y>450</y>
+      <y>490</y>
       <w>100</w>
       <h>40</h>
     </coordinates>
@@ -250,7 +250,7 @@ bg=green</panel_attributes>
     <id>UMLState</id>
     <coordinates>
       <x>1270</x>
-      <y>450</y>
+      <y>490</y>
       <w>100</w>
       <h>40</h>
     </coordinates>
@@ -263,7 +263,7 @@ bg=green</panel_attributes>
     <id>Text</id>
     <coordinates>
       <x>390</x>
-      <y>210</y>
+      <y>250</y>
       <w>280</w>
       <h>30</h>
     </coordinates>
@@ -274,7 +274,7 @@ bg=green</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>630</x>
-      <y>530</y>
+      <y>570</y>
       <w>240</w>
       <h>40</h>
     </coordinates>
@@ -286,7 +286,7 @@ m2=Abbruch</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1120</x>
-      <y>220</y>
+      <y>260</y>
       <w>310</w>
       <h>100</h>
     </coordinates>
@@ -298,7 +298,7 @@ r1=NFC und/oder Android Beam nicht aktiviert</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1160</x>
-      <y>400</y>
+      <y>440</y>
       <w>130</w>
       <h>120</h>
     </coordinates>
@@ -309,7 +309,7 @@ r1=NFC und/oder Android Beam nicht aktiviert</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1310</x>
-      <y>330</y>
+      <y>370</y>
       <w>30</w>
       <h>80</h>
     </coordinates>
@@ -320,7 +320,7 @@ r1=NFC und/oder Android Beam nicht aktiviert</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1360</x>
-      <y>400</y>
+      <y>440</y>
       <w>120</w>
       <h>70</h>
     </coordinates>
@@ -331,7 +331,7 @@ r1=NFC und/oder Android Beam nicht aktiviert</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>510</x>
-      <y>570</y>
+      <y>610</y>
       <w>360</w>
       <h>30</h>
     </coordinates>
@@ -342,7 +342,7 @@ r1=NFC und/oder Android Beam nicht aktiviert</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>310</x>
-      <y>240</y>
+      <y>280</y>
       <w>90</w>
       <h>30</h>
     </coordinates>
@@ -353,7 +353,7 @@ r1=NFC und/oder Android Beam nicht aktiviert</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1340</x>
-      <y>250</y>
+      <y>290</y>
       <w>90</w>
       <h>70</h>
     </coordinates>
@@ -364,7 +364,7 @@ r1=NFC und/oder Android Beam nicht aktiviert</panel_attributes>
     <id>UMLState</id>
     <coordinates>
       <x>1570</x>
-      <y>350</y>
+      <y>390</y>
       <w>100</w>
       <h>40</h>
     </coordinates>
@@ -377,7 +377,7 @@ bg=blue</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1360</x>
-      <y>310</y>
+      <y>350</y>
       <w>310</w>
       <h>60</h>
     </coordinates>
@@ -390,7 +390,7 @@ empfangen
     <id>Relation</id>
     <coordinates>
       <x>1120</x>
-      <y>290</y>
+      <y>330</y>
       <w>170</w>
       <h>230</h>
     </coordinates>
@@ -402,7 +402,7 @@ r2=senden</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1170</x>
-      <y>280</y>
+      <y>320</y>
       <w>670</w>
       <h>320</h>
     </coordinates>
@@ -413,7 +413,7 @@ r2=senden</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>630</x>
-      <y>520</y>
+      <y>560</y>
       <w>240</w>
       <h>30</h>
     </coordinates>
@@ -424,7 +424,7 @@ r2=senden</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1510</x>
-      <y>440</y>
+      <y>480</y>
       <w>200</w>
       <h>40</h>
     </coordinates>
@@ -436,7 +436,7 @@ Bluetooth nicht aktiviert</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>310</x>
-      <y>270</y>
+      <y>310</y>
       <w>90</w>
       <h>30</h>
     </coordinates>
@@ -447,7 +447,7 @@ Bluetooth nicht aktiviert</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1510</x>
-      <y>470</y>
+      <y>510</y>
       <w>200</w>
       <h>40</h>
     </coordinates>
@@ -459,7 +459,7 @@ m2=Zustimmung</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1170</x>
-      <y>480</y>
+      <y>520</y>
       <w>630</w>
       <h>50</h>
     </coordinates>
@@ -471,7 +471,7 @@ m2=Ablehnung</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1170</x>
-      <y>480</y>
+      <y>520</y>
       <w>390</w>
       <h>100</h>
     </coordinates>
@@ -483,7 +483,7 @@ r2=senden</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1480</x>
-      <y>360</y>
+      <y>400</y>
       <w>110</w>
       <h>110</h>
     </coordinates>
@@ -496,7 +496,7 @@ empfangen
     <id>Relation</id>
     <coordinates>
       <x>1360</x>
-      <y>450</y>
+      <y>490</y>
       <w>60</w>
       <h>30</h>
     </coordinates>
@@ -507,7 +507,7 @@ empfangen
     <id>Relation</id>
     <coordinates>
       <x>1360</x>
-      <y>470</y>
+      <y>510</y>
       <w>60</w>
       <h>30</h>
     </coordinates>
@@ -518,7 +518,7 @@ empfangen
     <id>Relation</id>
     <coordinates>
       <x>450</x>
-      <y>520</y>
+      <y>560</y>
       <w>100</w>
       <h>60</h>
     </coordinates>
@@ -529,7 +529,7 @@ empfangen
     <id>Relation</id>
     <coordinates>
       <x>670</x>
-      <y>580</y>
+      <y>620</y>
       <w>230</w>
       <h>110</h>
     </coordinates>
@@ -540,7 +540,7 @@ empfangen
     <id>Relation</id>
     <coordinates>
       <x>670</x>
-      <y>580</y>
+      <y>620</y>
       <w>210</w>
       <h>90</h>
     </coordinates>
@@ -552,7 +552,7 @@ m2=Abbruch</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>670</x>
-      <y>580</y>
+      <y>620</y>
       <w>250</w>
       <h>140</h>
     </coordinates>
@@ -564,7 +564,7 @@ m2=Abbruch</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>400</x>
-      <y>590</y>
+      <y>630</y>
       <w>190</w>
       <h>120</h>
     </coordinates>
@@ -575,7 +575,7 @@ m2=Abbruch</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>600</x>
-      <y>600</y>
+      <y>640</y>
       <w>60</w>
       <h>50</h>
     </coordinates>
@@ -586,7 +586,7 @@ m2=Abbruch</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1720</x>
-      <y>230</y>
+      <y>270</y>
       <w>60</w>
       <h>60</h>
     </coordinates>
@@ -597,7 +597,7 @@ m2=Abbruch</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1010</x>
-      <y>580</y>
+      <y>620</y>
       <w>70</w>
       <h>110</h>
     </coordinates>
@@ -608,7 +608,7 @@ m2=Abbruch</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1150</x>
-      <y>660</y>
+      <y>700</y>
       <w>80</w>
       <h>30</h>
     </coordinates>
@@ -619,7 +619,7 @@ m2=Abbruch</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1320</x>
-      <y>660</y>
+      <y>700</y>
       <w>140</w>
       <h>40</h>
     </coordinates>
@@ -631,7 +631,7 @@ m1=Zustimmung</panel_attributes>
     <id>UMLSpecialState</id>
     <coordinates>
       <x>1440</x>
-      <y>660</y>
+      <y>700</y>
       <w>20</w>
       <h>20</h>
     </coordinates>
@@ -642,7 +642,7 @@ m1=Zustimmung</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>530</x>
-      <y>630</y>
+      <y>670</y>
       <w>60</w>
       <h>30</h>
     </coordinates>
@@ -653,7 +653,7 @@ m1=Zustimmung</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>530</x>
-      <y>650</y>
+      <y>690</y>
       <w>60</w>
       <h>30</h>
     </coordinates>
@@ -664,7 +664,7 @@ m1=Zustimmung</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>480</x>
-      <y>590</y>
+      <y>630</y>
       <w>30</w>
       <h>60</h>
     </coordinates>
@@ -675,7 +675,7 @@ m1=Zustimmung</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>310</x>
-      <y>210</y>
+      <y>250</y>
       <w>90</w>
       <h>30</h>
     </coordinates>
@@ -686,7 +686,7 @@ m1=Zustimmung</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>990</x>
-      <y>360</y>
+      <y>400</y>
       <w>30</w>
       <h>160</h>
     </coordinates>
@@ -697,7 +697,7 @@ m1=Zustimmung</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>990</x>
-      <y>580</y>
+      <y>620</y>
       <w>30</w>
       <h>140</h>
     </coordinates>
@@ -708,7 +708,7 @@ m1=Zustimmung</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>890</x>
-      <y>400</y>
+      <y>440</y>
       <w>100</w>
       <h>120</h>
     </coordinates>
@@ -719,7 +719,7 @@ m1=Zustimmung</panel_attributes>
     <id>UMLObject</id>
     <coordinates>
       <x>170</x>
-      <y>40</y>
+      <y>80</y>
       <w>710</w>
       <h>320</h>
     </coordinates>
@@ -731,7 +731,7 @@ valign=top</panel_attributes>
     <id>Text</id>
     <coordinates>
       <x>180</x>
-      <y>60</y>
+      <y>100</y>
       <w>690</w>
       <h>80</h>
     </coordinates>
@@ -746,7 +746,7 @@ valign=top</panel_attributes>
     <id>Text</id>
     <coordinates>
       <x>390</x>
-      <y>240</y>
+      <y>280</y>
       <w>470</w>
       <h>30</h>
     </coordinates>
@@ -757,7 +757,7 @@ valign=top</panel_attributes>
     <id>Text</id>
     <coordinates>
       <x>390</x>
-      <y>270</y>
+      <y>310</y>
       <w>240</w>
       <h>30</h>
     </coordinates>
@@ -768,7 +768,7 @@ valign=top</panel_attributes>
     <id>UMLSpecialState</id>
     <coordinates>
       <x>940</x>
-      <y>630</y>
+      <y>670</y>
       <w>20</w>
       <h>20</h>
     </coordinates>
@@ -779,7 +779,7 @@ valign=top</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>940</x>
-      <y>580</y>
+      <y>620</y>
       <w>30</w>
       <h>70</h>
     </coordinates>
@@ -790,7 +790,7 @@ valign=top</panel_attributes>
     <id>UMLObject</id>
     <coordinates>
       <x>370</x>
-      <y>470</y>
+      <y>510</y>
       <w>540</w>
       <h>260</h>
     </coordinates>
@@ -803,7 +803,7 @@ bg=#FFE1FF</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>300</x>
-      <y>150</y>
+      <y>190</y>
       <w>30</w>
       <h>200</h>
     </coordinates>
@@ -814,7 +814,7 @@ bg=#FFE1FF</panel_attributes>
     <id>UMLState</id>
     <coordinates>
       <x>1700</x>
-      <y>270</y>
+      <y>310</y>
       <w>100</w>
       <h>40</h>
     </coordinates>
@@ -827,7 +827,7 @@ bg=blue</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1660</x>
-      <y>300</y>
+      <y>340</y>
       <w>100</w>
       <h>80</h>
     </coordinates>
@@ -838,7 +838,7 @@ bg=blue</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1660</x>
-      <y>370</y>
+      <y>410</y>
       <w>180</w>
       <h>40</h>
     </coordinates>
@@ -850,7 +850,7 @@ m2=Abbruch</panel_attributes>
     <id>UMLObject</id>
     <coordinates>
       <x>1100</x>
-      <y>190</y>
+      <y>230</y>
       <w>760</w>
       <h>420</h>
     </coordinates>
@@ -863,7 +863,7 @@ bg=#BFEFFF</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1170</x>
-      <y>480</y>
+      <y>520</y>
       <w>280</w>
       <h>70</h>
     </coordinates>
@@ -874,7 +874,7 @@ bg=#BFEFFF</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>1140</x>
-      <y>320</y>
+      <y>360</y>
       <w>150</w>
       <h>200</h>
     </coordinates>

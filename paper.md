@@ -116,6 +116,9 @@ Autismuspatienten einzusetzen. Dabei werden Emotionen mit
 Gesichtsausdrücken verknüpft, so zum Beispiel ein lachender Mund mit
 Freude.
 
+Und was es nun genau mit dieser Anwendung auf sich hat, werde ich Ihnen
+im folgenden darlegen.
+
 2. Grundfunktionen des Programms
 ================================
 
@@ -704,6 +707,21 @@ auch die inkorrekten Eingaben abspeichern und später auswerten.
 
 Um die Schwierigkeit zusätzlich zu erhöhen, bietet es sich noch an, nur
 Ausschnitte der Gesichter, wie die Augen- oder Mundpartie zu zeigen.
+
+8. Schluss
+==========
+
+Wie man nun sehen konnte, bietet meine App durchaus viele verschiedene
+Anwendungsmöglichkeiten, die auch bereits nachgefragt werden: Im Laufe
+der Arbeit an diesem Programm haben sich weitere Personen gemeldet,
+welche sich das Lernen von Namen mit dieser Anwendung einfacher machen
+wollen. Doch nicht nur deshalb wird NameMemo nicht in Vergessenheit
+geraten. Es ist bereits fest geplant, einen Ableger davon – NEmo
+(Neuburger Emotions-Erkennungs-Training) – zu entwickeln und
+einzusetzen. Falls Sie nun auch Interesse an dem Programm gefunden
+haben, sie können sich die kostenlose Version davon jeder Zeit auf
+GitHub (Link: <https://github.com/leletec/NameMemo>) ansehen und
+herunterladen.
 
 8. Danksagungen
 ===============

@@ -860,6 +860,14 @@ Abb. 1.7: Datenübertragung Abb. 1.8: Bluetooth 1 Abb. 1.9: Bluetooth 2
 Anhang 2: Diagramme
 ===================
 
+Abb. 2.1: Strukturübersicht
+
+Abb. 2.2: Klassendiagramm
+
+Abb. 2.3: Activities
+
+und Dialoge
+
 [^1]: BUMP
 
 [^2]: Vgl. ANDROID, *Display*

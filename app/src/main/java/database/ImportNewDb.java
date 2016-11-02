@@ -46,21 +46,22 @@ public class ImportNewDb {
 	/**
 	 * Open the two databases and get a list of entries for each if them.
 	 */
-	private void openDb() {
-		if (!new File(oldPath).exists() || !new File(impPath).exists()) return;
-		if ((oldDb = SQLiteDatabase.openDatabase(oldPath, null, SQLiteDatabase.OPEN_READWRITE)) == null) return;
+	private boolean openDb() {
+		if (!new File(oldPath).exists() || !new File(impPath).exists()) return false;
+		if ((oldDb = SQLiteDatabase.openDatabase(oldPath, null, SQLiteDatabase.OPEN_READWRITE)) == null) return false;
 		SQLiteDatabase impDb; // Imported db
-		if ((impDb = SQLiteDatabase.openDatabase(impPath, null, SQLiteDatabase.OPEN_READONLY)) == null) return;
+		if ((impDb = SQLiteDatabase.openDatabase(impPath, null, SQLiteDatabase.OPEN_READONLY)) == null) return false;
 		dao = new ImportDAO(context);
 		oldList = dao.getAllPics(oldDb);
 		impList = dao.getAllPics(impDb);
+		return true;
 	}
 
 	/**
 	 * Only display the new entries in the dialog.
 	 */
 	public void lookForNew() {
-		openDb();
+		if (!openDb()) return;
 		newEntries = new ArrayList<>();
 		for (Picture pic : impList)
 			if (search(oldList, pic) == null) {

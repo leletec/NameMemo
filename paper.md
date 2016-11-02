@@ -78,12 +78,15 @@ Dialoge](#6.1 Strukturierung in Activities und Dialoge|outline).......
 
 7.[Ausblick](#7. Ausblick|outline)............. 14
 
-8.[Danksagungen](#8. Danksagungen|outline).......... ..
+8.[Schluss](#8. Schluss|outline)............. 16
 
-9.[Literaturverzeichnis](#9. Literaturverzeichnis|outline)...........
+9.[Danksagungen](#9. Danksagungen|outline).......... .. 17
 
-10.[Eidesstattliche Erklärung
-](#10. Eidesstattliche Erklärung|outline)..........
+10.[Literaturverzeichnis](#10. Literaturverzeichnis|outline)...........
+17
+
+11.[Eidesstattliche Erklärung
+](#11. Eidesstattliche Erklärung|outline).......... 19
 
 1. Einleitung
 =============
@@ -723,7 +726,7 @@ haben, sie können sich die kostenlose Version davon jeder Zeit auf
 GitHub (Link: <https://github.com/leletec/NameMemo>) ansehen und
 herunterladen.
 
-8. Danksagungen
+9. Danksagungen
 ===============
 
 - Dominik Okwieka
@@ -732,8 +735,8 @@ herunterladen.
 
 - StackOverflow
 
-9. Literaturverzeichnis
-=======================
+10. Literaturverzeichnis
+========================
 
 BUMP Technologies: *Glide*,
 <https://github.com/bumptech/glide/blob/master/README.md> vom
@@ -808,7 +811,7 @@ SCHWENCK, Christina; Ciaramidaro, Angela: *Soziale Kognition bei
 Autismus-Spektrum-Störungen und Störungen des Sozialverhaltens*, in:
 Kindheit und Entwicklung, 23 (1), von 2014, S. 5-12
 
-10. Eidesstattliche Erklärung
+11. Eidesstattliche Erklärung
 =============================
 
 Ich erkläre, dass ich die Seminararbeit ohne fremde Hilfe angefertigt

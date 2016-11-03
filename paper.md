@@ -729,9 +729,9 @@ wollen. Doch nicht nur deshalb wird NameMemo in der nächsten Zeit nicht
 in Vergessenheit geraten. Es ist bereits fest geplant, einen Ableger
 davon – *NEmo (Neuburger Emotions-Erkennungs-Training)* – zu entwickeln
 und einzusetzen. Falls Sie nun auch Interesse an dem Programm gefunden
-haben, können Sie sich die kostenlose Version davon jeder Zeit auf
-GitHub (Link: <https://github.com/leletec/NameMemo>) ansehen und
-herunterladen.
+haben, können Sie mich jederzeit unter der Mailadresse im Infodialog
+anschreiben und um eine Kopie der kostenlosen Version des Programms
+bitten.
 
 9. Danksagungen
 ===============

@@ -98,7 +98,7 @@ ihm nicht klar zu sein, wozu man solch eine App brauchen könnte, er
 könne sich die Namen seiner Klassenkameraden schließlich auch ohne Hilfe
 eines Computers merken.
 
-Es gibt aber durchaus Anwendungsgebiete für mein Programm: Sie kann von
+Es gibt aber durchaus Anwendungsgebiete für mein Programm: Es kann von
 Lehrern verwendet werden, um sich die Namen ihrer Schüler leichter zu
 merken, da dies aufgrund der vielen und häufig wechselnden Schüler oft
 ein Problem ist. Ein Lehrer hat bereits angefragt, diese App verwenden
@@ -134,30 +134,31 @@ einen Button mit der Beschriftung „Name anzeigen“[^1]. Jetzt ist der
 Nutzer angehalten, sich den zu dem gezeigten Bild gehörigen Namen zu
 überlegen. Hat er das getan, drückt er den Button, worauf nun der
 tatsächliche Name und zwei weitere Buttons – „Ja“ und „Nein“ –
-erscheinen[^2]. Hat der Nutzer den Namen gewusst, drückt er auf „Ja“,
-andernfalls auf „Nein“ und ein neues Bild erscheint, wo das Prozedere
-von vorne beginnt. Das Ergebnis wird in einer Datenbank abgespeichert
-und kann unter anderem beeinflussen, wie häufig das Bild von nun an
-erscheinen wird.
+erscheinen[^2]. Hat der Nutzer den richtigen Namen gewusst, drückt er
+auf „Ja“, andernfalls auf „Nein“ und ein neues Bild erscheint, wo das
+Prozedere von vorne beginnt. Das Ergebnis wird in einer Datenbank
+abgespeichert und kann unter anderem beeinflussen, wie häufig das Bild
+von nun an erscheinen wird.
 
 Zudem hat der Nutzer, ab einer gewissen Anzahl aufeinanderfolgender,
 positiver Bestätigungen (Standard: 3), die Möglichkeit den Eintrag aus
 der Datenbank zu löschen um ihn somit als „gelernt“ für sich abzuhaken.
-Je näher man dieser Hürde ist, desto seltener wird das Bild, mit den
-Standardeinstellungen, zur Abfrage aufkommen. Wurden alle Einträge
-entfernt, erscheint eine Meldung darüber sowie ein Platzhaltebild.
+Je näher man dieser Hürde kommt, desto seltener wird das Bild, mit den
+Standardeinstellungen, zur Abfrage aufgerufen. Wurden alle Einträge
+entfernt, erscheint eine Meldung darüber, sowie ein Platzhaltebild.
 
 Die Einträge in dieser Datenbank können zusätzlich auf ein anderes Gerät
-übertragen werden um somit mehrere Instanzen der App synchron zu halten.
+übertragen werden, um somit mehrere Instanzen der App synchron zu
+halten.
 
 3. Das Laden der Bilder
 =======================
 
-Zu Beginn wurden die anzuzeigenden Bilder in der ImageView durch Bitmaps
-erzeugt. Macht man allerdings ein neues Foto mit der von Android
-bereitgestellten Activity, so muss dieses Bild oft erst noch gedreht
-werden. Dies ist notwendig, da die Ausrichtung des Gerätes bei dem
-Erstellen des Bildes nur in Form von Exif-Daten (vergleichbar mit
+Zu Beginn wurden die anzuzeigenden Bilder in der ImageView durch
+*Bitmaps* erzeugt. Macht man allerdings ein neues Foto mit der von
+Android bereitgestellten Activity, so muss dieses Bild oft erst noch
+gedreht werden. Dies ist notwendig, da die Ausrichtung des Gerätes bei
+dem Erstellen des Bildes nur in Form von Exif-Daten (vergleichbar mit
 Metadaten) gespeichert wird. Erzeugt man nun die Bitmap des gewünschten
 Bildes, muss man diese Daten erst auslesen und das Bild manuell drehen,
 bevor sie in die ImageView geladen werden kann. Dies benötigt viel
@@ -170,14 +171,14 @@ fast and efficient open source media management and image loading
 framework for Android that wraps media decoding, memory and disk
 caching, and resource pooling into a simple and easy to use
 interface.“[^3] Glide kümmert sich nicht nur automatisch um die korrekte
-Rotation des Bildes, sondern sorgt auch für einfache Größenmanipulation
-dessen. Das bedeutet, dass jedes Bild, welches in eine ImageView geladen
-wird, in seiner Größe angepasst wird.
+Rotation des Bildes, sondern sorgt auch für deren einfache
+Größenmanipulation. Das bedeutet, dass jedes Bild, welches in eine
+ImageView geladen wird, in seiner Größe angepasst wird.
 
 Hierfür werden beim Start der App Werte für Höhe und Breite generiert
 und gespeichert. Die Breite entspricht dabei der Breite jener Fläche des
-Displays, dass die Anwendung enthält.[^4] Die Höhe allerdings entspricht
-nur 75% der Höhe dieser Fläche um dem Platzanspruch der Actionbar
+Displays, das die Anwendung enthält.[^4] Die Höhe allerdings entspricht
+nur 75% der Höhe dieser Fläche, um dem Platzanspruch der Actionbar
 gerecht zu werden. Für die „normale“ ImageView werden diese Werte als
 minimale und maximale Größe gesetzt und die Bilder werden auch in dieser
 Größe von Glide geladen. Für die Bildvorschau beim Hinzufügen von
@@ -187,11 +188,11 @@ halbiert.
 4. Die Datenbank
 ================
 
-Wie oben bereits erwähnt, wird zum Speichern sowohl der „Bilderdaten“
-als auch der Einstellungen eine Datenbank verwendet, um die Daten bei
+Wie oben bereits erwähnt, wird zum Speichern sowohl der „Bilderdaten“,
+als auch der Einstellungen, eine Datenbank verwendet, um die Daten bei
 einem Schließen der Anwendung nicht zu verlieren.
 
-Zu diesem Zweck wird die Engine SQLite eingesetzt, da sie bereits auf
+Zu diesem Zweck wird die Engine *SQLite* eingesetzt, da sie bereits auf
 jedem Androidgerät vorhanden ist. Die beiden Tabellen *settings* und
 *pictures* werden von je einer DAO (Data Access Object)-Klasse
 verwaltet. Nur darauf wird im sonstigen Code zugegriffen, wodurch sie
@@ -239,20 +240,20 @@ benötigten Daten zu den jeweiligen Bildern gesichert. Zum einen wird der
 Pfad zu der entsprechenden Bilddatei gespeichert. Es wird darauf
 verzichtet, die Datei aus der Datenbank rekonstruieren zu können, um
 Speicherplatz und Ressourcen zu sparen. Weiter werden der, vom Nutzer
-zugeordnete, Name, die Anzahl an Gesamtaufrufen und die Anzahl an
+zugeordnete Name, die Anzahl an Gesamtaufrufen und die Anzahl an
 positiven Rückmeldungen des Nutzers (drücken von „Ja“) in Folge
 gesichert. Letzterer Wert wird auf 0 zurückgesetzt, sobald nach
 Erscheinen des Bildes auf „Nein“ gedrückt wird.
 
 Der Pfad der Bilder ist dabei der Primärschlüssel der Tabelle, was
 bewirkt, dass man eine Bilddatei nicht mehrmals verwenden kann. Dadurch
-kann man eine gesuchte Zeile durch eben diesen Pfad genau identifizieren
-um sie dann zu manipulieren. Für einfachere Handhabung zur Laufzeit
-werden Daten zu Bildern nicht direkt aus der Datenbank abgerufen.
-Stattdessen wird eine Liste aller Einträge der Tabelle abgefragt und als
-Array gespeichert. Dieser wird dann unter anderem dafür verwendet, das
-nächste anzuzeigende Bild zu bestimmen und die Informationen dazu
-auszulesen.
+kann man eine gesuchte Zeile durch eben diesen Pfad genau
+identifizieren, um sie dann zu manipulieren. Für eine einfachere
+Handhabung zur Laufzeit werden Daten zu Bildern nicht direkt aus der
+Datenbank abgerufen. Stattdessen wird eine Liste aller Einträge der
+Tabelle abgefragt und als Array gespeichert. Dieses wird dann unter
+anderem dafür verwendet, das nächste anzuzeigende Bild zu bestimmen und
+die Informationen dazu auszulesen.
 
 4.3 Hinzufügen von Wertepaaren
 ------------------------------
@@ -270,7 +271,7 @@ Möchte man ein neues Foto schießen, so gelangt man in eine Activity der
 Kamera-App seines Gerätes, wo man wie gewohnt sein Bild aufnehmen kann.
 Hat man dies erfolgreich abgeschlossen, kann man dem Bild in dem
 erscheinenden Dialog noch einen Namen zuweisen. Nachdem man auch dies
-getan hat ist die Verknüpfung in der Datenbank gespeichert und wird von
+getan hat, ist die Verknüpfung in der Datenbank gespeichert und wird von
 nun an mit auftauchen. Die Bilddateien werden bei diesem Prozess in
 einem eigenen Ordner gespeichert. Er befindet sich im Gerätespeicher
 unter „Pictures“, heißt wie die App, also „NameMemo“ und wird vom
@@ -308,7 +309,7 @@ der Eintrag in der Datenbank abgespeichert.
 
 Zum Schluss bietet sich noch die Möglichkeit, die Datenbankdatei einer
 anderen Instanz der App, welche auf einem anderen Gerät läuft,
-zugesendet zu bekommen um dann auf verschiedene Weisen weiter damit zu
+zugesendet zu bekommen, um dann auf verschiedene Weisen weiter damit zu
 arbeiten. Die Handlungsmöglichkeiten durch den Nutzer werden dabei in
 einem Dialog dargestellt, welcher in der abstrakten Klasse *net.Net*
 implementiert ist. Diese benutzt dann, je nach Auswahl, verschiedene
@@ -331,10 +332,10 @@ Soviel zu der lokalen Funktionsweise des Programms. Kommen wir nun zu
 dem Kernaspekt der App: dem Datenaustausch mit anderen Systemen. Mit der
 Anwendung ist es möglich, die Tabelle *pictures* der Datenbank mit
 anderen Systemen zu teilen und seinen Fortschritt somit zu
-synchronisieren. Im Folgenden werden drei Varianten vorgestellt werden:
-die Übertragung mithilfe von Near Field Communication (NFC), via
-Bluetooth und mithilfe eines festen Servers im Internet. Implementiert
-sind allerdings nur die ersten beiden. Warum, wird in [Punkt
+synchronisieren. Im Folgenden werden drei Varianten vorgestellt: die
+Übertragung mithilfe von Near Field Communication (NFC), via Bluetooth
+und mithilfe eines festen Servers im Internet. Implementiert sind
+allerdings nur die ersten beiden. Warum, wird in [Punkt
 5.4](#5.4 Vergleich und Fazit|outline) genauer erläutert. Die beiden
 implementierten Ausführungen werden jeweils in einer separaten Activity
 umgesetzt.
@@ -367,7 +368,7 @@ verschiedene Betriebsarten:
     NFC-Lesern gelesen werden.[^7]
 
 In NameMemo hat man die Möglichkeit, die Datenbankdatei der App auf ein
-anderes Gerät zu übertragen, auf dem die Anwendung läuft, um dann auf
+anderes Gerät, auf dem die Anwendung läuft, zu übertragen, um dann auf
 dem Zielgerät weitere Operationen damit zu starten. Somit wird hier
 Variante 2 von oben benutzt, die Datei wird also mithilfe der Android
 Beam Dateiübertragungs-API übertragen. Um diese Funktion nutzen zu
@@ -384,10 +385,10 @@ dann beide Geräte erfolgreich in der Activity angekommen, wird
 dazu, dass nun eben die Datenbankdatei bei einer Übertragung gesendet
 wird. Um jetzt eine Übertragung zu beginnen, müssen die beiden Geräte
 „Rücken an Rücken“ gebracht werden und auf dem gewünschten Sender muss
-der Bildschirm berührt werden[^8]. Nachdem die Datei übertragen wurde
-können die Geräte voneinander entfernt werden und es muss nur noch, da
+der Bildschirm berührt werden. Nachdem die Datei übertragen wurde,
+können die Geräte voneinander entfernt werden. Jetzt muss nur noch, da
 es auch hier kein Feedback gibt, bei dem Empfänger auf den Button
-gedrückt werden um den in [Punkt
+gedrückt werden[^8], um den in [Punkt
 4.3.3](#4.3.3 Lesen einer externen Datei|outline) beschriebenen Vorgang
 zu starten.
 
@@ -424,7 +425,7 @@ In NameMemo gelangt man, nach entsprechender Auswahl, auf die
 *BluetoothActivity*, wo in *onCreate()* geprüft wird, ob das Gerät
 Bluetooth unterstützt. Ist dies der Fall, wird in *onStart()* noch
 kontrolliert, ob Bluetooth auch aktiviert ist und der Nutzer
-gegebenenfalls durch einen Dialog des Systems dazu aufgefordert dies
+gegebenenfalls durch einen Dialog des Systems dazu aufgefordert, dies
 nachzuholen. Wird das abgelehnt, kehrt man wieder zur *MainActivity*
 zurück. Ist man allerdings erfolgreich in der Activity angekommen, wird
 ein neuer „Server“ gestartet und es wird gleichzeitig eine Liste mit
@@ -454,8 +455,8 @@ werden soll[^11]. Ist dies geschehen wird in der sendenden Instanz die
 Datenbankdatei zu einem Byte-Array umgewandelt und anschließend in
 Teilen mit einer Länge von 8192 Bytes, also 8 Kilobytes, an das
 Gegenüber gesendet. Diese Aufteilung erfolgt, da es zu Komplikationen
-kommen kann, werden zu große Datenpakete auf einmal über Bluetooth
-verschickt. Der empfangende Part liest den ankommenden Stream
+kommen kann, falls zu große Datenpakete auf einmal über Bluetooth
+verschickt werden. Der empfangende Part liest den ankommenden Stream
 währenddessen aus und erstellt eine Datei, die der ursprünglich
 gesendeten entspricht. Ist der Vorgang abgeschlossen, wird die Activity
 des Senders beendet und der Empfänger verfährt weiter, wie in [Punkt
@@ -471,14 +472,12 @@ nur eine mögliche Vorgehensweise beschreiben.
 
 Auf dem Server läuft eine Software, welche auf HTTP-Anfragen reagieren
 kann. Vergleichbar ist dies mit einem Webserver, der eine Internetseite,
-wie zum Beispiel
-[http://www.](http://www.google.com/)[google.com](http://www.google.com/),
-hostet. Nun wird hier allerdings keine, mit einem Webbrowser aufrufbare,
-graphische Seite, sondern lediglich eine einfache, textbasierte
-Möglichkeit mit dem Server zu kommunizieren benötigt. Dies ist in Java
-beispielsweise mithilfe von *Jetty* möglich. Jetty ist ein auf Java
-basierter Webserver, welcher in einen Server eingebettet werden
-kann.[^12]
+wie zum Beispiel http://www.google.com, hostet. Nun wird hier allerdings
+keine, mit einem Webbrowser aufrufbare, graphische Seite, sondern
+lediglich eine einfache, textbasierte Möglichkeit mit dem Server zu
+kommunizieren, benötigt. Dies ist in Java beispielsweise mithilfe von
+*Jetty* möglich. Jetty ist ein auf Java basierter Webserver, welcher in
+einen Server eingebettet werden kann.[^12]
 
 Um die Übertragung zu instanziieren, senden beide Android-Geräte einen
 *Request* an den Server, damit dieser erkennt, dass sie zum
@@ -557,9 +556,9 @@ zielführend betrachtet und verworfen. Mit NFC wird eine besonders
 einfache und sichere und mit Bluetooth eine besonders kompatible
 Möglichkeit, mehrere Geräte synchron zu halten, implementiert. Dem
 Nutzer wird empfohlen, nach Möglichkeit NFC zu verwenden und ansonsten
-auf Bluetooth auszuweichen. Der Gedanke Bilder automatisch mit zu
-synchronisieren wurde auf Grund von Komplexität und mangelndem Nutzen
-ebenso nicht umgesetzt, da das Senden von Bilddateien auch mit
+auf Bluetooth auszuweichen. Der Gedanke, Bilder automatisch mit zu
+synchronisieren, wurde auf Grund von Komplexität und mangelndem Nutzen
+ebenfalls nicht umgesetzt, da das Senden von Bilddateien auch mit
 „Android-Hausmitteln“ einfach zu bewerkstelligen ist.
 
 6. Entscheidungen während des Projekts
@@ -589,7 +588,7 @@ eine neue Activity zu starten. Darüber hinaus entsteht so eine
 gut erkennen kann: Alles, was mit Datenaustausch mit anderen Systemen zu
 tun hat, ist klar von dem lokalen Part abgegrenzt; auch das Hinzufügen
 von Bildern auf lokaler Ebene ist separiert. Dies fördert eine
-*Übersichtlichkeit*, sowohl des Codes als auch für den Nutzer. Zudem
+*Übersichtlichkeit*, sowohl des Codes, als auch für den Nutzer. Zudem
 sind einige Activities und Dialoge von Android vorgegeben und können
 somit nicht in ihrer Darstellungsform manipuliert werden. Alle diese
 Punkte führen also zu der, in NameMemo gegebenen, Struktur.
@@ -601,7 +600,7 @@ Die Actionbar, auch Appbar genannt, sprich die Leiste oben auf dem
 Bildschirm, ist bei NameMemo speziell gestaltet. Normalerweise könnte
 man den Namen der App, beziehungsweise der Activity, das Icon der App
 und ein bis zwei Symbole bei einem normal großen Handy anordnen. Bei der
-hier verwendeten Anwendung jedoch wird bei der MainActivity auf ein
+hier verwendeten Anwendung jedoch wird bei der *MainActivity* auf ein
 Appicon und eine Beschriftung verzichtet. Dies dient dem Zweck, dass nun
 vier, und damit alle wichtigen, Menüsymbole Platz finden. Die Icons
 hierfür sind zum Teil von Android und zum Teil nachbearbeitete Symbole
@@ -631,10 +630,10 @@ So kann der aktuelle Zustand einer Activity oder App mithilfe eines
 *Statecontrollers* gespeichert werden, welcher jede Zustandsänderung
 aufzeichnet und bei Bedarf (Neustarten der Activity) den aktuellen
 Zustand zurückgibt. Weitere Möglichkeiten sind das Benutzen von
-*SharedPreferences*, einem Interface dass das Zugreifen auf und
-Modifizieren von Einstellungsdaten erlaubt[^17], oder das Speichern von
-wichtigen Werten in einer *Datenbank*, wie es in NameMemo auch zum Teil
-umgesetzt wird.
+*SharedPreferences*, einem Interface, das Zugreifen auf und Modifizieren
+von Einstellungsdaten erlaubt[^17], oder das Speichern von wichtigen
+Werten in einer *Datenbank*, wie es in NameMemo auch zum Teil umgesetzt
+wird.
 
 Allerdings ist die Orientierung von NameMemo auf *portrait* begrenzt, da
 eine Unterstützung der anderen Modi nicht sinnvoll erscheint. Dies liegt
@@ -716,8 +715,8 @@ zusätzlichen Schalter in den Einstellungen erreicht, welcher mit einem
 erzielen, kann es darüber hinaus sinnvoll sein, dass der Nutzer zu jedem
 Bild die zugehörige Emotion in ein Textfeld eingeben muss und nicht
 einfach mithilfe von Buttons zum nächsten Bild zu gelangen. Dieser
-Schritt schützt nicht nur vor Betrügen des Patienten, man kann somit
-auch die inkorrekten Eingaben abspeichern und später auswerten.
+Schritt schützt nicht nur vor Manipulationen des Patienten, man kann
+somit auch die inkorrekten Eingaben abspeichern und später auswerten.
 
 Um die Schwierigkeit zusätzlich zu erhöhen, bietet es sich noch an, nur
 die obere oder untere Gesichtshälfte und damit nur Augen- oder
@@ -734,7 +733,7 @@ wollen. Doch nicht nur deshalb wird NameMemo in der nächsten Zeit nicht
 in Vergessenheit geraten. Es ist bereits fest geplant, einen Ableger
 davon – *NEmo (Neuburger Emotions-Erkennungs-Training)* – zu entwickeln
 und einzusetzen. Falls Sie nun auch Interesse an dem Programm gefunden
-haben, sie können sich die kostenlose Version davon jeder Zeit auf
+haben, können Sie sich die kostenlose Version davon jeder Zeit auf
 GitHub (Link: <https://github.com/leletec/NameMemo>) ansehen und
 herunterladen.
 
@@ -751,6 +750,8 @@ herunterladen.
 autistischen Kindern und Jugendlichen an der Klinik für Kinder- und
 Jugendpsychiatrie und Psychotherapie der Kliniken St. Elisabeth in
 Neuburg an der Donau – Ansprechpartner in Sachen Autismus
+
+- Roswitha Dreier, Diplompsychologin
 
 10. Literaturverzeichnis
 ========================

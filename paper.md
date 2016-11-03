@@ -740,18 +740,16 @@ herunterladen.
 9. Danksagungen
 ===============
 
-- Dominik Okwieka
-
-- Simon Stolz
-
-- StackOverflow
-
-- Dr. med. Jürgen Dreier, Leiter der Spezialambulanz für Familien mit
+Danken möchte ich Dominik Okwieka für seine kompetente fachliche und
+linguistische \[to be corrected by oki\] Unterstützung. Danken möchte
+ich weiter Simon Stolz und den Usern von StackOverflow für das
+Bereitstellen hilfreicher Tipps. Besonderer Dank gilt meinem Vater, Dr.
+med. Jürgen Dreier, Leiter der Spezialambulanz für Familien mit
 autistischen Kindern und Jugendlichen an der Klinik für Kinder- und
 Jugendpsychiatrie und Psychotherapie der Kliniken St. Elisabeth in
-Neuburg an der Donau – Ansprechpartner in Sachen Autismus
-
-- Roswitha Dreier, Diplompsychologin
+Neuburg an der Donau, für die Unterstützung in Sachen Autismus und
+meiner Mutter Roswitha Dreier, Diplompsychologin, die mich erst zu einer
+Ausformulierung dieser Danksagung bewegt hat.
 
 10. Literaturverzeichnis
 ========================

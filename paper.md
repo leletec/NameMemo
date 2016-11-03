@@ -108,7 +108,7 @@ alle anderen, die Schwierigkeiten haben, sich Namen zu merken, können
 sich ihr Leben mit diesem Programm ein Stück leichter machen.
 
 Das Grundprinzip der Anwendung ist es, je ein Bild mit einem Namen zu
-verknüpfen und den Benutzer zu testen, ob er den Namen zu den Bildern
+verknüpfen und den Benutzer abzuprüfen, ob er den Namen zu den Bildern
 weiß.
 
 Dass es aber nicht nur möglich ist, mit dieser Software Namen und Bilder
@@ -119,8 +119,8 @@ Autismuspatienten einzusetzen. Dabei werden Emotionen mit
 Gesichtsausdrücken verknüpft, so zum Beispiel ein lachender Mund mit
 Freude.
 
-Und was es nun genau mit dieser Anwendung auf sich hat, werde ich Ihnen
-im folgenden darlegen.
+Was es nun genau mit dieser Anwendung auf sich hat, werde ich Ihnen im
+folgenden darlegen.
 
 2. Grundfunktionen des Programms
 ================================
@@ -135,17 +135,17 @@ Nutzer angehalten, sich den zu dem gezeigten Bild gehörigen Namen zu
 überlegen. Hat er das getan, drückt er den Button, worauf nun der
 tatsächliche Name und zwei weitere Buttons – „Ja“ und „Nein“ –
 erscheinen[^2]. Hat der Nutzer den richtigen Namen gewusst, drückt er
-auf „Ja“, andernfalls auf „Nein“ und ein neues Bild erscheint, wo das
-Prozedere von vorne beginnt. Das Ergebnis wird in einer Datenbank
+auf „Ja“, andernfalls auf „Nein“ und ein neues Bild erscheint, bei dem
+das Prozedere von vorne beginnt. Das Ergebnis wird in einer Datenbank
 abgespeichert und kann unter anderem beeinflussen, wie häufig das Bild
 von nun an erscheinen wird.
 
 Zudem hat der Nutzer, ab einer gewissen Anzahl aufeinanderfolgender,
-positiver Bestätigungen (Standard: 3), die Möglichkeit den Eintrag aus
-der Datenbank zu löschen um ihn somit als „gelernt“ für sich abzuhaken.
-Je näher man dieser Hürde kommt, desto seltener wird das Bild, mit den
-Standardeinstellungen, zur Abfrage aufgerufen. Wurden alle Einträge
-entfernt, erscheint eine Meldung darüber, sowie ein Platzhaltebild.
+positiver Bestätigungen (Standard: 3), die Möglichkeit, den Eintrag aus
+der Datenbank zu löschen, um ihn somit als „gelernt“ abzuhaken. Nach den
+Standardeinstellungen wird das Bild umso seltener zur Abfrage
+aufgerufen, je näher man dieser Hürde kommt. Wurden alle Einträge
+entfernt, erscheint eine Meldung sowie ein Platzhalterbild.
 
 Die Einträge in dieser Datenbank können zusätzlich auf ein anderes Gerät
 übertragen werden, um somit mehrere Instanzen der App synchron zu
@@ -154,16 +154,16 @@ halten.
 3. Das Laden der Bilder
 =======================
 
-Zu Beginn wurden die anzuzeigenden Bilder in der ImageView durch
-*Bitmaps* erzeugt. Macht man allerdings ein neues Foto mit der von
-Android bereitgestellten Activity, so muss dieses Bild oft erst noch
-gedreht werden. Dies ist notwendig, da die Ausrichtung des Gerätes bei
-dem Erstellen des Bildes nur in Form von Exif-Daten (vergleichbar mit
-Metadaten) gespeichert wird. Erzeugt man nun die Bitmap des gewünschten
-Bildes, muss man diese Daten erst auslesen und das Bild manuell drehen,
-bevor sie in die ImageView geladen werden kann. Dies benötigt viel
-Speicher, weshalb dieser Vorgang bei einigen Geräten zu Abstürzen des
-Programms führt.
+In einer früheren Version wurden die anzuzeigenden Bilder in der
+ImageView durch *Bitmaps* erzeugt. Macht man allerdings ein neues Foto
+mit der von Android bereitgestellten Activity, so muss dieses Bild oft
+erst noch gedreht werden. Dies ist notwendig, da die Ausrichtung des
+Gerätes bei dem Erstellen des Bildes nur in Form von Exif-Daten (einer
+Form von Metadaten) gespeichert wird. Erzeugt man nun die Bitmap des
+gewünschten Bildes, muss man diese Daten erst auslesen und das Bild
+manuell drehen, bevor sie in die ImageView geladen werden kann. Dies
+benötigt viel Speicher, weshalb dieser Vorgang bei einigen Geräten zu
+Abstürzen des Programms führt.
 
 Aus diesem Grund verwendet NameMemo nun das Framework *Glide*, die auf
 der dazugehörigen GitHub-Seite wie folgt beschrieben wird: „Glide is a
@@ -190,28 +190,27 @@ halbiert.
 
 Wie oben bereits erwähnt, wird zum Speichern sowohl der „Bilderdaten“,
 als auch der Einstellungen, eine Datenbank verwendet, um die Daten bei
-einem Schließen der Anwendung nicht zu verlieren.
-
-Zu diesem Zweck wird die Engine *SQLite* eingesetzt, da sie bereits auf
-jedem Androidgerät vorhanden ist. Die beiden Tabellen *settings* und
-*pictures* werden von je einer DAO (Data Access Object)-Klasse
-verwaltet. Nur darauf wird im sonstigen Code zugegriffen, wodurch sie
-für die gesamte Interaktion mit der Datenbank zuständig sind.
+einem Schließen der Anwendung nicht zu verlieren. Zu diesem Zweck wird
+die Engine *SQLite* eingesetzt, da sie bereits auf jedem Androidgerät
+vorhanden ist. Die beiden Tabellen *settings* und *pictures* werden von
+je einer DAO-Klasse (DAO = Data Access Object) verwaltet. Nur darauf
+wird im sonstigen Code zugegriffen, wodurch sie für die gesamte
+Interaktion mit der Datenbank zuständig sind.
 
 4.1 Einstellungen in der Datenbank
 ----------------------------------
 
-Die Tabelle *settings* ist dabei, wie es der Name vermuten lässt, für
-die Einstellungen zuständig. So wird hier gespeichert, wie oft der
-Benutzer bei einem Bild nacheinander auf „Ja“ drücken muss, bevor er
-angeboten bekommt, es zu löschen. Weiter wird gespeichert, ob die Bilder
+Die Tabelle *settings* ist, wie es der Name vermuten lässt, für die
+Einstellungen zuständig. So wird hier gespeichert, wie oft der Benutzer
+bei einem Bild nacheinander auf „Ja“ drücken muss, bevor er das Angebot
+bekommt, es zu löschen. Weiter wird gespeichert, ob die Bilder
 nacheinander oder in einer zufälligen Reihenfolge nach dem in [Punkt
 ](#2. Grundfunktionen des Programms|outline)[2](#2. Grundfunktionen des Programms|outline)
 beschriebenen Algorithmus erscheinen sollen (Standard: zufällig), ob
-alle Bilddateien in einem Ordner gesammelt werden sollen: ist diese
+alle Bilddateien in einem Ordner gesammelt werden sollen – ist diese
 Option aktiviert, werden Bilder, die vom Speicher hinzugefügt werden, in
 diesen Ordner kopiert (Standardwert: an), und ob man eben bei diesem
-Hinzufügen von Bildern aus dem Speicher des Gerätes eine Android übliche
+Hinzufügen von Bildern aus dem Speicher des Gerätes eine Android-übliche
 Activity oder einen einfacher gehaltenen Dialog in Listenform verwenden
 möchte (Standard: Activity).
 
@@ -224,7 +223,7 @@ vorgesehenen Dialog ändern. In diesem Dialog findet man auch die
 Möglichkeit alle Daten aus der Datenbank, also aus beiden Tabellen, zu
 löschen, was auch zu einem Reset der Einstellungen führt.
 
-Auf technischer Ebene besteht jede „Einstellung“ aus einem String
+Auf technischer Ebene besteht jede Einstellung aus einem String
 („Kennung“) und einer Ganzzahl („Wert“). Die Kennung ist hierbei der
 Primärschlüssel, um Überschneidungen zu verhindern. Soll eine Änderung
 vorgenommen werden, wird in der Tabelle nach der Kennung gesucht und der
@@ -239,65 +238,64 @@ In der anderen Tabelle – *pictures* – werden die verschiedenen
 benötigten Daten zu den jeweiligen Bildern gesichert. Zum einen wird der
 Pfad zu der entsprechenden Bilddatei gespeichert. Es wird darauf
 verzichtet, die Datei aus der Datenbank rekonstruieren zu können, um
-Speicherplatz und Ressourcen zu sparen. Weiter werden der, vom Nutzer
+Speicherplatz und Ressourcen zu sparen. Weiter werden der vom Nutzer
 zugeordnete Name, die Anzahl an Gesamtaufrufen und die Anzahl an
-positiven Rückmeldungen des Nutzers (drücken von „Ja“) in Folge
-gesichert. Letzterer Wert wird auf 0 zurückgesetzt, sobald nach
-Erscheinen des Bildes auf „Nein“ gedrückt wird.
+positiven Rückmeldungen des Nutzers (= Drücken von „Ja“) in Folge
+gesichert. Letzterer Wert wird auf 0 zurückgesetzt, wenn nach Erscheinen
+des Bildes auf „Nein“ gedrückt wird.
 
-Der Pfad der Bilder ist dabei der Primärschlüssel der Tabelle, was
-bewirkt, dass man eine Bilddatei nicht mehrmals verwenden kann. Dadurch
-kann man eine gesuchte Zeile durch eben diesen Pfad genau
-identifizieren, um sie dann zu manipulieren. Für eine einfachere
-Handhabung zur Laufzeit werden Daten zu Bildern nicht direkt aus der
-Datenbank abgerufen. Stattdessen wird eine Liste aller Einträge der
-Tabelle abgefragt und als Array gespeichert. Dieses wird dann unter
-anderem dafür verwendet, das nächste anzuzeigende Bild zu bestimmen und
-die Informationen dazu auszulesen.
+Der Pfad der Bilder ist dabei der Primärschlüssel der Tabelle, weswegen
+man eine Bilddatei nicht mehrmals verwenden kann. Dadurch kann man eine
+gesuchte Zeile durch eben diesen Pfad genau identifizieren, um sie dann
+zu manipulieren. Für eine einfachere Handhabung zur Laufzeit werden
+Daten zu Bildern nicht direkt aus der Datenbank abgerufen. Stattdessen
+wird eine Liste aller Einträge der Tabelle abgefragt und als Array
+gespeichert. Dieses wird dann unter anderem dafür verwendet, das nächste
+anzuzeigende Bild zu bestimmen und die Informationen dazu auszulesen.
 
 4.3 Hinzufügen von Wertepaaren
 ------------------------------
 
-In dem Programm sind bereits drei Beispielbilder vorhanden. Der Zweck
-der App ist aber natürlich eigene Bilder hinzuzufügen um dann den Namen
-der jeweils zu sehenden Person zu lernen. Dafür stehen dem Nutzer lokal
-zwei Möglichkeiten zur Verfügung: die Aufnahme eines neuen Fotos mit der
+In dem Programm sind drei Beispielbilder vorhanden. Der Zweck der App
+ist aber natürlich, eigene Bilder hinzuzufügen, um dann den Namen der
+jeweils zu sehenden Person zu lernen. Dafür stehen dem Nutzer lokal zwei
+Möglichkeiten zur Verfügung: die Aufnahme eines neuen Fotos mit der
 geräteinternen Kamera und das Auswählen eines bereits vorhandenen Bildes
-in dem Speicher des Handys.
+aus dem Speicher des Handys.
 
 ### 4.3.1 Aufnahme eines neues Fotos
 
-Möchte man ein neues Foto schießen, so gelangt man in eine Activity der
-Kamera-App seines Gerätes, wo man wie gewohnt sein Bild aufnehmen kann.
-Hat man dies erfolgreich abgeschlossen, kann man dem Bild in dem
-erscheinenden Dialog noch einen Namen zuweisen. Nachdem man auch dies
-getan hat, ist die Verknüpfung in der Datenbank gespeichert und wird von
-nun an mit auftauchen. Die Bilddateien werden bei diesem Prozess in
-einem eigenen Ordner gespeichert. Er befindet sich im Gerätespeicher
-unter „Pictures“, heißt wie die App, also „NameMemo“ und wird vom
-Programm angelegt, falls er noch nicht existiert.
+Möchte man ein neues Foto schießen, so gelangt man in die Activity der
+Kamera-App des Gerätes, wo man wie gewohnt ein Bild aufnehmen kann. Hat
+man dies erfolgreich abgeschlossen, kann man dem Bild in dem
+erscheinenden Dialog einen Namen zuweisen. Nachdem man auch dies getan
+hat, ist die Verknüpfung in der Datenbank gespeichert und wird von nun
+an auftauchen. Die Bilddateien werden bei in einem eigenen Ordner
+gespeichert. Er befindet sich im Gerätespeicher unter
+*Pictures/NameMemo* und wird vom Programm angelegt, falls er noch nicht
+existiert.
 
 Dieses Feature benötigt keine zusätzlichen Berechtigungen, da es die
-Kamera nicht direkt, sondern über eine standardisierte Activity
+Kamera nicht direkt, sondern über die standardisierte Activity
 verwendet.
 
 ### 4.3.2 Auswahl eines bereits vorhandenen Bildes
 
 Eine weitere Möglichkeit ist es, Dateien zu verwenden, welche bereits im
 Speicher vorhanden sind. Dafür gibt es nun wiederum zwei Varianten.
-Welche verwendet wird, kann im Einstellungsdialog ausgewählt werden.
+Welche verwendet wird, kann in den Einstellungen ausgewählt werden.
 
 Zum einen kann man seine Bilddatei in gewohnter Weise mithilfe von
 Android-Hausmitteln finden. Ist diese Option aktiv, erscheint zuerst ein
-Dialog zum Auswählen der Anwendung, mit der man sein Bild finden möchte
+Dialog zum Auswählen der Anwendung, mit der man das Bild finden möchte
 (zum Beispiel „Galerie“ oder „Fotos“). Das weitere Vorgehen hängt dann
 von der jeweiligen Anwendung ab.
 
 Zum anderen ist es auch möglich, die Datei direkt in der App mithilfe
 einer einfachen Liste in einem Dialog auszuwählen. In diesem werden alle
 JPG- und PNG-Dateien, alle Ordner im aktuellen Verzeichnis, sowie ganz
-oben ein Eintrag „..“ angezeigt. Wählt man „..“ aus, gelangt man im
-Dateisystem eine Ebene nach oben und wählt man einen Ordner aus, gelangt
+oben ein Eintrag *..* angezeigt. Wählt man *..* aus, gelangt man im
+Dateisystem eine Ebene nach oben. Wählt man einen Ordner aus, gelangt
 man in diesen. Gestartet wird in dem App-eigenen Verzeichnis für Bilder,
 wie oben beschrieben.
 
@@ -316,7 +314,7 @@ implementiert ist. Diese benutzt dann, je nach Auswahl, verschiedene
 Methoden der Helferklassen *database.ImportNewDb* oder *main.Helper*.
 Die Auswahlmöglichkeiten sind folgende[^5]:
 
--   Ersetzen der kompletten, aktuellen Datenbankdatei mit der neuen.
+-   Ersetzen der aktuellen Datenbankdatei mit der neuen.
 -   Erzeugen einer Liste mit in der momentanen Datenbank noch nicht
     vorhandenen Einträgen. Der Nutzer kann die gewünschten Datenpaare
     dann einzeln übernehmen.
@@ -352,40 +350,40 @@ kommen, wird die Verbindung hergestellt. NFC will durch diese
 Limitierung Lauschangriffe erschweren. Deshalb wird NFC in
 verschiedensten Gebieten eingesetzt, wie beispielsweise, um Zahlungen zu
 tätigen, Schlüssel für andere Verbindungen (zum Beispiel Wi-Fi oder
-Bluetooth) oder auch kleinere Dateien schnell und einfach zu
-übertragen.[^6]
+Bluetooth) zu übermitteln oder auch kleinere Dateien schnell und einfach
+zu übertragen.[^6]
 
-Geräte, welche mit Android laufen und NFC unterstützen, besitzen drei
-verschiedene Betriebsarten:
+Android-Geräte, die NFC unterstützen, besitzen drei verschiedene
+Betriebsarten:
 
-1.  Lese- / Schreibmodus: Ermöglicht es dem Gerät NFC Tags oder Sticker
-    zu lesen und / oder zu schreiben.
+1.  Lese-/Schreibmodus: Ermöglicht es dem Gerät, NFC-Tags oder Sticker
+    zu lesen und/ oder zu schreiben.
 2.  P2P-Modus: Ermöglicht es dem Gerät, Daten mit anderen
     gleichstehenden Geräten auszutauschen. Dieser Modus benutzt
     Android Beam.
-3.  Kartenemulationsmodus: Ermöglicht es dem Gerät, selbst als NFC Karte
+3.  Kartenemulationsmodus: Ermöglicht es dem Gerät, selbst als NFC-Karte
     zu agieren. Die emulierte Karte kann dann von anderen externen
     NFC-Lesern gelesen werden.[^7]
 
 In NameMemo hat man die Möglichkeit, die Datenbankdatei der App auf ein
 anderes Gerät, auf dem die Anwendung läuft, zu übertragen, um dann auf
 dem Zielgerät weitere Operationen damit zu starten. Somit wird hier
-Variante 2 von oben benutzt, die Datei wird also mithilfe der Android
-Beam Dateiübertragungs-API übertragen. Um diese Funktion nutzen zu
-können, werden zwei NFC-fähige Geräte mit Android 4.1 oder höher
-benötigt. Diese beiden Kriterien werden daher im *onCreate()* der
-Activity geprüft, die für die Datenübertragung via NFC zuständig und für
-beide Partner gleich ist. Danach wird in *onStart()* die Aktivierung von
-NFC und Android Beam durch den Nutzer erzwungen. Da es nicht möglich
-scheint, ein Feedback über den aktuellen Aktivitätszustand zu bekommen,
-wird der Dialog zur Aktivierung solange wieder erscheinen, bis der
-Nutzer die notwendigen Features aktiviert oder die App beendet. Sind
-dann beide Geräte erfolgreich in der Activity angekommen, wird
-*NfcAdapter.setBeamPushUris(datenbankdatei,this)* aufgerufen. Dies führt
-dazu, dass nun eben die Datenbankdatei bei einer Übertragung gesendet
-wird. Um jetzt eine Übertragung zu beginnen, müssen die beiden Geräte
-„Rücken an Rücken“ gebracht werden und auf dem gewünschten Sender muss
-der Bildschirm berührt werden. Nachdem die Datei übertragen wurde,
+Betriebsart 2 benutzt, die Datei wird also mithilfe der Android Beam
+Dateiübertragungs-API übertragen. Um diese Funktion nutzen zu können,
+werden zwei NFC-fähige Geräte mit Android 4.1 oder höher benötigt. Diese
+beiden Kriterien werden daher im *onCreate()* der Activity geprüft, die
+für die Datenübertragung via NFC zuständig und für beide Partner gleich
+ist. Danach wird in *onStart()* die Aktivierung von NFC und Android Beam
+durch den Nutzer erzwungen. Da es nicht möglich scheint, ein Feedback
+über den aktuellen Aktivitätszustand zu bekommen, wird der Dialog zur
+Aktivierung solange wieder erscheinen, bis der Nutzer die notwendigen
+Features aktiviert oder die App beendet. Sind dann beide Geräte
+erfolgreich in der Activity angekommen, wird
+*NfcAdapter.setBeamPushUris(datenbankdatei, this)* aufgerufen. Dies
+führt dazu, dass nun eben die Datenbankdatei bei einer Übertragung
+gesendet wird. Um jetzt eine Übertragung zu beginnen, müssen die beiden
+Geräte „Rücken an Rücken“ gebracht werden und auf dem gewünschten Sender
+muss der Bildschirm berührt werden. Nachdem die Datei übertragen wurde,
 können die Geräte voneinander entfernt werden. Jetzt muss nur noch, da
 es auch hier kein Feedback gibt, bei dem Empfänger auf den Button
 gedrückt werden[^8], um den in [Punkt
@@ -398,68 +396,69 @@ zu starten.
 Der Kern der Bluetooth-Spezifikation definiert die Technologie als
 Baustein für Entwickler, die damit interoperable Geräte produzieren und
 somit zu einem florierenden Bluetooth-Ökosystem beitragen können. Sie
-wird von der *Bluetooth Special Interest Group (SIG*) überwacht und von
-den *Bluetooth SIG Working Groups* regelmäßig aktualisiert und
-verbessert um sich dem sich entwickelnden Markt anzupassen. Man
-unterscheidet grundlegend zwischen zwei Varianten von Bluetooth:
-*Bluetooth Basic Rate/Enhanced Data Rate (BR/EDR)*, verabschiedet als
-Version 2.0/2.1 und *Bluetooth with low energy (LE)*, verabschiedet als
-Version 4.0/4.1/4.2. Die beiden Implementationen sind für verschiedene
-Anwendungsgebiete optimiert und benutzen unterschiedliche Chipsets:
-Bluetooth BR/EDR erzeugt eine anhaltende Verbindung über kurze Distanz,
-Bluetooth LE ermöglicht kurze Stöße von Funkverbindungen über längere
-Distanz und schont somit eine eventuell vorhandene Batterie. Geräte wie
-Smartphones oder Tablets arbeiten im* Dual-Mode*, können sich also
-sowohl mit BR/EDR- als auch mit LE-Geräten verbinden.[^9]
+wird von der Bluetooth Special Interest Group (SIG) überwacht und von
+den Bluetooth SIG Working Groups regelmäßig aktualisiert und verbessert,
+um sich dem sich entwickelnden Markt anzupassen. Man unterscheidet
+grundlegend zwischen zwei Varianten von Bluetooth: *Bluetooth Basic
+Rate/Enhanced Data Rate (BR/EDR)*, verabschiedet als Version 2.0/2.1 und
+*Bluetooth with low energy (LE)*, verabschiedet als Version 4.0/4.1/4.2.
+Die beiden Implementationen sind für verschiedene Anwendungsgebiete
+optimiert und benutzen unterschiedliche Chipsets: Bluetooth BR/EDR
+erzeugt eine anhaltende Verbindung über kurze Distanz, Bluetooth LE
+ermöglicht kurze Stöße von Funkverbindungen über längere Distanz und
+schont somit eine eventuell vorhandene Batterie. Geräte wie Smartphones
+oder Tablets arbeiten im* Dual Mode*, können sich also sowohl mit
+BR/EDR- als auch mit LE-Geräten verbinden.[^9]
 
 Somit wird Bluetooth auch von Android unterstützt, wobei der Zugriff auf
 die Funktionen durch die *Android Bluetooth APIs* geregelt wird. Mit
 diesen APIs kann eine Anwendung auf Android unter anderem nach anderen
-Bluetooth-Geräten suchen, gekoppelte Geräte mithilfe des *Bluetooth
-Adapters* anzeigen, sich mit anderen Geräten über die *Network Service
-Discovery* verbinden und mit verbundenen Geräten Daten austauschen.
-Bluetooth LE wird dabei erst ab Android 4.3 von der API
+Bluetooth-Geräten suchen, gekoppelte Geräte mithilfe des
+Bluetooth-Adapters anzeigen, sich mit anderen Geräten über die *Network
+Service Discovery* verbinden und mit verbundenen Geräten Daten
+austauschen. Bluetooth LE wird dabei erst ab Android 4.3 von der API
 unterstützt.[^10]
 
-In NameMemo gelangt man, nach entsprechender Auswahl, auf die
+In NameMemo gelangt man, nach entsprechender Auswahl, in die
 *BluetoothActivity*, wo in *onCreate()* geprüft wird, ob das Gerät
-Bluetooth unterstützt. Ist dies der Fall, wird in *onStart()* noch
+Bluetooth unterstützt. Ist dies der Fall, wird in *onStart()*
 kontrolliert, ob Bluetooth auch aktiviert ist und der Nutzer
-gegebenenfalls durch einen Dialog des Systems dazu aufgefordert, dies
-nachzuholen. Wird das abgelehnt, kehrt man wieder zur *MainActivity*
-zurück. Ist man allerdings erfolgreich in der Activity angekommen, wird
-ein neuer „Server“ gestartet und es wird gleichzeitig eine Liste mit
-gekoppelten Geräten angezeigt. Alternativ hat man auch die Möglichkeit
-nach neuen Geräten zu suchen, wozu man sie erst sichtbar schalten muss.
-Wird ein Eintrag aus der Liste ausgewählt, wird der eigene Server**
-**geschlossen und es wird ein „Client“ erstellt, welcher dann versucht
-mit dem Server der anderen Partei eine Verbindung herzustellen.
+gegebenenfalls durch einen Dialog dazu aufgefordert, dies nachzuholen.
+Wird die Aktivierung abgelehnt, kehrt man wieder zur MainActivity
+zurück. Ist man allerdings erfolgreich in der BluetoothActivity
+angekommen, wird ein neuer „Server“ gestartet und es wird gleichzeitig
+eine Liste mit gekoppelten Geräten angezeigt. Alternativ hat man auch
+die Möglichkeit, nach neuen Geräten zu suchen, wozu man sie erst
+sichtbar schalten muss. Wird ein Eintrag aus der Liste ausgewählt, wird
+der eigene Server** **geschlossen und es wird ein „Client“ erstellt,
+welcher dann versucht, mit dem Server der anderen Partei eine Verbindung
+herzustellen.
 
-Doch nun zu den Details: Da eine Verbindung via Bluetooth keine
-Server-Client-, sondern eine Peer-to-Peer-Verbindung ist, werden in dem
-Sinne keine echten Server oder Clients erstellt. Die verwendeten
-Begriffe dienen nur zur Veranschaulichung der eingenommenen Rolle. So
-wird im *onStart()* der Activity ein Thread gestartet, welcher nach
-einer eingehenden Verbindung lauscht (*AcceptThread*). Wird aber auf
-einen Listeneintrag getippt, wird dieser Thread geschlossen und es wird
+Da eine Verbindung via Bluetooth keine Server-Client-, sondern eine
+Peer-to-Peer-Verbindung ist, werden in dem Sinne keine echten Server
+oder Clients erstellt. Die verwendeten Begriffe dienen nur zur
+Veranschaulichung der eingenommenen Rolle. So wird im *onStart()* der
+Activity ein Thread gestartet, welcher nach einer eingehenden Verbindung
+lauscht (*AcceptThread*). Tippt der Nutzer aber auf einen Eintrag in der
+Liste der nahen Geräte, wird dieser Thread geschlossen und es wird
 stattdessen einer gestartet, dessen Aufgabe es ist, mit dem AcceptThread
 einer anderen Instanz Kontakt aufzunehmen und eine Verbindung aufzubauen
-(*Connect Thread*). Diese Verbindung besteht dann in einem weiteren
+(*ConnectThread*). Diese Verbindung besteht dann in einem weiteren
 Thread, welcher auf beiden Verbindungspartnern läuft und den weiteren
 Datenaustausch ermöglicht (*HandleThread*).
 
 Wurde eine Verbindung hergestellt und der HandleThread gestartet, so
 erscheint statt der oben genannten Liste nun auf beiden Geräten ein
 Button zum Senden, welcher nun von dem entsprechenden Part gedrückt
-werden soll[^11]. Ist dies geschehen wird in der sendenden Instanz die
+werden soll[^11]. Ist dies geschehen, wird in der sendenden Instanz die
 Datenbankdatei zu einem Byte-Array umgewandelt und anschließend in
-Teilen mit einer Länge von 8192 Bytes, also 8 Kilobytes, an das
-Gegenüber gesendet. Diese Aufteilung erfolgt, da es zu Komplikationen
-kommen kann, falls zu große Datenpakete auf einmal über Bluetooth
-verschickt werden. Der empfangende Part liest den ankommenden Stream
-währenddessen aus und erstellt eine Datei, die der ursprünglich
-gesendeten entspricht. Ist der Vorgang abgeschlossen, wird die Activity
-des Senders beendet und der Empfänger verfährt weiter, wie in [Punkt
+Paketen der Größe 8192 Bytes, also 8 Kilobytes, an das Gegenüber
+gesendet. Diese Aufteilung erfolgt, da es zu Komplikationen kommen kann,
+falls zu große Datenpakete auf einmal über Bluetooth verschickt werden.
+Der empfangende Part liest den ankommenden Stream währenddessen aus und
+erstellt eine Datei, die der ursprünglich gesendeten entspricht. Ist der
+Vorgang abgeschlossen, wird die Activity des Senders beendet und der
+Empfänger verfährt wie in [Punkt
 4.3.3](#4.3.3 Lesen einer externen Datei|outline) beschrieben.
 
 5.3 Server-Client
@@ -500,54 +499,52 @@ Kommen wir nun zu einem Vergleich der drei oben genannten Varianten und
 damit zu einem Fazit, beziehungsweise dem Grund der Auswahl der ersten
 beiden für das Projekt.
 
-NFC: NFC ist die, für den Benutzer und den Programmierer, *einfachste
-Möglichkeit* die Datenbankdatei zu verschicken. Es müssen lediglich die
-beiden Geräte aneinander gehalten und der Bildschirm des Senders berührt
-werden. Dadurch besteht allerdings die *Einschränkung der Reichweite*
-auf circa vier Zentimeter, wodurch wiederum ein *sehr hohes
-Sicherheitsniveau* gewährt wird. Eine weitere Einschränkung ist die,
-dass nicht alle Geräte NFC und Android Beam unterstützen; dieses Problem
-betrifft vor allem Geräte mit einer Android-Version kleiner als 4.1.
-Durch *Android Beam* ist darüber hinaus die Größe der Datei, welche
-verschickt werden kann, limitiert und für *S-Beam*, welches für größere
-Dateien gedacht ist, steht keine API bereit. Dies ist kein Problem für
-die Datenbankdatei von NameMemo, wohl aber für das zusätzliche,
-automatische Verschicken von Bildern, das in der App nicht umgesetzt
-wurde.
+NFC. NFC ist die für den Benutzer und für den Programmierer einfachste
+Möglichkeit, die Datenbankdatei zu verschicken. Es müssen lediglich die
+beiden Geräte aneinandergehalten und der Bildschirm des Senders berührt
+werden. Dadurch besteht allerdings die Einschränkung der Reichweite auf
+circa vier Zentimeter, wodurch wiederum ein sehr hohes Sicherheitsniveau
+gewährt wird. Eine weitere Einschränkung ist die, dass nicht alle Geräte
+NFC und Android Beam unterstützen; dieses Problem betrifft vor allem
+Geräte mit einer Android-Version kleiner als 4.1. Durch *Android Beam*
+ist darüber hinaus die Größe der Datei, welche verschickt werden kann,
+limitiert und für *S-Beam*, welches für größere Dateien gedacht ist,
+steht keine API bereit. Dies ist kein Problem für die Datenbankdatei von
+NameMemo, wohl aber für das zusätzliche, automatische Verschicken von
+Bildern, das in der App nicht umgesetzt wurde.
 
-Bluetooth: Bluetooth ist im Vergleich zu NFC etwas komplexer: Der
+Bluetooth. Bluetooth ist im Vergleich zu NFC etwas komplexer: Der
 gewünschte Verbindungspartner muss erst gesucht werden, wozu er sich
 sichtbar schalten muss. Dabei kann es problematisch sein, wenn sich
 mehrere sichtbare Geräte mit gleichem oder ähnlichen Anzeigenamen in der
 Umgebung befinden. Die Reichweite ist mit zehn bis 100 Metern[^13]
 deutlich höher als bei NFC, was es aber auch potentiellen Angreifern
-deutlich leichter macht die Verbindung zu belauschen oder zu
+deutlich leichter macht, die Verbindung zu belauschen oder zu
 manipulieren. Mithilfe von Software wie *Bloover*, *BackTrack* oder
-*BTCrack* lässt sich leicht eine eventuell vorhandene Lücke in der
-Bluetooth Architektur, oder ähnliches, ausnutzen.[^14] Bluetooth ist auf
-Handys schon *länger verbreitet* als Android, weshalb man heutzutage so
-gut wie immer davon ausgehen kann, dass es auch auf den zwei Geräten
-unterstützt wird, die synchronisiert werden sollen. Auch gibt es
-*keinerlei Einschränkungen bezüglich einer Dateigröße*, da Dateien
-sowieso nicht im Ganzen übertragen werden (siehe oben).
+*BTCrack* lassen sich leicht eventuell vorhandene Lücken in der
+Bluetooth-Architektur und anderem Code auf dem Handy ausnutzen.[^14]
+Bluetooth ist auf Handys schon länger verbreitet als Android, weshalb
+man heutzutage so gut wie immer davon ausgehen kann, dass es auch auf
+den zwei Geräten unterstützt wird, die synchronisiert werden sollen.
+Auch gibt es keinerlei Einschränkungen bezüglich einer Dateigröße, da
+Dateien sowieso nicht im Ganzen übertragen werden (siehe oben).
 
-Server-Client: Diese Herangehensweise ist, verglichen mit den anderen
-beiden, bei weitem die *komplexeste*, da man für die Umsetzung als
-erstes einen Server hosten und warten muss. Zudem müssen sich beide
-Clients mit dem Server verbinden können, sei dies über ein lokales
-Netzwerk oder über das Internet. Letzteres kann darüber hinaus
-*zusätzliche Kosten* für die Clients verursachen oder kann bei Geräten
-wie Tablets gar nicht erst möglich sein. Des weiteren ist eine
-„Standard“-Verbindung über *HTTP* nicht gegen Mithören gesichert und
-sollte daher, zum Beispiel via *HTTPS*, abgesichert werden. Ein Vorteil
-der Server-Client-Kommunikation ist die Reichweite, welche, bei einem
-Server im Internet oder Nutzung eines *VPNs*, unbegrenzt hoch sein kann,
-gegeben den Fall, dass man sich mit dem Netz verbinden kann. Zwar gibt
-es bei dieser Methode technisch kaum eine Datenbeschränkung, jedoch ist
-die Wartezeit zu beachten, welche mit dem Down- beziehungsweise Upload
-von großen Datenpaketen einhergeht.
+Server-Client. Diese Herangehensweise ist, verglichen mit den anderen
+beiden, bei weitem die komplexeste, da man für die Umsetzung als erstes
+einen Server hosten und warten muss. Zudem müssen sich beide Clients mit
+dem Server verbinden können, sei dies über ein lokales Netzwerk oder
+über das Internet. Letzteres kann darüber hinaus zusätzliche Kosten für
+die Clients verursachen oder kann bei Geräten wie Tablets gar nicht erst
+möglich sein. Des weiteren ist eine „Standard“-Verbindung über HTTP
+nicht gegen Mithören gesichert und sollte daher abgesichert werden, zum
+Beispiel via HTTPS. Ein Vorteil der Server-Client-Kommunikation ist die
+Reichweite, welche bei einem Server im Internet oder Nutzung eines VPNs
+unbegrenzt hoch sein kann, gegeben den Fall, dass man sich mit dem Netz
+verbinden kann. Zwar gibt es bei dieser Methode technisch kaum eine
+Datenbeschränkung, jedoch ist die Wartezeit zu beachten, welche mit dem
+Down- beziehungsweise Upload von großen Datenpaketen einhergeht.
 
-Fazit: Der Datenaustausch von NameMemo ist nicht über weitere Distanzen
+Fazit. Der Datenaustausch von NameMemo ist nicht über weitere Distanzen
 vorgesehen. Zudem soll die Anwendung ohne einen Server auskommen und
 somit eine potentiell längere Lebensdauer haben. Außerdem richtet sich
 die App an Benutzer mit unterschiedlicher technischer Erfahrung. Aus
@@ -556,9 +553,9 @@ zielführend betrachtet und verworfen. Mit NFC wird eine besonders
 einfache und sichere und mit Bluetooth eine besonders kompatible
 Möglichkeit, mehrere Geräte synchron zu halten, implementiert. Dem
 Nutzer wird empfohlen, nach Möglichkeit NFC zu verwenden und ansonsten
-auf Bluetooth auszuweichen. Der Gedanke, Bilder automatisch mit zu
-synchronisieren, wurde auf Grund von Komplexität und mangelndem Nutzen
-ebenfalls nicht umgesetzt, da das Senden von Bilddateien auch mit
+auf Bluetooth auszuweichen. Der Gedanke, Bilder automatisch zu
+synchronisieren, wurde auf Grund der Komplexität und dem mangelndem
+Nutzen ebenfalls nicht umgesetzt, da das Senden von Bilddateien auch mit
 „Android-Hausmitteln“ einfach zu bewerkstelligen ist.
 
 6. Entscheidungen während des Projekts
@@ -567,51 +564,50 @@ ebenfalls nicht umgesetzt, da das Senden von Bilddateien auch mit
 Wie bei jedem Projekt, wurden auch bei diesem verschiedene
 Entscheidungen getroffen, welche im weiteren Verlauf teilweise auch
 wieder verworfen oder geändert wurden. Im Folgenden werden deshalb die
-wichtigsten Entschlüsse, welche während NameMemo gefasst wurden,
-dargelegt.
+wichtigsten Entschlüsse dargelegt.
 
 6.1 Strukturierung in Activities und Dialoge
 --------------------------------------------
 
-NameMemo besteht aus sechs Activities und 13 Dialogen. Dieses Verhältnis
-ist nicht zufällig, sondern wurde aus verschiedenen Gründen bewusst
-gewählt:
+NameMemo besteht aus sechs Activities und dreizehn Dialogen. Dieses
+Verhältnis ist nicht zufällig, sondern wurde aus verschiedenen Gründen
+bewusst gewählt:
 
 Ein Anlass für diese Gestaltung ist die *Vorbeugung von
 Orientierungslosigkeit* beim Navigieren durch die App, da man bei den
 Dialogen stets die aktuelle Activity im Hintergrund sieht und einfach zu
-dieser zurückkehren kann, indem man diesen antippt. Ein weiterer Grund
-ist die *Simplizität* vieler Dialoge, wodurch es sich beispielsweise für
+dieser zurückkehren kann, indem man diese antippt. Ein weiterer Grund
+ist die Simplizität vieler Dialoge, wodurch es sich beispielsweise für
 den Dialog zum Anzeigen der Verbindungsmöglichkeiten nicht lohnen würde,
 eine neue Activity zu starten. Darüber hinaus entsteht so eine
-*Gliederung der Bedienungsmöglichkeiten*, wie man an dem Diagramm[^15]
-gut erkennen kann: Alles, was mit Datenaustausch mit anderen Systemen zu
-tun hat, ist klar von dem lokalen Part abgegrenzt; auch das Hinzufügen
-von Bildern auf lokaler Ebene ist separiert. Dies fördert eine
-*Übersichtlichkeit*, sowohl des Codes, als auch für den Nutzer. Zudem
-sind einige Activities und Dialoge von Android vorgegeben und können
-somit nicht in ihrer Darstellungsform manipuliert werden. Alle diese
-Punkte führen also zu der, in NameMemo gegebenen, Struktur.
+Gliederung der Bedienungsmöglichkeiten, wie man an dem Diagramm[^15] gut
+erkennen kann: Alles, was mit Datenaustausch mit anderen Systemen zu tun
+hat, ist klar von dem lokalen Part abgegrenzt; auch das Hinzufügen von
+Bildern auf lokaler Ebene ist separiert. Dies fördert die
+Übersichtlichkeit, sowohl des Codes, als auch für den Nutzer. Zudem sind
+einige Activities und Dialoge von Android vorgegeben und können somit
+nicht in ihrer Darstellungsform manipuliert werden. Alle diese Punkte
+führen also zu der in NameMemo gegebenen Struktur.
 
 6.2 Gestaltung der Actionbar
 ----------------------------
 
-Die Actionbar, auch Appbar genannt, sprich die Leiste oben auf dem
-Bildschirm, ist bei NameMemo speziell gestaltet. Normalerweise könnte
-man den Namen der App, beziehungsweise der Activity, das Icon der App
-und ein bis zwei Symbole bei einem normal großen Handy anordnen. Bei der
-hier verwendeten Anwendung jedoch wird bei der *MainActivity* auf ein
-Appicon und eine Beschriftung verzichtet. Dies dient dem Zweck, dass nun
-vier, und damit alle wichtigen, Menüsymbole Platz finden. Die Icons
-hierfür sind zum Teil von Android und zum Teil nachbearbeitete Symbole
-aus dem Internet. Es wird ein grau auf schwarzes Design für die
-Actionbar umgesetzt. Ein Grund für das Legen der Menüelemente in die
-Actionbar ist die *einfachere Erreichbarkeit* als im *Action Overflow*,
-ein anderer ist eine *Verbesserung des Designs*. Um die vier Einträge
-alle anzeigen zu können, muss in der *menubar.xml* für die
-entsprechenden Items der Eintrag *app:showAsAction* auf *always* gesetzt
-werden, da Android bei einer Verwendung von *ifRoom* mehr Einträge in
-den Overflow verschiebt als nötig.
+Die Actionbar, auch Appbar genannt, ist die Leiste oben auf dem
+Bildschirm. Sie ist bei NameMemo speziell gestaltet. Normalerweise
+könnte man den Namen der App, beziehungsweise der Activity, das Icon der
+App und ein bis zwei Symbole bei einem normal großen Handy anordnen. Bei
+der hier verwendeten Anwendung jedoch wird in der MainActivity auf ein
+Appicon und eine Beschriftung verzichtet. Damit wurde Platz für die vier
+wichtigsten Menüsymbole geschaffen. Die Icons hierfür sind zum Teil von
+Android und zum Teil nachbearbeitete Symbole aus dem Internet. Es wird
+ein grau-auf-schwarzes Design für die Actionbar umgesetzt. Ein Grund für
+das Legen der Menüelemente in die Actionbar ist die einfachere
+Erreichbarkeit als im *Action Overflow*, ein anderer ist eine
+Verbesserung des Designs. Um die vier Einträge alle anzeigen zu können,
+muss in der *menubar.xml* für die entsprechenden Items der Eintrag
+*app:showAsAction* auf *always* gesetzt werden, da Android bei einer
+Verwendung von *ifRoom* mehr Einträge in den Overflow verschiebt als
+nötig.
 
 6.3 Fixierung der Orientierung
 ------------------------------
@@ -623,16 +619,16 @@ beziehungsweise Orientierungen haben. Einige Möglichkeiten sind dabei
 *reversePortrait* (portrait „von der anderen Seite“).[^16] Ändert sich
 die Ausrichtung einer App, wenn man zum Beispiel das Gerät dreht, wird
 die aktuelle Activity, an die neuen Gegebenheiten angepasst,
-neugestartet. Dadurch gehen lokale Änderungen an dieser verloren, außer
-sie werden durch spezielle Maßnahmen gesichert.
+neugestartet. Dadurch gehen lokale Änderungen an dieser verloren, wenn
+sie nicht durch spezielle Maßnahmen gesichert wurden.
 
 So kann der aktuelle Zustand einer Activity oder App mithilfe eines
 *Statecontrollers* gespeichert werden, welcher jede Zustandsänderung
 aufzeichnet und bei Bedarf (Neustarten der Activity) den aktuellen
 Zustand zurückgibt. Weitere Möglichkeiten sind das Benutzen von
-*SharedPreferences*, einem Interface, das Zugreifen auf und Modifizieren
+*SharedPreferences*, einem Interface, das Zugriff auf und Modifikation
 von Einstellungsdaten erlaubt[^17], oder das Speichern von wichtigen
-Werten in einer *Datenbank*, wie es in NameMemo auch zum Teil umgesetzt
+Werten in einer Datenbank, wie es in NameMemo auch zum Teil umgesetzt
 wird.
 
 Allerdings ist die Orientierung von NameMemo auf *portrait* begrenzt, da
@@ -640,34 +636,34 @@ eine Unterstützung der anderen Modi nicht sinnvoll erscheint. Dies liegt
 vor allem an der Tatsache, dass die App vor allem für Bilder von
 einzelnen Personen gedacht ist, welche meistens im portrait-Mode
 aufgenommen werden. Zusätzlich würde das ständige Updaten des Zustands
-unter Verwendung eines Statecontrollers die Komplexität des Codes,
+unter Verwendung eines Statecontrollers die Komplexität des Codes
 aufgrund der vielen Dialoge, deutlich erhöhen. In einer früheren Version
 der Anwendung wurde dieser Weg bereits getestet, dann aber aufgrund der
-oben genannten Punkte verworfen und die Orientierung im
-*AndroidManifest* auf *portrait* festgesetzt.
+oben genannten Punkte verworfen und die Orientierung in
+*AndroidManifest.xml* auf *portrait* festgesetzt.
 
 7. Ausblick
 ===========
 
-Wie bereits in der Einleitung erwähnt, kann die App, in leicht
-veränderter Form, auch zu anderen Zwecken eingesetzt werden. Dazu gehört
-die *Diagnostik und Therapie von Autismus*:
+Wie bereits in der Einleitung erwähnt, kann die App in leicht
+veränderter Form auch zu anderen Zwecken eingesetzt werden. Dazu gehört
+die Diagnostik und Therapie von Autismus.
 
 „Autistische Störungen gehören zu den schwersten psychischen Problemen
 des Kindesalters.“[^18] Kinder mit autistischen Symptomen wurden
 erstmals vor etwas über 100 Jahren von dem Pädagogen und Leiter der
-Erziehungsanstalt für geistig abnorme und nervöse Kinder in Wien Theodor
-Heller beschrieben.[^19] Während Autismus lange als eine sehr seltene
-Erkrankung galt[^20], werden autistische Störungen in den letzten
-Jahrzehnten immer häufiger diagnostiziert. Aktuell geht man davon aus,
-dass etwa 1% der Bevölkerung an einer autistischen Störung leidet.[^21]
-Aktuelle wissenschaftliche Forschungen haben ergeben, dass Autisten
-typische Probleme mit der sozialen Kognition haben. Soziale Kognition
-umfasst dabei eine Reihe von Informationsverarbeitungsprozessen, die im
-Gehirn in spezifischen neuronalen Netzwerken, man spricht von *social
-brain*, bei zwischenmenschlichen Kontakten stattfinden, wie
-beispielsweise die Aufmerksamkeitszuwendung und die
-*Emotionserkennung*.[^22]
+*Erziehungsanstalt für geistig abnorme und nervöse Kinder in Wien,*
+Theodor Heller, beschrieben.[^19] Während Autismus lange als eine sehr
+seltene Erkrankung galt[^20], werden autistische Störungen in den
+letzten Jahrzehnten immer häufiger diagnostiziert. Aktuell geht man
+davon aus, dass etwa 1% der Bevölkerung an einer autistischen Störung
+leidet.[^21] Aktuelle wissenschaftliche Forschungen haben ergeben, dass
+Autisten typische Probleme mit der sozialen Kognition haben. Soziale
+Kognition umfasst dabei eine Reihe von
+Informationsverarbeitungsprozessen, die im Gehirn in spezifischen
+neuronalen Netzwerken – man spricht von *social brain* – bei
+zwischenmenschlichen Kontakten stattfinden, wie beispielsweise die
+Aufmerksamkeitszuwendung und die Emotionserkennung.[^22]
 
 Die App kann dabei zum einen im Rahmen einer Autismus-Diagnostik
 eingesetzt werden, um Hinweise zu bekommen, ob ein Kind Probleme mit der
@@ -679,17 +675,17 @@ Dies wird erreicht, indem Fotos von Gesichtern aufgenommen werden, bei
 welchen der Patient anschließend die mimisch ausgedrückten Emotionen
 erkennen soll. Hierbei ist die Funktion, mithilfe der App Fotos
 aufzunehmen und direkt in die Datenbank zu übernehmen, besonders
-hilfreich. Auch die Möglichkeit, mehrere Geräte auf dem selben Stand zu
+hilfreich. Auch die Möglichkeit, mehrere Geräte auf demselben Stand zu
 halten, ist von Vorteil, da somit das Handy des Nutzers mit dem Gerät
 des behandelnden Arztes synchronisiert werden kann.
 
 Es ändern sich allerdings auch einige Anforderungen an das Programm: Zu
-Beginn der Arbeit mit den Patienten ist es sinnvoll, eine, für alle
-gleichbleibende, *Grundlage an Bildern* gegeben zu haben, um Ergebnisse
+Beginn der Arbeit mit den Patienten ist es sinnvoll, eine für alle
+gleichbleibende Grundlage an Bildern gegeben zu haben, um Ergebnisse
 einfacher miteinander vergleichen zu können. Somit werden also beim
 ersten Start der App bereits einige Datensätze in die Datenbank
-eingetragen sein (vergleiche Beispielkatze aktuell). Diese Bilder
-enthalten dann besonders einfach zu erkennende Darstellungen, wie
+eingetragen sein (vergleichbar mit den aktuellen Beispielbilder). Diese
+Bilder enthalten dann besonders einfach zu erkennende Darstellungen, wie
 beispielsweise Emojis oder Emoticons, wodurch auch die Größe der
 Anwendung nicht zu sehr zunimmt. Im Laufe der Therapie können dann, wie
 jetzt auch, individuell Datensätze hinzugefügt werden.
@@ -705,17 +701,17 @@ Darüber hinaus ist das Sichern der Gesamtzahl der bisherigen korrekten
 Zuordnungen eines Eintrages neben der Zahl der Aufrufe insgesamt
 hilfreich, um eine Angabe über die relative Häufigkeit richtiger und
 falscher Zuordnungen produzieren zu können. Solche Werte können dann, in
-einer *Statistik* aufbereitet, ausgegeben werden.
+einer Statistik aufbereitet, ausgegeben werden.
 
 Je nachdem, wie verlässlich der Patient ist, kann es sinnvoll sein,
 Nebenfunktionen der Anwendung, wie das Ändern von Einstellungen, nur der
-behandelnden Kraft zugängig zu machen. Dies wird durch einen
+behandelnden Kraft zugänglich zu machen. Dies wird durch einen
 zusätzlichen Schalter in den Einstellungen erreicht, welcher mit einem
 *PIN-Code* gesichert wird. Um möglichst aussagekräftige Ergebnisse zu
 erzielen, kann es darüber hinaus sinnvoll sein, dass der Nutzer zu jedem
 Bild die zugehörige Emotion in ein Textfeld eingeben muss und nicht
 einfach mithilfe von Buttons zum nächsten Bild zu gelangen. Dieser
-Schritt schützt nicht nur vor Manipulationen des Patienten, man kann
+Schritt schützt nicht nur vor Manipulationen des Patienten: man kann
 somit auch die inkorrekten Eingaben abspeichern und später auswerten.
 
 Um die Schwierigkeit zusätzlich zu erhöhen, bietet es sich noch an, nur
@@ -740,16 +736,16 @@ herunterladen.
 9. Danksagungen
 ===============
 
-Danken möchte ich Dominik Okwieka für seine kompetente fachliche und
-linguistische \[to be corrected by oki\] Unterstützung. Danken möchte
-ich weiter Simon Stolz und den Usern von StackOverflow für das
-Bereitstellen hilfreicher Tipps. Besonderer Dank gilt meinem Vater, Dr.
-med. Jürgen Dreier, Leiter der Spezialambulanz für Familien mit
-autistischen Kindern und Jugendlichen an der Klinik für Kinder- und
-Jugendpsychiatrie und Psychotherapie der Kliniken St. Elisabeth in
-Neuburg an der Donau, für die Unterstützung in Sachen Autismus und
-meiner Mutter Roswitha Dreier, Diplompsychologin, die mich erst zu einer
-Ausformulierung dieser Danksagung bewegt hat.
+Danken möchte ich Dominik Okwieka für seine kompetente fachliche
+Unterstützung und sein Lektorat. Danken möchte ich weiter Simon Stolz
+und den Usern von StackOverflow für das Bereitstellen vieler hilfreicher
+Tipps. Besonderer Dank gilt meinem Vater, Dr. med. Jürgen Dreier, Leiter
+der Spezialambulanz für Familien mit autistischen Kindern und
+Jugendlichen an der Klinik für Kinder- und Jugendpsychiatrie und
+Psychotherapie der Kliniken St. Elisabeth in Neuburg an der Donau, für
+die Unterstützung in Sachen Autismus und meiner Mutter Roswitha Dreier,
+Diplompsychologin, die mich erst zu einer Ausformulierung dieser
+Danksagung bewegt hat.
 
 10. Literaturverzeichnis
 ========================
@@ -837,8 +833,8 @@ SCHWENCK, Christina; Ciaramidaro, Angela: *Soziale Kognition bei
 Autismus-Spektrum-Störungen und Störungen des Sozialverhaltens*, in:
 Kindheit und Entwicklung, 23 (1), von 2014, S. 5-12
 
-Verwendete Programme:
----------------------
+Verwendete Programme
+--------------------
 
 Android Studio und SDK Tools
 

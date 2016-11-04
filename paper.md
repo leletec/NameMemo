@@ -49,7 +49,7 @@ Bildes](#4.3.2 Auswahl eines bereits vorhandenen Bildes|outline) .... 7
 Datei](#4.3.3 Lesen einer externen Datei|outline)....... 8
 
 5.[Datenaustausch mit anderen
-Systemen](#5. Datenaustausch mit anderen Systemen|outline) ....... 8
+Systemen](#5. Datenaustausch mit anderen Systemen|outline) ....... 9
 
 5.1[Near Field Communication
 (NFC)](#5.1 Near Field Communication (NFC)|outline) ....... 9
@@ -58,23 +58,23 @@ Systemen](#5. Datenaustausch mit anderen Systemen|outline) ....... 8
 
 5.3[Server-](#5.3 Server-Client|outline)[Client](#5.3 Server-Client|outline)..........12
 
-5.4[Vergleich und Fazit](#5.4 Vergleich und Fazit|outline).........12
+5.4[Vergleich und Fazit](#5.4 Vergleich und Fazit|outline).........13
 
 6.[Entscheidungen während des
-Projekts](#6. Entscheidungen während des Projekts|outline) .......14
+Projekts](#6. Entscheidungen während des Projekts|outline) .......15
 
 6.1[Strukturierung in Activities und
-Dialoge](#6.1 Strukturierung in Activities und Dialoge|outline)......14
+Dialoge](#6.1 Strukturierung in Activities und Dialoge|outline)......15
 
 6.2[Gestaltung der
 ](#6.2 Gestaltung der Actionbar|outline)[Actionbar](#6.2 Gestaltung der Actionbar|outline)........15
 
 6.3[Fixierung der
-](#6.3 Fixierung der Orientierung|outline)[Orientierung](#6.3 Fixierung der Orientierung|outline)........15
+](#6.3 Fixierung der Orientierung|outline)[Orientierung](#6.3 Fixierung der Orientierung|outline)........16
 
-7.[Ausblick](#7. Ausblick|outline)............16
+7.[Ausblick](#7. Ausblick|outline)............17
 
-8.[Schluss](#8. Schluss|outline)............18
+8.[Schluss](#8. Schluss|outline)............19
 
 9.[Danksagungen](#9. Danksagungen|outline).......... .19
 

@@ -21,72 +21,74 @@ Ingolstadt, den 07. November 2016
 
 Inhaltsverzeichnis
 
-1.[Einleitung](#1. Einleitung|outline)........... . . 1
+1.[Einleitung](#1. Einleitung|outline)........... . 3
 
 2.[Grundfunktionen des
-Programms](#2. Grundfunktionen des Programms|outline)........ . 1
+Programms](#2. Grundfunktionen des Programms|outline)........ 3
 
-3.[Das Laden der Bilder](#3. Das Laden der Bilder|outline)........... 2
+3.[Das Laden der Bilder](#3. Das Laden der Bilder|outline).......... 4
 
-4.[Die Datenbank](#4. Die Datenbank|outline).......... .. 3
+4.[Die Datenbank](#4. Die Datenbank|outline).......... . 5
 
 4.1[Einstellungen in der
-Datenbank](#4.1 Einstellungen in der Datenbank|outline)....... . 3
+Datenbank](#4.1 Einstellungen in der Datenbank|outline)....... 5
 
 4.2[Bilder in der Datenbank](#4.2 Bilder in der Datenbank|outline)
-......... 4
+........ 6
 
 4.3[Hinzufügen von
-Wertepaaren](#4.3 Hinzufügen von Wertepaaren|outline)......... 5
+Wertepaaren](#4.3 Hinzufügen von Wertepaaren|outline)........ 7
 
 4.3.1[Aufnahme eines neuen
-Fotos](#4.3.1 Aufnahme eines neues Fotos|outline)....... 5
+Fotos](#4.3.1 Aufnahme eines neues Fotos|outline)...... 7
 
 4.3.2[Auswahl eines bereits vorhandenen
-Bildes](#4.3.2 Auswahl eines bereits vorhandenen Bildes|outline) ..... 5
+Bildes](#4.3.2 Auswahl eines bereits vorhandenen Bildes|outline) .... 7
 
 4.3.3[Lesen einer externen
-Datei](#4.3.3 Lesen einer externen Datei|outline)....... . 6
+Datei](#4.3.3 Lesen einer externen Datei|outline)....... 8
 
 5.[Datenaustausch mit anderen
-Systemen](#5. Datenaustausch mit anderen Systemen|outline) ....... . 7
+Systemen](#5. Datenaustausch mit anderen Systemen|outline) ....... 8
 
 5.1[Near Field Communication
-(NFC)](#5.1 Near Field Communication (NFC)|outline) ........ 7
+(NFC)](#5.1 Near Field Communication (NFC)|outline) ....... 9
 
-5.2[Bluetooth](#5.2 Bluetooth|outline)............ 8
+5.2[Bluetooth](#5.2 Bluetooth|outline)...........10
 
-5.3[Server-](#5.3 Server-Client|outline)[Client](#5.3 Server-Client|outline)...........
-10
+5.3[Server-](#5.3 Server-Client|outline)[Client](#5.3 Server-Client|outline)..........12
 
-5.4[Vergleich und Fazit](#5.4 Vergleich und Fazit|outline).......... 11
+5.4[Vergleich und Fazit](#5.4 Vergleich und Fazit|outline).........12
 
 6.[Entscheidungen während des
-Projekts](#6. Entscheidungen während des Projekts|outline) ........ 12
+Projekts](#6. Entscheidungen während des Projekts|outline) .......14
 
 6.1[Strukturierung in Activities und
-Dialoge](#6.1 Strukturierung in Activities und Dialoge|outline).......
-13
+Dialoge](#6.1 Strukturierung in Activities und Dialoge|outline)......14
 
 6.2[Gestaltung der
-](#6.2 Gestaltung der Actionbar|outline)[Actionbar](#6.2 Gestaltung der Actionbar|outline).........
-13
+](#6.2 Gestaltung der Actionbar|outline)[Actionbar](#6.2 Gestaltung der Actionbar|outline)........15
 
 6.3[Fixierung der
-](#6.3 Fixierung der Orientierung|outline)[Orientierung](#6.3 Fixierung der Orientierung|outline).........
-14
+](#6.3 Fixierung der Orientierung|outline)[Orientierung](#6.3 Fixierung der Orientierung|outline)........15
 
-7.[Ausblick](#7. Ausblick|outline)............. 14
+7.[Ausblick](#7. Ausblick|outline)............16
 
-8.[Schluss](#8. Schluss|outline)............. 16
+8.[Schluss](#8. Schluss|outline)............18
 
-9.[Danksagungen](#9. Danksagungen|outline).......... .. 18
+9.[Danksagungen](#9. Danksagungen|outline).......... .19
 
-10.[Literaturverzeichnis](#10. Literaturverzeichnis|outline)...........
-18
+10.[Anhang 1:
+Screenshots](#10. Anhang 1: Screenshots|outline)..........20
 
-11.[Eidesstattliche Erklärung
-](#11. Eidesstattliche Erklärung|outline).......... 21
+11.[Anhang 2: Diagramme](#11. Anhang 2: Diagramme|outline)..........22
+
+12.[Literaturverzeichnis](#12. Literaturverzeichnis|outline)..........25
+
+13.[Verwendete Programme](#13. Verwendete Programme|outline).........26
+
+14.[Eidesstattliche Erklärung](#14. Eidesstattliche Erklärung|outline)
+.........27
 
 1. Einleitung
 =============
@@ -461,8 +463,7 @@ Vorgang abgeschlossen, wird die Activity des Senders beendet und der
 Empfänger verfährt wie in [Punkt
 4.3.3](#4.3.3 Lesen einer externen Datei|outline) beschrieben.
 
-5.3 Server-Client
------------------
+### 5.3 Server-Client
 
 Eine weitere Möglichkeit zum Verschicken der Daten wäre es, einen Server
 zu hosten, mit welchem sich zwei Clients verbinden und Daten austauschen
@@ -747,7 +748,30 @@ die Unterstützung in Sachen Autismus und meiner Mutter Roswitha Dreier,
 Diplompsychologin, die mich erst zu einer Ausformulierung dieser
 Danksagung bewegt hat.
 
-10. Literaturverzeichnis
+10. Anhang 1: Screenshots
+=========================
+
+Abb. 1.1: Hauptbildschirm 1 Abb. 1.2: Hauptbildschirm 2 Abb. 1.3:
+Glückwunschdialog
+
+Abb. 1.4: Bild hinzufügen Abb. 1.5: Einstellungen Abb. 1.6: Appinfo
+
+Abb. 1.7: Datenübertragung Abb. 1.8: Bluetooth 1 Abb. 1.9: Bluetooth 2
+
+ Abb. 1.10: NFC Abb. 1.11: Import 1 Abb. 1.12: Import 2
+
+11. Anhang 2: Diagramme
+=======================
+
+Abb. 2.1: Strukturübersicht
+
+Abb. 2.2: Klassendiagramm
+
+Abb. 2.3: Activities
+
+und Dialoge
+
+12. Literaturverzeichnis
 ========================
 
 ANDROID Open Source Project: *&lt;activity&gt;*,
@@ -796,15 +820,15 @@ CUNO, Andrea: *Near Field Communication*,
 aufgerufen am 29.09.2016
 
 CURRAN, Kevin; Millar, Amanda; Garvey, Conor Mc.: *International Journal
-of Electrical and Computer Engineering *Vol. 2 No. 3, vom Juni 2012,
+of Electrical and Computer Engineering, *Vol. 2 No. 3, vom Juni 2012,
 Seite 371
-([http://search.proquest.com/openview/822cf597b6e8dab49e0eb29493af13e9/1](http://search.proquest.com/openview/822cf597b6e8dab49e0eb29493af13e9/1?pq-origsite=gscholar))
+(<http://search.proquest.com/openview/822cf597b6e8dab49e0eb29493af13e9/1>)
 
 ECLIPSE Foundation: *jetty://*, <http://www.eclipse.org/jetty/>,
 aufgerufen am 08.10. 2016
 
 ECMA International: *Near Field Communication - Interface and Protocol
-(NFCIP-1)* 3. Auflage, Juni 2013
+(NFCIP-1),* 3. Auflage, Juni 2013
 (<http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-340.pdf>)
 
 HELLER, Theodor: *Über dementia infantilis*, In: Z Erforsch Behandl
@@ -822,7 +846,7 @@ integratives Lehrbuch für die Praxis*, Kohlhammer 2010
 
 PABST, Martin: *Cient-Server-Kommunikation von Android (Client) zu Java
 (Server) via http*,
-<http://www.pabst-software.de/doku.php?id=programmieren:java:android:httpclient:start>,
+[http://www.pabst-software.de/doku.php?](http://www.pabst-software.de/doku.php?id=programmieren:java:android:httpclient:start)[i](http://www.pabst-software.de/doku.php?id=programmieren:java:android:httpclient:start)[d=programmieren:java:android:httpclient:start](http://www.pabst-software.de/doku.php?id=programmieren:java:android:httpclient:start),
 aufgerufen am 08.10.2016, zuletzt geändert am 05.02.2015 um 15:06
 
 POUSTKA, Fritz; Bölte, Sven; Feineis-Metthews, Sabine; Schmötzer,
@@ -833,8 +857,8 @@ SCHWENCK, Christina; Ciaramidaro, Angela: *Soziale Kognition bei
 Autismus-Spektrum-Störungen und Störungen des Sozialverhaltens*, in:
 Kindheit und Entwicklung, 23 (1), von 2014, S. 5-12
 
-Verwendete Programme
---------------------
+13. Verwendete Programme
+========================
 
 Android Studio und SDK Tools
 
@@ -848,7 +872,7 @@ Pandoc
 
 UMLet
 
-11. Eidesstattliche Erklärung
+14. Eidesstattliche Erklärung
 =============================
 
 Ich erkläre, dass ich die Seminararbeit ohne fremde Hilfe angefertigt
@@ -860,29 +884,6 @@ Ingolstadt, den 07. November 2016
 \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
 
 (Leander Dreier)
-
-Anhang 1: Screenshots
-=====================
-
-Abb. 1.1: Hauptbildschirm 1 Abb. 1.2: Hauptbildschirm 2 Abb. 1.3:
-Glückwunschdialog
-
-Abb. 1.4: Bild hinzufügen Abb. 1.5: Einstellungen Abb. 1.6: Appinfo
-
-Abb. 1.7: Datenübertragung Abb. 1.8: Bluetooth 1 Abb. 1.9: Bluetooth 2
-
- Abb. 1.10: NFC Abb. 1.11: Import 1 Abb. 1.12: Import 2
-
-Anhang 2: Diagramme
-===================
-
-Abb. 2.1: Strukturübersicht
-
-Abb. 2.2: Klassendiagramm
-
-Abb. 2.3: Activities
-
-und Dialoge
 
 [^1]: Vgl. Abb. 1.1 (Anhang)
 

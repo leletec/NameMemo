@@ -272,7 +272,7 @@ Kamera-App des Gerätes, wo man wie gewohnt ein Bild aufnehmen kann. Hat
 man dies erfolgreich abgeschlossen, kann man dem Bild in dem
 erscheinenden Dialog einen Namen zuweisen. Nachdem man auch dies getan
 hat, ist die Verknüpfung in der Datenbank gespeichert und wird von nun
-an auftauchen. Die Bilddateien werden bei in einem eigenen Ordner
+an auftauchen. Die Bilddateien werden in einem eigenen Ordner
 gespeichert. Er befindet sich im Gerätespeicher unter
 *Pictures/NameMemo* und wird vom Programm angelegt, falls er noch nicht
 existiert.
@@ -468,7 +468,7 @@ Empfänger verfährt wie in [Punkt
 Eine weitere Möglichkeit zum Verschicken der Daten wäre es, einen Server
 zu hosten, mit welchem sich zwei Clients verbinden und Daten austauschen
 können. Dies wurde in NameMemo nicht umgesetzt; im Folgenden wird also
-nur eine mögliche Vorgehensweise beschreiben.
+nur eine mögliche Vorgehensweise beschrieben.
 
 Auf dem Server läuft eine Software, welche auf HTTP-Anfragen reagieren
 kann. Vergleichbar ist dies mit einem Webserver, der eine Internetseite,
@@ -678,14 +678,14 @@ erkennen soll. Hierbei ist die Funktion, mithilfe der App Fotos
 aufzunehmen und direkt in die Datenbank zu übernehmen, besonders
 hilfreich. Auch die Möglichkeit, mehrere Geräte auf demselben Stand zu
 halten, ist von Vorteil, da somit das Handy des Nutzers mit dem Gerät
-des behandelnden Arztes synchronisiert werden kann.
+des behandelnden Therapeuten synchronisiert werden kann.
 
 Es ändern sich allerdings auch einige Anforderungen an das Programm: Zu
 Beginn der Arbeit mit den Patienten ist es sinnvoll, eine für alle
 gleichbleibende Grundlage an Bildern gegeben zu haben, um Ergebnisse
 einfacher miteinander vergleichen zu können. Somit werden also beim
 ersten Start der App bereits einige Datensätze in die Datenbank
-eingetragen sein (vergleichbar mit den aktuellen Beispielbilder). Diese
+eingetragen sein (vergleichbar mit den aktuellen Beispielbildern). Diese
 Bilder enthalten dann besonders einfach zu erkennende Darstellungen, wie
 beispielsweise Emojis oder Emoticons, wodurch auch die Größe der
 Anwendung nicht zu sehr zunimmt. Im Laufe der Therapie können dann, wie
@@ -711,7 +711,7 @@ zusätzlichen Schalter in den Einstellungen erreicht, welcher mit einem
 *PIN-Code* gesichert wird. Um möglichst aussagekräftige Ergebnisse zu
 erzielen, kann es darüber hinaus sinnvoll sein, dass der Nutzer zu jedem
 Bild die zugehörige Emotion in ein Textfeld eingeben muss und nicht
-einfach mithilfe von Buttons zum nächsten Bild zu gelangen. Dieser
+einfach mithilfe von Buttons zum nächsten Bild zu gelangt. Dieser
 Schritt schützt nicht nur vor Manipulationen des Patienten: man kann
 somit auch die inkorrekten Eingaben abspeichern und später auswerten.
 
@@ -728,7 +728,7 @@ der Arbeit an diesem Programm haben sich weitere Personen gemeldet,
 welche sich das Lernen von Namen mit dieser Anwendung einfacher machen
 wollen. Doch nicht nur deshalb wird NameMemo in der nächsten Zeit nicht
 in Vergessenheit geraten. Es ist bereits fest geplant, einen Ableger
-davon – *NEmo (Neuburger Emotions-Erkennungs-Training)* – zu entwickeln
+davon – *NEmo (Neuburger Emotionserkennungstraining)* – zu entwickeln
 und einzusetzen. Falls Sie nun auch Interesse an dem Programm gefunden
 haben, können Sie mich jederzeit unter der Mailadresse im Infodialog
 anschreiben und um eine Kopie der kostenlosen Version des Programms
@@ -805,7 +805,7 @@ aufgerufen am 01.11.2016
 
 BECKER, Andreas: *Bluetooth Security & Hacks*,
 <https://gsyc.urjc.es/~anto/ubicuos2/bluetooth_security_and_hacks.pdf>,
-aufgerufen am 09.10.2016, 16.08.2007
+vom16.08.2007, aufgerufen am 09.10.2016
 
 BLUETOOTH SIG, Inc.: *Bluetooth Core Specification*,
 <https://www.bluetooth.com/specifications/bluetooth-core-specification>,

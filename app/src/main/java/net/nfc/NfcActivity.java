@@ -19,8 +19,10 @@ import net.Net;
 
 import de.leletec.namememo.R;
 
+/* https://developer.android.com/training/beam-files/send-files.html */
+
 /**
- * https://developer.android.com/training/beam-files/send-files.html
+ * Activity to connect two devices via NFC and share the database.
  */
 public class NfcActivity extends Net {
 

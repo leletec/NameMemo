@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 /**
- * Thread for bluetooth server.
+ * Thread for bluetooth "server".
  */
 public class AcceptThread extends Thread {
 	private final BluetoothServerSocket srvSock;

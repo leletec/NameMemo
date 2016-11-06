@@ -11,7 +11,7 @@ import java.io.OutputStream;
 
 /**
  * Thread to handle a bluetooth connection.
- * To be used by server and client.
+ * To be used by both devices.
  */
 public class HandleThread extends Thread {
 	private final InputStream in;

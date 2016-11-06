@@ -506,7 +506,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 	}
 
 	/**
-	 * Prompts the user for the name to be associated with a newly taken picture.
+	 * Prompts the user for the name to be associated with a newly added/taken picture.
 	 *
 	 * @param f The new picture. 'null' if it was taken by the camera.
 	 */
@@ -734,7 +734,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 	}
 
 	/**
-	 * A dialog where you can choose whether you want to connect via bluetooth or NFC
+	 * A dialog where you can choose whether you want to connect via bluetooth or NFC.
 	 */
 	private void connDialog() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);

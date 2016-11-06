@@ -29,10 +29,14 @@ import java.util.UUID;
 import de.leletec.namememo.R;
 import design.BTListAdapter;
 
-/**
+/*
  * https://developer.android.com/guide/topics/connectivity/bluetooth.html
  * https://github.com/googlesamples/android-BluetoothChat
  * http://stackoverflow.com/questions/24573755/android-net.bluetooth-socket-connect-fails
+ */
+
+/**
+ * Activity to connect two devices via bluetooth and share the database.
  */
 public class BluetoothActivity extends Net {
 	private static final int REQUEST_ENABLE_BT = 300;

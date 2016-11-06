@@ -34,7 +34,10 @@ public abstract class Net extends AppCompatActivity {
 	}
 
 	abstract public void send();
-	
+
+	/**
+	 * Show a dialog where the user can decide, what to do with the newly received db-file.
+	 */
 	@SuppressLint("InflateParams")
 	protected void receive() {
 		final ImportNewDb helper = new ImportNewDb(this, this, dbFile.getAbsolutePath(), importFile.getAbsolutePath());

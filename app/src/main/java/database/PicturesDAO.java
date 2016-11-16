@@ -42,7 +42,9 @@ public class PicturesDAO {
 		values.put("source", source);
 		values.put("name", name);
 		values.put("called", 0);
+		values.put("gotRight", 0);
 		values.put("inarow", 0);
+		values.put("highscore", 0);
 		return database.insert(TablePictures.NAME, null, values) != -1;
 	}
 
@@ -57,7 +59,9 @@ public class PicturesDAO {
 		values.put("source", pic.getSource());
 		values.put("name", pic.getName());
 		values.put("called", pic.getCalled());
+		values.put("gotRight", pic.getGotRight());
 		values.put("inarow", pic.getInarow());
+		values.put("highscore", pic.getHighscore());
 		return database.insert(TablePictures.NAME, null, values) != -1;
 	}
 
@@ -67,14 +71,18 @@ public class PicturesDAO {
 	 * @param source		The source of the Picture.
 	 * @param name			The name related with the Picture.
 	 * @param called		How often the Picture got called.
+	 * @param gotRight      How often the user got the right name to the picture.
 	 * @param inarow		How often he got it right in a row.
+	 * @param highscore     The highscore of inarow.
 	 */
-	public void update(String source, String name, int called, int inarow) {
+	public void update(String source, String name, int called, int gotRight, int inarow, int highscore) {
 		ContentValues values = new ContentValues();
 		values.put("source", source);
 		values.put("name", name);
 		values.put("called", called);
+		values.put("gotRight", gotRight);
 		values.put("inarow", inarow);
+		values.put("highscore", highscore);
 		database.update(TablePictures.NAME, values, "source = ?", new String[] { source });
 	}
 
@@ -88,7 +96,9 @@ public class PicturesDAO {
 		values.put("source", pic.getSource());
 		values.put("name", pic.getName());
 		values.put("called", pic.getCalled());
+		values.put("gotRight", pic.getGotRight());
 		values.put("inarow", pic.getInarow());
+		values.put("highscore", pic.getHighscore());
 		database.update(TablePictures.NAME, values, "source = ?", new String[] { pic.getSource() });
 	}
 
@@ -119,8 +129,11 @@ public class PicturesDAO {
 		picture.setSource(cursor.getString(0));
 		picture.setName(cursor.getString(1));
 		picture.setCalled(cursor.getInt(2));
-		picture.setInarow(cursor.getInt(3));
-		Log.d("cursor", "source:"+picture.getSource() + " name:"+picture.getName() + " called:"+picture.getCalled() + " inarow:"+picture.getInarow());
+		picture.setGotRight(cursor.getInt(3));
+		picture.setInarow(cursor.getInt(4));
+		picture.setHighscore(cursor.getInt(5));
+		Log.d("cursor", "source:"+picture.getSource() + " name:"+picture.getName() + " called:"+picture.getCalled() + " gotRight:"+picture.getGotRight()
+				+ " inarow:"+picture.getInarow() + " highscore:"+picture.getHighscore());
 		return picture;
 	}
 

@@ -263,36 +263,41 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 		if (pictures[currentPicture] == null)
 			Log.e("error", "currentPicture(" + currentPicture + ") is null");
 		else {
+			Picture cur = pictures[currentPicture];
 			switch (view.getId()) {
 			case R.id.bText:
-				text.setText(pictures[currentPicture].getName());
+				text.setText(cur.getName());
 				yes.setVisibility(View.VISIBLE);
 				no.setVisibility(View.VISIBLE);
 				break;
 			case R.id.bJa:
-				pictureDb.update(pictures[currentPicture].getSource(),
-						pictures[currentPicture].getName(),
-						pictures[currentPicture].getCalled() + 1,
-						pictures[currentPicture].getInarow() + 1);
+				pictureDb.update(cur.getSource(),
+						cur.getName(),
+						cur.getCalled() + 1,
+						cur.getGotRight() + 1,
+						cur.getInarow() + 1,
+						cur.getHighscore());
 				loadPictures();
-				Log.d("Picture", "name:" + pictures[currentPicture].getName()
-						+ " called:" + pictures[currentPicture].getCalled()
-						+ " in a row:" + pictures[currentPicture].getInarow());
-				if (pictures[currentPicture].getInarow() >= inarowReq)
-					deleteDialog(pictures[currentPicture].getSource(),
-							pictures[currentPicture].getName());
+				cur = pictures[currentPicture];
+				Log.d("Picture", "name:"+cur.getName() + " called:"+cur.getCalled() + " gotRight:"+cur.getGotRight()
+						+ " inarow:"+cur.getInarow() + " highscore:"+cur.getHighscore());
+				if (cur.getInarow() >= inarowReq)
+					deleteDialog(cur.getSource(), cur.getName());
 				else
 					showNext();
 				break;
 			case R.id.bNein:
-				pictureDb.update(pictures[currentPicture].getSource(),
-						pictures[currentPicture].getName(),
-						pictures[currentPicture].getCalled() + 1,
-						0);
+				int highscore = (cur.getInarow() > cur.getHighscore())? cur.getInarow() : cur.getHighscore();
+				pictureDb.update(cur.getSource(),
+						cur.getName(),
+						cur.getCalled() + 1,
+						cur.getGotRight(),
+						0,
+						highscore);
 				loadPictures();
-				Log.d("Picture", "name:" + pictures[currentPicture].getName()
-						+ " called:" + pictures[currentPicture].getCalled()
-						+ " in a row:" + pictures[currentPicture].getInarow());
+				cur = pictures[currentPicture];
+				Log.d("Picture", "name:"+cur.getName() + " called:"+cur.getCalled() + " gotRight:"+cur.getGotRight()
+						+ " inarow:"+cur.getInarow() + " highscore:"+cur.getHighscore());
 				showNext();
 				break;
 			}

@@ -7,8 +7,10 @@ public class Picture {
 	private String source;
 	private String name;
 	private int called;
+	private int gotRight;
 	private int inarow;
 	private String showAs;
+	private int highscore;
 
 	Picture() {}
 
@@ -24,12 +26,20 @@ public class Picture {
 		return called;
 	}
 
+	public int getGotRight() {
+		return gotRight;
+	}
+
 	public int getInarow() {
 		return inarow;
 	}
 
 	public String getShowAs() {
 		return (showAs == null)? name : showAs;
+	}
+
+	public int getHighscore() {
+		return highscore;
 	}
 
 	public void setSource(String source) {
@@ -44,12 +54,20 @@ public class Picture {
 		this.called = called;
 	}
 
+	void setGotRight(int gotRight) {
+		this.gotRight = gotRight;
+	}
+
 	void setInarow(int inarow) {
 		this.inarow = inarow;
 	}
 
 	void setShowAs(String showAs) {
 		this.showAs = showAs;
+	}
+
+	void setHighscore(int highscore) {
+		this.highscore = highscore;
 	}
 
 	/**
@@ -60,6 +78,6 @@ public class Picture {
 	@Override
 	public boolean equals(Object o) {
 		Picture p = (Picture) o;
-		return (p.source.equals(source) && p.name.equals(name) && p.called == called && p.inarow == inarow);
+		return (p.source.equals(source) && p.name.equals(name) && p.called == called && p.gotRight == gotRight && p.inarow == inarow && p.highscore == highscore);
 	}
 }

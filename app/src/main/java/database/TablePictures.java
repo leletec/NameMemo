@@ -14,7 +14,9 @@ public class TablePictures{
 				+ "(source TEXT PRIMARY KEY, "
 				+ "name TEXT NOT NULL, "
 				+ "called INT NOT NULL, "
-				+ "inarow INT NOT NULL);";
+				+ "gotRight INT NOT NULL, "
+				+ "inarow INT NOT NULL, "
+				+ "highscore INT NOT NULL);";
 		db.execSQL(CREATESTATEMENT);
 	}
 }

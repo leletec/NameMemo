@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>70</x>
+      <y>380</y>
+      <w>110</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>Datenbankdatei</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>220</x>
+      <y>380</y>
+      <w>100</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>ein großes
+Byte-Array</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>200</x>
+      <y>340</y>
+      <w>140</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>BluetoothActivity
+valign=top
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>170</x>
+      <y>390</y>
+      <w>70</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>50.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>360</x>
+      <y>340</y>
+      <w>140</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>HandleThread
+valign=top
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>380</x>
+      <y>380</y>
+      <w>100</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>8 kB
+Byte-Arrays</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>650</x>
+      <y>390</y>
+      <w>90</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>70.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>310</x>
+      <y>390</y>
+      <w>90</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>70.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>540</x>
+      <y>340</y>
+      <w>140</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>HandleThread
+valign=top
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>560</x>
+      <y>380</y>
+      <w>100</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>temporäre
+Datei</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>490</x>
+      <y>390</y>
+      <w>90</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;..</panel_attributes>
+    <additional_attributes>70.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>700</x>
+      <y>340</y>
+      <w>140</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>/Net/
+valign=top
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>720</x>
+      <y>380</y>
+      <w>100</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>...</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>530</x>
+      <y>300</y>
+      <w>330</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>empfangendes Gerät
+valign=top
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>60</x>
+      <y>300</y>
+      <w>450</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>sendendes Gerät
+valign=top
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
